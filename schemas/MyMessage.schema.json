@@ -1,0 +1,108 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/MyMessage",
+    "definitions": {
+        "MyMessage": {
+            "properties": {
+                "val": {
+                    "type": "number"
+                },
+                "str": {
+                    "type": "string"
+                },
+                "enm": {
+                    "enum": [
+                        "MY_ENUM_0",
+                        0,
+                        "My_ENUM_1",
+                        1,
+                        "MY_ENUM_2",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "My Enum"
+                },
+                "mySmallMessage": {
+                    "$ref": "#/definitions/bar.MySmallMessage",
+                    "additionalProperties": false
+                },
+                "enumVec": {
+                    "items": {
+                        "enum": [
+                            "MY_ENUM_0",
+                            0,
+                            "My_ENUM_1",
+                            1,
+                            "MY_ENUM_2",
+                            2
+                        ]
+                    },
+                    "type": "array",
+                    "title": "My Enum"
+                },
+                "structVec": {
+                    "items": {
+                        "$ref": "#/definitions/bar.MySmallMessage"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "stringMap": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "type": "object"
+                },
+                "enumMap": {
+                    "additionalProperties": {
+                        "enum": [
+                            "MY_ENUM_0",
+                            0,
+                            "My_ENUM_1",
+                            1,
+                            "MY_ENUM_2",
+                            2
+                        ],
+                        "oneOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "integer"
+                            }
+                        ],
+                        "title": "My Enum"
+                    },
+                    "type": "object"
+                },
+                "structMap": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/bar.MySmallMessage",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "My Message"
+        },
+        "bar.MySmallMessage": {
+            "properties": {
+                "val": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "My Small Message"
+        }
+    }
+}

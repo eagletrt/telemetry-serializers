@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Config",
+    "definitions": {
+        "Config": {
+            "properties": {
+                "config": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "connection": {
+                    "$ref": "#/definitions/app_config.Connection",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Config"
+        },
+        "app_config.Connection": {
+            "properties": {
+                "ip": {
+                    "type": "integer"
+                },
+                "port": {
+                    "type": "integer"
+                },
+                "mode": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection"
+        }
+    }
+}
