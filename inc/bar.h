@@ -13,8 +13,7 @@ namespace Serializers
 enum class MySmallEnum
 {
     MY_SMALL_ENUM_0 = 0,
-    My_SMALL_ENUM_1 = 1,
-    My_SMALL_ENUM_2 = 2
+    My_SMALL_ENUM_1 = 1
 };
 
 enum class MyEnum
