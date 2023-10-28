@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package App;
+
+message Device
+{
+    string vehicleId = 1;
+    string deviceId = 2;
+}
+
+message Connection
+{
+    string ip = 1;
+    string port = 2;
+    string mode = 3;
+}
+
+message PostProc
+{
+    int64 sampleFrequency = 1;
+    repeated string includedItems = 2;
+    repeated string exceludedItems = 3;
+}
+
+message Color
+{
+    double r = 1;
+    double g = 2;
+    double b = 3;
+    double a = 4;
+}
+
+message Event
+{
+    string message = 1;
+    string field = 2;
+    int64 comparator = 3;
+    double value = 4;
+    Color color = 5;
+}
+
+message Field
+{
+    string message = 1;
+    string field = 2;
+}
+
+message Axis 
+{
+    string name = 1;
+    repeated Field fields = 2;
+}
+
+message CustomPlot
+{
+    string name = 1;
+    repeated Axis axes = 2; 
+}
+
+message AppConfig
+{
+    uint64 loginTimestamp = 1;
+    uint32 colorTheme = 2;
+    uint32 mode = 3;
+    bool csvAutoSave = 4;
+    PostProc postProc = 5;
+    Connection connection = 6;
+    repeated Connection savedConnections = 7;
+    repeated Device devices = 8;    
+    repeated Event events = 9;
+    repeated CustomPlot customPlots = 10;
+    map<string, string> filesPaths = 11;  
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package Handcart;
+
+message Settings
+{
+    uint32 status = 1;
+    double targetVoltage = 2;
+    bool fansOverride = 3;
+    double fansSpeed = 4;
+    double accChargeCurrent = 5;
+    double girdMaxCurrent = 6;
+}

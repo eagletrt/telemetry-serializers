@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package Configs;
+
+message Weather
+{
+    double temperature = 1;
+    double humidity = 2;
+}
+
+message SessionConfig
+{
+    string circuit = 1;
+    string driver = 2;
+    string race = 3;
+    string test = 4;
+    string date = 5;
+    string time = 6;
+    Weather weather = 7;
+    string notes = 8;
+    double canlibVersion = 9;
+}

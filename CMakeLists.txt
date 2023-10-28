@@ -10,9 +10,19 @@ add_library(
     ${PROJECT_NAME}
     STATIC
 
-    src/foo.cpp
-    src/bar.cpp
-    src/app_config.cpp
+    src/configs/session_config.cpp
+    src/configs/car_config.cpp
+    src/configs/telemetry_config.cpp
+    src/handcart/settings.cpp
+    src/app/user_data.cpp
+    src/app/app_config.cpp
+    src/actions/command.cpp
+    src/actions/file_transaction.cpp
+    src/telemetry/login_data.cpp
+    src/telemetry/statistics.cpp
+    src/telemetry/status.cpp
+    src/telemetry/csv_parser_config.cpp
+    src/telemetry/error.cpp
 )
 
 target_include_directories(

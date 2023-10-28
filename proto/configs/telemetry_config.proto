@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package Configs;
+
+message CanDevice
+{
+    string socket = 1;
+    string name = 2;
+    repeated string networks = 3;
+}
+
+message GpsDevice
+{
+    string address = 1;
+    string mode = 2;
+    bool enabled = 3;
+}
+
+message Connection
+{
+    string ip = 1;
+    string port = 2;
+    string mode = 3;
+    string whoamiUrl = 4;
+    bool tlsEnabled = 5;
+    string cafile = 6;
+    string capath = 7;
+    string certfile = 8;
+    string keyfile = 9;
+}
+
+message ConnectionConfig
+{
+    bool enabled = 1;
+    bool downsampleEnabled = 2;
+    bool downsampleSkipData = 3;
+    int64 downsampleMps = 4;
+    int64 sendRate = 5;
+    bool sendSensorData = 6;
+}
+
+message TelemetryConfig
+{
+    string vehicleId = 1;
+    string deviceId = 2;
+    uint64 role = 3;
+    bool cameraEnabled = 4;
+    bool generateCsv = 5;
+    Connection connection = 6;
+    ConnectionConfig connectionConfig = 7;
+    repeated CanDevice canDevies = 8;
+    repeated GpsDevice gpsDevices = 9;
+}

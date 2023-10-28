@@ -1,28 +1,34 @@
-#ifndef FOO_H
-#define FOO_H
+#ifndef COMMAND_H
+#define COMMAND_H
 
-#include "foo.pb.h"
+#include "command.pb.h"
 
 #include <cstdint>
 #include <string>
 #include <vector>
 #include <unordered_map>
 
+typedef Actions::Command ActionsCommand;
+
 namespace Serializers
 {
-struct AnotherSmallMessage
+namespace Actions
 {
-    int64_t val;
+struct Command
+{
+    std::string input;
+    std::string output;
     
-    AnotherSmallMessage() = default;
-    AnotherSmallMessage(const bar::AnotherSmallMessage& proto);
-    operator bar::AnotherSmallMessage() const;
+    Command() = default;
+    Command(const ActionsCommand& proto);
+    operator ActionsCommand() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
     bool deserializeFromJsonString(const std::string& str);
     bool deserializeFromProtobufString(const std::string& str);
 };
+}
 }
 
 #endif

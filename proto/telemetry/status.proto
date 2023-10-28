@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package Telemetry;
+
+message Message
+{
+    string deviceName = 1;
+    uint64 bitsPerSecond = 2;
+    double busLoad = 3;
+    uint64 count = 4;
+}
+
+message Camera
+{
+    string status = 1;
+    string error = 2;
+}
+
+message Status
+{
+    uint64 timestamp = 1;
+    uint64 zeroTimestamp = 2;
+    uint64 cpuTotalLoad = 3;
+    uint64 cpuProcessLoad = 4;
+    uint64 memProcessLoad = 5;
+    uint64 canlibVersion = 6;
+    Camera camera = 7;
+    repeated Message messages = 8;
+}
