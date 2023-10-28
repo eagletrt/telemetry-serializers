@@ -14,6 +14,8 @@ add_library(
     src/configs/car_config.cpp
     src/configs/telemetry_config.cpp
     src/handcart/settings.cpp
+    src/lapcounter/laps.cpp
+    src/lapcounter/circuit.cpp
     src/app/user_data.cpp
     src/app/app_config.cpp
     src/actions/command.cpp
@@ -23,6 +25,7 @@ add_library(
     src/telemetry/status.cpp
     src/telemetry/csv_parser_config.cpp
     src/telemetry/error.cpp
+    src/can/can_frequencies.cpp
 )
 
 target_include_directories(

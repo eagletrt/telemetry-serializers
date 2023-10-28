@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package LapCounter;
+
+message Vector
+{
+	double x = 1;
+	double y = 2;
+}
+
+message Circuit
+{
+	Vector startPosition = 1;
+	Vector startDirection = 2;
+	repeated Vector sectorsPositions = 3;
+	repeated Vector sectorsDirections = 4;
+}

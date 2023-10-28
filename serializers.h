@@ -5,6 +5,8 @@
 #include "configs/car_config.h"
 #include "configs/telemetry_config.h"
 #include "handcart/settings.h"
+#include "lapcounter/laps.h"
+#include "lapcounter/circuit.h"
 #include "app/user_data.h"
 #include "app/app_config.h"
 #include "actions/command.h"
@@ -14,5 +16,6 @@
 #include "telemetry/status.h"
 #include "telemetry/csv_parser_config.h"
 #include "telemetry/error.h"
+#include "can/can_frequencies.h"
 
 #endif

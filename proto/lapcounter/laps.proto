@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package LapCounter;
+
+message Lap
+{
+	uint64 timestamp = 1;
+	int32 number = 2;
+	double time = 3;
+	repeated double sectorTimes = 4;
+}
+
+message Laps
+{
+	repeated Lap laps = 1;
+}

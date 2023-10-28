@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package Can;
+
+message CanFrequency
+{
+	uint64 id = 1;
+	string name = 2;
+	uint64 count = 3;
+	uint64 timestamp = 4;
+	uint64 data = 5;
+}
+
+message CanFrequencies
+{
+	uint64 packTimestamp = 1;
+	repeated CanFrequency canFrequenciesPrimary = 2;
+	repeated CanFrequency canFrequenciesSecondary = 3;
+}
