@@ -8,10 +8,6 @@
 #include <vector>
 #include <unordered_map>
 
-typedef Actions::FileTransactionSetup ActionsFileTransactionSetup;
-typedef Actions::FileTransactionStatus ActionsFileTransactionStatus;
-typedef Actions::FileTransactionChunk ActionsFileTransactionChunk;
-
 namespace Serializers
 {
 namespace Actions
@@ -23,8 +19,8 @@ struct FileTransactionSetup
     std::string topic;
     
     FileTransactionSetup() = default;
-    FileTransactionSetup(const ActionsFileTransactionSetup& proto);
-    operator ActionsFileTransactionSetup() const;
+    FileTransactionSetup(const PbActions::FileTransactionSetup& protobuf);
+    operator PbActions::FileTransactionSetup() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -40,8 +36,8 @@ struct FileTransactionStatus
     uint64_t totalChunks;
     
     FileTransactionStatus() = default;
-    FileTransactionStatus(const ActionsFileTransactionStatus& proto);
-    operator ActionsFileTransactionStatus() const;
+    FileTransactionStatus(const PbActions::FileTransactionStatus& protobuf);
+    operator PbActions::FileTransactionStatus() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -57,8 +53,8 @@ struct FileTransactionChunk
     uint64_t totalChunks;
     
     FileTransactionChunk() = default;
-    FileTransactionChunk(const ActionsFileTransactionChunk& proto);
-    operator ActionsFileTransactionChunk() const;
+    FileTransactionChunk(const PbActions::FileTransactionChunk& protobuf);
+    operator PbActions::FileTransactionChunk() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

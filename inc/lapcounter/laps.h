@@ -8,9 +8,6 @@
 #include <vector>
 #include <unordered_map>
 
-typedef LapCounter::Lap LapCounterLap;
-typedef LapCounter::Laps LapCounterLaps;
-
 namespace Serializers
 {
 namespace LapCounter
@@ -23,8 +20,8 @@ struct Lap
     std::vector<double> sectorTimes;
     
     Lap() = default;
-    Lap(const LapCounterLap& proto);
-    operator LapCounterLap() const;
+    Lap(const PbLapCounter::Lap& protobuf);
+    operator PbLapCounter::Lap() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -37,8 +34,8 @@ struct Laps
     std::vector<Lap> laps;
     
     Laps() = default;
-    Laps(const LapCounterLaps& proto);
-    operator LapCounterLaps() const;
+    Laps(const PbLapCounter::Laps& protobuf);
+    operator PbLapCounter::Laps() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

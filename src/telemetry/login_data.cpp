@@ -6,37 +6,37 @@ namespace Serializers
 {
 namespace Telemetry
 {
-LoginData::LoginData(const TelemetryLoginData& proto) {
-    username = proto.username();
-    password = proto.password();
+LoginData::LoginData(const PbTelemetry::LoginData& protobuf) {
+    username = protobuf.username();
+    password = protobuf.password();
 }
 
-LoginData::operator TelemetryLoginData() const {
-    TelemetryLoginData ret;
+LoginData::operator PbTelemetry::LoginData() const {
+    PbTelemetry::LoginData ret;
     ret.set_username(username);
     ret.set_password(password);
     return ret;
 }
 
 std::string LoginData::serializeAsJsonString() const {
-    TelemetryLoginData proto(*this);
+    PbTelemetry::LoginData protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string LoginData::serializeAsProtobufString() const {
-    TelemetryLoginData proto(*this);
-    return proto.SerializeAsString();
+    PbTelemetry::LoginData protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool LoginData::deserializeFromJsonString(const std::string& str) {
-    TelemetryLoginData proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbTelemetry::LoginData protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -44,9 +44,9 @@ bool LoginData::deserializeFromJsonString(const std::string& str) {
 }
 
 bool LoginData::deserializeFromProtobufString(const std::string& str) {
-    TelemetryLoginData proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbTelemetry::LoginData protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;

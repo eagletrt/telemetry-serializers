@@ -6,37 +6,37 @@ namespace Serializers
 {
 namespace App
 {
-Device::Device(const AppDevice& proto) {
-    vehicleId = proto.vehicleid();
-    deviceId = proto.deviceid();
+Device::Device(const PbApp::Device& protobuf) {
+    vehicleId = protobuf.vehicleid();
+    deviceId = protobuf.deviceid();
 }
 
-Device::operator AppDevice() const {
-    AppDevice ret;
+Device::operator PbApp::Device() const {
+    PbApp::Device ret;
     ret.set_vehicleid(vehicleId);
     ret.set_deviceid(deviceId);
     return ret;
 }
 
 std::string Device::serializeAsJsonString() const {
-    AppDevice proto(*this);
+    PbApp::Device protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Device::serializeAsProtobufString() const {
-    AppDevice proto(*this);
-    return proto.SerializeAsString();
+    PbApp::Device protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Device::deserializeFromJsonString(const std::string& str) {
-    AppDevice proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbApp::Device protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -44,23 +44,23 @@ bool Device::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Device::deserializeFromProtobufString(const std::string& str) {
-    AppDevice proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbApp::Device protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Connection::Connection(const AppConnection& proto) {
-    ip = proto.ip();
-    port = proto.port();
-    mode = proto.mode();
+Connection::Connection(const PbApp::Connection& protobuf) {
+    ip = protobuf.ip();
+    port = protobuf.port();
+    mode = protobuf.mode();
 }
 
-Connection::operator AppConnection() const {
-    AppConnection ret;
+Connection::operator PbApp::Connection() const {
+    PbApp::Connection ret;
     ret.set_ip(ip);
     ret.set_port(port);
     ret.set_mode(mode);
@@ -68,24 +68,24 @@ Connection::operator AppConnection() const {
 }
 
 std::string Connection::serializeAsJsonString() const {
-    AppConnection proto(*this);
+    PbApp::Connection protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Connection::serializeAsProtobufString() const {
-    AppConnection proto(*this);
-    return proto.SerializeAsString();
+    PbApp::Connection protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Connection::deserializeFromJsonString(const std::string& str) {
-    AppConnection proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbApp::Connection protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -93,23 +93,23 @@ bool Connection::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Connection::deserializeFromProtobufString(const std::string& str) {
-    AppConnection proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbApp::Connection protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-PostProc::PostProc(const AppPostProc& proto) {
-    sampleFrequency = proto.samplefrequency();
-    includedItems = {proto.includeditems().begin(), proto.includeditems().end()};
-    exceludedItems = {proto.exceludeditems().begin(), proto.exceludeditems().end()};
+PostProc::PostProc(const PbApp::PostProc& protobuf) {
+    sampleFrequency = protobuf.samplefrequency();
+    includedItems = {protobuf.includeditems().begin(), protobuf.includeditems().end()};
+    exceludedItems = {protobuf.exceludeditems().begin(), protobuf.exceludeditems().end()};
 }
 
-PostProc::operator AppPostProc() const {
-    AppPostProc ret;
+PostProc::operator PbApp::PostProc() const {
+    PbApp::PostProc ret;
     ret.set_samplefrequency(sampleFrequency);
     *(ret.mutable_includeditems()) = {includedItems.begin(), includedItems.end()};
     *(ret.mutable_exceludeditems()) = {exceludedItems.begin(), exceludedItems.end()};
@@ -117,24 +117,24 @@ PostProc::operator AppPostProc() const {
 }
 
 std::string PostProc::serializeAsJsonString() const {
-    AppPostProc proto(*this);
+    PbApp::PostProc protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string PostProc::serializeAsProtobufString() const {
-    AppPostProc proto(*this);
-    return proto.SerializeAsString();
+    PbApp::PostProc protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool PostProc::deserializeFromJsonString(const std::string& str) {
-    AppPostProc proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbApp::PostProc protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -142,24 +142,24 @@ bool PostProc::deserializeFromJsonString(const std::string& str) {
 }
 
 bool PostProc::deserializeFromProtobufString(const std::string& str) {
-    AppPostProc proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbApp::PostProc protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Color::Color(const AppColor& proto) {
-    r = proto.r();
-    g = proto.g();
-    b = proto.b();
-    a = proto.a();
+Color::Color(const PbApp::Color& protobuf) {
+    r = protobuf.r();
+    g = protobuf.g();
+    b = protobuf.b();
+    a = protobuf.a();
 }
 
-Color::operator AppColor() const {
-    AppColor ret;
+Color::operator PbApp::Color() const {
+    PbApp::Color ret;
     ret.set_r(r);
     ret.set_g(g);
     ret.set_b(b);
@@ -168,24 +168,24 @@ Color::operator AppColor() const {
 }
 
 std::string Color::serializeAsJsonString() const {
-    AppColor proto(*this);
+    PbApp::Color protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Color::serializeAsProtobufString() const {
-    AppColor proto(*this);
-    return proto.SerializeAsString();
+    PbApp::Color protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Color::deserializeFromJsonString(const std::string& str) {
-    AppColor proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbApp::Color protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -193,25 +193,25 @@ bool Color::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Color::deserializeFromProtobufString(const std::string& str) {
-    AppColor proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbApp::Color protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Event::Event(const AppEvent& proto) {
-    message = proto.message();
-    field = proto.field();
-    comparator = proto.comparator();
-    value = proto.value();
-    color = proto.color();
+Event::Event(const PbApp::Event& protobuf) {
+    message = protobuf.message();
+    field = protobuf.field();
+    comparator = protobuf.comparator();
+    value = protobuf.value();
+    color = protobuf.color();
 }
 
-Event::operator AppEvent() const {
-    AppEvent ret;
+Event::operator PbApp::Event() const {
+    PbApp::Event ret;
     ret.set_message(message);
     ret.set_field(field);
     ret.set_comparator(comparator);
@@ -221,24 +221,24 @@ Event::operator AppEvent() const {
 }
 
 std::string Event::serializeAsJsonString() const {
-    AppEvent proto(*this);
+    PbApp::Event protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Event::serializeAsProtobufString() const {
-    AppEvent proto(*this);
-    return proto.SerializeAsString();
+    PbApp::Event protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Event::deserializeFromJsonString(const std::string& str) {
-    AppEvent proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbApp::Event protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -246,46 +246,46 @@ bool Event::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Event::deserializeFromProtobufString(const std::string& str) {
-    AppEvent proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbApp::Event protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Field::Field(const AppField& proto) {
-    message = proto.message();
-    field = proto.field();
+Field::Field(const PbApp::Field& protobuf) {
+    message = protobuf.message();
+    field = protobuf.field();
 }
 
-Field::operator AppField() const {
-    AppField ret;
+Field::operator PbApp::Field() const {
+    PbApp::Field ret;
     ret.set_message(message);
     ret.set_field(field);
     return ret;
 }
 
 std::string Field::serializeAsJsonString() const {
-    AppField proto(*this);
+    PbApp::Field protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Field::serializeAsProtobufString() const {
-    AppField proto(*this);
-    return proto.SerializeAsString();
+    PbApp::Field protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Field::deserializeFromJsonString(const std::string& str) {
-    AppField proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbApp::Field protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -293,46 +293,46 @@ bool Field::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Field::deserializeFromProtobufString(const std::string& str) {
-    AppField proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbApp::Field protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Axis::Axis(const AppAxis& proto) {
-    name = proto.name();
-    fields = {proto.fields().begin(), proto.fields().end()};
+Axis::Axis(const PbApp::Axis& protobuf) {
+    name = protobuf.name();
+    fields = {protobuf.fields().begin(), protobuf.fields().end()};
 }
 
-Axis::operator AppAxis() const {
-    AppAxis ret;
+Axis::operator PbApp::Axis() const {
+    PbApp::Axis ret;
     ret.set_name(name);
     *(ret.mutable_fields()) = {fields.begin(), fields.end()};
     return ret;
 }
 
 std::string Axis::serializeAsJsonString() const {
-    AppAxis proto(*this);
+    PbApp::Axis protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Axis::serializeAsProtobufString() const {
-    AppAxis proto(*this);
-    return proto.SerializeAsString();
+    PbApp::Axis protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Axis::deserializeFromJsonString(const std::string& str) {
-    AppAxis proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbApp::Axis protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -340,46 +340,46 @@ bool Axis::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Axis::deserializeFromProtobufString(const std::string& str) {
-    AppAxis proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbApp::Axis protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-CustomPlot::CustomPlot(const AppCustomPlot& proto) {
-    name = proto.name();
-    axes = {proto.axes().begin(), proto.axes().end()};
+CustomPlot::CustomPlot(const PbApp::CustomPlot& protobuf) {
+    name = protobuf.name();
+    axes = {protobuf.axes().begin(), protobuf.axes().end()};
 }
 
-CustomPlot::operator AppCustomPlot() const {
-    AppCustomPlot ret;
+CustomPlot::operator PbApp::CustomPlot() const {
+    PbApp::CustomPlot ret;
     ret.set_name(name);
     *(ret.mutable_axes()) = {axes.begin(), axes.end()};
     return ret;
 }
 
 std::string CustomPlot::serializeAsJsonString() const {
-    AppCustomPlot proto(*this);
+    PbApp::CustomPlot protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string CustomPlot::serializeAsProtobufString() const {
-    AppCustomPlot proto(*this);
-    return proto.SerializeAsString();
+    PbApp::CustomPlot protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool CustomPlot::deserializeFromJsonString(const std::string& str) {
-    AppCustomPlot proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbApp::CustomPlot protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -387,31 +387,32 @@ bool CustomPlot::deserializeFromJsonString(const std::string& str) {
 }
 
 bool CustomPlot::deserializeFromProtobufString(const std::string& str) {
-    AppCustomPlot proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbApp::CustomPlot protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-AppConfig::AppConfig(const AppAppConfig& proto) {
-    loginTimestamp = proto.logintimestamp();
-    colorTheme = proto.colortheme();
-    mode = proto.mode();
-    csvAutoSave = proto.csvautosave();
-    postProc = proto.postproc();
-    connection = proto.connection();
-    savedConnections = {proto.savedconnections().begin(), proto.savedconnections().end()};
-    devices = {proto.devices().begin(), proto.devices().end()};
-    events = {proto.events().begin(), proto.events().end()};
-    customPlots = {proto.customplots().begin(), proto.customplots().end()};
-    filesPaths = {proto.filespaths().begin(), proto.filespaths().end()};
+AppConfig::AppConfig(const PbApp::AppConfig& protobuf) {
+    loginTimestamp = protobuf.logintimestamp();
+    colorTheme = protobuf.colortheme();
+    mode = protobuf.mode();
+    csvAutoSave = protobuf.csvautosave();
+    postProc = protobuf.postproc();
+    connection = protobuf.connection();
+    savedConnections = {protobuf.savedconnections().begin(), protobuf.savedconnections().end()};
+    devices = {protobuf.devices().begin(), protobuf.devices().end()};
+    events = {protobuf.events().begin(), protobuf.events().end()};
+    customPlots = {protobuf.customplots().begin(), protobuf.customplots().end()};
+    filesPaths = {protobuf.filespaths().begin(), protobuf.filespaths().end()};
+    cacheMap = {protobuf.cachemap().begin(), protobuf.cachemap().end()};
 }
 
-AppConfig::operator AppAppConfig() const {
-    AppAppConfig ret;
+AppConfig::operator PbApp::AppConfig() const {
+    PbApp::AppConfig ret;
     ret.set_logintimestamp(loginTimestamp);
     ret.set_colortheme(colorTheme);
     ret.set_mode(mode);
@@ -423,28 +424,29 @@ AppConfig::operator AppAppConfig() const {
     *(ret.mutable_events()) = {events.begin(), events.end()};
     *(ret.mutable_customplots()) = {customPlots.begin(), customPlots.end()};
     *(ret.mutable_filespaths()) = {filesPaths.begin(), filesPaths.end()};
+    *(ret.mutable_cachemap()) = {cacheMap.begin(), cacheMap.end()};
     return ret;
 }
 
 std::string AppConfig::serializeAsJsonString() const {
-    AppAppConfig proto(*this);
+    PbApp::AppConfig protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string AppConfig::serializeAsProtobufString() const {
-    AppAppConfig proto(*this);
-    return proto.SerializeAsString();
+    PbApp::AppConfig protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool AppConfig::deserializeFromJsonString(const std::string& str) {
-    AppAppConfig proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbApp::AppConfig protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -452,9 +454,9 @@ bool AppConfig::deserializeFromJsonString(const std::string& str) {
 }
 
 bool AppConfig::deserializeFromProtobufString(const std::string& str) {
-    AppAppConfig proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbApp::AppConfig protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;

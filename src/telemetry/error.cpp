@@ -6,14 +6,14 @@ namespace Serializers
 {
 namespace Telemetry
 {
-Error::Error(const TelemetryError& proto) {
-    timestamp = proto.timestamp();
-    function = proto.function();
-    description = proto.description();
+Error::Error(const PbTelemetry::Error& protobuf) {
+    timestamp = protobuf.timestamp();
+    function = protobuf.function();
+    description = protobuf.description();
 }
 
-Error::operator TelemetryError() const {
-    TelemetryError ret;
+Error::operator PbTelemetry::Error() const {
+    PbTelemetry::Error ret;
     ret.set_timestamp(timestamp);
     ret.set_function(function);
     ret.set_description(description);
@@ -21,24 +21,24 @@ Error::operator TelemetryError() const {
 }
 
 std::string Error::serializeAsJsonString() const {
-    TelemetryError proto(*this);
+    PbTelemetry::Error protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Error::serializeAsProtobufString() const {
-    TelemetryError proto(*this);
-    return proto.SerializeAsString();
+    PbTelemetry::Error protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Error::deserializeFromJsonString(const std::string& str) {
-    TelemetryError proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbTelemetry::Error protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -46,9 +46,9 @@ bool Error::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Error::deserializeFromProtobufString(const std::string& str) {
-    TelemetryError proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbTelemetry::Error protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;

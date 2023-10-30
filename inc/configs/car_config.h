@@ -8,12 +8,6 @@
 #include <vector>
 #include <unordered_map>
 
-typedef Configs::Aero ConfigsAero;
-typedef Configs::Wheel ConfigsWheel;
-typedef Configs::Damper ConfigsDamper;
-typedef Configs::Driver ConfigsDriver;
-typedef Configs::CarConfig ConfigsCarConfig;
-
 namespace Serializers
 {
 namespace Configs
@@ -25,8 +19,8 @@ struct Aero
     std::string flap;
     
     Aero() = default;
-    Aero(const ConfigsAero& proto);
-    operator ConfigsAero() const;
+    Aero(const PbConfigs::Aero& protobuf);
+    operator PbConfigs::Aero() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -40,8 +34,8 @@ struct Wheel
     double toe;
     
     Wheel() = default;
-    Wheel(const ConfigsWheel& proto);
-    operator ConfigsWheel() const;
+    Wheel(const PbConfigs::Wheel& protobuf);
+    operator PbConfigs::Wheel() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -56,8 +50,8 @@ struct Damper
     double preload;
     
     Damper() = default;
-    Damper(const ConfigsDamper& proto);
-    operator ConfigsDamper() const;
+    Damper(const PbConfigs::Damper& protobuf);
+    operator PbConfigs::Damper() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -71,8 +65,8 @@ struct Driver
     double weight;
     
     Driver() = default;
-    Driver(const ConfigsDriver& proto);
-    operator ConfigsDriver() const;
+    Driver(const PbConfigs::Driver& protobuf);
+    operator PbConfigs::Driver() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -94,8 +88,8 @@ struct CarConfig
     std::string notes;
     
     CarConfig() = default;
-    CarConfig(const ConfigsCarConfig& proto);
-    operator ConfigsCarConfig() const;
+    CarConfig(const PbConfigs::CarConfig& protobuf);
+    operator PbConfigs::CarConfig() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

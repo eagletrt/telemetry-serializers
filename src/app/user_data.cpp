@@ -6,16 +6,16 @@ namespace Serializers
 {
 namespace App
 {
-UserData::UserData(const AppUserData& proto) {
-    username = proto.username();
-    token = proto.token();
-    refresh_token = proto.refresh_token();
-    expiry = proto.expiry();
-    role = proto.role();
+UserData::UserData(const PbApp::UserData& protobuf) {
+    username = protobuf.username();
+    token = protobuf.token();
+    refresh_token = protobuf.refresh_token();
+    expiry = protobuf.expiry();
+    role = protobuf.role();
 }
 
-UserData::operator AppUserData() const {
-    AppUserData ret;
+UserData::operator PbApp::UserData() const {
+    PbApp::UserData ret;
     ret.set_username(username);
     ret.set_token(token);
     ret.set_refresh_token(refresh_token);
@@ -25,24 +25,24 @@ UserData::operator AppUserData() const {
 }
 
 std::string UserData::serializeAsJsonString() const {
-    AppUserData proto(*this);
+    PbApp::UserData protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string UserData::serializeAsProtobufString() const {
-    AppUserData proto(*this);
-    return proto.SerializeAsString();
+    PbApp::UserData protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool UserData::deserializeFromJsonString(const std::string& str) {
-    AppUserData proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbApp::UserData protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -50,9 +50,9 @@ bool UserData::deserializeFromJsonString(const std::string& str) {
 }
 
 bool UserData::deserializeFromProtobufString(const std::string& str) {
-    AppUserData proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbApp::UserData protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;

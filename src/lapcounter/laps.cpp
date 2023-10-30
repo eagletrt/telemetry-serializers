@@ -6,15 +6,15 @@ namespace Serializers
 {
 namespace LapCounter
 {
-Lap::Lap(const LapCounterLap& proto) {
-    timestamp = proto.timestamp();
-    number = proto.number();
-    time = proto.time();
-    sectorTimes = {proto.sectortimes().begin(), proto.sectortimes().end()};
+Lap::Lap(const PbLapCounter::Lap& protobuf) {
+    timestamp = protobuf.timestamp();
+    number = protobuf.number();
+    time = protobuf.time();
+    sectorTimes = {protobuf.sectortimes().begin(), protobuf.sectortimes().end()};
 }
 
-Lap::operator LapCounterLap() const {
-    LapCounterLap ret;
+Lap::operator PbLapCounter::Lap() const {
+    PbLapCounter::Lap ret;
     ret.set_timestamp(timestamp);
     ret.set_number(number);
     ret.set_time(time);
@@ -23,24 +23,24 @@ Lap::operator LapCounterLap() const {
 }
 
 std::string Lap::serializeAsJsonString() const {
-    LapCounterLap proto(*this);
+    PbLapCounter::Lap protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Lap::serializeAsProtobufString() const {
-    LapCounterLap proto(*this);
-    return proto.SerializeAsString();
+    PbLapCounter::Lap protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Lap::deserializeFromJsonString(const std::string& str) {
-    LapCounterLap proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbLapCounter::Lap protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -48,44 +48,44 @@ bool Lap::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Lap::deserializeFromProtobufString(const std::string& str) {
-    LapCounterLap proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbLapCounter::Lap protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Laps::Laps(const LapCounterLaps& proto) {
-    laps = {proto.laps().begin(), proto.laps().end()};
+Laps::Laps(const PbLapCounter::Laps& protobuf) {
+    laps = {protobuf.laps().begin(), protobuf.laps().end()};
 }
 
-Laps::operator LapCounterLaps() const {
-    LapCounterLaps ret;
+Laps::operator PbLapCounter::Laps() const {
+    PbLapCounter::Laps ret;
     *(ret.mutable_laps()) = {laps.begin(), laps.end()};
     return ret;
 }
 
 std::string Laps::serializeAsJsonString() const {
-    LapCounterLaps proto(*this);
+    PbLapCounter::Laps protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Laps::serializeAsProtobufString() const {
-    LapCounterLaps proto(*this);
-    return proto.SerializeAsString();
+    PbLapCounter::Laps protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Laps::deserializeFromJsonString(const std::string& str) {
-    LapCounterLaps proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbLapCounter::Laps protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -93,9 +93,9 @@ bool Laps::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Laps::deserializeFromProtobufString(const std::string& str) {
-    LapCounterLaps proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbLapCounter::Laps protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;

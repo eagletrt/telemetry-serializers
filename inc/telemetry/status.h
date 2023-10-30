@@ -8,24 +8,20 @@
 #include <vector>
 #include <unordered_map>
 
-typedef Telemetry::Message TelemetryMessage;
-typedef Telemetry::Camera TelemetryCamera;
-typedef Telemetry::Status TelemetryStatus;
-
 namespace Serializers
 {
 namespace Telemetry
 {
-struct Message
+struct MessagesPerSecond
 {
     std::string deviceName;
     uint64_t bitsPerSecond;
     double busLoad;
     uint64_t count;
     
-    Message() = default;
-    Message(const TelemetryMessage& proto);
-    operator TelemetryMessage() const;
+    MessagesPerSecond() = default;
+    MessagesPerSecond(const PbTelemetry::MessagesPerSecond& protobuf);
+    operator PbTelemetry::MessagesPerSecond() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -39,8 +35,8 @@ struct Camera
     std::string error;
     
     Camera() = default;
-    Camera(const TelemetryCamera& proto);
-    operator TelemetryCamera() const;
+    Camera(const PbTelemetry::Camera& protobuf);
+    operator PbTelemetry::Camera() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -57,11 +53,11 @@ struct Status
     uint64_t memProcessLoad;
     uint64_t canlibVersion;
     Camera camera;
-    std::vector<Message> messages;
+    std::vector<MessagesPerSecond> messagesPerSecond;
     
     Status() = default;
-    Status(const TelemetryStatus& proto);
-    operator TelemetryStatus() const;
+    Status(const PbTelemetry::Status& protobuf);
+    operator PbTelemetry::Status() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

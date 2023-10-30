@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package Telemetry;
+package PbTelemetry;
 
-message Message
+message MessagesPerSecond
 {
     string deviceName = 1;
     uint64 bitsPerSecond = 2;
@@ -25,5 +25,5 @@ message Status
     uint64 memProcessLoad = 5;
     uint64 canlibVersion = 6;
     Camera camera = 7;
-    repeated Message messages = 8;
+    repeated MessagesPerSecond messagesPerSecond = 8;
 }

@@ -8,16 +8,6 @@
 #include <vector>
 #include <unordered_map>
 
-typedef App::Device AppDevice;
-typedef App::Connection AppConnection;
-typedef App::PostProc AppPostProc;
-typedef App::Color AppColor;
-typedef App::Event AppEvent;
-typedef App::Field AppField;
-typedef App::Axis AppAxis;
-typedef App::CustomPlot AppCustomPlot;
-typedef App::AppConfig AppAppConfig;
-
 namespace Serializers
 {
 namespace App
@@ -28,8 +18,8 @@ struct Device
     std::string deviceId;
     
     Device() = default;
-    Device(const AppDevice& proto);
-    operator AppDevice() const;
+    Device(const PbApp::Device& protobuf);
+    operator PbApp::Device() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -44,8 +34,8 @@ struct Connection
     std::string mode;
     
     Connection() = default;
-    Connection(const AppConnection& proto);
-    operator AppConnection() const;
+    Connection(const PbApp::Connection& protobuf);
+    operator PbApp::Connection() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -60,8 +50,8 @@ struct PostProc
     std::vector<std::string> exceludedItems;
     
     PostProc() = default;
-    PostProc(const AppPostProc& proto);
-    operator AppPostProc() const;
+    PostProc(const PbApp::PostProc& protobuf);
+    operator PbApp::PostProc() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -77,8 +67,8 @@ struct Color
     double a;
     
     Color() = default;
-    Color(const AppColor& proto);
-    operator AppColor() const;
+    Color(const PbApp::Color& protobuf);
+    operator PbApp::Color() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -95,8 +85,8 @@ struct Event
     Color color;
     
     Event() = default;
-    Event(const AppEvent& proto);
-    operator AppEvent() const;
+    Event(const PbApp::Event& protobuf);
+    operator PbApp::Event() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -110,8 +100,8 @@ struct Field
     std::string field;
     
     Field() = default;
-    Field(const AppField& proto);
-    operator AppField() const;
+    Field(const PbApp::Field& protobuf);
+    operator PbApp::Field() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -125,8 +115,8 @@ struct Axis
     std::vector<Field> fields;
     
     Axis() = default;
-    Axis(const AppAxis& proto);
-    operator AppAxis() const;
+    Axis(const PbApp::Axis& protobuf);
+    operator PbApp::Axis() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -140,8 +130,8 @@ struct CustomPlot
     std::vector<Axis> axes;
     
     CustomPlot() = default;
-    CustomPlot(const AppCustomPlot& proto);
-    operator AppCustomPlot() const;
+    CustomPlot(const PbApp::CustomPlot& protobuf);
+    operator PbApp::CustomPlot() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -162,10 +152,11 @@ struct AppConfig
     std::vector<Event> events;
     std::vector<CustomPlot> customPlots;
     std::unordered_map<std::string, std::string> filesPaths;
+    std::unordered_map<std::string, std::string> cacheMap;
     
     AppConfig() = default;
-    AppConfig(const AppAppConfig& proto);
-    operator AppAppConfig() const;
+    AppConfig(const PbApp::AppConfig& protobuf);
+    operator PbApp::AppConfig() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

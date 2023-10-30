@@ -6,16 +6,16 @@ namespace Serializers
 {
 namespace Can
 {
-CanFrequency::CanFrequency(const CanCanFrequency& proto) {
-    id = proto.id();
-    name = proto.name();
-    count = proto.count();
-    timestamp = proto.timestamp();
-    data = proto.data();
+CanFrequency::CanFrequency(const PbCan::CanFrequency& protobuf) {
+    id = protobuf.id();
+    name = protobuf.name();
+    count = protobuf.count();
+    timestamp = protobuf.timestamp();
+    data = protobuf.data();
 }
 
-CanFrequency::operator CanCanFrequency() const {
-    CanCanFrequency ret;
+CanFrequency::operator PbCan::CanFrequency() const {
+    PbCan::CanFrequency ret;
     ret.set_id(id);
     ret.set_name(name);
     ret.set_count(count);
@@ -25,24 +25,24 @@ CanFrequency::operator CanCanFrequency() const {
 }
 
 std::string CanFrequency::serializeAsJsonString() const {
-    CanCanFrequency proto(*this);
+    PbCan::CanFrequency protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string CanFrequency::serializeAsProtobufString() const {
-    CanCanFrequency proto(*this);
-    return proto.SerializeAsString();
+    PbCan::CanFrequency protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool CanFrequency::deserializeFromJsonString(const std::string& str) {
-    CanCanFrequency proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbCan::CanFrequency protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -50,23 +50,23 @@ bool CanFrequency::deserializeFromJsonString(const std::string& str) {
 }
 
 bool CanFrequency::deserializeFromProtobufString(const std::string& str) {
-    CanCanFrequency proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbCan::CanFrequency protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-CanFrequencies::CanFrequencies(const CanCanFrequencies& proto) {
-    packTimestamp = proto.packtimestamp();
-    canFrequenciesPrimary = {proto.canfrequenciesprimary().begin(), proto.canfrequenciesprimary().end()};
-    canFrequenciesSecondary = {proto.canfrequenciessecondary().begin(), proto.canfrequenciessecondary().end()};
+CanFrequencies::CanFrequencies(const PbCan::CanFrequencies& protobuf) {
+    packTimestamp = protobuf.packtimestamp();
+    canFrequenciesPrimary = {protobuf.canfrequenciesprimary().begin(), protobuf.canfrequenciesprimary().end()};
+    canFrequenciesSecondary = {protobuf.canfrequenciessecondary().begin(), protobuf.canfrequenciessecondary().end()};
 }
 
-CanFrequencies::operator CanCanFrequencies() const {
-    CanCanFrequencies ret;
+CanFrequencies::operator PbCan::CanFrequencies() const {
+    PbCan::CanFrequencies ret;
     ret.set_packtimestamp(packTimestamp);
     *(ret.mutable_canfrequenciesprimary()) = {canFrequenciesPrimary.begin(), canFrequenciesPrimary.end()};
     *(ret.mutable_canfrequenciessecondary()) = {canFrequenciesSecondary.begin(), canFrequenciesSecondary.end()};
@@ -74,24 +74,24 @@ CanFrequencies::operator CanCanFrequencies() const {
 }
 
 std::string CanFrequencies::serializeAsJsonString() const {
-    CanCanFrequencies proto(*this);
+    PbCan::CanFrequencies protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string CanFrequencies::serializeAsProtobufString() const {
-    CanCanFrequencies proto(*this);
-    return proto.SerializeAsString();
+    PbCan::CanFrequencies protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool CanFrequencies::deserializeFromJsonString(const std::string& str) {
-    CanCanFrequencies proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbCan::CanFrequencies protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -99,9 +99,9 @@ bool CanFrequencies::deserializeFromJsonString(const std::string& str) {
 }
 
 bool CanFrequencies::deserializeFromProtobufString(const std::string& str) {
-    CanCanFrequencies proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbCan::CanFrequencies protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;

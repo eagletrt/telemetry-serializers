@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Configs;
+package PbConfigs;
 
 message CanDevice
 {
@@ -29,7 +29,7 @@ message Connection
     string keyfile = 9;
 }
 
-message ConnectionConfig
+message ConnectionSettings
 {
     bool enabled = 1;
     bool downsampleEnabled = 2;
@@ -47,7 +47,7 @@ message TelemetryConfig
     bool cameraEnabled = 4;
     bool generateCsv = 5;
     Connection connection = 6;
-    ConnectionConfig connectionConfig = 7;
+    ConnectionSettings connectionSettings = 7;
     repeated CanDevice canDevies = 8;
     repeated GpsDevice gpsDevices = 9;
 }

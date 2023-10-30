@@ -8,9 +8,6 @@
 #include <vector>
 #include <unordered_map>
 
-typedef Configs::Weather ConfigsWeather;
-typedef Configs::SessionConfig ConfigsSessionConfig;
-
 namespace Serializers
 {
 namespace Configs
@@ -21,8 +18,8 @@ struct Weather
     double humidity;
     
     Weather() = default;
-    Weather(const ConfigsWeather& proto);
-    operator ConfigsWeather() const;
+    Weather(const PbConfigs::Weather& protobuf);
+    operator PbConfigs::Weather() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -43,8 +40,8 @@ struct SessionConfig
     double canlibVersion;
     
     SessionConfig() = default;
-    SessionConfig(const ConfigsSessionConfig& proto);
-    operator ConfigsSessionConfig() const;
+    SessionConfig(const PbConfigs::SessionConfig& protobuf);
+    operator PbConfigs::SessionConfig() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

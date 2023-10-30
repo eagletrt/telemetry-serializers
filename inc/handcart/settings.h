@@ -8,8 +8,6 @@
 #include <vector>
 #include <unordered_map>
 
-typedef Handcart::Settings HandcartSettings;
-
 namespace Serializers
 {
 namespace Handcart
@@ -24,8 +22,8 @@ struct Settings
     double girdMaxCurrent;
     
     Settings() = default;
-    Settings(const HandcartSettings& proto);
-    operator HandcartSettings() const;
+    Settings(const PbHandcart::Settings& protobuf);
+    operator PbHandcart::Settings() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

@@ -23,7 +23,6 @@ add_library(
     src/telemetry/login_data.cpp
     src/telemetry/statistics.cpp
     src/telemetry/status.cpp
-    src/telemetry/csv_parser_config.cpp
     src/telemetry/error.cpp
     src/can/can_frequencies.cpp
 )

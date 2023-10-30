@@ -8,9 +8,6 @@
 #include <vector>
 #include <unordered_map>
 
-typedef Can::CanFrequency CanCanFrequency;
-typedef Can::CanFrequencies CanCanFrequencies;
-
 namespace Serializers
 {
 namespace Can
@@ -24,8 +21,8 @@ struct CanFrequency
     uint64_t data;
     
     CanFrequency() = default;
-    CanFrequency(const CanCanFrequency& proto);
-    operator CanCanFrequency() const;
+    CanFrequency(const PbCan::CanFrequency& protobuf);
+    operator PbCan::CanFrequency() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -40,8 +37,8 @@ struct CanFrequencies
     std::vector<CanFrequency> canFrequenciesSecondary;
     
     CanFrequencies() = default;
-    CanFrequencies(const CanCanFrequencies& proto);
-    operator CanCanFrequencies() const;
+    CanFrequencies(const PbCan::CanFrequencies& protobuf);
+    operator PbCan::CanFrequencies() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

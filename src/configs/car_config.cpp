@@ -6,14 +6,14 @@ namespace Serializers
 {
 namespace Configs
 {
-Aero::Aero(const ConfigsAero& proto) {
-    angleOfIncidenceFront = proto.angleofincidencefront();
-    angleOfIncidenceRear = proto.angleofincidencerear();
-    flap = proto.flap();
+Aero::Aero(const PbConfigs::Aero& protobuf) {
+    angleOfIncidenceFront = protobuf.angleofincidencefront();
+    angleOfIncidenceRear = protobuf.angleofincidencerear();
+    flap = protobuf.flap();
 }
 
-Aero::operator ConfigsAero() const {
-    ConfigsAero ret;
+Aero::operator PbConfigs::Aero() const {
+    PbConfigs::Aero ret;
     ret.set_angleofincidencefront(angleOfIncidenceFront);
     ret.set_angleofincidencerear(angleOfIncidenceRear);
     ret.set_flap(flap);
@@ -21,24 +21,24 @@ Aero::operator ConfigsAero() const {
 }
 
 std::string Aero::serializeAsJsonString() const {
-    ConfigsAero proto(*this);
+    PbConfigs::Aero protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Aero::serializeAsProtobufString() const {
-    ConfigsAero proto(*this);
-    return proto.SerializeAsString();
+    PbConfigs::Aero protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Aero::deserializeFromJsonString(const std::string& str) {
-    ConfigsAero proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbConfigs::Aero protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -46,46 +46,46 @@ bool Aero::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Aero::deserializeFromProtobufString(const std::string& str) {
-    ConfigsAero proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbConfigs::Aero protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Wheel::Wheel(const ConfigsWheel& proto) {
-    camber = proto.camber();
-    toe = proto.toe();
+Wheel::Wheel(const PbConfigs::Wheel& protobuf) {
+    camber = protobuf.camber();
+    toe = protobuf.toe();
 }
 
-Wheel::operator ConfigsWheel() const {
-    ConfigsWheel ret;
+Wheel::operator PbConfigs::Wheel() const {
+    PbConfigs::Wheel ret;
     ret.set_camber(camber);
     ret.set_toe(toe);
     return ret;
 }
 
 std::string Wheel::serializeAsJsonString() const {
-    ConfigsWheel proto(*this);
+    PbConfigs::Wheel protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Wheel::serializeAsProtobufString() const {
-    ConfigsWheel proto(*this);
-    return proto.SerializeAsString();
+    PbConfigs::Wheel protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Wheel::deserializeFromJsonString(const std::string& str) {
-    ConfigsWheel proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbConfigs::Wheel protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -93,23 +93,23 @@ bool Wheel::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Wheel::deserializeFromProtobufString(const std::string& str) {
-    ConfigsWheel proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbConfigs::Wheel protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Damper::Damper(const ConfigsDamper& proto) {
-    bound = proto.bound();
-    rebound = proto.rebound();
-    preload = proto.preload();
+Damper::Damper(const PbConfigs::Damper& protobuf) {
+    bound = protobuf.bound();
+    rebound = protobuf.rebound();
+    preload = protobuf.preload();
 }
 
-Damper::operator ConfigsDamper() const {
-    ConfigsDamper ret;
+Damper::operator PbConfigs::Damper() const {
+    PbConfigs::Damper ret;
     ret.set_bound(bound);
     ret.set_rebound(rebound);
     ret.set_preload(preload);
@@ -117,24 +117,24 @@ Damper::operator ConfigsDamper() const {
 }
 
 std::string Damper::serializeAsJsonString() const {
-    ConfigsDamper proto(*this);
+    PbConfigs::Damper protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Damper::serializeAsProtobufString() const {
-    ConfigsDamper proto(*this);
-    return proto.SerializeAsString();
+    PbConfigs::Damper protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Damper::deserializeFromJsonString(const std::string& str) {
-    ConfigsDamper proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbConfigs::Damper protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -142,46 +142,46 @@ bool Damper::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Damper::deserializeFromProtobufString(const std::string& str) {
-    ConfigsDamper proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbConfigs::Damper protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Driver::Driver(const ConfigsDriver& proto) {
-    name = proto.name();
-    weight = proto.weight();
+Driver::Driver(const PbConfigs::Driver& protobuf) {
+    name = protobuf.name();
+    weight = protobuf.weight();
 }
 
-Driver::operator ConfigsDriver() const {
-    ConfigsDriver ret;
+Driver::operator PbConfigs::Driver() const {
+    PbConfigs::Driver ret;
     ret.set_name(name);
     ret.set_weight(weight);
     return ret;
 }
 
 std::string Driver::serializeAsJsonString() const {
-    ConfigsDriver proto(*this);
+    PbConfigs::Driver protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Driver::serializeAsProtobufString() const {
-    ConfigsDriver proto(*this);
-    return proto.SerializeAsString();
+    PbConfigs::Driver protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Driver::deserializeFromJsonString(const std::string& str) {
-    ConfigsDriver proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbConfigs::Driver protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -189,30 +189,30 @@ bool Driver::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Driver::deserializeFromProtobufString(const std::string& str) {
-    ConfigsDriver proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbConfigs::Driver protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-CarConfig::CarConfig(const ConfigsCarConfig& proto) {
-    aero = proto.aero();
-    wheelFront = proto.wheelfront();
-    wheelRear = proto.wheelrear();
-    damperFront = proto.damperfront();
-    damperRear = proto.damperrear();
-    driver = proto.driver();
-    wheelCompound = proto.wheelcompound();
-    rideHeight = proto.rideheight();
-    balancing = proto.balancing();
-    notes = proto.notes();
+CarConfig::CarConfig(const PbConfigs::CarConfig& protobuf) {
+    aero = protobuf.aero();
+    wheelFront = protobuf.wheelfront();
+    wheelRear = protobuf.wheelrear();
+    damperFront = protobuf.damperfront();
+    damperRear = protobuf.damperrear();
+    driver = protobuf.driver();
+    wheelCompound = protobuf.wheelcompound();
+    rideHeight = protobuf.rideheight();
+    balancing = protobuf.balancing();
+    notes = protobuf.notes();
 }
 
-CarConfig::operator ConfigsCarConfig() const {
-    ConfigsCarConfig ret;
+CarConfig::operator PbConfigs::CarConfig() const {
+    PbConfigs::CarConfig ret;
     *(ret.mutable_aero()) = aero;
     *(ret.mutable_wheelfront()) = wheelFront;
     *(ret.mutable_wheelrear()) = wheelRear;
@@ -227,24 +227,24 @@ CarConfig::operator ConfigsCarConfig() const {
 }
 
 std::string CarConfig::serializeAsJsonString() const {
-    ConfigsCarConfig proto(*this);
+    PbConfigs::CarConfig protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string CarConfig::serializeAsProtobufString() const {
-    ConfigsCarConfig proto(*this);
-    return proto.SerializeAsString();
+    PbConfigs::CarConfig protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool CarConfig::deserializeFromJsonString(const std::string& str) {
-    ConfigsCarConfig proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbConfigs::CarConfig protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -252,9 +252,9 @@ bool CarConfig::deserializeFromJsonString(const std::string& str) {
 }
 
 bool CarConfig::deserializeFromProtobufString(const std::string& str) {
-    ConfigsCarConfig proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbConfigs::CarConfig protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;

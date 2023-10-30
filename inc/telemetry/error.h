@@ -8,8 +8,6 @@
 #include <vector>
 #include <unordered_map>
 
-typedef Telemetry::Error TelemetryError;
-
 namespace Serializers
 {
 namespace Telemetry
@@ -21,8 +19,8 @@ struct Error
     std::string description;
     
     Error() = default;
-    Error(const TelemetryError& proto);
-    operator TelemetryError() const;
+    Error(const PbTelemetry::Error& protobuf);
+    operator PbTelemetry::Error() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

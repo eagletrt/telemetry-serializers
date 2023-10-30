@@ -6,17 +6,17 @@ namespace Serializers
 {
 namespace Handcart
 {
-Settings::Settings(const HandcartSettings& proto) {
-    status = proto.status();
-    targetVoltage = proto.targetvoltage();
-    fansOverride = proto.fansoverride();
-    fansSpeed = proto.fansspeed();
-    accChargeCurrent = proto.accchargecurrent();
-    girdMaxCurrent = proto.girdmaxcurrent();
+Settings::Settings(const PbHandcart::Settings& protobuf) {
+    status = protobuf.status();
+    targetVoltage = protobuf.targetvoltage();
+    fansOverride = protobuf.fansoverride();
+    fansSpeed = protobuf.fansspeed();
+    accChargeCurrent = protobuf.accchargecurrent();
+    girdMaxCurrent = protobuf.girdmaxcurrent();
 }
 
-Settings::operator HandcartSettings() const {
-    HandcartSettings ret;
+Settings::operator PbHandcart::Settings() const {
+    PbHandcart::Settings ret;
     ret.set_status(status);
     ret.set_targetvoltage(targetVoltage);
     ret.set_fansoverride(fansOverride);
@@ -27,24 +27,24 @@ Settings::operator HandcartSettings() const {
 }
 
 std::string Settings::serializeAsJsonString() const {
-    HandcartSettings proto(*this);
+    PbHandcart::Settings protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Settings::serializeAsProtobufString() const {
-    HandcartSettings proto(*this);
-    return proto.SerializeAsString();
+    PbHandcart::Settings protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Settings::deserializeFromJsonString(const std::string& str) {
-    HandcartSettings proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbHandcart::Settings protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -52,9 +52,9 @@ bool Settings::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Settings::deserializeFromProtobufString(const std::string& str) {
-    HandcartSettings proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbHandcart::Settings protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;

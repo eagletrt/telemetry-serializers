@@ -8,9 +8,6 @@
 #include <vector>
 #include <unordered_map>
 
-typedef LapCounter::Vector LapCounterVector;
-typedef LapCounter::Circuit LapCounterCircuit;
-
 namespace Serializers
 {
 namespace LapCounter
@@ -21,8 +18,8 @@ struct Vector
     double y;
     
     Vector() = default;
-    Vector(const LapCounterVector& proto);
-    operator LapCounterVector() const;
+    Vector(const PbLapCounter::Vector& protobuf);
+    operator PbLapCounter::Vector() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -38,8 +35,8 @@ struct Circuit
     std::vector<Vector> sectorsDirections;
     
     Circuit() = default;
-    Circuit(const LapCounterCircuit& proto);
-    operator LapCounterCircuit() const;
+    Circuit(const PbLapCounter::Circuit& protobuf);
+    operator PbLapCounter::Circuit() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

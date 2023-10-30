@@ -8,12 +8,6 @@
 #include <vector>
 #include <unordered_map>
 
-typedef Configs::CanDevice ConfigsCanDevice;
-typedef Configs::GpsDevice ConfigsGpsDevice;
-typedef Configs::Connection ConfigsConnection;
-typedef Configs::ConnectionConfig ConfigsConnectionConfig;
-typedef Configs::TelemetryConfig ConfigsTelemetryConfig;
-
 namespace Serializers
 {
 namespace Configs
@@ -25,8 +19,8 @@ struct CanDevice
     std::vector<std::string> networks;
     
     CanDevice() = default;
-    CanDevice(const ConfigsCanDevice& proto);
-    operator ConfigsCanDevice() const;
+    CanDevice(const PbConfigs::CanDevice& protobuf);
+    operator PbConfigs::CanDevice() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -41,8 +35,8 @@ struct GpsDevice
     bool enabled;
     
     GpsDevice() = default;
-    GpsDevice(const ConfigsGpsDevice& proto);
-    operator ConfigsGpsDevice() const;
+    GpsDevice(const PbConfigs::GpsDevice& protobuf);
+    operator PbConfigs::GpsDevice() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -63,8 +57,8 @@ struct Connection
     std::string keyfile;
     
     Connection() = default;
-    Connection(const ConfigsConnection& proto);
-    operator ConfigsConnection() const;
+    Connection(const PbConfigs::Connection& protobuf);
+    operator PbConfigs::Connection() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -72,7 +66,7 @@ struct Connection
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct ConnectionConfig
+struct ConnectionSettings
 {
     bool enabled;
     bool downsampleEnabled;
@@ -81,9 +75,9 @@ struct ConnectionConfig
     int64_t sendRate;
     bool sendSensorData;
     
-    ConnectionConfig() = default;
-    ConnectionConfig(const ConfigsConnectionConfig& proto);
-    operator ConfigsConnectionConfig() const;
+    ConnectionSettings() = default;
+    ConnectionSettings(const PbConfigs::ConnectionSettings& protobuf);
+    operator PbConfigs::ConnectionSettings() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -99,13 +93,13 @@ struct TelemetryConfig
     bool cameraEnabled;
     bool generateCsv;
     Connection connection;
-    ConnectionConfig connectionConfig;
+    ConnectionSettings connectionSettings;
     std::vector<CanDevice> canDevies;
     std::vector<GpsDevice> gpsDevices;
     
     TelemetryConfig() = default;
-    TelemetryConfig(const ConfigsTelemetryConfig& proto);
-    operator ConfigsTelemetryConfig() const;
+    TelemetryConfig(const PbConfigs::TelemetryConfig& protobuf);
+    operator PbConfigs::TelemetryConfig() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

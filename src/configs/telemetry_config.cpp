@@ -6,14 +6,14 @@ namespace Serializers
 {
 namespace Configs
 {
-CanDevice::CanDevice(const ConfigsCanDevice& proto) {
-    socket = proto.socket();
-    name = proto.name();
-    networks = {proto.networks().begin(), proto.networks().end()};
+CanDevice::CanDevice(const PbConfigs::CanDevice& protobuf) {
+    socket = protobuf.socket();
+    name = protobuf.name();
+    networks = {protobuf.networks().begin(), protobuf.networks().end()};
 }
 
-CanDevice::operator ConfigsCanDevice() const {
-    ConfigsCanDevice ret;
+CanDevice::operator PbConfigs::CanDevice() const {
+    PbConfigs::CanDevice ret;
     ret.set_socket(socket);
     ret.set_name(name);
     *(ret.mutable_networks()) = {networks.begin(), networks.end()};
@@ -21,24 +21,24 @@ CanDevice::operator ConfigsCanDevice() const {
 }
 
 std::string CanDevice::serializeAsJsonString() const {
-    ConfigsCanDevice proto(*this);
+    PbConfigs::CanDevice protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string CanDevice::serializeAsProtobufString() const {
-    ConfigsCanDevice proto(*this);
-    return proto.SerializeAsString();
+    PbConfigs::CanDevice protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool CanDevice::deserializeFromJsonString(const std::string& str) {
-    ConfigsCanDevice proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbConfigs::CanDevice protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -46,23 +46,23 @@ bool CanDevice::deserializeFromJsonString(const std::string& str) {
 }
 
 bool CanDevice::deserializeFromProtobufString(const std::string& str) {
-    ConfigsCanDevice proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbConfigs::CanDevice protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-GpsDevice::GpsDevice(const ConfigsGpsDevice& proto) {
-    address = proto.address();
-    mode = proto.mode();
-    enabled = proto.enabled();
+GpsDevice::GpsDevice(const PbConfigs::GpsDevice& protobuf) {
+    address = protobuf.address();
+    mode = protobuf.mode();
+    enabled = protobuf.enabled();
 }
 
-GpsDevice::operator ConfigsGpsDevice() const {
-    ConfigsGpsDevice ret;
+GpsDevice::operator PbConfigs::GpsDevice() const {
+    PbConfigs::GpsDevice ret;
     ret.set_address(address);
     ret.set_mode(mode);
     ret.set_enabled(enabled);
@@ -70,24 +70,24 @@ GpsDevice::operator ConfigsGpsDevice() const {
 }
 
 std::string GpsDevice::serializeAsJsonString() const {
-    ConfigsGpsDevice proto(*this);
+    PbConfigs::GpsDevice protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string GpsDevice::serializeAsProtobufString() const {
-    ConfigsGpsDevice proto(*this);
-    return proto.SerializeAsString();
+    PbConfigs::GpsDevice protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool GpsDevice::deserializeFromJsonString(const std::string& str) {
-    ConfigsGpsDevice proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbConfigs::GpsDevice protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -95,29 +95,29 @@ bool GpsDevice::deserializeFromJsonString(const std::string& str) {
 }
 
 bool GpsDevice::deserializeFromProtobufString(const std::string& str) {
-    ConfigsGpsDevice proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbConfigs::GpsDevice protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Connection::Connection(const ConfigsConnection& proto) {
-    ip = proto.ip();
-    port = proto.port();
-    mode = proto.mode();
-    whoamiUrl = proto.whoamiurl();
-    tlsEnabled = proto.tlsenabled();
-    cafile = proto.cafile();
-    capath = proto.capath();
-    certfile = proto.certfile();
-    keyfile = proto.keyfile();
+Connection::Connection(const PbConfigs::Connection& protobuf) {
+    ip = protobuf.ip();
+    port = protobuf.port();
+    mode = protobuf.mode();
+    whoamiUrl = protobuf.whoamiurl();
+    tlsEnabled = protobuf.tlsenabled();
+    cafile = protobuf.cafile();
+    capath = protobuf.capath();
+    certfile = protobuf.certfile();
+    keyfile = protobuf.keyfile();
 }
 
-Connection::operator ConfigsConnection() const {
-    ConfigsConnection ret;
+Connection::operator PbConfigs::Connection() const {
+    PbConfigs::Connection ret;
     ret.set_ip(ip);
     ret.set_port(port);
     ret.set_mode(mode);
@@ -131,24 +131,24 @@ Connection::operator ConfigsConnection() const {
 }
 
 std::string Connection::serializeAsJsonString() const {
-    ConfigsConnection proto(*this);
+    PbConfigs::Connection protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Connection::serializeAsProtobufString() const {
-    ConfigsConnection proto(*this);
-    return proto.SerializeAsString();
+    PbConfigs::Connection protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Connection::deserializeFromJsonString(const std::string& str) {
-    ConfigsConnection proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbConfigs::Connection protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -156,26 +156,26 @@ bool Connection::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Connection::deserializeFromProtobufString(const std::string& str) {
-    ConfigsConnection proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbConfigs::Connection protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-ConnectionConfig::ConnectionConfig(const ConfigsConnectionConfig& proto) {
-    enabled = proto.enabled();
-    downsampleEnabled = proto.downsampleenabled();
-    downsampleSkipData = proto.downsampleskipdata();
-    downsampleMps = proto.downsamplemps();
-    sendRate = proto.sendrate();
-    sendSensorData = proto.sendsensordata();
+ConnectionSettings::ConnectionSettings(const PbConfigs::ConnectionSettings& protobuf) {
+    enabled = protobuf.enabled();
+    downsampleEnabled = protobuf.downsampleenabled();
+    downsampleSkipData = protobuf.downsampleskipdata();
+    downsampleMps = protobuf.downsamplemps();
+    sendRate = protobuf.sendrate();
+    sendSensorData = protobuf.sendsensordata();
 }
 
-ConnectionConfig::operator ConfigsConnectionConfig() const {
-    ConfigsConnectionConfig ret;
+ConnectionSettings::operator PbConfigs::ConnectionSettings() const {
+    PbConfigs::ConnectionSettings ret;
     ret.set_enabled(enabled);
     ret.set_downsampleenabled(downsampleEnabled);
     ret.set_downsampleskipdata(downsampleSkipData);
@@ -185,86 +185,86 @@ ConnectionConfig::operator ConfigsConnectionConfig() const {
     return ret;
 }
 
-std::string ConnectionConfig::serializeAsJsonString() const {
-    ConfigsConnectionConfig proto(*this);
+std::string ConnectionSettings::serializeAsJsonString() const {
+    PbConfigs::ConnectionSettings protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
-std::string ConnectionConfig::serializeAsProtobufString() const {
-    ConfigsConnectionConfig proto(*this);
-    return proto.SerializeAsString();
+std::string ConnectionSettings::serializeAsProtobufString() const {
+    PbConfigs::ConnectionSettings protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
-bool ConnectionConfig::deserializeFromJsonString(const std::string& str) {
-    ConfigsConnectionConfig proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+bool ConnectionSettings::deserializeFromJsonString(const std::string& str) {
+    PbConfigs::ConnectionSettings protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-bool ConnectionConfig::deserializeFromProtobufString(const std::string& str) {
-    ConfigsConnectionConfig proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+bool ConnectionSettings::deserializeFromProtobufString(const std::string& str) {
+    PbConfigs::ConnectionSettings protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-TelemetryConfig::TelemetryConfig(const ConfigsTelemetryConfig& proto) {
-    vehicleId = proto.vehicleid();
-    deviceId = proto.deviceid();
-    role = proto.role();
-    cameraEnabled = proto.cameraenabled();
-    generateCsv = proto.generatecsv();
-    connection = proto.connection();
-    connectionConfig = proto.connectionconfig();
-    canDevies = {proto.candevies().begin(), proto.candevies().end()};
-    gpsDevices = {proto.gpsdevices().begin(), proto.gpsdevices().end()};
+TelemetryConfig::TelemetryConfig(const PbConfigs::TelemetryConfig& protobuf) {
+    vehicleId = protobuf.vehicleid();
+    deviceId = protobuf.deviceid();
+    role = protobuf.role();
+    cameraEnabled = protobuf.cameraenabled();
+    generateCsv = protobuf.generatecsv();
+    connection = protobuf.connection();
+    connectionSettings = protobuf.connectionsettings();
+    canDevies = {protobuf.candevies().begin(), protobuf.candevies().end()};
+    gpsDevices = {protobuf.gpsdevices().begin(), protobuf.gpsdevices().end()};
 }
 
-TelemetryConfig::operator ConfigsTelemetryConfig() const {
-    ConfigsTelemetryConfig ret;
+TelemetryConfig::operator PbConfigs::TelemetryConfig() const {
+    PbConfigs::TelemetryConfig ret;
     ret.set_vehicleid(vehicleId);
     ret.set_deviceid(deviceId);
     ret.set_role(role);
     ret.set_cameraenabled(cameraEnabled);
     ret.set_generatecsv(generateCsv);
     *(ret.mutable_connection()) = connection;
-    *(ret.mutable_connectionconfig()) = connectionConfig;
+    *(ret.mutable_connectionsettings()) = connectionSettings;
     *(ret.mutable_candevies()) = {canDevies.begin(), canDevies.end()};
     *(ret.mutable_gpsdevices()) = {gpsDevices.begin(), gpsDevices.end()};
     return ret;
 }
 
 std::string TelemetryConfig::serializeAsJsonString() const {
-    ConfigsTelemetryConfig proto(*this);
+    PbConfigs::TelemetryConfig protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string TelemetryConfig::serializeAsProtobufString() const {
-    ConfigsTelemetryConfig proto(*this);
-    return proto.SerializeAsString();
+    PbConfigs::TelemetryConfig protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool TelemetryConfig::deserializeFromJsonString(const std::string& str) {
-    ConfigsTelemetryConfig proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbConfigs::TelemetryConfig protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -272,9 +272,9 @@ bool TelemetryConfig::deserializeFromJsonString(const std::string& str) {
 }
 
 bool TelemetryConfig::deserializeFromProtobufString(const std::string& str) {
-    ConfigsTelemetryConfig proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbConfigs::TelemetryConfig protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;

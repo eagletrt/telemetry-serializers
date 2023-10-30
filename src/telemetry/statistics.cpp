@@ -6,14 +6,14 @@ namespace Serializers
 {
 namespace Telemetry
 {
-Statistics::Statistics(const TelemetryStatistics& proto) {
-    messages = proto.messages();
-    averageFrequency = proto.averagefrequency();
-    seconds = proto.seconds();
+Statistics::Statistics(const PbTelemetry::Statistics& protobuf) {
+    messages = protobuf.messages();
+    averageFrequency = protobuf.averagefrequency();
+    seconds = protobuf.seconds();
 }
 
-Statistics::operator TelemetryStatistics() const {
-    TelemetryStatistics ret;
+Statistics::operator PbTelemetry::Statistics() const {
+    PbTelemetry::Statistics ret;
     ret.set_messages(messages);
     ret.set_averagefrequency(averageFrequency);
     ret.set_seconds(seconds);
@@ -21,24 +21,24 @@ Statistics::operator TelemetryStatistics() const {
 }
 
 std::string Statistics::serializeAsJsonString() const {
-    TelemetryStatistics proto(*this);
+    PbTelemetry::Statistics protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Statistics::serializeAsProtobufString() const {
-    TelemetryStatistics proto(*this);
-    return proto.SerializeAsString();
+    PbTelemetry::Statistics protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Statistics::deserializeFromJsonString(const std::string& str) {
-    TelemetryStatistics proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbTelemetry::Statistics protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -46,9 +46,9 @@ bool Statistics::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Statistics::deserializeFromProtobufString(const std::string& str) {
-    TelemetryStatistics proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbTelemetry::Statistics protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;

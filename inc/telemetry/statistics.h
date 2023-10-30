@@ -8,8 +8,6 @@
 #include <vector>
 #include <unordered_map>
 
-typedef Telemetry::Statistics TelemetryStatistics;
-
 namespace Serializers
 {
 namespace Telemetry
@@ -21,8 +19,8 @@ struct Statistics
     double seconds;
     
     Statistics() = default;
-    Statistics(const TelemetryStatistics& proto);
-    operator TelemetryStatistics() const;
+    Statistics(const PbTelemetry::Statistics& protobuf);
+    operator PbTelemetry::Statistics() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

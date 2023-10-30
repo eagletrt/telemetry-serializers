@@ -6,15 +6,15 @@ namespace Serializers
 {
 namespace Telemetry
 {
-Message::Message(const TelemetryMessage& proto) {
-    deviceName = proto.devicename();
-    bitsPerSecond = proto.bitspersecond();
-    busLoad = proto.busload();
-    count = proto.count();
+MessagesPerSecond::MessagesPerSecond(const PbTelemetry::MessagesPerSecond& protobuf) {
+    deviceName = protobuf.devicename();
+    bitsPerSecond = protobuf.bitspersecond();
+    busLoad = protobuf.busload();
+    count = protobuf.count();
 }
 
-Message::operator TelemetryMessage() const {
-    TelemetryMessage ret;
+MessagesPerSecond::operator PbTelemetry::MessagesPerSecond() const {
+    PbTelemetry::MessagesPerSecond ret;
     ret.set_devicename(deviceName);
     ret.set_bitspersecond(bitsPerSecond);
     ret.set_busload(busLoad);
@@ -22,72 +22,72 @@ Message::operator TelemetryMessage() const {
     return ret;
 }
 
-std::string Message::serializeAsJsonString() const {
-    TelemetryMessage proto(*this);
+std::string MessagesPerSecond::serializeAsJsonString() const {
+    PbTelemetry::MessagesPerSecond protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
-std::string Message::serializeAsProtobufString() const {
-    TelemetryMessage proto(*this);
-    return proto.SerializeAsString();
+std::string MessagesPerSecond::serializeAsProtobufString() const {
+    PbTelemetry::MessagesPerSecond protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
-bool Message::deserializeFromJsonString(const std::string& str) {
-    TelemetryMessage proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+bool MessagesPerSecond::deserializeFromJsonString(const std::string& str) {
+    PbTelemetry::MessagesPerSecond protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-bool Message::deserializeFromProtobufString(const std::string& str) {
-    TelemetryMessage proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+bool MessagesPerSecond::deserializeFromProtobufString(const std::string& str) {
+    PbTelemetry::MessagesPerSecond protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Camera::Camera(const TelemetryCamera& proto) {
-    status = proto.status();
-    error = proto.error();
+Camera::Camera(const PbTelemetry::Camera& protobuf) {
+    status = protobuf.status();
+    error = protobuf.error();
 }
 
-Camera::operator TelemetryCamera() const {
-    TelemetryCamera ret;
+Camera::operator PbTelemetry::Camera() const {
+    PbTelemetry::Camera ret;
     ret.set_status(status);
     ret.set_error(error);
     return ret;
 }
 
 std::string Camera::serializeAsJsonString() const {
-    TelemetryCamera proto(*this);
+    PbTelemetry::Camera protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Camera::serializeAsProtobufString() const {
-    TelemetryCamera proto(*this);
-    return proto.SerializeAsString();
+    PbTelemetry::Camera protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Camera::deserializeFromJsonString(const std::string& str) {
-    TelemetryCamera proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbTelemetry::Camera protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -95,28 +95,28 @@ bool Camera::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Camera::deserializeFromProtobufString(const std::string& str) {
-    TelemetryCamera proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbTelemetry::Camera protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Status::Status(const TelemetryStatus& proto) {
-    timestamp = proto.timestamp();
-    zeroTimestamp = proto.zerotimestamp();
-    cpuTotalLoad = proto.cputotalload();
-    cpuProcessLoad = proto.cpuprocessload();
-    memProcessLoad = proto.memprocessload();
-    canlibVersion = proto.canlibversion();
-    camera = proto.camera();
-    messages = {proto.messages().begin(), proto.messages().end()};
+Status::Status(const PbTelemetry::Status& protobuf) {
+    timestamp = protobuf.timestamp();
+    zeroTimestamp = protobuf.zerotimestamp();
+    cpuTotalLoad = protobuf.cputotalload();
+    cpuProcessLoad = protobuf.cpuprocessload();
+    memProcessLoad = protobuf.memprocessload();
+    canlibVersion = protobuf.canlibversion();
+    camera = protobuf.camera();
+    messagesPerSecond = {protobuf.messagespersecond().begin(), protobuf.messagespersecond().end()};
 }
 
-Status::operator TelemetryStatus() const {
-    TelemetryStatus ret;
+Status::operator PbTelemetry::Status() const {
+    PbTelemetry::Status ret;
     ret.set_timestamp(timestamp);
     ret.set_zerotimestamp(zeroTimestamp);
     ret.set_cputotalload(cpuTotalLoad);
@@ -124,29 +124,29 @@ Status::operator TelemetryStatus() const {
     ret.set_memprocessload(memProcessLoad);
     ret.set_canlibversion(canlibVersion);
     *(ret.mutable_camera()) = camera;
-    *(ret.mutable_messages()) = {messages.begin(), messages.end()};
+    *(ret.mutable_messagespersecond()) = {messagesPerSecond.begin(), messagesPerSecond.end()};
     return ret;
 }
 
 std::string Status::serializeAsJsonString() const {
-    TelemetryStatus proto(*this);
+    PbTelemetry::Status protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(proto, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Status::serializeAsProtobufString() const {
-    TelemetryStatus proto(*this);
-    return proto.SerializeAsString();
+    PbTelemetry::Status protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Status::deserializeFromJsonString(const std::string& str) {
-    TelemetryStatus proto;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &proto);
+    PbTelemetry::Status protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = proto;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -154,9 +154,9 @@ bool Status::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Status::deserializeFromProtobufString(const std::string& str) {
-    TelemetryStatus proto;
-    if(proto.ParseFromString(str)) {
-        *this = proto;
+    PbTelemetry::Status protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;

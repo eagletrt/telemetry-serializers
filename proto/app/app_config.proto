@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package App;
+package PbApp;
 
 message Device
 {
@@ -70,4 +70,5 @@ message AppConfig
     repeated Event events = 9;
     repeated CustomPlot customPlots = 10;
     map<string, string> filesPaths = 11;  
+    map<string, string> cacheMap = 12;
 }

@@ -8,8 +8,6 @@
 #include <vector>
 #include <unordered_map>
 
-typedef Actions::Command ActionsCommand;
-
 namespace Serializers
 {
 namespace Actions
@@ -20,8 +18,8 @@ struct Command
     std::string output;
     
     Command() = default;
-    Command(const ActionsCommand& proto);
-    operator ActionsCommand() const;
+    Command(const PbActions::Command& protobuf);
+    operator PbActions::Command() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
