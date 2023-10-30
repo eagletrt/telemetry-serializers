@@ -10,7 +10,7 @@ message Lap
 	repeated double sectorTimes = 4;
 }
 
-message Laps
+message Race
 {
 	Lap bestLap = 1;
 	repeated Lap laps = 2;

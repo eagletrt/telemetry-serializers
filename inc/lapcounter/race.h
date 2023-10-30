@@ -1,7 +1,7 @@
-#ifndef LAPS_H
-#define LAPS_H
+#ifndef RACE_H
+#define RACE_H
 
-#include "laps.pb.h"
+#include "race.pb.h"
 
 #include <cstdint>
 #include <string>
@@ -29,14 +29,14 @@ struct Lap
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct Laps
+struct Race
 {
     Lap bestLap;
     std::vector<Lap> laps;
     
-    Laps() = default;
-    Laps(const PbLapCounter::Laps& protobuf);
-    operator PbLapCounter::Laps() const;
+    Race() = default;
+    Race(const PbLapCounter::Race& protobuf);
+    operator PbLapCounter::Race() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

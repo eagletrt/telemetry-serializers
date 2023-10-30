@@ -14,7 +14,7 @@ add_library(
     src/configs/car_config.cpp
     src/configs/telemetry_config.cpp
     src/handcart/settings.cpp
-    src/lapcounter/laps.cpp
+    src/lapcounter/race.cpp
     src/lapcounter/circuit.cpp
     src/app/user_data.cpp
     src/app/app_config.cpp

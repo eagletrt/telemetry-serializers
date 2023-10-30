@@ -1,4 +1,4 @@
-#include "lapcounter/laps.h"
+#include "lapcounter/race.h"
 
 #include <google/protobuf/util/json_util.h>
 
@@ -57,20 +57,20 @@ bool Lap::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
-Laps::Laps(const PbLapCounter::Laps& protobuf) {
+Race::Race(const PbLapCounter::Race& protobuf) {
     bestLap = protobuf.bestlap();
     laps = {protobuf.laps().begin(), protobuf.laps().end()};
 }
 
-Laps::operator PbLapCounter::Laps() const {
-    PbLapCounter::Laps ret;
+Race::operator PbLapCounter::Race() const {
+    PbLapCounter::Race ret;
     *(ret.mutable_bestlap()) = bestLap;
     *(ret.mutable_laps()) = {laps.begin(), laps.end()};
     return ret;
 }
 
-std::string Laps::serializeAsJsonString() const {
-    PbLapCounter::Laps protobuf(*this);
+std::string Race::serializeAsJsonString() const {
+    PbLapCounter::Race protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
@@ -78,13 +78,13 @@ std::string Laps::serializeAsJsonString() const {
     return ret;
 }
 
-std::string Laps::serializeAsProtobufString() const {
-    PbLapCounter::Laps protobuf(*this);
+std::string Race::serializeAsProtobufString() const {
+    PbLapCounter::Race protobuf(*this);
     return protobuf.SerializeAsString();
 }
 
-bool Laps::deserializeFromJsonString(const std::string& str) {
-    PbLapCounter::Laps protobuf;
+bool Race::deserializeFromJsonString(const std::string& str) {
+    PbLapCounter::Race protobuf;
     auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
         *this = protobuf;
@@ -94,8 +94,8 @@ bool Laps::deserializeFromJsonString(const std::string& str) {
     }
 }
 
-bool Laps::deserializeFromProtobufString(const std::string& str) {
-    PbLapCounter::Laps protobuf;
+bool Race::deserializeFromProtobufString(const std::string& str) {
+    PbLapCounter::Race protobuf;
     if(protobuf.ParseFromString(str)) {
         *this = protobuf;
         return true;

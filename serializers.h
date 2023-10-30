@@ -5,7 +5,7 @@
 #include "configs/car_config.h"
 #include "configs/telemetry_config.h"
 #include "handcart/settings.h"
-#include "lapcounter/laps.h"
+#include "lapcounter/race.h"
 #include "lapcounter/circuit.h"
 #include "app/user_data.h"
 #include "app/app_config.h"
