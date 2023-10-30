@@ -15,13 +15,6 @@ message Connection
     string mode = 3;
 }
 
-message PostProc
-{
-    int64 sampleFrequency = 1;
-    repeated string includedItems = 2;
-    repeated string exceludedItems = 3;
-}
-
 message Color
 {
     double r = 1;
@@ -63,7 +56,6 @@ message AppConfig
     uint32 colorTheme = 2;
     uint32 mode = 3;
     bool csvAutoSave = 4;
-    PostProc postProc = 5;
     Connection connection = 6;
     repeated Connection savedConnections = 7;
     repeated Device devices = 8;    

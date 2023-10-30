@@ -102,55 +102,6 @@ bool Connection::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
-PostProc::PostProc(const PbApp::PostProc& protobuf) {
-    sampleFrequency = protobuf.samplefrequency();
-    includedItems = {protobuf.includeditems().begin(), protobuf.includeditems().end()};
-    exceludedItems = {protobuf.exceludeditems().begin(), protobuf.exceludeditems().end()};
-}
-
-PostProc::operator PbApp::PostProc() const {
-    PbApp::PostProc ret;
-    ret.set_samplefrequency(sampleFrequency);
-    *(ret.mutable_includeditems()) = {includedItems.begin(), includedItems.end()};
-    *(ret.mutable_exceludeditems()) = {exceludedItems.begin(), exceludedItems.end()};
-    return ret;
-}
-
-std::string PostProc::serializeAsJsonString() const {
-    PbApp::PostProc protobuf(*this);
-    std::string ret;
-    google::protobuf::util::JsonPrintOptions options;
-    options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
-    return ret;
-}
-
-std::string PostProc::serializeAsProtobufString() const {
-    PbApp::PostProc protobuf(*this);
-    return protobuf.SerializeAsString();
-}
-
-bool PostProc::deserializeFromJsonString(const std::string& str) {
-    PbApp::PostProc protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
-    if(status.ok()) {
-        *this = protobuf;
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool PostProc::deserializeFromProtobufString(const std::string& str) {
-    PbApp::PostProc protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
-        return true;
-    } else {
-        return false;
-    }
-}
-
 Color::Color(const PbApp::Color& protobuf) {
     r = protobuf.r();
     g = protobuf.g();
@@ -401,7 +352,6 @@ AppConfig::AppConfig(const PbApp::AppConfig& protobuf) {
     colorTheme = protobuf.colortheme();
     mode = protobuf.mode();
     csvAutoSave = protobuf.csvautosave();
-    postProc = protobuf.postproc();
     connection = protobuf.connection();
     savedConnections = {protobuf.savedconnections().begin(), protobuf.savedconnections().end()};
     devices = {protobuf.devices().begin(), protobuf.devices().end()};
@@ -417,7 +367,6 @@ AppConfig::operator PbApp::AppConfig() const {
     ret.set_colortheme(colorTheme);
     ret.set_mode(mode);
     ret.set_csvautosave(csvAutoSave);
-    *(ret.mutable_postproc()) = postProc;
     *(ret.mutable_connection()) = connection;
     *(ret.mutable_savedconnections()) = {savedConnections.begin(), savedConnections.end()};
     *(ret.mutable_devices()) = {devices.begin(), devices.end()};

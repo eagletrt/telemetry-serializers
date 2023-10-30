@@ -43,22 +43,6 @@ struct Connection
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct PostProc
-{
-    int64_t sampleFrequency;
-    std::vector<std::string> includedItems;
-    std::vector<std::string> exceludedItems;
-    
-    PostProc() = default;
-    PostProc(const PbApp::PostProc& protobuf);
-    operator PbApp::PostProc() const;
-
-    std::string serializeAsJsonString() const;
-    std::string serializeAsProtobufString() const;
-    bool deserializeFromJsonString(const std::string& str);
-    bool deserializeFromProtobufString(const std::string& str);
-};
-
 struct Color
 {
     double r;
@@ -145,7 +129,6 @@ struct AppConfig
     uint32_t colorTheme;
     uint32_t mode;
     bool csvAutoSave;
-    PostProc postProc;
     Connection connection;
     std::vector<Connection> savedConnections;
     std::vector<Device> devices;
