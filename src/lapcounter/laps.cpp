@@ -58,11 +58,13 @@ bool Lap::deserializeFromProtobufString(const std::string& str) {
 }
 
 Laps::Laps(const PbLapCounter::Laps& protobuf) {
+    bestLap = protobuf.bestlap();
     laps = {protobuf.laps().begin(), protobuf.laps().end()};
 }
 
 Laps::operator PbLapCounter::Laps() const {
     PbLapCounter::Laps ret;
+    *(ret.mutable_bestlap()) = bestLap;
     *(ret.mutable_laps()) = {laps.begin(), laps.end()};
     return ret;
 }

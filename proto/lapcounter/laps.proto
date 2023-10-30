@@ -12,5 +12,6 @@ message Lap
 
 message Laps
 {
-	repeated Lap laps = 1;
+	Lap bestLap = 1;
+	repeated Lap laps = 2;
 }

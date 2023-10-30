@@ -31,6 +31,7 @@ struct Lap
 
 struct Laps
 {
+    Lap bestLap;
     std::vector<Lap> laps;
     
     Laps() = default;
