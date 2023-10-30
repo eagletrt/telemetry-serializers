@@ -56,11 +56,11 @@ message AppConfig
     uint32 colorTheme = 2;
     uint32 mode = 3;
     bool csvAutoSave = 4;
-    Connection connection = 6;
-    repeated Connection savedConnections = 7;
-    repeated Device devices = 8;    
-    repeated Event events = 9;
-    repeated CustomPlot customPlots = 10;
-    map<string, string> filesPaths = 11;  
-    map<string, string> cacheMap = 12;
+    Connection connection = 5;
+    repeated Connection savedConnections = 6;
+    repeated Device devices = 7;    
+    repeated Event events = 8;
+    repeated CustomPlot customPlots = 9;
+    map<string, string> filesPaths = 10;  
+    map<string, string> cacheMap = 11;
 }
