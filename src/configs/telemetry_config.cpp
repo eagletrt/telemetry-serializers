@@ -228,7 +228,7 @@ TelemetryConfig::TelemetryConfig(const PbConfigs::TelemetryConfig& protobuf) {
     generateCsv = protobuf.generatecsv();
     connection = protobuf.connection();
     connectionSettings = protobuf.connectionsettings();
-    canDevies = {protobuf.candevies().begin(), protobuf.candevies().end()};
+    canDevices = {protobuf.candevices().begin(), protobuf.candevices().end()};
     gpsDevices = {protobuf.gpsdevices().begin(), protobuf.gpsdevices().end()};
 }
 
@@ -241,7 +241,7 @@ TelemetryConfig::operator PbConfigs::TelemetryConfig() const {
     ret.set_generatecsv(generateCsv);
     *(ret.mutable_connection()) = connection;
     *(ret.mutable_connectionsettings()) = connectionSettings;
-    *(ret.mutable_candevies()) = {canDevies.begin(), canDevies.end()};
+    *(ret.mutable_candevices()) = {canDevices.begin(), canDevices.end()};
     *(ret.mutable_gpsdevices()) = {gpsDevices.begin(), gpsDevices.end()};
     return ret;
 }

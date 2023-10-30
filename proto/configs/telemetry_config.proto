@@ -48,6 +48,6 @@ message TelemetryConfig
     bool generateCsv = 5;
     Connection connection = 6;
     ConnectionSettings connectionSettings = 7;
-    repeated CanDevice canDevies = 8;
+    repeated CanDevice canDevices = 8;
     repeated GpsDevice gpsDevices = 9;
 }

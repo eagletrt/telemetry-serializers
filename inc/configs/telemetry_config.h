@@ -94,7 +94,7 @@ struct TelemetryConfig
     bool generateCsv;
     Connection connection;
     ConnectionSettings connectionSettings;
-    std::vector<CanDevice> canDevies;
+    std::vector<CanDevice> canDevices;
     std::vector<GpsDevice> gpsDevices;
     
     TelemetryConfig() = default;
