@@ -48,6 +48,7 @@ struct Status
 {
     uint64_t timestamp;
     uint64_t zeroTimestamp;
+    int64_t data;
     uint64_t cpuTotalLoad;
     uint64_t cpuProcessLoad;
     uint64_t memProcessLoad;

@@ -107,6 +107,7 @@ bool Camera::deserializeFromProtobufString(const std::string& str) {
 Status::Status(const PbTelemetry::Status& protobuf) {
     timestamp = protobuf.timestamp();
     zeroTimestamp = protobuf.zerotimestamp();
+    data = protobuf.data();
     cpuTotalLoad = protobuf.cputotalload();
     cpuProcessLoad = protobuf.cpuprocessload();
     memProcessLoad = protobuf.memprocessload();
@@ -119,6 +120,7 @@ Status::operator PbTelemetry::Status() const {
     PbTelemetry::Status ret;
     ret.set_timestamp(timestamp);
     ret.set_zerotimestamp(zeroTimestamp);
+    ret.set_data(data);
     ret.set_cputotalload(cpuTotalLoad);
     ret.set_cpuprocessload(cpuProcessLoad);
     ret.set_memprocessload(memProcessLoad);

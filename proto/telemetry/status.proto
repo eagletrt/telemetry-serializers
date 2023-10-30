@@ -20,10 +20,11 @@ message Status
 {
     uint64 timestamp = 1;
     uint64 zeroTimestamp = 2;
-    uint64 cpuTotalLoad = 3;
-    uint64 cpuProcessLoad = 4;
-    uint64 memProcessLoad = 5;
-    uint64 canlibVersion = 6;
-    Camera camera = 7;
-    repeated MessagesPerSecond messagesPerSecond = 8;
+    int64 data = 3;
+    uint64 cpuTotalLoad = 4;
+    uint64 cpuProcessLoad = 5;
+    uint64 memProcessLoad = 6;
+    uint64 canlibVersion = 7;
+    Camera camera = 8;
+    repeated MessagesPerSecond messagesPerSecond = 9;
 }
