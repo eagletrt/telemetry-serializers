@@ -1,7 +1,7 @@
-#ifndef CIRCUIT_H
-#define CIRCUIT_H
+#ifndef LAPCOUNTER_H
+#define LAPCOUNTER_H
 
-#include "circuit.pb.h"
+#include "lapcounter.pb.h"
 
 #include <cstdint>
 #include <string>
@@ -51,6 +51,40 @@ struct Circuit
     Circuit() = default;
     Circuit(const PbLapCounter::Circuit& protobuf);
     operator PbLapCounter::Circuit() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
+struct Lap
+{
+    int32_t number;
+    uint64_t startTimestamp;
+    uint64_t endTimestamp;
+    std::vector<uint64_t> sectorsTimestamps;
+    
+    Lap() = default;
+    Lap(const PbLapCounter::Lap& protobuf);
+    operator PbLapCounter::Lap() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
+struct Race
+{
+    std::string raceId;
+    std::string circuitId;
+    std::string driverId;
+    std::vector<Lap> laps;
+    
+    Race() = default;
+    Race(const PbLapCounter::Race& protobuf);
+    operator PbLapCounter::Race() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

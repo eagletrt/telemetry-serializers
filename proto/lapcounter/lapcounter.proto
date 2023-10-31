@@ -20,3 +20,19 @@ message Circuit
 	repeated Line checksLines = 2;
 	repeated Line sectorsLines = 3;
 }
+
+message Lap
+{
+	int32 number = 1;
+	uint64 startTimestamp = 2;
+	uint64 endTimestamp = 3;
+	repeated uint64 sectorsTimestamps = 4;
+}
+
+message Race
+{
+	string raceId = 1;
+	string circuitId = 2;
+	string driverId = 3;
+	repeated Lap laps = 4;
+}
