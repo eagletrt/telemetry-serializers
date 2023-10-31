@@ -51,7 +51,7 @@ message AppConfig
     uint32 mode = 3;
     bool csvAutoSave = 4;
     Connection connection = 5;
-    repeated Connection savedConnections = 6;
+    map<string, Connection> savedConnections = 6;
     repeated string activeTabs = 7;
     repeated Event events = 8;
     repeated CustomPlot customPlots = 9;

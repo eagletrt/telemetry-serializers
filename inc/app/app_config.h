@@ -115,7 +115,7 @@ struct AppConfig
     uint32_t mode;
     bool csvAutoSave;
     Connection connection;
-    std::vector<Connection> savedConnections;
+    std::unordered_map<std::string, Connection> savedConnections;
     std::vector<std::string> activeTabs;
     std::vector<Event> events;
     std::vector<CustomPlot> customPlots;
