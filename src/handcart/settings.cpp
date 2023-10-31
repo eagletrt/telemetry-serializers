@@ -12,7 +12,7 @@ Settings::Settings(const PbHandcart::Settings& protobuf) {
     fansOverride = protobuf.fansoverride();
     fansSpeed = protobuf.fansspeed();
     accChargeCurrent = protobuf.accchargecurrent();
-    girdMaxCurrent = protobuf.girdmaxcurrent();
+    gridMaxCurrent = protobuf.gridmaxcurrent();
 }
 
 Settings::operator PbHandcart::Settings() const {
@@ -22,7 +22,7 @@ Settings::operator PbHandcart::Settings() const {
     ret.set_fansoverride(fansOverride);
     ret.set_fansspeed(fansSpeed);
     ret.set_accchargecurrent(accChargeCurrent);
-    ret.set_girdmaxcurrent(girdMaxCurrent);
+    ret.set_gridmaxcurrent(gridMaxCurrent);
     return ret;
 }
 

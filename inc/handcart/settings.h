@@ -19,7 +19,7 @@ struct Settings
     bool fansOverride;
     double fansSpeed;
     double accChargeCurrent;
-    double girdMaxCurrent;
+    double gridMaxCurrent;
     
     Settings() = default;
     Settings(const PbHandcart::Settings& protobuf);

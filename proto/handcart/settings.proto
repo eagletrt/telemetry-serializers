@@ -9,5 +9,5 @@ message Settings
     bool fansOverride = 3;
     double fansSpeed = 4;
     double accChargeCurrent = 5;
-    double girdMaxCurrent = 6;
+    double gridMaxCurrent = 6;
 }
