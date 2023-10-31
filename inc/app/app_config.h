@@ -12,21 +12,6 @@ namespace Serializers
 {
 namespace App
 {
-struct Device
-{
-    std::string vehicleId;
-    std::string deviceId;
-    
-    Device() = default;
-    Device(const PbApp::Device& protobuf);
-    operator PbApp::Device() const;
-
-    std::string serializeAsJsonString() const;
-    std::string serializeAsProtobufString() const;
-    bool deserializeFromJsonString(const std::string& str);
-    bool deserializeFromProtobufString(const std::string& str);
-};
-
 struct Connection
 {
     std::string ip;
@@ -131,7 +116,7 @@ struct AppConfig
     bool csvAutoSave;
     Connection connection;
     std::vector<Connection> savedConnections;
-    std::vector<Device> devices;
+    std::vector<std::string> activeTabs;
     std::vector<Event> events;
     std::vector<CustomPlot> customPlots;
     std::unordered_map<std::string, std::string> filesPaths;

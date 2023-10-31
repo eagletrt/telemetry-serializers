@@ -6,53 +6,6 @@ namespace Serializers
 {
 namespace App
 {
-Device::Device(const PbApp::Device& protobuf) {
-    vehicleId = protobuf.vehicleid();
-    deviceId = protobuf.deviceid();
-}
-
-Device::operator PbApp::Device() const {
-    PbApp::Device ret;
-    ret.set_vehicleid(vehicleId);
-    ret.set_deviceid(deviceId);
-    return ret;
-}
-
-std::string Device::serializeAsJsonString() const {
-    PbApp::Device protobuf(*this);
-    std::string ret;
-    google::protobuf::util::JsonPrintOptions options;
-    options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
-    return ret;
-}
-
-std::string Device::serializeAsProtobufString() const {
-    PbApp::Device protobuf(*this);
-    return protobuf.SerializeAsString();
-}
-
-bool Device::deserializeFromJsonString(const std::string& str) {
-    PbApp::Device protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
-    if(status.ok()) {
-        *this = protobuf;
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool Device::deserializeFromProtobufString(const std::string& str) {
-    PbApp::Device protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
-        return true;
-    } else {
-        return false;
-    }
-}
-
 Connection::Connection(const PbApp::Connection& protobuf) {
     ip = protobuf.ip();
     port = protobuf.port();
@@ -354,7 +307,7 @@ AppConfig::AppConfig(const PbApp::AppConfig& protobuf) {
     csvAutoSave = protobuf.csvautosave();
     connection = protobuf.connection();
     savedConnections = {protobuf.savedconnections().begin(), protobuf.savedconnections().end()};
-    devices = {protobuf.devices().begin(), protobuf.devices().end()};
+    activeTabs = {protobuf.activetabs().begin(), protobuf.activetabs().end()};
     events = {protobuf.events().begin(), protobuf.events().end()};
     customPlots = {protobuf.customplots().begin(), protobuf.customplots().end()};
     filesPaths = {protobuf.filespaths().begin(), protobuf.filespaths().end()};
@@ -369,7 +322,7 @@ AppConfig::operator PbApp::AppConfig() const {
     ret.set_csvautosave(csvAutoSave);
     *(ret.mutable_connection()) = connection;
     *(ret.mutable_savedconnections()) = {savedConnections.begin(), savedConnections.end()};
-    *(ret.mutable_devices()) = {devices.begin(), devices.end()};
+    *(ret.mutable_activetabs()) = {activeTabs.begin(), activeTabs.end()};
     *(ret.mutable_events()) = {events.begin(), events.end()};
     *(ret.mutable_customplots()) = {customPlots.begin(), customPlots.end()};
     *(ret.mutable_filespaths()) = {filesPaths.begin(), filesPaths.end()};

@@ -2,12 +2,6 @@ syntax = "proto3";
 
 package PbApp;
 
-message Device
-{
-    string vehicleId = 1;
-    string deviceId = 2;
-}
-
 message Connection
 {
     string ip = 1;
@@ -58,7 +52,7 @@ message AppConfig
     bool csvAutoSave = 4;
     Connection connection = 5;
     repeated Connection savedConnections = 6;
-    repeated Device devices = 7;    
+    repeated string activeTabs = 7;
     repeated Event events = 8;
     repeated CustomPlot customPlots = 9;
     map<string, string> filesPaths = 10;  
