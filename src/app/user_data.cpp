@@ -9,7 +9,7 @@ namespace App
 UserData::UserData(const PbApp::UserData& protobuf) {
     username = protobuf.username();
     token = protobuf.token();
-    refresh_token = protobuf.refresh_token();
+    refreshToken = protobuf.refreshtoken();
     expiry = protobuf.expiry();
     role = protobuf.role();
 }
@@ -18,7 +18,7 @@ UserData::operator PbApp::UserData() const {
     PbApp::UserData ret;
     ret.set_username(username);
     ret.set_token(token);
-    ret.set_refresh_token(refresh_token);
+    ret.set_refreshtoken(refreshToken);
     ret.set_expiry(expiry);
     ret.set_role(role);
     return ret;

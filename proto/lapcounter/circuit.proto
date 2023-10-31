@@ -8,10 +8,15 @@ message Vector
 	double y = 2;
 }
 
+message Line
+{
+	Vector position = 1;
+	Vector direction = 2;
+}
+
 message Circuit
 {
-	Vector startPosition = 1;
-	Vector startDirection = 2;
-	repeated Vector sectorsPositions = 3;
-	repeated Vector sectorsDirections = 4;
+	string circuitId = 1;
+	repeated Line checksLines = 2;
+	repeated Line sectorsLines = 3;
 }

@@ -54,10 +54,10 @@ bool Weather::deserializeFromProtobufString(const std::string& str) {
 }
 
 SessionConfig::SessionConfig(const PbConfigs::SessionConfig& protobuf) {
-    circuit = protobuf.circuit();
-    driver = protobuf.driver();
-    race = protobuf.race();
+    circuitId = protobuf.circuitid();
+    raceId = protobuf.raceid();
     test = protobuf.test();
+    driverId = protobuf.driverid();
     date = protobuf.date();
     time = protobuf.time();
     weather = protobuf.weather();
@@ -67,10 +67,10 @@ SessionConfig::SessionConfig(const PbConfigs::SessionConfig& protobuf) {
 
 SessionConfig::operator PbConfigs::SessionConfig() const {
     PbConfigs::SessionConfig ret;
-    ret.set_circuit(circuit);
-    ret.set_driver(driver);
-    ret.set_race(race);
+    ret.set_circuitid(circuitId);
+    ret.set_raceid(raceId);
     ret.set_test(test);
+    ret.set_driverid(driverId);
     ret.set_date(date);
     ret.set_time(time);
     *(ret.mutable_weather()) = weather;

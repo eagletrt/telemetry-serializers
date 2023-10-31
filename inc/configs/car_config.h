@@ -59,21 +59,6 @@ struct Damper
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct Driver
-{
-    std::string name;
-    double weight;
-    
-    Driver() = default;
-    Driver(const PbConfigs::Driver& protobuf);
-    operator PbConfigs::Driver() const;
-
-    std::string serializeAsJsonString() const;
-    std::string serializeAsProtobufString() const;
-    bool deserializeFromJsonString(const std::string& str);
-    bool deserializeFromProtobufString(const std::string& str);
-};
-
 struct CarConfig
 {
     Aero aero;
@@ -81,7 +66,6 @@ struct CarConfig
     Wheel wheelRear;
     Damper damperFront;
     Damper damperRear;
-    Driver driver;
     std::string wheelCompound;
     double rideHeight;
     std::string balancing;

@@ -22,12 +22,6 @@ message Damper
     double preload = 3;
 }
 
-message Driver
-{
-    string name = 1;
-    double weight = 2;
-}
-
 message CarConfig
 {
     Aero aero = 1;
@@ -35,9 +29,8 @@ message CarConfig
     Wheel wheelRear = 3;
     Damper damperFront = 4;
     Damper damperRear = 5;
-    Driver driver = 6;
-    string wheelCompound = 7;
-    double rideHeight = 8;
-    string balancing = 9;
-    string notes = 10;
+    string wheelCompound = 6;
+    double rideHeight = 7;
+    string balancing = 8;
+    string notes = 9;
 }

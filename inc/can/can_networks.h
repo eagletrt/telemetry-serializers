@@ -1,7 +1,7 @@
-#ifndef CIRCUIT_H
-#define CIRCUIT_H
+#ifndef CAN_NETWORKS_H
+#define CAN_NETWORKS_H
 
-#include "circuit.pb.h"
+#include "can_networks.pb.h"
 
 #include <cstdint>
 #include <string>
@@ -10,16 +10,19 @@
 
 namespace Serializers
 {
-namespace LapCounter
+namespace Can
 {
-struct Vector
+struct CanMessage
 {
-    double x;
-    double y;
+    uint64_t id;
+    std::string name;
+    uint64_t data;
+    uint64_t timestamp;
+    uint64_t frequency;
     
-    Vector() = default;
-    Vector(const PbLapCounter::Vector& protobuf);
-    operator PbLapCounter::Vector() const;
+    CanMessage() = default;
+    CanMessage(const PbCan::CanMessage& protobuf);
+    operator PbCan::CanMessage() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -27,14 +30,14 @@ struct Vector
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct Line
+struct CanNetwork
 {
-    Vector position;
-    Vector direction;
+    std::string name;
+    std::vector<CanMessage> canMessages;
     
-    Line() = default;
-    Line(const PbLapCounter::Line& protobuf);
-    operator PbLapCounter::Line() const;
+    CanNetwork() = default;
+    CanNetwork(const PbCan::CanNetwork& protobuf);
+    operator PbCan::CanNetwork() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -42,15 +45,14 @@ struct Line
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct Circuit
+struct CanNetworks
 {
-    std::string circuitId;
-    std::vector<Line> checksLines;
-    std::vector<Line> sectorsLines;
+    uint64_t timestamp;
+    std::vector<CanNetwork> networks;
     
-    Circuit() = default;
-    Circuit(const PbLapCounter::Circuit& protobuf);
-    operator PbLapCounter::Circuit() const;
+    CanNetworks() = default;
+    CanNetworks(const PbCan::CanNetworks& protobuf);
+    operator PbCan::CanNetworks() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

@@ -151,60 +151,12 @@ bool Damper::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
-Driver::Driver(const PbConfigs::Driver& protobuf) {
-    name = protobuf.name();
-    weight = protobuf.weight();
-}
-
-Driver::operator PbConfigs::Driver() const {
-    PbConfigs::Driver ret;
-    ret.set_name(name);
-    ret.set_weight(weight);
-    return ret;
-}
-
-std::string Driver::serializeAsJsonString() const {
-    PbConfigs::Driver protobuf(*this);
-    std::string ret;
-    google::protobuf::util::JsonPrintOptions options;
-    options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
-    return ret;
-}
-
-std::string Driver::serializeAsProtobufString() const {
-    PbConfigs::Driver protobuf(*this);
-    return protobuf.SerializeAsString();
-}
-
-bool Driver::deserializeFromJsonString(const std::string& str) {
-    PbConfigs::Driver protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
-    if(status.ok()) {
-        *this = protobuf;
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool Driver::deserializeFromProtobufString(const std::string& str) {
-    PbConfigs::Driver protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
-        return true;
-    } else {
-        return false;
-    }
-}
-
 CarConfig::CarConfig(const PbConfigs::CarConfig& protobuf) {
     aero = protobuf.aero();
     wheelFront = protobuf.wheelfront();
     wheelRear = protobuf.wheelrear();
     damperFront = protobuf.damperfront();
     damperRear = protobuf.damperrear();
-    driver = protobuf.driver();
     wheelCompound = protobuf.wheelcompound();
     rideHeight = protobuf.rideheight();
     balancing = protobuf.balancing();
@@ -218,7 +170,6 @@ CarConfig::operator PbConfigs::CarConfig() const {
     *(ret.mutable_wheelrear()) = wheelRear;
     *(ret.mutable_damperfront()) = damperFront;
     *(ret.mutable_damperrear()) = damperRear;
-    *(ret.mutable_driver()) = driver;
     ret.set_wheelcompound(wheelCompound);
     ret.set_rideheight(rideHeight);
     ret.set_balancing(balancing);

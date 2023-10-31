@@ -4,14 +4,16 @@ package PbLapCounter;
 
 message Lap
 {
-	uint64 timestamp = 1;
-	int32 number = 2;
-	double time = 3;
-	repeated double sectorTimes = 4;
+	int32 number = 1;
+	uint64 startTimestamp = 2;
+	uint64 endTimestamp = 3;
+	repeated uint64 sectorsTimestamps = 4;
 }
 
 message Race
 {
-	Lap bestLap = 1;
-	repeated Lap laps = 2;
+	string raceId = 1;
+	string circuitId = 2;
+	string driverId = 3;
+	repeated Lap laps = 4;
 }

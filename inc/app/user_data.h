@@ -16,7 +16,7 @@ struct UserData
 {
     std::string username;
     std::string token;
-    std::string refresh_token;
+    std::string refreshToken;
     double expiry;
     uint64_t role;
     

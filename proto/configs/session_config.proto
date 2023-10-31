@@ -10,10 +10,10 @@ message Weather
 
 message SessionConfig
 {
-    string circuit = 1;
-    string driver = 2;
-    string race = 3;
-    string test = 4;
+    string circuitId = 1;
+    string raceId = 2;
+    string test = 3;
+    string driverId = 4;
     string date = 5;
     string time = 6;
     Weather weather = 7;

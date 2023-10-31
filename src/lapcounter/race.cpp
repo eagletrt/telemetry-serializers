@@ -7,18 +7,18 @@ namespace Serializers
 namespace LapCounter
 {
 Lap::Lap(const PbLapCounter::Lap& protobuf) {
-    timestamp = protobuf.timestamp();
     number = protobuf.number();
-    time = protobuf.time();
-    sectorTimes = {protobuf.sectortimes().begin(), protobuf.sectortimes().end()};
+    startTimestamp = protobuf.starttimestamp();
+    endTimestamp = protobuf.endtimestamp();
+    sectorsTimestamps = {protobuf.sectorstimestamps().begin(), protobuf.sectorstimestamps().end()};
 }
 
 Lap::operator PbLapCounter::Lap() const {
     PbLapCounter::Lap ret;
-    ret.set_timestamp(timestamp);
     ret.set_number(number);
-    ret.set_time(time);
-    *(ret.mutable_sectortimes()) = {sectorTimes.begin(), sectorTimes.end()};
+    ret.set_starttimestamp(startTimestamp);
+    ret.set_endtimestamp(endTimestamp);
+    *(ret.mutable_sectorstimestamps()) = {sectorsTimestamps.begin(), sectorsTimestamps.end()};
     return ret;
 }
 
@@ -58,13 +58,17 @@ bool Lap::deserializeFromProtobufString(const std::string& str) {
 }
 
 Race::Race(const PbLapCounter::Race& protobuf) {
-    bestLap = protobuf.bestlap();
+    raceId = protobuf.raceid();
+    circuitId = protobuf.circuitid();
+    driverId = protobuf.driverid();
     laps = {protobuf.laps().begin(), protobuf.laps().end()};
 }
 
 Race::operator PbLapCounter::Race() const {
     PbLapCounter::Race ret;
-    *(ret.mutable_bestlap()) = bestLap;
+    ret.set_raceid(raceId);
+    ret.set_circuitid(circuitId);
+    ret.set_driverid(driverId);
     *(ret.mutable_laps()) = {laps.begin(), laps.end()};
     return ret;
 }

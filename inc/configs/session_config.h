@@ -29,10 +29,10 @@ struct Weather
 
 struct SessionConfig
 {
-    std::string circuit;
-    std::string driver;
-    std::string race;
+    std::string circuitId;
+    std::string raceId;
     std::string test;
+    std::string driverId;
     std::string date;
     std::string time;
     Weather weather;

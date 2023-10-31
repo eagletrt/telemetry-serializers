@@ -14,10 +14,10 @@ namespace LapCounter
 {
 struct Lap
 {
-    uint64_t timestamp;
     int32_t number;
-    double time;
-    std::vector<double> sectorTimes;
+    uint64_t startTimestamp;
+    uint64_t endTimestamp;
+    std::vector<uint64_t> sectorsTimestamps;
     
     Lap() = default;
     Lap(const PbLapCounter::Lap& protobuf);
@@ -31,7 +31,9 @@ struct Lap
 
 struct Race
 {
-    Lap bestLap;
+    std::string raceId;
+    std::string circuitId;
+    std::string driverId;
     std::vector<Lap> laps;
     
     Race() = default;
