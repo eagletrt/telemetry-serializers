@@ -1,4 +1,4 @@
-#include "can/can_networks.h"
+#include "can/can_frequencies.h"
 
 #include <google/protobuf/util/json_util.h>
 
@@ -6,26 +6,26 @@ namespace Serializers
 {
 namespace Can
 {
-CanMessage::CanMessage(const PbCan::CanMessage& protobuf) {
+CanFrequency::CanFrequency(const PbCan::CanFrequency& protobuf) {
+    timestamp = protobuf.timestamp();
     id = protobuf.id();
     name = protobuf.name();
     data = protobuf.data();
-    timestamp = protobuf.timestamp();
     frequency = protobuf.frequency();
 }
 
-CanMessage::operator PbCan::CanMessage() const {
-    PbCan::CanMessage ret;
+CanFrequency::operator PbCan::CanFrequency() const {
+    PbCan::CanFrequency ret;
+    ret.set_timestamp(timestamp);
     ret.set_id(id);
     ret.set_name(name);
     ret.set_data(data);
-    ret.set_timestamp(timestamp);
     ret.set_frequency(frequency);
     return ret;
 }
 
-std::string CanMessage::serializeAsJsonString() const {
-    PbCan::CanMessage protobuf(*this);
+std::string CanFrequency::serializeAsJsonString() const {
+    PbCan::CanFrequency protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
@@ -33,13 +33,13 @@ std::string CanMessage::serializeAsJsonString() const {
     return ret;
 }
 
-std::string CanMessage::serializeAsProtobufString() const {
-    PbCan::CanMessage protobuf(*this);
+std::string CanFrequency::serializeAsProtobufString() const {
+    PbCan::CanFrequency protobuf(*this);
     return protobuf.SerializeAsString();
 }
 
-bool CanMessage::deserializeFromJsonString(const std::string& str) {
-    PbCan::CanMessage protobuf;
+bool CanFrequency::deserializeFromJsonString(const std::string& str) {
+    PbCan::CanFrequency protobuf;
     auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
         *this = protobuf;
@@ -49,8 +49,8 @@ bool CanMessage::deserializeFromJsonString(const std::string& str) {
     }
 }
 
-bool CanMessage::deserializeFromProtobufString(const std::string& str) {
-    PbCan::CanMessage protobuf;
+bool CanFrequency::deserializeFromProtobufString(const std::string& str) {
+    PbCan::CanFrequency protobuf;
     if(protobuf.ParseFromString(str)) {
         *this = protobuf;
         return true;
@@ -59,20 +59,18 @@ bool CanMessage::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
-CanNetwork::CanNetwork(const PbCan::CanNetwork& protobuf) {
-    name = protobuf.name();
-    canMessages = {protobuf.canmessages().begin(), protobuf.canmessages().end()};
+CanFrequencies::CanFrequencies(const PbCan::CanFrequencies& protobuf) {
+    frequencies = {protobuf.frequencies().begin(), protobuf.frequencies().end()};
 }
 
-CanNetwork::operator PbCan::CanNetwork() const {
-    PbCan::CanNetwork ret;
-    ret.set_name(name);
-    *(ret.mutable_canmessages()) = {canMessages.begin(), canMessages.end()};
+CanFrequencies::operator PbCan::CanFrequencies() const {
+    PbCan::CanFrequencies ret;
+    *(ret.mutable_frequencies()) = {frequencies.begin(), frequencies.end()};
     return ret;
 }
 
-std::string CanNetwork::serializeAsJsonString() const {
-    PbCan::CanNetwork protobuf(*this);
+std::string CanFrequencies::serializeAsJsonString() const {
+    PbCan::CanFrequencies protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
@@ -80,13 +78,13 @@ std::string CanNetwork::serializeAsJsonString() const {
     return ret;
 }
 
-std::string CanNetwork::serializeAsProtobufString() const {
-    PbCan::CanNetwork protobuf(*this);
+std::string CanFrequencies::serializeAsProtobufString() const {
+    PbCan::CanFrequencies protobuf(*this);
     return protobuf.SerializeAsString();
 }
 
-bool CanNetwork::deserializeFromJsonString(const std::string& str) {
-    PbCan::CanNetwork protobuf;
+bool CanFrequencies::deserializeFromJsonString(const std::string& str) {
+    PbCan::CanFrequencies protobuf;
     auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
         *this = protobuf;
@@ -96,8 +94,8 @@ bool CanNetwork::deserializeFromJsonString(const std::string& str) {
     }
 }
 
-bool CanNetwork::deserializeFromProtobufString(const std::string& str) {
-    PbCan::CanNetwork protobuf;
+bool CanFrequencies::deserializeFromProtobufString(const std::string& str) {
+    PbCan::CanFrequencies protobuf;
     if(protobuf.ParseFromString(str)) {
         *this = protobuf;
         return true;
@@ -106,20 +104,20 @@ bool CanNetwork::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
-CanNetworks::CanNetworks(const PbCan::CanNetworks& protobuf) {
+CanNetworksFrequencies::CanNetworksFrequencies(const PbCan::CanNetworksFrequencies& protobuf) {
     timestamp = protobuf.timestamp();
     networks = {protobuf.networks().begin(), protobuf.networks().end()};
 }
 
-CanNetworks::operator PbCan::CanNetworks() const {
-    PbCan::CanNetworks ret;
+CanNetworksFrequencies::operator PbCan::CanNetworksFrequencies() const {
+    PbCan::CanNetworksFrequencies ret;
     ret.set_timestamp(timestamp);
     *(ret.mutable_networks()) = {networks.begin(), networks.end()};
     return ret;
 }
 
-std::string CanNetworks::serializeAsJsonString() const {
-    PbCan::CanNetworks protobuf(*this);
+std::string CanNetworksFrequencies::serializeAsJsonString() const {
+    PbCan::CanNetworksFrequencies protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
@@ -127,13 +125,13 @@ std::string CanNetworks::serializeAsJsonString() const {
     return ret;
 }
 
-std::string CanNetworks::serializeAsProtobufString() const {
-    PbCan::CanNetworks protobuf(*this);
+std::string CanNetworksFrequencies::serializeAsProtobufString() const {
+    PbCan::CanNetworksFrequencies protobuf(*this);
     return protobuf.SerializeAsString();
 }
 
-bool CanNetworks::deserializeFromJsonString(const std::string& str) {
-    PbCan::CanNetworks protobuf;
+bool CanNetworksFrequencies::deserializeFromJsonString(const std::string& str) {
+    PbCan::CanNetworksFrequencies protobuf;
     auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
         *this = protobuf;
@@ -143,8 +141,8 @@ bool CanNetworks::deserializeFromJsonString(const std::string& str) {
     }
 }
 
-bool CanNetworks::deserializeFromProtobufString(const std::string& str) {
-    PbCan::CanNetworks protobuf;
+bool CanNetworksFrequencies::deserializeFromProtobufString(const std::string& str) {
+    PbCan::CanNetworksFrequencies protobuf;
     if(protobuf.ParseFromString(str)) {
         *this = protobuf;
         return true;

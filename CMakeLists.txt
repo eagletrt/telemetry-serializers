@@ -23,7 +23,7 @@ add_library(
     src/telemetry/statistics.cpp
     src/telemetry/status.cpp
     src/telemetry/error.cpp
-    src/can/can_networks.cpp
+    src/can/can_frequencies.cpp
 )
 
 target_include_directories(

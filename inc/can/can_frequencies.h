@@ -1,7 +1,7 @@
-#ifndef CAN_NETWORKS_H
-#define CAN_NETWORKS_H
+#ifndef CAN_FREQUENCIES_H
+#define CAN_FREQUENCIES_H
 
-#include "can_networks.pb.h"
+#include "can_frequencies.pb.h"
 
 #include <cstdint>
 #include <string>
@@ -12,17 +12,17 @@ namespace Serializers
 {
 namespace Can
 {
-struct CanMessage
+struct CanFrequency
 {
+    uint64_t timestamp;
     uint64_t id;
     std::string name;
     uint64_t data;
-    uint64_t timestamp;
     uint64_t frequency;
     
-    CanMessage() = default;
-    CanMessage(const PbCan::CanMessage& protobuf);
-    operator PbCan::CanMessage() const;
+    CanFrequency() = default;
+    CanFrequency(const PbCan::CanFrequency& protobuf);
+    operator PbCan::CanFrequency() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -30,14 +30,13 @@ struct CanMessage
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct CanNetwork
+struct CanFrequencies
 {
-    std::string name;
-    std::vector<CanMessage> canMessages;
+    std::unordered_map<uint64_t, CanFrequency> frequencies;
     
-    CanNetwork() = default;
-    CanNetwork(const PbCan::CanNetwork& protobuf);
-    operator PbCan::CanNetwork() const;
+    CanFrequencies() = default;
+    CanFrequencies(const PbCan::CanFrequencies& protobuf);
+    operator PbCan::CanFrequencies() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -45,14 +44,14 @@ struct CanNetwork
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct CanNetworks
+struct CanNetworksFrequencies
 {
     uint64_t timestamp;
-    std::vector<CanNetwork> networks;
+    std::unordered_map<std::string, CanFrequencies> networks;
     
-    CanNetworks() = default;
-    CanNetworks(const PbCan::CanNetworks& protobuf);
-    operator PbCan::CanNetworks() const;
+    CanNetworksFrequencies() = default;
+    CanNetworksFrequencies(const PbCan::CanNetworksFrequencies& protobuf);
+    operator PbCan::CanNetworksFrequencies() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

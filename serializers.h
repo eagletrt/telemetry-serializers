@@ -14,6 +14,6 @@
 #include "telemetry/statistics.h"
 #include "telemetry/status.h"
 #include "telemetry/error.h"
-#include "can/can_networks.h"
+#include "can/can_frequencies.h"
 
 #endif
