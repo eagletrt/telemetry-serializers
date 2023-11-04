@@ -113,14 +113,14 @@ struct AppConfig
     uint64_t loginTimestamp;
     uint32_t colorTheme;
     uint32_t mode;
-    bool csvAutoSave;
     Connection connection;
     std::unordered_map<std::string, Connection> savedConnections;
     std::vector<std::string> activeTabs;
     std::vector<Event> events;
     std::vector<CustomPlot> customPlots;
     std::unordered_map<std::string, std::string> filesPaths;
-    std::unordered_map<std::string, std::string> cacheMap;
+    std::unordered_map<std::string, std::string> stringCache;
+    std::unordered_map<std::string, bool> boolCache;
     
     AppConfig() = default;
     AppConfig(const PbApp::AppConfig& protobuf);

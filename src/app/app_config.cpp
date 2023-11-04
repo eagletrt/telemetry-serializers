@@ -304,14 +304,14 @@ AppConfig::AppConfig(const PbApp::AppConfig& protobuf) {
     loginTimestamp = protobuf.logintimestamp();
     colorTheme = protobuf.colortheme();
     mode = protobuf.mode();
-    csvAutoSave = protobuf.csvautosave();
     connection = protobuf.connection();
     savedConnections = {protobuf.savedconnections().begin(), protobuf.savedconnections().end()};
     activeTabs = {protobuf.activetabs().begin(), protobuf.activetabs().end()};
     events = {protobuf.events().begin(), protobuf.events().end()};
     customPlots = {protobuf.customplots().begin(), protobuf.customplots().end()};
     filesPaths = {protobuf.filespaths().begin(), protobuf.filespaths().end()};
-    cacheMap = {protobuf.cachemap().begin(), protobuf.cachemap().end()};
+    stringCache = {protobuf.stringcache().begin(), protobuf.stringcache().end()};
+    boolCache = {protobuf.boolcache().begin(), protobuf.boolcache().end()};
 }
 
 AppConfig::operator PbApp::AppConfig() const {
@@ -319,14 +319,14 @@ AppConfig::operator PbApp::AppConfig() const {
     ret.set_logintimestamp(loginTimestamp);
     ret.set_colortheme(colorTheme);
     ret.set_mode(mode);
-    ret.set_csvautosave(csvAutoSave);
     *(ret.mutable_connection()) = connection;
     *(ret.mutable_savedconnections()) = {savedConnections.begin(), savedConnections.end()};
     *(ret.mutable_activetabs()) = {activeTabs.begin(), activeTabs.end()};
     *(ret.mutable_events()) = {events.begin(), events.end()};
     *(ret.mutable_customplots()) = {customPlots.begin(), customPlots.end()};
     *(ret.mutable_filespaths()) = {filesPaths.begin(), filesPaths.end()};
-    *(ret.mutable_cachemap()) = {cacheMap.begin(), cacheMap.end()};
+    *(ret.mutable_stringcache()) = {stringCache.begin(), stringCache.end()};
+    *(ret.mutable_boolcache()) = {boolCache.begin(), boolCache.end()};
     return ret;
 }
 

@@ -49,12 +49,12 @@ message AppConfig
     uint64 loginTimestamp = 1;
     uint32 colorTheme = 2;
     uint32 mode = 3;
-    bool csvAutoSave = 4;
-    Connection connection = 5;
-    map<string, Connection> savedConnections = 6;
-    repeated string activeTabs = 7;
-    repeated Event events = 8;
-    repeated CustomPlot customPlots = 9;
-    map<string, string> filesPaths = 10;  
-    map<string, string> cacheMap = 11;
+    Connection connection = 4;
+    map<string, Connection> savedConnections = 5;
+    repeated string activeTabs = 6;
+    repeated Event events = 7;
+    repeated CustomPlot customPlots = 8;
+    map<string, string> filesPaths = 9;  
+    map<string, string> stringCache = 10;
+    map<string, bool> boolCache = 11;
 }
