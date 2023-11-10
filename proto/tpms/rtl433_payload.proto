@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package Pbtpms;
+
+message Rtl433Payload
+{
+    string model        = 1;
+    int32  id           = 2;
+    double pressure     = 3;
+    uint32 temperature  = 4;
+    uint32 acceleration = 5;
+    uint32 battery      = 6;
+    uint32 interframe   = 7;
+    uint32 wo_state     = 8;
+    uint32 checksum     = 9;
+    string mic          = 10;
+}

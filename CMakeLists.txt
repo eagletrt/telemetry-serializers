@@ -21,6 +21,7 @@ add_library(
     src/telemetry/status.cpp
     src/telemetry/statistics.cpp
     src/telemetry/login_data.cpp
+    src/tpms/rtl433_payload.cpp
     src/configs/session_config.cpp
     src/configs/car_config.cpp
     src/configs/telemetry_config.cpp
