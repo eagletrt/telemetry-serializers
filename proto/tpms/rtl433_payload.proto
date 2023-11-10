@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Pbtpms;
+package PbTPMS;
 
 message Rtl433Payload
 {

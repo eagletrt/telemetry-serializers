@@ -4,9 +4,9 @@
 
 namespace Serializers
 {
-namespace tpms
+namespace TPMS
 {
-Rtl433Payload::Rtl433Payload(const Pbtpms::Rtl433Payload& protobuf) {
+Rtl433Payload::Rtl433Payload(const PbTPMS::Rtl433Payload& protobuf) {
     model = protobuf.model();
     id = protobuf.id();
     pressure = protobuf.pressure();
@@ -19,8 +19,8 @@ Rtl433Payload::Rtl433Payload(const Pbtpms::Rtl433Payload& protobuf) {
     mic = protobuf.mic();
 }
 
-Rtl433Payload::operator Pbtpms::Rtl433Payload() const {
-    Pbtpms::Rtl433Payload ret;
+Rtl433Payload::operator PbTPMS::Rtl433Payload() const {
+    PbTPMS::Rtl433Payload ret;
     ret.set_model(model);
     ret.set_id(id);
     ret.set_pressure(pressure);
@@ -35,7 +35,7 @@ Rtl433Payload::operator Pbtpms::Rtl433Payload() const {
 }
 
 std::string Rtl433Payload::serializeAsJsonString() const {
-    Pbtpms::Rtl433Payload protobuf(*this);
+    PbTPMS::Rtl433Payload protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
@@ -44,12 +44,12 @@ std::string Rtl433Payload::serializeAsJsonString() const {
 }
 
 std::string Rtl433Payload::serializeAsProtobufString() const {
-    Pbtpms::Rtl433Payload protobuf(*this);
+    PbTPMS::Rtl433Payload protobuf(*this);
     return protobuf.SerializeAsString();
 }
 
 bool Rtl433Payload::deserializeFromJsonString(const std::string& str) {
-    Pbtpms::Rtl433Payload protobuf;
+    PbTPMS::Rtl433Payload protobuf;
     auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
         *this = protobuf;
@@ -60,7 +60,7 @@ bool Rtl433Payload::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Rtl433Payload::deserializeFromProtobufString(const std::string& str) {
-    Pbtpms::Rtl433Payload protobuf;
+    PbTPMS::Rtl433Payload protobuf;
     if(protobuf.ParseFromString(str)) {
         *this = protobuf;
         return true;

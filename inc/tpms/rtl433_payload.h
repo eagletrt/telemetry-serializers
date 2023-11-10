@@ -10,7 +10,7 @@
 
 namespace Serializers
 {
-namespace tpms
+namespace TPMS
 {
 struct Rtl433Payload
 {
@@ -26,8 +26,8 @@ struct Rtl433Payload
     std::string mic;
     
     Rtl433Payload() = default;
-    Rtl433Payload(const Pbtpms::Rtl433Payload& protobuf);
-    operator Pbtpms::Rtl433Payload() const;
+    Rtl433Payload(const PbTPMS::Rtl433Payload& protobuf);
+    operator PbTPMS::Rtl433Payload() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
