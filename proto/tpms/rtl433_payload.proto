@@ -4,14 +4,15 @@ package PbTPMS;
 
 message Rtl433Payload
 {
-    string model        = 1;
-    int32  id           = 2;
-    double pressure     = 3;
-    uint32 temperature  = 4;
-    uint32 acceleration = 5;
-    uint32 battery      = 6;
-    uint32 interframe   = 7;
-    uint32 wo_state     = 8;
-    uint32 checksum     = 9;
-    string mic          = 10;
+    string time         = 1;
+    string model        = 2;
+    int32  id           = 3;
+    double pressure     = 4;
+    uint32 temperature  = 5;
+    uint32 acceleration = 6;
+    uint32 battery      = 7;
+    uint32 interframe   = 8;
+    uint32 wo_state     = 9;
+    uint32 checksum     = 10;
+    string mic          = 11;
 }

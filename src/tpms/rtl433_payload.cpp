@@ -7,6 +7,7 @@ namespace Serializers
 namespace TPMS
 {
 Rtl433Payload::Rtl433Payload(const PbTPMS::Rtl433Payload& protobuf) {
+    time = protobuf.time();
     model = protobuf.model();
     id = protobuf.id();
     pressure = protobuf.pressure();
@@ -21,6 +22,7 @@ Rtl433Payload::Rtl433Payload(const PbTPMS::Rtl433Payload& protobuf) {
 
 Rtl433Payload::operator PbTPMS::Rtl433Payload() const {
     PbTPMS::Rtl433Payload ret;
+    ret.set_time(time);
     ret.set_model(model);
     ret.set_id(id);
     ret.set_pressure(pressure);
