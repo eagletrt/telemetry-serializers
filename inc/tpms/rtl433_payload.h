@@ -17,7 +17,7 @@ struct Rtl433Payload
     std::string time;
     std::string model;
     int32_t id;
-    double pressure;
+    uint32_t pressure;
     uint32_t temperature;
     uint32_t acceleration;
     uint32_t battery;

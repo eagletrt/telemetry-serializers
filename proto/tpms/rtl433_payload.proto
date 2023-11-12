@@ -7,7 +7,7 @@ message Rtl433Payload
     string time         = 1;
     string model        = 2;
     int32  id           = 3;
-    double pressure     = 4;
+    uint32 pressure     = 4;
     uint32 temperature  = 5;
     uint32 acceleration = 6;
     uint32 battery      = 7;
