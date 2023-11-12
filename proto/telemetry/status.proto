@@ -24,7 +24,8 @@ message Status
     uint64 cpuTotalLoad = 4;
     uint64 cpuProcessLoad = 5;
     uint64 memProcessLoad = 6;
-    uint64 canlibVersion = 7;
-    Camera camera = 8;
-    repeated MessagesPerSecond messagesPerSecond = 9;
+    uint64 canlibBuildTime = 7;
+    uint64 telemetryBuildTime = 8;
+    Camera camera = 9;
+    repeated MessagesPerSecond messagesPerSecond = 10;
 }

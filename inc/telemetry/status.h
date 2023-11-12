@@ -52,7 +52,8 @@ struct Status
     uint64_t cpuTotalLoad;
     uint64_t cpuProcessLoad;
     uint64_t memProcessLoad;
-    uint64_t canlibVersion;
+    uint64_t canlibBuildTime;
+    uint64_t telemetryBuildTime;
     Camera camera;
     std::vector<MessagesPerSecond> messagesPerSecond;
     

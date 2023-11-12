@@ -111,7 +111,8 @@ Status::Status(const PbTelemetry::Status& protobuf) {
     cpuTotalLoad = protobuf.cputotalload();
     cpuProcessLoad = protobuf.cpuprocessload();
     memProcessLoad = protobuf.memprocessload();
-    canlibVersion = protobuf.canlibversion();
+    canlibBuildTime = protobuf.canlibbuildtime();
+    telemetryBuildTime = protobuf.telemetrybuildtime();
     camera = protobuf.camera();
     messagesPerSecond = {protobuf.messagespersecond().begin(), protobuf.messagespersecond().end()};
 }
@@ -124,7 +125,8 @@ Status::operator PbTelemetry::Status() const {
     ret.set_cputotalload(cpuTotalLoad);
     ret.set_cpuprocessload(cpuProcessLoad);
     ret.set_memprocessload(memProcessLoad);
-    ret.set_canlibversion(canlibVersion);
+    ret.set_canlibbuildtime(canlibBuildTime);
+    ret.set_telemetrybuildtime(telemetryBuildTime);
     *(ret.mutable_camera()) = camera;
     *(ret.mutable_messagespersecond()) = {messagesPerSecond.begin(), messagesPerSecond.end()};
     return ret;
