@@ -1,6 +1,7 @@
 #ifndef SERIALIZERS_H
 #define SERIALIZERS_H
 
+#include "influxlogger/configuration.h"
 #include "lapcounter/lapcounter.h"
 #include "can/can_frequencies.h"
 #include "handcart/settings.h"

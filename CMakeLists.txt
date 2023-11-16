@@ -10,6 +10,7 @@ add_library(
     ${PROJECT_NAME}
     STATIC
 
+    src/influxlogger/configuration.cpp
     src/lapcounter/lapcounter.cpp
     src/can/can_frequencies.cpp
     src/handcart/settings.cpp
