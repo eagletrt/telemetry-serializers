@@ -15,4 +15,6 @@ message Configuration
     string  influx_orgid  = 9;
     string  influx_token  = 10;
     repeated string networks = 11;
+    optional string proxy_host = 12;
+    optional uint32 proxy_port = 13;
 }

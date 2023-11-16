@@ -18,6 +18,8 @@ Configuration::Configuration(const PbInfluxLogger::Configuration& protobuf) {
     influx_orgid = protobuf.influx_orgid();
     influx_token = protobuf.influx_token();
     networks = {protobuf.networks().begin(), protobuf.networks().end()};
+    proxy_host = protobuf.proxy_host();
+    proxy_port = protobuf.proxy_port();
 }
 
 Configuration::operator PbInfluxLogger::Configuration() const {
@@ -33,6 +35,8 @@ Configuration::operator PbInfluxLogger::Configuration() const {
     ret.set_influx_orgid(influx_orgid);
     ret.set_influx_token(influx_token);
     *(ret.mutable_networks()) = {networks.begin(), networks.end()};
+    ret.set_proxy_host(proxy_host);
+    ret.set_proxy_port(proxy_port);
     return ret;
 }
 

@@ -25,6 +25,8 @@ struct Configuration
     std::string influx_orgid;
     std::string influx_token;
     std::vector<std::string> networks;
+    std::string proxy_host;
+    uint32_t proxy_port;
     
     Configuration() = default;
     Configuration(const PbInfluxLogger::Configuration& protobuf);
