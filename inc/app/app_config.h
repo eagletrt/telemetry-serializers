@@ -67,6 +67,7 @@ struct AxisItem
 {
     std::string message;
     std::string signal;
+    bool isEnum;
     Color color;
     
     AxisItem() = default;

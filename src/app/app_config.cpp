@@ -162,6 +162,7 @@ bool Event::deserializeFromProtobufString(const std::string& str) {
 AxisItem::AxisItem(const PbApp::AxisItem& protobuf) {
     message = protobuf.message();
     signal = protobuf.signal();
+    isEnum = protobuf.isenum();
     color = protobuf.color();
 }
 
@@ -169,6 +170,7 @@ AxisItem::operator PbApp::AxisItem() const {
     PbApp::AxisItem ret;
     ret.set_message(message);
     ret.set_signal(signal);
+    ret.set_isenum(isEnum);
     *(ret.mutable_color()) = color;
     return ret;
 }
