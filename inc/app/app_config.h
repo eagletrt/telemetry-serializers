@@ -63,14 +63,15 @@ struct Event
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct Field
+struct AxisItem
 {
     std::string message;
-    std::string field;
+    std::string signal;
+    Color color;
     
-    Field() = default;
-    Field(const PbApp::Field& protobuf);
-    operator PbApp::Field() const;
+    AxisItem() = default;
+    AxisItem(const PbApp::AxisItem& protobuf);
+    operator PbApp::AxisItem() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -81,7 +82,8 @@ struct Field
 struct Axis
 {
     std::string name;
-    std::vector<Field> fields;
+    uint32_t imAxis;
+    std::vector<AxisItem> items;
     
     Axis() = default;
     Axis(const PbApp::Axis& protobuf);
@@ -96,6 +98,7 @@ struct Axis
 struct CustomPlot
 {
     std::string name;
+    uint32_t index;
     std::vector<Axis> axes;
     
     CustomPlot() = default;

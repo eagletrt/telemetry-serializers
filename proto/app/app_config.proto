@@ -26,22 +26,25 @@ message Event
     Color color = 5;
 }
 
-message Field
+message AxisItem
 {
     string message = 1;
-    string field = 2;
+    string signal = 2;
+    Color color = 3;
 }
 
 message Axis 
 {
     string name = 1;
-    repeated Field fields = 2;
+    uint32 imAxis = 2;
+    repeated AxisItem items = 3;
 }
 
 message CustomPlot
 {
     string name = 1;
-    repeated Axis axes = 2; 
+    uint32 index = 2;
+    repeated Axis axes = 3; 
 }
 
 message AppConfig

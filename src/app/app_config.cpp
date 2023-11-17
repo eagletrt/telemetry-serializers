@@ -159,20 +159,22 @@ bool Event::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
-Field::Field(const PbApp::Field& protobuf) {
+AxisItem::AxisItem(const PbApp::AxisItem& protobuf) {
     message = protobuf.message();
-    field = protobuf.field();
+    signal = protobuf.signal();
+    color = protobuf.color();
 }
 
-Field::operator PbApp::Field() const {
-    PbApp::Field ret;
+AxisItem::operator PbApp::AxisItem() const {
+    PbApp::AxisItem ret;
     ret.set_message(message);
-    ret.set_field(field);
+    ret.set_signal(signal);
+    *(ret.mutable_color()) = color;
     return ret;
 }
 
-std::string Field::serializeAsJsonString() const {
-    PbApp::Field protobuf(*this);
+std::string AxisItem::serializeAsJsonString() const {
+    PbApp::AxisItem protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
@@ -180,13 +182,13 @@ std::string Field::serializeAsJsonString() const {
     return ret;
 }
 
-std::string Field::serializeAsProtobufString() const {
-    PbApp::Field protobuf(*this);
+std::string AxisItem::serializeAsProtobufString() const {
+    PbApp::AxisItem protobuf(*this);
     return protobuf.SerializeAsString();
 }
 
-bool Field::deserializeFromJsonString(const std::string& str) {
-    PbApp::Field protobuf;
+bool AxisItem::deserializeFromJsonString(const std::string& str) {
+    PbApp::AxisItem protobuf;
     auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
         *this = protobuf;
@@ -196,8 +198,8 @@ bool Field::deserializeFromJsonString(const std::string& str) {
     }
 }
 
-bool Field::deserializeFromProtobufString(const std::string& str) {
-    PbApp::Field protobuf;
+bool AxisItem::deserializeFromProtobufString(const std::string& str) {
+    PbApp::AxisItem protobuf;
     if(protobuf.ParseFromString(str)) {
         *this = protobuf;
         return true;
@@ -208,13 +210,15 @@ bool Field::deserializeFromProtobufString(const std::string& str) {
 
 Axis::Axis(const PbApp::Axis& protobuf) {
     name = protobuf.name();
-    fields = {protobuf.fields().begin(), protobuf.fields().end()};
+    imAxis = protobuf.imaxis();
+    items = {protobuf.items().begin(), protobuf.items().end()};
 }
 
 Axis::operator PbApp::Axis() const {
     PbApp::Axis ret;
     ret.set_name(name);
-    *(ret.mutable_fields()) = {fields.begin(), fields.end()};
+    ret.set_imaxis(imAxis);
+    *(ret.mutable_items()) = {items.begin(), items.end()};
     return ret;
 }
 
@@ -255,12 +259,14 @@ bool Axis::deserializeFromProtobufString(const std::string& str) {
 
 CustomPlot::CustomPlot(const PbApp::CustomPlot& protobuf) {
     name = protobuf.name();
+    index = protobuf.index();
     axes = {protobuf.axes().begin(), protobuf.axes().end()};
 }
 
 CustomPlot::operator PbApp::CustomPlot() const {
     PbApp::CustomPlot ret;
     ret.set_name(name);
+    ret.set_index(index);
     *(ret.mutable_axes()) = {axes.begin(), axes.end()};
     return ret;
 }
