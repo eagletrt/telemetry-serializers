@@ -44,8 +44,7 @@ message Axis
 message CustomPlot
 {
     string name = 1;
-    uint32 index = 2;
-    repeated Axis axes = 3; 
+    repeated Axis axes = 2; 
 }
 
 message AppConfig

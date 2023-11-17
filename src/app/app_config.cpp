@@ -261,14 +261,12 @@ bool Axis::deserializeFromProtobufString(const std::string& str) {
 
 CustomPlot::CustomPlot(const PbApp::CustomPlot& protobuf) {
     name = protobuf.name();
-    index = protobuf.index();
     axes = {protobuf.axes().begin(), protobuf.axes().end()};
 }
 
 CustomPlot::operator PbApp::CustomPlot() const {
     PbApp::CustomPlot ret;
     ret.set_name(name);
-    ret.set_index(index);
     *(ret.mutable_axes()) = {axes.begin(), axes.end()};
     return ret;
 }

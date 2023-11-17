@@ -99,7 +99,6 @@ struct Axis
 struct CustomPlot
 {
     std::string name;
-    uint32_t index;
     std::vector<Axis> axes;
     
     CustomPlot() = default;
