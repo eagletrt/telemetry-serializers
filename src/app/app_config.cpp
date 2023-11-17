@@ -212,14 +212,12 @@ bool AxisItem::deserializeFromProtobufString(const std::string& str) {
 
 Axis::Axis(const PbApp::Axis& protobuf) {
     name = protobuf.name();
-    imAxis = protobuf.imaxis();
     items = {protobuf.items().begin(), protobuf.items().end()};
 }
 
 Axis::operator PbApp::Axis() const {
     PbApp::Axis ret;
     ret.set_name(name);
-    ret.set_imaxis(imAxis);
     *(ret.mutable_items()) = {items.begin(), items.end()};
     return ret;
 }

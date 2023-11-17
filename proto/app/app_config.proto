@@ -37,14 +37,13 @@ message AxisItem
 message Axis 
 {
     string name = 1;
-    uint32 imAxis = 2;
     repeated AxisItem items = 3;
 }
 
 message CustomPlot
 {
     string name = 1;
-    repeated Axis axes = 2; 
+    map<int32, Axis> axes = 2; 
 }
 
 message AppConfig

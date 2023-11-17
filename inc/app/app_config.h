@@ -83,7 +83,6 @@ struct AxisItem
 struct Axis
 {
     std::string name;
-    uint32_t imAxis;
     std::vector<AxisItem> items;
     
     Axis() = default;
@@ -99,7 +98,7 @@ struct Axis
 struct CustomPlot
 {
     std::string name;
-    std::vector<Axis> axes;
+    std::unordered_map<int32_t, Axis> axes;
     
     CustomPlot() = default;
     CustomPlot(const PbApp::CustomPlot& protobuf);
