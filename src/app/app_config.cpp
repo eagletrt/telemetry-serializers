@@ -171,7 +171,7 @@ AxisItem::operator PbApp::AxisItem() const {
     ret.set_message(message);
     ret.set_signal(signal);
     ret.set_isenum(isEnum);
-    *(ret.mutable_color()) = color;
+    ret.set_color(color);
     return ret;
 }
 

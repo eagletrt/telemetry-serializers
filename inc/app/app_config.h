@@ -68,7 +68,7 @@ struct AxisItem
     std::string message;
     std::string signal;
     bool isEnum;
-    Color color;
+    uint32_t color;
     
     AxisItem() = default;
     AxisItem(const PbApp::AxisItem& protobuf);

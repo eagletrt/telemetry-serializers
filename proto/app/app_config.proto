@@ -31,7 +31,7 @@ message AxisItem
     string message = 1;
     string signal = 2;
     bool isEnum = 3;
-    Color color = 4;
+    uint32 color = 4;
 }
 
 message Axis 
