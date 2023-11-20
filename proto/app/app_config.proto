@@ -9,21 +9,13 @@ message Connection
     string mode = 3;
 }
 
-message Color
-{
-    double r = 1;
-    double g = 2;
-    double b = 3;
-    double a = 4;
-}
-
 message Event
 {
     string message = 1;
-    string field = 2;
+    string signal = 2;
     int64 comparator = 3;
     double value = 4;
-    Color color = 5;
+    uint32 color = 5;
 }
 
 message AxisItem

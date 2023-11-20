@@ -55,60 +55,9 @@ bool Connection::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
-Color::Color(const PbApp::Color& protobuf) {
-    r = protobuf.r();
-    g = protobuf.g();
-    b = protobuf.b();
-    a = protobuf.a();
-}
-
-Color::operator PbApp::Color() const {
-    PbApp::Color ret;
-    ret.set_r(r);
-    ret.set_g(g);
-    ret.set_b(b);
-    ret.set_a(a);
-    return ret;
-}
-
-std::string Color::serializeAsJsonString() const {
-    PbApp::Color protobuf(*this);
-    std::string ret;
-    google::protobuf::util::JsonPrintOptions options;
-    options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
-    return ret;
-}
-
-std::string Color::serializeAsProtobufString() const {
-    PbApp::Color protobuf(*this);
-    return protobuf.SerializeAsString();
-}
-
-bool Color::deserializeFromJsonString(const std::string& str) {
-    PbApp::Color protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
-    if(status.ok()) {
-        *this = protobuf;
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool Color::deserializeFromProtobufString(const std::string& str) {
-    PbApp::Color protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
-        return true;
-    } else {
-        return false;
-    }
-}
-
 Event::Event(const PbApp::Event& protobuf) {
     message = protobuf.message();
-    field = protobuf.field();
+    signal = protobuf.signal();
     comparator = protobuf.comparator();
     value = protobuf.value();
     color = protobuf.color();
@@ -117,10 +66,10 @@ Event::Event(const PbApp::Event& protobuf) {
 Event::operator PbApp::Event() const {
     PbApp::Event ret;
     ret.set_message(message);
-    ret.set_field(field);
+    ret.set_signal(signal);
     ret.set_comparator(comparator);
     ret.set_value(value);
-    *(ret.mutable_color()) = color;
+    ret.set_color(color);
     return ret;
 }
 

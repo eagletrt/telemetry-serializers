@@ -28,30 +28,13 @@ struct Connection
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct Color
-{
-    double r;
-    double g;
-    double b;
-    double a;
-    
-    Color() = default;
-    Color(const PbApp::Color& protobuf);
-    operator PbApp::Color() const;
-
-    std::string serializeAsJsonString() const;
-    std::string serializeAsProtobufString() const;
-    bool deserializeFromJsonString(const std::string& str);
-    bool deserializeFromProtobufString(const std::string& str);
-};
-
 struct Event
 {
     std::string message;
-    std::string field;
+    std::string signal;
     int64_t comparator;
     double value;
-    Color color;
+    uint32_t color;
     
     Event() = default;
     Event(const PbApp::Event& protobuf);
