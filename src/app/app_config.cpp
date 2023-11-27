@@ -55,7 +55,7 @@ bool Connection::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
-Event::Event(const PbApp::Event& protobuf) {
+Trigger::Trigger(const PbApp::Trigger& protobuf) {
     message = protobuf.message();
     signal = protobuf.signal();
     comparator = protobuf.comparator();
@@ -63,8 +63,8 @@ Event::Event(const PbApp::Event& protobuf) {
     color = protobuf.color();
 }
 
-Event::operator PbApp::Event() const {
-    PbApp::Event ret;
+Trigger::operator PbApp::Trigger() const {
+    PbApp::Trigger ret;
     ret.set_message(message);
     ret.set_signal(signal);
     ret.set_comparator(comparator);
@@ -73,8 +73,8 @@ Event::operator PbApp::Event() const {
     return ret;
 }
 
-std::string Event::serializeAsJsonString() const {
-    PbApp::Event protobuf(*this);
+std::string Trigger::serializeAsJsonString() const {
+    PbApp::Trigger protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
@@ -82,13 +82,13 @@ std::string Event::serializeAsJsonString() const {
     return ret;
 }
 
-std::string Event::serializeAsProtobufString() const {
-    PbApp::Event protobuf(*this);
+std::string Trigger::serializeAsProtobufString() const {
+    PbApp::Trigger protobuf(*this);
     return protobuf.SerializeAsString();
 }
 
-bool Event::deserializeFromJsonString(const std::string& str) {
-    PbApp::Event protobuf;
+bool Trigger::deserializeFromJsonString(const std::string& str) {
+    PbApp::Trigger protobuf;
     auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
         *this = protobuf;
@@ -98,8 +98,8 @@ bool Event::deserializeFromJsonString(const std::string& str) {
     }
 }
 
-bool Event::deserializeFromProtobufString(const std::string& str) {
-    PbApp::Event protobuf;
+bool Trigger::deserializeFromProtobufString(const std::string& str) {
+    PbApp::Trigger protobuf;
     if(protobuf.ParseFromString(str)) {
         *this = protobuf;
         return true;
@@ -260,7 +260,7 @@ AppConfig::AppConfig(const PbApp::AppConfig& protobuf) {
     connection = protobuf.connection();
     savedConnections = {protobuf.savedconnections().begin(), protobuf.savedconnections().end()};
     activeTabs = {protobuf.activetabs().begin(), protobuf.activetabs().end()};
-    events = {protobuf.events().begin(), protobuf.events().end()};
+    triggers = {protobuf.triggers().begin(), protobuf.triggers().end()};
     customPlots = {protobuf.customplots().begin(), protobuf.customplots().end()};
     filesPaths = {protobuf.filespaths().begin(), protobuf.filespaths().end()};
     stringCache = {protobuf.stringcache().begin(), protobuf.stringcache().end()};
@@ -275,7 +275,7 @@ AppConfig::operator PbApp::AppConfig() const {
     *(ret.mutable_connection()) = connection;
     *(ret.mutable_savedconnections()) = {savedConnections.begin(), savedConnections.end()};
     *(ret.mutable_activetabs()) = {activeTabs.begin(), activeTabs.end()};
-    *(ret.mutable_events()) = {events.begin(), events.end()};
+    *(ret.mutable_triggers()) = {triggers.begin(), triggers.end()};
     *(ret.mutable_customplots()) = {customPlots.begin(), customPlots.end()};
     *(ret.mutable_filespaths()) = {filesPaths.begin(), filesPaths.end()};
     *(ret.mutable_stringcache()) = {stringCache.begin(), stringCache.end()};

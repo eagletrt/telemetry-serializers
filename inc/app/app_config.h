@@ -28,17 +28,17 @@ struct Connection
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct Event
+struct Trigger
 {
     std::string message;
     std::string signal;
-    int64_t comparator;
+    uint32_t comparator;
     double value;
     uint32_t color;
     
-    Event() = default;
-    Event(const PbApp::Event& protobuf);
-    operator PbApp::Event() const;
+    Trigger() = default;
+    Trigger(const PbApp::Trigger& protobuf);
+    operator PbApp::Trigger() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -101,7 +101,7 @@ struct AppConfig
     Connection connection;
     std::unordered_map<std::string, Connection> savedConnections;
     std::vector<std::string> activeTabs;
-    std::vector<Event> events;
+    std::vector<Trigger> triggers;
     std::vector<CustomPlot> customPlots;
     std::unordered_map<std::string, std::string> filesPaths;
     std::unordered_map<std::string, std::string> stringCache;

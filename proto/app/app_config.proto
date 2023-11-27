@@ -9,11 +9,11 @@ message Connection
     string mode = 3;
 }
 
-message Event
+message Trigger
 {
     string message = 1;
     string signal = 2;
-    int64 comparator = 3;
+    uint32 comparator = 3;
     double value = 4;
     uint32 color = 5;
 }
@@ -46,7 +46,7 @@ message AppConfig
     Connection connection = 4;
     map<string, Connection> savedConnections = 5;
     repeated string activeTabs = 6;
-    repeated Event events = 7;
+    repeated Trigger triggers = 7;
     repeated CustomPlot customPlots = 8;
     map<string, string> filesPaths = 9;  
     map<string, string> stringCache = 10;
