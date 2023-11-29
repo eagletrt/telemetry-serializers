@@ -11,11 +11,12 @@ message Connection
 
 message Trigger
 {
-    string message = 1;
-    string signal = 2;
-    uint32 comparator = 3;
-    double value = 4;
-    uint32 color = 5;
+    uint64 id = 1;
+    string message = 2;
+    string signal = 3;
+    uint32 comparator = 4;
+    double value = 5;
+    uint32 color = 6;
 }
 
 message AxisItem

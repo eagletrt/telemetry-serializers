@@ -56,6 +56,7 @@ bool Connection::deserializeFromProtobufString(const std::string& str) {
 }
 
 Trigger::Trigger(const PbApp::Trigger& protobuf) {
+    id = protobuf.id();
     message = protobuf.message();
     signal = protobuf.signal();
     comparator = protobuf.comparator();
@@ -65,6 +66,7 @@ Trigger::Trigger(const PbApp::Trigger& protobuf) {
 
 Trigger::operator PbApp::Trigger() const {
     PbApp::Trigger ret;
+    ret.set_id(id);
     ret.set_message(message);
     ret.set_signal(signal);
     ret.set_comparator(comparator);

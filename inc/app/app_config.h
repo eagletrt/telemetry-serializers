@@ -30,6 +30,7 @@ struct Connection
 
 struct Trigger
 {
+    uint64_t id;
     std::string message;
     std::string signal;
     uint32_t comparator;
