@@ -11,7 +11,7 @@ message Connection
 
 message Trigger
 {
-    uint64 id = 1;
+    string id = 1;
     string message = 2;
     string signal = 3;
     uint32 comparator = 4;
