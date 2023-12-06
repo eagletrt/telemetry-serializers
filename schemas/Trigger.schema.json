@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Trigger",
+    "definitions": {
+        "Trigger": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "signal": {
+                    "type": "string"
+                },
+                "comparator": {
+                    "type": "integer"
+                },
+                "value": {
+                    "type": "number"
+                },
+                "color": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Trigger"
+        }
+    }
+}

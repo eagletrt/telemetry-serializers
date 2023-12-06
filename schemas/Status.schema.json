@@ -1,0 +1,80 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Status",
+    "definitions": {
+        "PbTelemetry.Camera": {
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "error": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Camera"
+        },
+        "PbTelemetry.MessagesPerSecond": {
+            "properties": {
+                "deviceName": {
+                    "type": "string"
+                },
+                "bitsPerSecond": {
+                    "type": "integer"
+                },
+                "busLoad": {
+                    "type": "number"
+                },
+                "count": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Messages Per Second"
+        },
+        "Status": {
+            "properties": {
+                "timestamp": {
+                    "type": "integer"
+                },
+                "zeroTimestamp": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "integer"
+                },
+                "cpuTotalLoad": {
+                    "type": "integer"
+                },
+                "cpuProcessLoad": {
+                    "type": "integer"
+                },
+                "memProcessLoad": {
+                    "type": "integer"
+                },
+                "canlibBuildTime": {
+                    "type": "integer"
+                },
+                "telemetryBuildTime": {
+                    "type": "integer"
+                },
+                "camera": {
+                    "$ref": "#/definitions/PbTelemetry.Camera",
+                    "additionalProperties": false
+                },
+                "messagesPerSecond": {
+                    "items": {
+                        "$ref": "#/definitions/PbTelemetry.MessagesPerSecond"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Status"
+        }
+    }
+}

@@ -1,0 +1,144 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/TelemetryConfig",
+    "definitions": {
+        "PbConfigs.CanDevice": {
+            "properties": {
+                "socket": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "networks": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Can Device"
+        },
+        "PbConfigs.Connection": {
+            "properties": {
+                "ip": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "string"
+                },
+                "mode": {
+                    "type": "string"
+                },
+                "whoamiUrl": {
+                    "type": "string"
+                },
+                "tlsEnabled": {
+                    "type": "boolean"
+                },
+                "cafile": {
+                    "type": "string"
+                },
+                "capath": {
+                    "type": "string"
+                },
+                "certfile": {
+                    "type": "string"
+                },
+                "keyfile": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection"
+        },
+        "PbConfigs.ConnectionSettings": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "downsampleEnabled": {
+                    "type": "boolean"
+                },
+                "downsampleSkipData": {
+                    "type": "boolean"
+                },
+                "downsampleMps": {
+                    "type": "integer"
+                },
+                "sendRate": {
+                    "type": "integer"
+                },
+                "sendSensorData": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection Settings"
+        },
+        "PbConfigs.GpsDevice": {
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "mode": {
+                    "type": "string"
+                },
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Gps Device"
+        },
+        "TelemetryConfig": {
+            "properties": {
+                "vehicleId": {
+                    "type": "string"
+                },
+                "deviceId": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "integer"
+                },
+                "cameraEnabled": {
+                    "type": "boolean"
+                },
+                "generateCsv": {
+                    "type": "boolean"
+                },
+                "connection": {
+                    "$ref": "#/definitions/PbConfigs.Connection",
+                    "additionalProperties": false
+                },
+                "connectionSettings": {
+                    "$ref": "#/definitions/PbConfigs.ConnectionSettings",
+                    "additionalProperties": false
+                },
+                "canDevices": {
+                    "items": {
+                        "$ref": "#/definitions/PbConfigs.CanDevice"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "gpsDevices": {
+                    "items": {
+                        "$ref": "#/definitions/PbConfigs.GpsDevice"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Telemetry Config"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Aero",
+    "definitions": {
+        "Aero": {
+            "properties": {
+                "angleOfIncidenceFront": {
+                    "type": "number"
+                },
+                "angleOfIncidenceRear": {
+                    "type": "number"
+                },
+                "flap": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Aero"
+        }
+    }
+}

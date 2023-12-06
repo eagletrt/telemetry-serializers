@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Damper",
+    "definitions": {
+        "Damper": {
+            "properties": {
+                "bound": {
+                    "type": "number"
+                },
+                "rebound": {
+                    "type": "number"
+                },
+                "preload": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Damper"
+        }
+    }
+}

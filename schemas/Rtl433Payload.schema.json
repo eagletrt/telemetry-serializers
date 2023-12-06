@@ -1,0 +1,46 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Rtl433Payload",
+    "definitions": {
+        "Rtl433Payload": {
+            "properties": {
+                "time": {
+                    "type": "string"
+                },
+                "model": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "pressure": {
+                    "type": "integer"
+                },
+                "temperature": {
+                    "type": "integer"
+                },
+                "acceleration": {
+                    "type": "integer"
+                },
+                "battery": {
+                    "type": "integer"
+                },
+                "interframe": {
+                    "type": "integer"
+                },
+                "wo_state": {
+                    "type": "integer"
+                },
+                "checksum": {
+                    "type": "integer"
+                },
+                "mic": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Rtl 433 Payload"
+        }
+    }
+}

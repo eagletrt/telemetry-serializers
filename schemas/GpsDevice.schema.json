@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GpsDevice",
+    "definitions": {
+        "GpsDevice": {
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "mode": {
+                    "type": "string"
+                },
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Gps Device"
+        }
+    }
+}

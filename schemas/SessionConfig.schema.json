@@ -1,0 +1,54 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/SessionConfig",
+    "definitions": {
+        "PbConfigs.Weather": {
+            "properties": {
+                "temperature": {
+                    "type": "number"
+                },
+                "humidity": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Weather"
+        },
+        "SessionConfig": {
+            "properties": {
+                "circuitId": {
+                    "type": "string"
+                },
+                "raceId": {
+                    "type": "string"
+                },
+                "test": {
+                    "type": "string"
+                },
+                "driverId": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "time": {
+                    "type": "string"
+                },
+                "weather": {
+                    "$ref": "#/definitions/PbConfigs.Weather",
+                    "additionalProperties": false
+                },
+                "notes": {
+                    "type": "string"
+                },
+                "canlibVersion": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Session Config"
+        }
+    }
+}

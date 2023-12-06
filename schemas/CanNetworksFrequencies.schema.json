@@ -1,0 +1,59 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/CanNetworksFrequencies",
+    "definitions": {
+        "CanNetworksFrequencies": {
+            "properties": {
+                "timestamp": {
+                    "type": "integer"
+                },
+                "networks": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbCan.CanFrequencies",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Can Networks Frequencies"
+        },
+        "PbCan.CanFrequencies": {
+            "properties": {
+                "frequencies": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbCan.CanFrequency",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Can Frequencies"
+        },
+        "PbCan.CanFrequency": {
+            "properties": {
+                "timestamp": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "integer"
+                },
+                "frequency": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Can Frequency"
+        }
+    }
+}

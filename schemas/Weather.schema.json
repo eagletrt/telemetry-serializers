@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Weather",
+    "definitions": {
+        "Weather": {
+            "properties": {
+                "temperature": {
+                    "type": "number"
+                },
+                "humidity": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Weather"
+        }
+    }
+}
