@@ -3,6 +3,10 @@
     "$ref": "#/definitions/Wheel",
     "definitions": {
         "Wheel": {
+            "required": [
+                "camber",
+                "toe"
+            ],
             "properties": {
                 "camber": {
                     "type": "number"

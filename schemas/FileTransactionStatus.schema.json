@@ -3,6 +3,12 @@
     "$ref": "#/definitions/FileTransactionStatus",
     "definitions": {
         "FileTransactionStatus": {
+            "required": [
+                "fileName",
+                "hash",
+                "destinationPath",
+                "totalChunks"
+            ],
             "properties": {
                 "fileName": {
                     "type": "string"

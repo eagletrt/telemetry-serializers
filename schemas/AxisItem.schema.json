@@ -3,6 +3,12 @@
     "$ref": "#/definitions/AxisItem",
     "definitions": {
         "AxisItem": {
+            "required": [
+                "message",
+                "signal",
+                "isEnum",
+                "color"
+            ],
             "properties": {
                 "message": {
                     "type": "string"

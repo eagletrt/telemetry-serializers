@@ -3,6 +3,11 @@
     "$ref": "#/definitions/Statistics",
     "definitions": {
         "Statistics": {
+            "required": [
+                "messages",
+                "averageFrequency",
+                "seconds"
+            ],
             "properties": {
                 "messages": {
                     "type": "integer"

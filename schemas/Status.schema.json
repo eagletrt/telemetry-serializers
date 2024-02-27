@@ -3,6 +3,10 @@
     "$ref": "#/definitions/Status",
     "definitions": {
         "PbTelemetry.Camera": {
+            "required": [
+                "status",
+                "error"
+            ],
             "properties": {
                 "status": {
                     "type": "string"
@@ -16,6 +20,12 @@
             "title": "Camera"
         },
         "PbTelemetry.MessagesPerSecond": {
+            "required": [
+                "deviceName",
+                "bitsPerSecond",
+                "busLoad",
+                "count"
+            ],
             "properties": {
                 "deviceName": {
                     "type": "string"
@@ -35,6 +45,18 @@
             "title": "Messages Per Second"
         },
         "Status": {
+            "required": [
+                "timestamp",
+                "zeroTimestamp",
+                "data",
+                "cpuTotalLoad",
+                "cpuProcessLoad",
+                "memProcessLoad",
+                "canlibBuildTime",
+                "telemetryBuildTime",
+                "camera",
+                "messagesPerSecond"
+            ],
             "properties": {
                 "timestamp": {
                     "type": "integer"

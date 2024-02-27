@@ -3,6 +3,11 @@
     "$ref": "#/definitions/CanDevice",
     "definitions": {
         "CanDevice": {
+            "required": [
+                "socket",
+                "name",
+                "networks"
+            ],
             "properties": {
                 "socket": {
                     "type": "string"

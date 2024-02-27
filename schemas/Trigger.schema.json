@@ -3,6 +3,14 @@
     "$ref": "#/definitions/Trigger",
     "definitions": {
         "Trigger": {
+            "required": [
+                "id",
+                "message",
+                "signal",
+                "comparator",
+                "value",
+                "color"
+            ],
             "properties": {
                 "id": {
                     "type": "string"

@@ -3,6 +3,10 @@
     "$ref": "#/definitions/Vector",
     "definitions": {
         "Vector": {
+            "required": [
+                "x",
+                "y"
+            ],
             "properties": {
                 "x": {
                     "type": "number"

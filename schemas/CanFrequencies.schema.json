@@ -3,6 +3,9 @@
     "$ref": "#/definitions/CanFrequencies",
     "definitions": {
         "CanFrequencies": {
+            "required": [
+                "frequencies"
+            ],
             "properties": {
                 "frequencies": {
                     "additionalProperties": {
@@ -17,6 +20,13 @@
             "title": "Can Frequencies"
         },
         "PbCan.CanFrequency": {
+            "required": [
+                "timestamp",
+                "id",
+                "name",
+                "data",
+                "frequency"
+            ],
             "properties": {
                 "timestamp": {
                     "type": "integer"

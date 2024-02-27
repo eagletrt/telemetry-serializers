@@ -3,6 +3,10 @@
     "$ref": "#/definitions/CustomPlot",
     "definitions": {
         "CustomPlot": {
+            "required": [
+                "name",
+                "axes"
+            ],
             "properties": {
                 "name": {
                     "type": "string"
@@ -20,6 +24,10 @@
             "title": "Custom Plot"
         },
         "PbApp.Axis": {
+            "required": [
+                "name",
+                "items"
+            ],
             "properties": {
                 "name": {
                     "type": "string"
@@ -37,6 +45,12 @@
             "title": "Axis"
         },
         "PbApp.AxisItem": {
+            "required": [
+                "message",
+                "signal",
+                "isEnum",
+                "color"
+            ],
             "properties": {
                 "message": {
                     "type": "string"

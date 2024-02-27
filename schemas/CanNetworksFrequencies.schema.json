@@ -3,6 +3,10 @@
     "$ref": "#/definitions/CanNetworksFrequencies",
     "definitions": {
         "CanNetworksFrequencies": {
+            "required": [
+                "timestamp",
+                "networks"
+            ],
             "properties": {
                 "timestamp": {
                     "type": "integer"
@@ -20,6 +24,9 @@
             "title": "Can Networks Frequencies"
         },
         "PbCan.CanFrequencies": {
+            "required": [
+                "frequencies"
+            ],
             "properties": {
                 "frequencies": {
                     "additionalProperties": {
@@ -34,6 +41,13 @@
             "title": "Can Frequencies"
         },
         "PbCan.CanFrequency": {
+            "required": [
+                "timestamp",
+                "id",
+                "name",
+                "data",
+                "frequency"
+            ],
             "properties": {
                 "timestamp": {
                     "type": "integer"

@@ -3,6 +3,10 @@
     "$ref": "#/definitions/SessionConfig",
     "definitions": {
         "PbConfigs.Weather": {
+            "required": [
+                "temperature",
+                "humidity"
+            ],
             "properties": {
                 "temperature": {
                     "type": "number"
@@ -16,6 +20,17 @@
             "title": "Weather"
         },
         "SessionConfig": {
+            "required": [
+                "circuitId",
+                "raceId",
+                "test",
+                "driverId",
+                "date",
+                "time",
+                "weather",
+                "notes",
+                "canlibVersion"
+            ],
             "properties": {
                 "circuitId": {
                     "type": "string"

@@ -3,6 +3,11 @@
     "$ref": "#/definitions/Aero",
     "definitions": {
         "Aero": {
+            "required": [
+                "angleOfIncidenceFront",
+                "angleOfIncidenceRear",
+                "flap"
+            ],
             "properties": {
                 "angleOfIncidenceFront": {
                     "type": "number"

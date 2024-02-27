@@ -3,6 +3,19 @@
     "$ref": "#/definitions/Rtl433Payload",
     "definitions": {
         "Rtl433Payload": {
+            "required": [
+                "time",
+                "model",
+                "id",
+                "pressure",
+                "temperature",
+                "acceleration",
+                "battery",
+                "interframe",
+                "wo_state",
+                "checksum",
+                "mic"
+            ],
             "properties": {
                 "time": {
                     "type": "string"

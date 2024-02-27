@@ -3,6 +3,11 @@
     "$ref": "#/definitions/Damper",
     "definitions": {
         "Damper": {
+            "required": [
+                "bound",
+                "rebound",
+                "preload"
+            ],
             "properties": {
                 "bound": {
                     "type": "number"

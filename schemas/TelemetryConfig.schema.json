@@ -3,6 +3,11 @@
     "$ref": "#/definitions/TelemetryConfig",
     "definitions": {
         "PbConfigs.CanDevice": {
+            "required": [
+                "socket",
+                "name",
+                "networks"
+            ],
             "properties": {
                 "socket": {
                     "type": "string"
@@ -22,6 +27,17 @@
             "title": "Can Device"
         },
         "PbConfigs.Connection": {
+            "required": [
+                "ip",
+                "port",
+                "mode",
+                "whoamiUrl",
+                "tlsEnabled",
+                "cafile",
+                "capath",
+                "certfile",
+                "keyfile"
+            ],
             "properties": {
                 "ip": {
                     "type": "string"
@@ -56,6 +72,14 @@
             "title": "Connection"
         },
         "PbConfigs.ConnectionSettings": {
+            "required": [
+                "enabled",
+                "downsampleEnabled",
+                "downsampleSkipData",
+                "downsampleMps",
+                "sendRate",
+                "sendSensorData"
+            ],
             "properties": {
                 "enabled": {
                     "type": "boolean"
@@ -81,6 +105,11 @@
             "title": "Connection Settings"
         },
         "PbConfigs.GpsDevice": {
+            "required": [
+                "address",
+                "mode",
+                "enabled"
+            ],
             "properties": {
                 "address": {
                     "type": "string"
@@ -97,6 +126,17 @@
             "title": "Gps Device"
         },
         "TelemetryConfig": {
+            "required": [
+                "vehicleId",
+                "deviceId",
+                "role",
+                "cameraEnabled",
+                "generateCsv",
+                "connection",
+                "connectionSettings",
+                "canDevices",
+                "gpsDevices"
+            ],
             "properties": {
                 "vehicleId": {
                     "type": "string"

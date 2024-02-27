@@ -3,6 +3,14 @@
     "$ref": "#/definitions/ConnectionSettings",
     "definitions": {
         "ConnectionSettings": {
+            "required": [
+                "enabled",
+                "downsampleEnabled",
+                "downsampleSkipData",
+                "downsampleMps",
+                "sendRate",
+                "sendSensorData"
+            ],
             "properties": {
                 "enabled": {
                     "type": "boolean"

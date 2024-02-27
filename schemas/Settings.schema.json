@@ -3,6 +3,14 @@
     "$ref": "#/definitions/Settings",
     "definitions": {
         "Settings": {
+            "required": [
+                "status",
+                "targetVoltage",
+                "fansOverride",
+                "fansSpeed",
+                "accChargeCurrent",
+                "gridMaxCurrent"
+            ],
             "properties": {
                 "status": {
                     "type": "integer"

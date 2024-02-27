@@ -3,6 +3,13 @@
     "$ref": "#/definitions/UserData",
     "definitions": {
         "UserData": {
+            "required": [
+                "username",
+                "token",
+                "refreshToken",
+                "expiry",
+                "role"
+            ],
             "properties": {
                 "username": {
                     "type": "string"

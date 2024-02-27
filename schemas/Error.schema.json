@@ -3,6 +3,11 @@
     "$ref": "#/definitions/Error",
     "definitions": {
         "Error": {
+            "required": [
+                "timestamp",
+                "function",
+                "description"
+            ],
             "properties": {
                 "timestamp": {
                     "type": "integer"

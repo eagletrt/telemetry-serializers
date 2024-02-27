@@ -3,6 +3,10 @@
     "$ref": "#/definitions/Axis",
     "definitions": {
         "Axis": {
+            "required": [
+                "name",
+                "items"
+            ],
             "properties": {
                 "name": {
                     "type": "string"
@@ -20,6 +24,12 @@
             "title": "Axis"
         },
         "PbApp.AxisItem": {
+            "required": [
+                "message",
+                "signal",
+                "isEnum",
+                "color"
+            ],
             "properties": {
                 "message": {
                     "type": "string"

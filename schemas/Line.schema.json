@@ -3,6 +3,10 @@
     "$ref": "#/definitions/Line",
     "definitions": {
         "Line": {
+            "required": [
+                "position",
+                "direction"
+            ],
             "properties": {
                 "position": {
                     "$ref": "#/definitions/PbLapCounter.Vector",
@@ -18,6 +22,10 @@
             "title": "Line"
         },
         "PbLapCounter.Vector": {
+            "required": [
+                "x",
+                "y"
+            ],
             "properties": {
                 "x": {
                     "type": "number"

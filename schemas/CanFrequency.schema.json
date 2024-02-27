@@ -3,6 +3,13 @@
     "$ref": "#/definitions/CanFrequency",
     "definitions": {
         "CanFrequency": {
+            "required": [
+                "timestamp",
+                "id",
+                "name",
+                "data",
+                "frequency"
+            ],
             "properties": {
                 "timestamp": {
                     "type": "integer"

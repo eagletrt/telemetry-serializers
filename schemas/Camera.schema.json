@@ -3,6 +3,10 @@
     "$ref": "#/definitions/Camera",
     "definitions": {
         "Camera": {
+            "required": [
+                "status",
+                "error"
+            ],
             "properties": {
                 "status": {
                     "type": "string"

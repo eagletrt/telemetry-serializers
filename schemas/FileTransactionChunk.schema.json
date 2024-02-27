@@ -3,6 +3,12 @@
     "$ref": "#/definitions/FileTransactionChunk",
     "definitions": {
         "FileTransactionChunk": {
+            "required": [
+                "data",
+                "hash",
+                "chunkNumber",
+                "totalChunks"
+            ],
             "properties": {
                 "data": {
                     "type": "string"

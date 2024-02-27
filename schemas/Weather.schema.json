@@ -3,6 +3,10 @@
     "$ref": "#/definitions/Weather",
     "definitions": {
         "Weather": {
+            "required": [
+                "temperature",
+                "humidity"
+            ],
             "properties": {
                 "temperature": {
                     "type": "number"

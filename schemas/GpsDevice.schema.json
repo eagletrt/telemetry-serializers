@@ -3,6 +3,11 @@
     "$ref": "#/definitions/GpsDevice",
     "definitions": {
         "GpsDevice": {
+            "required": [
+                "address",
+                "mode",
+                "enabled"
+            ],
             "properties": {
                 "address": {
                     "type": "string"

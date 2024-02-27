@@ -3,6 +3,10 @@
     "$ref": "#/definitions/Command",
     "definitions": {
         "Command": {
+            "required": [
+                "input",
+                "output"
+            ],
             "properties": {
                 "input": {
                     "type": "string"

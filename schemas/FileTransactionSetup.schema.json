@@ -3,6 +3,11 @@
     "$ref": "#/definitions/FileTransactionSetup",
     "definitions": {
         "FileTransactionSetup": {
+            "required": [
+                "id",
+                "hash",
+                "topic"
+            ],
             "properties": {
                 "id": {
                     "type": "string"

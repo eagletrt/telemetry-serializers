@@ -3,6 +3,17 @@
     "$ref": "#/definitions/CarConfig",
     "definitions": {
         "CarConfig": {
+            "required": [
+                "aero",
+                "wheelFront",
+                "wheelRear",
+                "damperFront",
+                "damperRear",
+                "wheelCompound",
+                "rideHeight",
+                "balancing",
+                "notes"
+            ],
             "properties": {
                 "aero": {
                     "$ref": "#/definitions/PbConfigs.Aero",
@@ -42,6 +53,11 @@
             "title": "Car Config"
         },
         "PbConfigs.Aero": {
+            "required": [
+                "angleOfIncidenceFront",
+                "angleOfIncidenceRear",
+                "flap"
+            ],
             "properties": {
                 "angleOfIncidenceFront": {
                     "type": "number"
@@ -58,6 +74,11 @@
             "title": "Aero"
         },
         "PbConfigs.Damper": {
+            "required": [
+                "bound",
+                "rebound",
+                "preload"
+            ],
             "properties": {
                 "bound": {
                     "type": "number"
@@ -74,6 +95,10 @@
             "title": "Damper"
         },
         "PbConfigs.Wheel": {
+            "required": [
+                "camber",
+                "toe"
+            ],
             "properties": {
                 "camber": {
                     "type": "number"

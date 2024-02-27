@@ -3,6 +3,17 @@
     "$ref": "#/definitions/Connection",
     "definitions": {
         "Connection": {
+            "required": [
+                "ip",
+                "port",
+                "mode",
+                "whoamiUrl",
+                "tlsEnabled",
+                "cafile",
+                "capath",
+                "certfile",
+                "keyfile"
+            ],
             "properties": {
                 "ip": {
                     "type": "string"

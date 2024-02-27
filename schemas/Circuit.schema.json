@@ -3,6 +3,11 @@
     "$ref": "#/definitions/Circuit",
     "definitions": {
         "Circuit": {
+            "required": [
+                "circuitId",
+                "checksLines",
+                "sectorsLines"
+            ],
             "properties": {
                 "circuitId": {
                     "type": "string"
@@ -27,6 +32,10 @@
             "title": "Circuit"
         },
         "PbLapCounter.Line": {
+            "required": [
+                "position",
+                "direction"
+            ],
             "properties": {
                 "position": {
                     "$ref": "#/definitions/PbLapCounter.Vector",
@@ -42,6 +51,10 @@
             "title": "Line"
         },
         "PbLapCounter.Vector": {
+            "required": [
+                "x",
+                "y"
+            ],
             "properties": {
                 "x": {
                     "type": "number"
