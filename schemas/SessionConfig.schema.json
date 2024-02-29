@@ -4,11 +4,15 @@
     "definitions": {
         "PbConfigs.Weather": {
             "required": [
-                "temperature",
+                "ambient_temperature",
+                "track_temperature",
                 "humidity"
             ],
             "properties": {
-                "temperature": {
+                "ambient_temperature": {
+                    "type": "number"
+                },
+                "track_temperature": {
                     "type": "number"
                 },
                 "humidity": {

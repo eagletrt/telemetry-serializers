@@ -75,12 +75,16 @@
         },
         "PbConfigs.Damper": {
             "required": [
-                "bound",
+                "bound_low_comp",
+                "bound_high_comp",
                 "rebound",
                 "preload"
             ],
             "properties": {
-                "bound": {
+                "bound_low_comp": {
+                    "type": "number"
+                },
+                "bound_high_comp": {
                     "type": "number"
                 },
                 "rebound": {
@@ -97,7 +101,8 @@
         "PbConfigs.Wheel": {
             "required": [
                 "camber",
-                "toe"
+                "toe",
+                "pressure"
             ],
             "properties": {
                 "camber": {
@@ -105,6 +110,9 @@
                 },
                 "toe": {
                     "type": "number"
+                },
+                "pressure": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false,

@@ -14,7 +14,8 @@ namespace Configs
 {
 struct Weather
 {
-    double temperature;
+    double ambient_temperature;
+    double track_temperature;
     double humidity;
     
     Weather() = default;

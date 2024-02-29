@@ -4,8 +4,9 @@ package PbConfigs;
 
 message Weather
 {
-    double temperature = 1;
-    double humidity = 2;
+    double ambient_temperature = 1;
+    double track_temperature = 2;
+    double humidity = 3;
 }
 
 message SessionConfig

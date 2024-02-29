@@ -32,6 +32,7 @@ struct Wheel
 {
     double camber;
     double toe;
+    std::string pressure;
     
     Wheel() = default;
     Wheel(const PbConfigs::Wheel& protobuf);
@@ -45,7 +46,8 @@ struct Wheel
 
 struct Damper
 {
-    double bound;
+    double bound_low_comp;
+    double bound_high_comp;
     double rebound;
     double preload;
     

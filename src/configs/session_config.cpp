@@ -7,13 +7,15 @@ namespace Serializers
 namespace Configs
 {
 Weather::Weather(const PbConfigs::Weather& protobuf) {
-    temperature = protobuf.temperature();
+    ambient_temperature = protobuf.ambient_temperature();
+    track_temperature = protobuf.track_temperature();
     humidity = protobuf.humidity();
 }
 
 Weather::operator PbConfigs::Weather() const {
     PbConfigs::Weather ret;
-    ret.set_temperature(temperature);
+    ret.set_ambient_temperature(ambient_temperature);
+    ret.set_track_temperature(track_temperature);
     ret.set_humidity(humidity);
     return ret;
 }

@@ -58,12 +58,14 @@ bool Aero::deserializeFromProtobufString(const std::string& str) {
 Wheel::Wheel(const PbConfigs::Wheel& protobuf) {
     camber = protobuf.camber();
     toe = protobuf.toe();
+    pressure = protobuf.pressure();
 }
 
 Wheel::operator PbConfigs::Wheel() const {
     PbConfigs::Wheel ret;
     ret.set_camber(camber);
     ret.set_toe(toe);
+    ret.set_pressure(pressure);
     return ret;
 }
 
@@ -103,14 +105,16 @@ bool Wheel::deserializeFromProtobufString(const std::string& str) {
 }
 
 Damper::Damper(const PbConfigs::Damper& protobuf) {
-    bound = protobuf.bound();
+    bound_low_comp = protobuf.bound_low_comp();
+    bound_high_comp = protobuf.bound_high_comp();
     rebound = protobuf.rebound();
     preload = protobuf.preload();
 }
 
 Damper::operator PbConfigs::Damper() const {
     PbConfigs::Damper ret;
-    ret.set_bound(bound);
+    ret.set_bound_low_comp(bound_low_comp);
+    ret.set_bound_high_comp(bound_high_comp);
     ret.set_rebound(rebound);
     ret.set_preload(preload);
     return ret;

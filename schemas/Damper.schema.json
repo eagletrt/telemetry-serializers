@@ -4,12 +4,16 @@
     "definitions": {
         "Damper": {
             "required": [
-                "bound",
+                "bound_low_comp",
+                "bound_high_comp",
                 "rebound",
                 "preload"
             ],
             "properties": {
-                "bound": {
+                "bound_low_comp": {
+                    "type": "number"
+                },
+                "bound_high_comp": {
                     "type": "number"
                 },
                 "rebound": {
