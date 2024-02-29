@@ -1,4 +1,4 @@
-name: Dry generation with Serializers
+name: Dry-Generation with Serializers
 
 on:
   workflow_dispatch:
@@ -10,36 +10,48 @@ jobs:
   dry_generation:
     runs-on: ubuntu-latest
     steps:
-      - name: Clone 'telemetry-serializers'
+      - name: Clone 'eagletrt/telemetry-serializers'
         uses: actions/checkout@v4
         with:
           repository: '${{ github.repository }}'
-          submodules: true
+
+      - name: Clone 'eagletrt/serializers'
+        uses: actions/checkout@v4
+        with:
+          repository: 'eagletrt/serializers'
+          path: serializers
+
       - name: Set up Python 3.11
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
           cache: 'pip'
+
+      - name: Install Python requirements
+        run:  'pip install -r serializers/requirements.txt'
+
       - name: Set up Go
         uses: actions/setup-go@v4
+
       - name: Print go envs
         run:  go env
 
-      - name: Install Python requirements
-        run:  'pip install -r lib/serializers/requirements.txt'
       - name: Install 'protoc'
         run: |
           DEBIAN_FRONTEND=noninteractive
           sudo apt update
           sudo apt install -y protobuf-compiler
+
       - name: Install protoc 'json-schema' extension
         run: |
           go install github.com/chrusty/protoc-gen-jsonschema/cmd/protoc-gen-jsonschema@latest
 
-      - name: Run C++ files generation
-        working-directory: ./lib/serializers
-        run: python3 src/generator/main.py ../proto /tmp/generated
-      - name: Run JSON Schema files generation
-        working-directory: ./lib/serializers
+      - name: Run Serializers files generation
+        working-directory: serializers
         run: |
-          ./scripts/generate_schemas /tmp/generated/proto /tmp/generated
+          python3 src/generator/main.py ../proto /tmp/generated
+
+      - name: Run JSON Schema files generation
+        run: |
+          ./serializers/scripts/generate_schemas /tmp/generated/proto /tmp/generated
+
