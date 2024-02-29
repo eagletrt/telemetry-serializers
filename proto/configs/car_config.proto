@@ -13,13 +13,15 @@ message Wheel
 {
     double camber = 1;
     double toe = 2;
+    string pressure = 3;
 }
 
 message Damper 
 {
-    double bound = 1;
-    double rebound = 2;
-    double preload = 3;
+    double bound_low_comp = 1;
+    double bound_high_comp = 2;
+    double rebound = 3;
+    double preload = 4;
 }
 
 message CarConfig
