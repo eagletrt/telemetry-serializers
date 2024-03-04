@@ -20,7 +20,7 @@ struct MessagesPerSecond
     uint64_t count;
     
     MessagesPerSecond() = default;
-    MessagesPerSecond(const PbTelemetry::MessagesPerSecond& protobuf);
+    MessagesPerSecond(const PbTelemetry::MessagesPerSecond& message);
     operator PbTelemetry::MessagesPerSecond() const;
 
     std::string serializeAsJsonString() const;
@@ -35,7 +35,7 @@ struct Camera
     std::string error;
     
     Camera() = default;
-    Camera(const PbTelemetry::Camera& protobuf);
+    Camera(const PbTelemetry::Camera& message);
     operator PbTelemetry::Camera() const;
 
     std::string serializeAsJsonString() const;
@@ -58,7 +58,7 @@ struct Status
     std::vector<MessagesPerSecond> messagesPerSecond;
     
     Status() = default;
-    Status(const PbTelemetry::Status& protobuf);
+    Status(const PbTelemetry::Status& message);
     operator PbTelemetry::Status() const;
 
     std::string serializeAsJsonString() const;

@@ -18,7 +18,7 @@ struct Command
     std::string output;
     
     Command() = default;
-    Command(const PbActions::Command& protobuf);
+    Command(const PbActions::Command& message);
     operator PbActions::Command() const;
 
     std::string serializeAsJsonString() const;

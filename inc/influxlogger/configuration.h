@@ -29,7 +29,7 @@ struct Configuration
     uint32_t proxy_port;
     
     Configuration() = default;
-    Configuration(const PbInfluxLogger::Configuration& protobuf);
+    Configuration(const PbInfluxLogger::Configuration& message);
     operator PbInfluxLogger::Configuration() const;
 
     std::string serializeAsJsonString() const;

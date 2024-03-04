@@ -19,7 +19,7 @@ struct Weather
     double humidity;
     
     Weather() = default;
-    Weather(const PbConfigs::Weather& protobuf);
+    Weather(const PbConfigs::Weather& message);
     operator PbConfigs::Weather() const;
 
     std::string serializeAsJsonString() const;
@@ -41,7 +41,7 @@ struct SessionConfig
     double canlibVersion;
     
     SessionConfig() = default;
-    SessionConfig(const PbConfigs::SessionConfig& protobuf);
+    SessionConfig(const PbConfigs::SessionConfig& message);
     operator PbConfigs::SessionConfig() const;
 
     std::string serializeAsJsonString() const;

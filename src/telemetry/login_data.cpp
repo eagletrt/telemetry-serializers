@@ -6,9 +6,9 @@ namespace Serializers
 {
 namespace Telemetry
 {
-LoginData::LoginData(const PbTelemetry::LoginData& protobuf) {
-    username = protobuf.username();
-    password = protobuf.password();
+LoginData::LoginData(const PbTelemetry::LoginData& message) {
+    username = message.username();
+    password = message.password();
 }
 
 LoginData::operator PbTelemetry::LoginData() const {
@@ -19,24 +19,24 @@ LoginData::operator PbTelemetry::LoginData() const {
 }
 
 std::string LoginData::serializeAsJsonString() const {
-    PbTelemetry::LoginData protobuf(*this);
+    PbTelemetry::LoginData message(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    google::protobuf::util::MessageToJsonString(message, &ret, options);
     return ret;
 }
 
 std::string LoginData::serializeAsProtobufString() const {
-    PbTelemetry::LoginData protobuf(*this);
-    return protobuf.SerializeAsString();
+    PbTelemetry::LoginData message(*this);
+    return message.SerializeAsString();
 }
 
 bool LoginData::deserializeFromJsonString(const std::string& str) {
-    PbTelemetry::LoginData protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    PbTelemetry::LoginData message;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
     if(status.ok()) {
-        *this = protobuf;
+        *this = message;
         return true;
     } else {
         return false;
@@ -44,9 +44,9 @@ bool LoginData::deserializeFromJsonString(const std::string& str) {
 }
 
 bool LoginData::deserializeFromProtobufString(const std::string& str) {
-    PbTelemetry::LoginData protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
+    PbTelemetry::LoginData message;
+    if(message.ParseFromString(str)) {
+        *this = message;
         return true;
     } else {
         return false;

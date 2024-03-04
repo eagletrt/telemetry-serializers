@@ -21,7 +21,7 @@ struct UserData
     uint64_t role;
     
     UserData() = default;
-    UserData(const PbApp::UserData& protobuf);
+    UserData(const PbApp::UserData& message);
     operator PbApp::UserData() const;
 
     std::string serializeAsJsonString() const;

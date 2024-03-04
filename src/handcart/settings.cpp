@@ -6,13 +6,13 @@ namespace Serializers
 {
 namespace Handcart
 {
-Settings::Settings(const PbHandcart::Settings& protobuf) {
-    status = protobuf.status();
-    targetVoltage = protobuf.targetvoltage();
-    fansOverride = protobuf.fansoverride();
-    fansSpeed = protobuf.fansspeed();
-    accChargeCurrent = protobuf.accchargecurrent();
-    gridMaxCurrent = protobuf.gridmaxcurrent();
+Settings::Settings(const PbHandcart::Settings& message) {
+    status = message.status();
+    targetVoltage = message.targetvoltage();
+    fansOverride = message.fansoverride();
+    fansSpeed = message.fansspeed();
+    accChargeCurrent = message.accchargecurrent();
+    gridMaxCurrent = message.gridmaxcurrent();
 }
 
 Settings::operator PbHandcart::Settings() const {
@@ -27,24 +27,24 @@ Settings::operator PbHandcart::Settings() const {
 }
 
 std::string Settings::serializeAsJsonString() const {
-    PbHandcart::Settings protobuf(*this);
+    PbHandcart::Settings message(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    google::protobuf::util::MessageToJsonString(message, &ret, options);
     return ret;
 }
 
 std::string Settings::serializeAsProtobufString() const {
-    PbHandcart::Settings protobuf(*this);
-    return protobuf.SerializeAsString();
+    PbHandcart::Settings message(*this);
+    return message.SerializeAsString();
 }
 
 bool Settings::deserializeFromJsonString(const std::string& str) {
-    PbHandcart::Settings protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    PbHandcart::Settings message;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
     if(status.ok()) {
-        *this = protobuf;
+        *this = message;
         return true;
     } else {
         return false;
@@ -52,9 +52,9 @@ bool Settings::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Settings::deserializeFromProtobufString(const std::string& str) {
-    PbHandcart::Settings protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
+    PbHandcart::Settings message;
+    if(message.ParseFromString(str)) {
+        *this = message;
         return true;
     } else {
         return false;

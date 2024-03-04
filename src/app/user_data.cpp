@@ -6,12 +6,12 @@ namespace Serializers
 {
 namespace App
 {
-UserData::UserData(const PbApp::UserData& protobuf) {
-    username = protobuf.username();
-    token = protobuf.token();
-    refreshToken = protobuf.refreshtoken();
-    expiry = protobuf.expiry();
-    role = protobuf.role();
+UserData::UserData(const PbApp::UserData& message) {
+    username = message.username();
+    token = message.token();
+    refreshToken = message.refreshtoken();
+    expiry = message.expiry();
+    role = message.role();
 }
 
 UserData::operator PbApp::UserData() const {
@@ -25,24 +25,24 @@ UserData::operator PbApp::UserData() const {
 }
 
 std::string UserData::serializeAsJsonString() const {
-    PbApp::UserData protobuf(*this);
+    PbApp::UserData message(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    google::protobuf::util::MessageToJsonString(message, &ret, options);
     return ret;
 }
 
 std::string UserData::serializeAsProtobufString() const {
-    PbApp::UserData protobuf(*this);
-    return protobuf.SerializeAsString();
+    PbApp::UserData message(*this);
+    return message.SerializeAsString();
 }
 
 bool UserData::deserializeFromJsonString(const std::string& str) {
-    PbApp::UserData protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    PbApp::UserData message;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
     if(status.ok()) {
-        *this = protobuf;
+        *this = message;
         return true;
     } else {
         return false;
@@ -50,9 +50,9 @@ bool UserData::deserializeFromJsonString(const std::string& str) {
 }
 
 bool UserData::deserializeFromProtobufString(const std::string& str) {
-    PbApp::UserData protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
+    PbApp::UserData message;
+    if(message.ParseFromString(str)) {
+        *this = message;
         return true;
     } else {
         return false;

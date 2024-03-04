@@ -6,10 +6,10 @@ namespace Serializers
 {
 namespace Configs
 {
-Weather::Weather(const PbConfigs::Weather& protobuf) {
-    ambient_temperature = protobuf.ambient_temperature();
-    track_temperature = protobuf.track_temperature();
-    humidity = protobuf.humidity();
+Weather::Weather(const PbConfigs::Weather& message) {
+    ambient_temperature = message.ambient_temperature();
+    track_temperature = message.track_temperature();
+    humidity = message.humidity();
 }
 
 Weather::operator PbConfigs::Weather() const {
@@ -21,24 +21,24 @@ Weather::operator PbConfigs::Weather() const {
 }
 
 std::string Weather::serializeAsJsonString() const {
-    PbConfigs::Weather protobuf(*this);
+    PbConfigs::Weather message(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    google::protobuf::util::MessageToJsonString(message, &ret, options);
     return ret;
 }
 
 std::string Weather::serializeAsProtobufString() const {
-    PbConfigs::Weather protobuf(*this);
-    return protobuf.SerializeAsString();
+    PbConfigs::Weather message(*this);
+    return message.SerializeAsString();
 }
 
 bool Weather::deserializeFromJsonString(const std::string& str) {
-    PbConfigs::Weather protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    PbConfigs::Weather message;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
     if(status.ok()) {
-        *this = protobuf;
+        *this = message;
         return true;
     } else {
         return false;
@@ -46,25 +46,25 @@ bool Weather::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Weather::deserializeFromProtobufString(const std::string& str) {
-    PbConfigs::Weather protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
+    PbConfigs::Weather message;
+    if(message.ParseFromString(str)) {
+        *this = message;
         return true;
     } else {
         return false;
     }
 }
 
-SessionConfig::SessionConfig(const PbConfigs::SessionConfig& protobuf) {
-    circuitId = protobuf.circuitid();
-    raceId = protobuf.raceid();
-    test = protobuf.test();
-    driverId = protobuf.driverid();
-    date = protobuf.date();
-    time = protobuf.time();
-    weather = protobuf.weather();
-    notes = protobuf.notes();
-    canlibVersion = protobuf.canlibversion();
+SessionConfig::SessionConfig(const PbConfigs::SessionConfig& message) {
+    circuitId = message.circuitid();
+    raceId = message.raceid();
+    test = message.test();
+    driverId = message.driverid();
+    date = message.date();
+    time = message.time();
+    weather = message.weather();
+    notes = message.notes();
+    canlibVersion = message.canlibversion();
 }
 
 SessionConfig::operator PbConfigs::SessionConfig() const {
@@ -82,24 +82,24 @@ SessionConfig::operator PbConfigs::SessionConfig() const {
 }
 
 std::string SessionConfig::serializeAsJsonString() const {
-    PbConfigs::SessionConfig protobuf(*this);
+    PbConfigs::SessionConfig message(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    google::protobuf::util::MessageToJsonString(message, &ret, options);
     return ret;
 }
 
 std::string SessionConfig::serializeAsProtobufString() const {
-    PbConfigs::SessionConfig protobuf(*this);
-    return protobuf.SerializeAsString();
+    PbConfigs::SessionConfig message(*this);
+    return message.SerializeAsString();
 }
 
 bool SessionConfig::deserializeFromJsonString(const std::string& str) {
-    PbConfigs::SessionConfig protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    PbConfigs::SessionConfig message;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
     if(status.ok()) {
-        *this = protobuf;
+        *this = message;
         return true;
     } else {
         return false;
@@ -107,9 +107,9 @@ bool SessionConfig::deserializeFromJsonString(const std::string& str) {
 }
 
 bool SessionConfig::deserializeFromProtobufString(const std::string& str) {
-    PbConfigs::SessionConfig protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
+    PbConfigs::SessionConfig message;
+    if(message.ParseFromString(str)) {
+        *this = message;
         return true;
     } else {
         return false;

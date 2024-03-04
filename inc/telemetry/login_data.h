@@ -18,7 +18,7 @@ struct LoginData
     std::string password;
     
     LoginData() = default;
-    LoginData(const PbTelemetry::LoginData& protobuf);
+    LoginData(const PbTelemetry::LoginData& message);
     operator PbTelemetry::LoginData() const;
 
     std::string serializeAsJsonString() const;

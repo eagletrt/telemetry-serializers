@@ -6,10 +6,10 @@ namespace Serializers
 {
 namespace Actions
 {
-FileTransactionSetup::FileTransactionSetup(const PbActions::FileTransactionSetup& protobuf) {
-    id = protobuf.id();
-    hash = protobuf.hash();
-    topic = protobuf.topic();
+FileTransactionSetup::FileTransactionSetup(const PbActions::FileTransactionSetup& message) {
+    id = message.id();
+    hash = message.hash();
+    topic = message.topic();
 }
 
 FileTransactionSetup::operator PbActions::FileTransactionSetup() const {
@@ -21,24 +21,24 @@ FileTransactionSetup::operator PbActions::FileTransactionSetup() const {
 }
 
 std::string FileTransactionSetup::serializeAsJsonString() const {
-    PbActions::FileTransactionSetup protobuf(*this);
+    PbActions::FileTransactionSetup message(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    google::protobuf::util::MessageToJsonString(message, &ret, options);
     return ret;
 }
 
 std::string FileTransactionSetup::serializeAsProtobufString() const {
-    PbActions::FileTransactionSetup protobuf(*this);
-    return protobuf.SerializeAsString();
+    PbActions::FileTransactionSetup message(*this);
+    return message.SerializeAsString();
 }
 
 bool FileTransactionSetup::deserializeFromJsonString(const std::string& str) {
-    PbActions::FileTransactionSetup protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    PbActions::FileTransactionSetup message;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
     if(status.ok()) {
-        *this = protobuf;
+        *this = message;
         return true;
     } else {
         return false;
@@ -46,20 +46,20 @@ bool FileTransactionSetup::deserializeFromJsonString(const std::string& str) {
 }
 
 bool FileTransactionSetup::deserializeFromProtobufString(const std::string& str) {
-    PbActions::FileTransactionSetup protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
+    PbActions::FileTransactionSetup message;
+    if(message.ParseFromString(str)) {
+        *this = message;
         return true;
     } else {
         return false;
     }
 }
 
-FileTransactionStatus::FileTransactionStatus(const PbActions::FileTransactionStatus& protobuf) {
-    fileName = protobuf.filename();
-    hash = protobuf.hash();
-    destinationPath = protobuf.destinationpath();
-    totalChunks = protobuf.totalchunks();
+FileTransactionStatus::FileTransactionStatus(const PbActions::FileTransactionStatus& message) {
+    fileName = message.filename();
+    hash = message.hash();
+    destinationPath = message.destinationpath();
+    totalChunks = message.totalchunks();
 }
 
 FileTransactionStatus::operator PbActions::FileTransactionStatus() const {
@@ -72,24 +72,24 @@ FileTransactionStatus::operator PbActions::FileTransactionStatus() const {
 }
 
 std::string FileTransactionStatus::serializeAsJsonString() const {
-    PbActions::FileTransactionStatus protobuf(*this);
+    PbActions::FileTransactionStatus message(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    google::protobuf::util::MessageToJsonString(message, &ret, options);
     return ret;
 }
 
 std::string FileTransactionStatus::serializeAsProtobufString() const {
-    PbActions::FileTransactionStatus protobuf(*this);
-    return protobuf.SerializeAsString();
+    PbActions::FileTransactionStatus message(*this);
+    return message.SerializeAsString();
 }
 
 bool FileTransactionStatus::deserializeFromJsonString(const std::string& str) {
-    PbActions::FileTransactionStatus protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    PbActions::FileTransactionStatus message;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
     if(status.ok()) {
-        *this = protobuf;
+        *this = message;
         return true;
     } else {
         return false;
@@ -97,20 +97,20 @@ bool FileTransactionStatus::deserializeFromJsonString(const std::string& str) {
 }
 
 bool FileTransactionStatus::deserializeFromProtobufString(const std::string& str) {
-    PbActions::FileTransactionStatus protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
+    PbActions::FileTransactionStatus message;
+    if(message.ParseFromString(str)) {
+        *this = message;
         return true;
     } else {
         return false;
     }
 }
 
-FileTransactionChunk::FileTransactionChunk(const PbActions::FileTransactionChunk& protobuf) {
-    data = protobuf.data();
-    hash = protobuf.hash();
-    chunkNumber = protobuf.chunknumber();
-    totalChunks = protobuf.totalchunks();
+FileTransactionChunk::FileTransactionChunk(const PbActions::FileTransactionChunk& message) {
+    data = message.data();
+    hash = message.hash();
+    chunkNumber = message.chunknumber();
+    totalChunks = message.totalchunks();
 }
 
 FileTransactionChunk::operator PbActions::FileTransactionChunk() const {
@@ -123,24 +123,24 @@ FileTransactionChunk::operator PbActions::FileTransactionChunk() const {
 }
 
 std::string FileTransactionChunk::serializeAsJsonString() const {
-    PbActions::FileTransactionChunk protobuf(*this);
+    PbActions::FileTransactionChunk message(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    google::protobuf::util::MessageToJsonString(message, &ret, options);
     return ret;
 }
 
 std::string FileTransactionChunk::serializeAsProtobufString() const {
-    PbActions::FileTransactionChunk protobuf(*this);
-    return protobuf.SerializeAsString();
+    PbActions::FileTransactionChunk message(*this);
+    return message.SerializeAsString();
 }
 
 bool FileTransactionChunk::deserializeFromJsonString(const std::string& str) {
-    PbActions::FileTransactionChunk protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    PbActions::FileTransactionChunk message;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
     if(status.ok()) {
-        *this = protobuf;
+        *this = message;
         return true;
     } else {
         return false;
@@ -148,9 +148,9 @@ bool FileTransactionChunk::deserializeFromJsonString(const std::string& str) {
 }
 
 bool FileTransactionChunk::deserializeFromProtobufString(const std::string& str) {
-    PbActions::FileTransactionChunk protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
+    PbActions::FileTransactionChunk message;
+    if(message.ParseFromString(str)) {
+        *this = message;
         return true;
     } else {
         return false;

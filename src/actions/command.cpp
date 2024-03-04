@@ -6,9 +6,9 @@ namespace Serializers
 {
 namespace Actions
 {
-Command::Command(const PbActions::Command& protobuf) {
-    input = protobuf.input();
-    output = protobuf.output();
+Command::Command(const PbActions::Command& message) {
+    input = message.input();
+    output = message.output();
 }
 
 Command::operator PbActions::Command() const {
@@ -19,24 +19,24 @@ Command::operator PbActions::Command() const {
 }
 
 std::string Command::serializeAsJsonString() const {
-    PbActions::Command protobuf(*this);
+    PbActions::Command message(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    google::protobuf::util::MessageToJsonString(message, &ret, options);
     return ret;
 }
 
 std::string Command::serializeAsProtobufString() const {
-    PbActions::Command protobuf(*this);
-    return protobuf.SerializeAsString();
+    PbActions::Command message(*this);
+    return message.SerializeAsString();
 }
 
 bool Command::deserializeFromJsonString(const std::string& str) {
-    PbActions::Command protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    PbActions::Command message;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
     if(status.ok()) {
-        *this = protobuf;
+        *this = message;
         return true;
     } else {
         return false;
@@ -44,9 +44,9 @@ bool Command::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Command::deserializeFromProtobufString(const std::string& str) {
-    PbActions::Command protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
+    PbActions::Command message;
+    if(message.ParseFromString(str)) {
+        *this = message;
         return true;
     } else {
         return false;

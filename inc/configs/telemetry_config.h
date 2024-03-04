@@ -19,7 +19,7 @@ struct CanDevice
     std::vector<std::string> networks;
     
     CanDevice() = default;
-    CanDevice(const PbConfigs::CanDevice& protobuf);
+    CanDevice(const PbConfigs::CanDevice& message);
     operator PbConfigs::CanDevice() const;
 
     std::string serializeAsJsonString() const;
@@ -35,7 +35,7 @@ struct GpsDevice
     bool enabled;
     
     GpsDevice() = default;
-    GpsDevice(const PbConfigs::GpsDevice& protobuf);
+    GpsDevice(const PbConfigs::GpsDevice& message);
     operator PbConfigs::GpsDevice() const;
 
     std::string serializeAsJsonString() const;
@@ -57,7 +57,7 @@ struct Connection
     std::string keyfile;
     
     Connection() = default;
-    Connection(const PbConfigs::Connection& protobuf);
+    Connection(const PbConfigs::Connection& message);
     operator PbConfigs::Connection() const;
 
     std::string serializeAsJsonString() const;
@@ -76,7 +76,7 @@ struct ConnectionSettings
     bool sendSensorData;
     
     ConnectionSettings() = default;
-    ConnectionSettings(const PbConfigs::ConnectionSettings& protobuf);
+    ConnectionSettings(const PbConfigs::ConnectionSettings& message);
     operator PbConfigs::ConnectionSettings() const;
 
     std::string serializeAsJsonString() const;
@@ -98,7 +98,7 @@ struct TelemetryConfig
     std::vector<GpsDevice> gpsDevices;
     
     TelemetryConfig() = default;
-    TelemetryConfig(const PbConfigs::TelemetryConfig& protobuf);
+    TelemetryConfig(const PbConfigs::TelemetryConfig& message);
     operator PbConfigs::TelemetryConfig() const;
 
     std::string serializeAsJsonString() const;

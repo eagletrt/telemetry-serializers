@@ -6,18 +6,18 @@ namespace Serializers
 {
 namespace TPMS
 {
-Rtl433Payload::Rtl433Payload(const PbTPMS::Rtl433Payload& protobuf) {
-    time = protobuf.time();
-    model = protobuf.model();
-    id = protobuf.id();
-    pressure = protobuf.pressure();
-    temperature = protobuf.temperature();
-    acceleration = protobuf.acceleration();
-    battery = protobuf.battery();
-    interframe = protobuf.interframe();
-    wo_state = protobuf.wo_state();
-    checksum = protobuf.checksum();
-    mic = protobuf.mic();
+Rtl433Payload::Rtl433Payload(const PbTPMS::Rtl433Payload& message) {
+    time = message.time();
+    model = message.model();
+    id = message.id();
+    pressure = message.pressure();
+    temperature = message.temperature();
+    acceleration = message.acceleration();
+    battery = message.battery();
+    interframe = message.interframe();
+    wo_state = message.wo_state();
+    checksum = message.checksum();
+    mic = message.mic();
 }
 
 Rtl433Payload::operator PbTPMS::Rtl433Payload() const {
@@ -37,24 +37,24 @@ Rtl433Payload::operator PbTPMS::Rtl433Payload() const {
 }
 
 std::string Rtl433Payload::serializeAsJsonString() const {
-    PbTPMS::Rtl433Payload protobuf(*this);
+    PbTPMS::Rtl433Payload message(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    google::protobuf::util::MessageToJsonString(message, &ret, options);
     return ret;
 }
 
 std::string Rtl433Payload::serializeAsProtobufString() const {
-    PbTPMS::Rtl433Payload protobuf(*this);
-    return protobuf.SerializeAsString();
+    PbTPMS::Rtl433Payload message(*this);
+    return message.SerializeAsString();
 }
 
 bool Rtl433Payload::deserializeFromJsonString(const std::string& str) {
-    PbTPMS::Rtl433Payload protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    PbTPMS::Rtl433Payload message;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
     if(status.ok()) {
-        *this = protobuf;
+        *this = message;
         return true;
     } else {
         return false;
@@ -62,9 +62,9 @@ bool Rtl433Payload::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Rtl433Payload::deserializeFromProtobufString(const std::string& str) {
-    PbTPMS::Rtl433Payload protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
+    PbTPMS::Rtl433Payload message;
+    if(message.ParseFromString(str)) {
+        *this = message;
         return true;
     } else {
         return false;
