@@ -19,7 +19,7 @@ struct FileTransactionSetup
     std::string topic;
     
     FileTransactionSetup() = default;
-    FileTransactionSetup(const PbActions::FileTransactionSetup& message);
+    FileTransactionSetup(const PbActions::FileTransactionSetup& protobuf);
     operator PbActions::FileTransactionSetup() const;
 
     std::string serializeAsJsonString() const;
@@ -36,7 +36,7 @@ struct FileTransactionStatus
     uint64_t totalChunks;
     
     FileTransactionStatus() = default;
-    FileTransactionStatus(const PbActions::FileTransactionStatus& message);
+    FileTransactionStatus(const PbActions::FileTransactionStatus& protobuf);
     operator PbActions::FileTransactionStatus() const;
 
     std::string serializeAsJsonString() const;
@@ -53,7 +53,7 @@ struct FileTransactionChunk
     uint64_t totalChunks;
     
     FileTransactionChunk() = default;
-    FileTransactionChunk(const PbActions::FileTransactionChunk& message);
+    FileTransactionChunk(const PbActions::FileTransactionChunk& protobuf);
     operator PbActions::FileTransactionChunk() const;
 
     std::string serializeAsJsonString() const;

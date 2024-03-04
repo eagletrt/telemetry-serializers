@@ -27,7 +27,7 @@ struct Rtl433Payload
     std::string mic;
     
     Rtl433Payload() = default;
-    Rtl433Payload(const PbTPMS::Rtl433Payload& message);
+    Rtl433Payload(const PbTPMS::Rtl433Payload& protobuf);
     operator PbTPMS::Rtl433Payload() const;
 
     std::string serializeAsJsonString() const;

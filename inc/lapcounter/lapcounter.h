@@ -18,7 +18,7 @@ struct Vector
     double y;
     
     Vector() = default;
-    Vector(const PbLapCounter::Vector& message);
+    Vector(const PbLapCounter::Vector& protobuf);
     operator PbLapCounter::Vector() const;
 
     std::string serializeAsJsonString() const;
@@ -33,7 +33,7 @@ struct Line
     Vector direction;
     
     Line() = default;
-    Line(const PbLapCounter::Line& message);
+    Line(const PbLapCounter::Line& protobuf);
     operator PbLapCounter::Line() const;
 
     std::string serializeAsJsonString() const;
@@ -49,7 +49,7 @@ struct Circuit
     std::vector<Line> sectorsLines;
     
     Circuit() = default;
-    Circuit(const PbLapCounter::Circuit& message);
+    Circuit(const PbLapCounter::Circuit& protobuf);
     operator PbLapCounter::Circuit() const;
 
     std::string serializeAsJsonString() const;
@@ -66,7 +66,7 @@ struct Lap
     std::vector<uint64_t> sectorsTimestamps;
     
     Lap() = default;
-    Lap(const PbLapCounter::Lap& message);
+    Lap(const PbLapCounter::Lap& protobuf);
     operator PbLapCounter::Lap() const;
 
     std::string serializeAsJsonString() const;
@@ -83,7 +83,7 @@ struct Race
     std::vector<Lap> laps;
     
     Race() = default;
-    Race(const PbLapCounter::Race& message);
+    Race(const PbLapCounter::Race& protobuf);
     operator PbLapCounter::Race() const;
 
     std::string serializeAsJsonString() const;

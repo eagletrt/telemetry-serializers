@@ -6,10 +6,10 @@ namespace Serializers
 {
 namespace Telemetry
 {
-Error::Error(const PbTelemetry::Error& message) {
-    timestamp = message.timestamp();
-    function = message.function();
-    description = message.description();
+Error::Error(const PbTelemetry::Error& protobuf) {
+    timestamp = protobuf.timestamp();
+    function = protobuf.function();
+    description = protobuf.description();
 }
 
 Error::operator PbTelemetry::Error() const {
@@ -21,24 +21,24 @@ Error::operator PbTelemetry::Error() const {
 }
 
 std::string Error::serializeAsJsonString() const {
-    PbTelemetry::Error message(*this);
+    PbTelemetry::Error protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(message, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Error::serializeAsProtobufString() const {
-    PbTelemetry::Error message(*this);
-    return message.SerializeAsString();
+    PbTelemetry::Error protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Error::deserializeFromJsonString(const std::string& str) {
-    PbTelemetry::Error message;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
+    PbTelemetry::Error protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = message;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -46,9 +46,9 @@ bool Error::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Error::deserializeFromProtobufString(const std::string& str) {
-    PbTelemetry::Error message;
-    if(message.ParseFromString(str)) {
-        *this = message;
+    PbTelemetry::Error protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;

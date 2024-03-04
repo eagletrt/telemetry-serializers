@@ -19,7 +19,7 @@ struct Statistics
     double seconds;
     
     Statistics() = default;
-    Statistics(const PbTelemetry::Statistics& message);
+    Statistics(const PbTelemetry::Statistics& protobuf);
     operator PbTelemetry::Statistics() const;
 
     std::string serializeAsJsonString() const;

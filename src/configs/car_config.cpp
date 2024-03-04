@@ -6,10 +6,10 @@ namespace Serializers
 {
 namespace Configs
 {
-Aero::Aero(const PbConfigs::Aero& message) {
-    angleOfIncidenceFront = message.angleofincidencefront();
-    angleOfIncidenceRear = message.angleofincidencerear();
-    flap = message.flap();
+Aero::Aero(const PbConfigs::Aero& protobuf) {
+    angleOfIncidenceFront = protobuf.angleofincidencefront();
+    angleOfIncidenceRear = protobuf.angleofincidencerear();
+    flap = protobuf.flap();
 }
 
 Aero::operator PbConfigs::Aero() const {
@@ -21,24 +21,24 @@ Aero::operator PbConfigs::Aero() const {
 }
 
 std::string Aero::serializeAsJsonString() const {
-    PbConfigs::Aero message(*this);
+    PbConfigs::Aero protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(message, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Aero::serializeAsProtobufString() const {
-    PbConfigs::Aero message(*this);
-    return message.SerializeAsString();
+    PbConfigs::Aero protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Aero::deserializeFromJsonString(const std::string& str) {
-    PbConfigs::Aero message;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
+    PbConfigs::Aero protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = message;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -46,19 +46,19 @@ bool Aero::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Aero::deserializeFromProtobufString(const std::string& str) {
-    PbConfigs::Aero message;
-    if(message.ParseFromString(str)) {
-        *this = message;
+    PbConfigs::Aero protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Wheel::Wheel(const PbConfigs::Wheel& message) {
-    camber = message.camber();
-    toe = message.toe();
-    pressure = message.pressure();
+Wheel::Wheel(const PbConfigs::Wheel& protobuf) {
+    camber = protobuf.camber();
+    toe = protobuf.toe();
+    pressure = protobuf.pressure();
 }
 
 Wheel::operator PbConfigs::Wheel() const {
@@ -70,24 +70,24 @@ Wheel::operator PbConfigs::Wheel() const {
 }
 
 std::string Wheel::serializeAsJsonString() const {
-    PbConfigs::Wheel message(*this);
+    PbConfigs::Wheel protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(message, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Wheel::serializeAsProtobufString() const {
-    PbConfigs::Wheel message(*this);
-    return message.SerializeAsString();
+    PbConfigs::Wheel protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Wheel::deserializeFromJsonString(const std::string& str) {
-    PbConfigs::Wheel message;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
+    PbConfigs::Wheel protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = message;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -95,20 +95,20 @@ bool Wheel::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Wheel::deserializeFromProtobufString(const std::string& str) {
-    PbConfigs::Wheel message;
-    if(message.ParseFromString(str)) {
-        *this = message;
+    PbConfigs::Wheel protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Damper::Damper(const PbConfigs::Damper& message) {
-    bound_low_comp = message.bound_low_comp();
-    bound_high_comp = message.bound_high_comp();
-    rebound = message.rebound();
-    preload = message.preload();
+Damper::Damper(const PbConfigs::Damper& protobuf) {
+    bound_low_comp = protobuf.bound_low_comp();
+    bound_high_comp = protobuf.bound_high_comp();
+    rebound = protobuf.rebound();
+    preload = protobuf.preload();
 }
 
 Damper::operator PbConfigs::Damper() const {
@@ -121,24 +121,24 @@ Damper::operator PbConfigs::Damper() const {
 }
 
 std::string Damper::serializeAsJsonString() const {
-    PbConfigs::Damper message(*this);
+    PbConfigs::Damper protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(message, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Damper::serializeAsProtobufString() const {
-    PbConfigs::Damper message(*this);
-    return message.SerializeAsString();
+    PbConfigs::Damper protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Damper::deserializeFromJsonString(const std::string& str) {
-    PbConfigs::Damper message;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
+    PbConfigs::Damper protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = message;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -146,25 +146,25 @@ bool Damper::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Damper::deserializeFromProtobufString(const std::string& str) {
-    PbConfigs::Damper message;
-    if(message.ParseFromString(str)) {
-        *this = message;
+    PbConfigs::Damper protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-CarConfig::CarConfig(const PbConfigs::CarConfig& message) {
-    aero = message.aero();
-    wheelFront = message.wheelfront();
-    wheelRear = message.wheelrear();
-    damperFront = message.damperfront();
-    damperRear = message.damperrear();
-    wheelCompound = message.wheelcompound();
-    rideHeight = message.rideheight();
-    balancing = message.balancing();
-    notes = message.notes();
+CarConfig::CarConfig(const PbConfigs::CarConfig& protobuf) {
+    aero = protobuf.aero();
+    wheelFront = protobuf.wheelfront();
+    wheelRear = protobuf.wheelrear();
+    damperFront = protobuf.damperfront();
+    damperRear = protobuf.damperrear();
+    wheelCompound = protobuf.wheelcompound();
+    rideHeight = protobuf.rideheight();
+    balancing = protobuf.balancing();
+    notes = protobuf.notes();
 }
 
 CarConfig::operator PbConfigs::CarConfig() const {
@@ -182,24 +182,24 @@ CarConfig::operator PbConfigs::CarConfig() const {
 }
 
 std::string CarConfig::serializeAsJsonString() const {
-    PbConfigs::CarConfig message(*this);
+    PbConfigs::CarConfig protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(message, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string CarConfig::serializeAsProtobufString() const {
-    PbConfigs::CarConfig message(*this);
-    return message.SerializeAsString();
+    PbConfigs::CarConfig protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool CarConfig::deserializeFromJsonString(const std::string& str) {
-    PbConfigs::CarConfig message;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
+    PbConfigs::CarConfig protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = message;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -207,9 +207,9 @@ bool CarConfig::deserializeFromJsonString(const std::string& str) {
 }
 
 bool CarConfig::deserializeFromProtobufString(const std::string& str) {
-    PbConfigs::CarConfig message;
-    if(message.ParseFromString(str)) {
-        *this = message;
+    PbConfigs::CarConfig protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;

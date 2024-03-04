@@ -19,7 +19,7 @@ struct Connection
     std::string mode;
     
     Connection() = default;
-    Connection(const PbApp::Connection& message);
+    Connection(const PbApp::Connection& protobuf);
     operator PbApp::Connection() const;
 
     std::string serializeAsJsonString() const;
@@ -38,7 +38,7 @@ struct Trigger
     uint32_t color;
     
     Trigger() = default;
-    Trigger(const PbApp::Trigger& message);
+    Trigger(const PbApp::Trigger& protobuf);
     operator PbApp::Trigger() const;
 
     std::string serializeAsJsonString() const;
@@ -55,7 +55,7 @@ struct AxisItem
     uint32_t color;
     
     AxisItem() = default;
-    AxisItem(const PbApp::AxisItem& message);
+    AxisItem(const PbApp::AxisItem& protobuf);
     operator PbApp::AxisItem() const;
 
     std::string serializeAsJsonString() const;
@@ -70,7 +70,7 @@ struct Axis
     std::vector<AxisItem> items;
     
     Axis() = default;
-    Axis(const PbApp::Axis& message);
+    Axis(const PbApp::Axis& protobuf);
     operator PbApp::Axis() const;
 
     std::string serializeAsJsonString() const;
@@ -85,7 +85,7 @@ struct CustomPlot
     std::unordered_map<int32_t, Axis> axes;
     
     CustomPlot() = default;
-    CustomPlot(const PbApp::CustomPlot& message);
+    CustomPlot(const PbApp::CustomPlot& protobuf);
     operator PbApp::CustomPlot() const;
 
     std::string serializeAsJsonString() const;
@@ -109,7 +109,7 @@ struct AppConfig
     std::unordered_map<std::string, bool> boolCache;
     
     AppConfig() = default;
-    AppConfig(const PbApp::AppConfig& message);
+    AppConfig(const PbApp::AppConfig& protobuf);
     operator PbApp::AppConfig() const;
 
     std::string serializeAsJsonString() const;

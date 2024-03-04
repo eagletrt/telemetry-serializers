@@ -19,7 +19,7 @@ struct Error
     std::string description;
     
     Error() = default;
-    Error(const PbTelemetry::Error& message);
+    Error(const PbTelemetry::Error& protobuf);
     operator PbTelemetry::Error() const;
 
     std::string serializeAsJsonString() const;

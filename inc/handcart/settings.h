@@ -22,7 +22,7 @@ struct Settings
     double gridMaxCurrent;
     
     Settings() = default;
-    Settings(const PbHandcart::Settings& message);
+    Settings(const PbHandcart::Settings& protobuf);
     operator PbHandcart::Settings() const;
 
     std::string serializeAsJsonString() const;

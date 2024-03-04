@@ -6,9 +6,9 @@ namespace Serializers
 {
 namespace LapCounter
 {
-Vector::Vector(const PbLapCounter::Vector& message) {
-    x = message.x();
-    y = message.y();
+Vector::Vector(const PbLapCounter::Vector& protobuf) {
+    x = protobuf.x();
+    y = protobuf.y();
 }
 
 Vector::operator PbLapCounter::Vector() const {
@@ -19,24 +19,24 @@ Vector::operator PbLapCounter::Vector() const {
 }
 
 std::string Vector::serializeAsJsonString() const {
-    PbLapCounter::Vector message(*this);
+    PbLapCounter::Vector protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(message, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Vector::serializeAsProtobufString() const {
-    PbLapCounter::Vector message(*this);
-    return message.SerializeAsString();
+    PbLapCounter::Vector protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Vector::deserializeFromJsonString(const std::string& str) {
-    PbLapCounter::Vector message;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
+    PbLapCounter::Vector protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = message;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -44,18 +44,18 @@ bool Vector::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Vector::deserializeFromProtobufString(const std::string& str) {
-    PbLapCounter::Vector message;
-    if(message.ParseFromString(str)) {
-        *this = message;
+    PbLapCounter::Vector protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Line::Line(const PbLapCounter::Line& message) {
-    position = message.position();
-    direction = message.direction();
+Line::Line(const PbLapCounter::Line& protobuf) {
+    position = protobuf.position();
+    direction = protobuf.direction();
 }
 
 Line::operator PbLapCounter::Line() const {
@@ -66,24 +66,24 @@ Line::operator PbLapCounter::Line() const {
 }
 
 std::string Line::serializeAsJsonString() const {
-    PbLapCounter::Line message(*this);
+    PbLapCounter::Line protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(message, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Line::serializeAsProtobufString() const {
-    PbLapCounter::Line message(*this);
-    return message.SerializeAsString();
+    PbLapCounter::Line protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Line::deserializeFromJsonString(const std::string& str) {
-    PbLapCounter::Line message;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
+    PbLapCounter::Line protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = message;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -91,19 +91,19 @@ bool Line::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Line::deserializeFromProtobufString(const std::string& str) {
-    PbLapCounter::Line message;
-    if(message.ParseFromString(str)) {
-        *this = message;
+    PbLapCounter::Line protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Circuit::Circuit(const PbLapCounter::Circuit& message) {
-    circuitId = message.circuitid();
-    checksLines = {message.checkslines().begin(), message.checkslines().end()};
-    sectorsLines = {message.sectorslines().begin(), message.sectorslines().end()};
+Circuit::Circuit(const PbLapCounter::Circuit& protobuf) {
+    circuitId = protobuf.circuitid();
+    checksLines = {protobuf.checkslines().begin(), protobuf.checkslines().end()};
+    sectorsLines = {protobuf.sectorslines().begin(), protobuf.sectorslines().end()};
 }
 
 Circuit::operator PbLapCounter::Circuit() const {
@@ -115,24 +115,24 @@ Circuit::operator PbLapCounter::Circuit() const {
 }
 
 std::string Circuit::serializeAsJsonString() const {
-    PbLapCounter::Circuit message(*this);
+    PbLapCounter::Circuit protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(message, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Circuit::serializeAsProtobufString() const {
-    PbLapCounter::Circuit message(*this);
-    return message.SerializeAsString();
+    PbLapCounter::Circuit protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Circuit::deserializeFromJsonString(const std::string& str) {
-    PbLapCounter::Circuit message;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
+    PbLapCounter::Circuit protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = message;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -140,20 +140,20 @@ bool Circuit::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Circuit::deserializeFromProtobufString(const std::string& str) {
-    PbLapCounter::Circuit message;
-    if(message.ParseFromString(str)) {
-        *this = message;
+    PbLapCounter::Circuit protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Lap::Lap(const PbLapCounter::Lap& message) {
-    number = message.number();
-    startTimestamp = message.starttimestamp();
-    endTimestamp = message.endtimestamp();
-    sectorsTimestamps = {message.sectorstimestamps().begin(), message.sectorstimestamps().end()};
+Lap::Lap(const PbLapCounter::Lap& protobuf) {
+    number = protobuf.number();
+    startTimestamp = protobuf.starttimestamp();
+    endTimestamp = protobuf.endtimestamp();
+    sectorsTimestamps = {protobuf.sectorstimestamps().begin(), protobuf.sectorstimestamps().end()};
 }
 
 Lap::operator PbLapCounter::Lap() const {
@@ -166,24 +166,24 @@ Lap::operator PbLapCounter::Lap() const {
 }
 
 std::string Lap::serializeAsJsonString() const {
-    PbLapCounter::Lap message(*this);
+    PbLapCounter::Lap protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(message, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Lap::serializeAsProtobufString() const {
-    PbLapCounter::Lap message(*this);
-    return message.SerializeAsString();
+    PbLapCounter::Lap protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Lap::deserializeFromJsonString(const std::string& str) {
-    PbLapCounter::Lap message;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
+    PbLapCounter::Lap protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = message;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -191,20 +191,20 @@ bool Lap::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Lap::deserializeFromProtobufString(const std::string& str) {
-    PbLapCounter::Lap message;
-    if(message.ParseFromString(str)) {
-        *this = message;
+    PbLapCounter::Lap protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Race::Race(const PbLapCounter::Race& message) {
-    raceId = message.raceid();
-    circuitId = message.circuitid();
-    driverId = message.driverid();
-    laps = {message.laps().begin(), message.laps().end()};
+Race::Race(const PbLapCounter::Race& protobuf) {
+    raceId = protobuf.raceid();
+    circuitId = protobuf.circuitid();
+    driverId = protobuf.driverid();
+    laps = {protobuf.laps().begin(), protobuf.laps().end()};
 }
 
 Race::operator PbLapCounter::Race() const {
@@ -217,24 +217,24 @@ Race::operator PbLapCounter::Race() const {
 }
 
 std::string Race::serializeAsJsonString() const {
-    PbLapCounter::Race message(*this);
+    PbLapCounter::Race protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(message, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Race::serializeAsProtobufString() const {
-    PbLapCounter::Race message(*this);
-    return message.SerializeAsString();
+    PbLapCounter::Race protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Race::deserializeFromJsonString(const std::string& str) {
-    PbLapCounter::Race message;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
+    PbLapCounter::Race protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = message;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -242,9 +242,9 @@ bool Race::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Race::deserializeFromProtobufString(const std::string& str) {
-    PbLapCounter::Race message;
-    if(message.ParseFromString(str)) {
-        *this = message;
+    PbLapCounter::Race protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;

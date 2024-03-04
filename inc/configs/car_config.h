@@ -19,7 +19,7 @@ struct Aero
     std::string flap;
     
     Aero() = default;
-    Aero(const PbConfigs::Aero& message);
+    Aero(const PbConfigs::Aero& protobuf);
     operator PbConfigs::Aero() const;
 
     std::string serializeAsJsonString() const;
@@ -35,7 +35,7 @@ struct Wheel
     std::string pressure;
     
     Wheel() = default;
-    Wheel(const PbConfigs::Wheel& message);
+    Wheel(const PbConfigs::Wheel& protobuf);
     operator PbConfigs::Wheel() const;
 
     std::string serializeAsJsonString() const;
@@ -52,7 +52,7 @@ struct Damper
     double preload;
     
     Damper() = default;
-    Damper(const PbConfigs::Damper& message);
+    Damper(const PbConfigs::Damper& protobuf);
     operator PbConfigs::Damper() const;
 
     std::string serializeAsJsonString() const;
@@ -74,7 +74,7 @@ struct CarConfig
     std::string notes;
     
     CarConfig() = default;
-    CarConfig(const PbConfigs::CarConfig& message);
+    CarConfig(const PbConfigs::CarConfig& protobuf);
     operator PbConfigs::CarConfig() const;
 
     std::string serializeAsJsonString() const;

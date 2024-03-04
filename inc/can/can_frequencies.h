@@ -21,7 +21,7 @@ struct CanFrequency
     uint64_t frequency;
     
     CanFrequency() = default;
-    CanFrequency(const PbCan::CanFrequency& message);
+    CanFrequency(const PbCan::CanFrequency& protobuf);
     operator PbCan::CanFrequency() const;
 
     std::string serializeAsJsonString() const;
@@ -35,7 +35,7 @@ struct CanFrequencies
     std::unordered_map<uint64_t, CanFrequency> frequencies;
     
     CanFrequencies() = default;
-    CanFrequencies(const PbCan::CanFrequencies& message);
+    CanFrequencies(const PbCan::CanFrequencies& protobuf);
     operator PbCan::CanFrequencies() const;
 
     std::string serializeAsJsonString() const;
@@ -50,7 +50,7 @@ struct CanNetworksFrequencies
     std::unordered_map<std::string, CanFrequencies> networks;
     
     CanNetworksFrequencies() = default;
-    CanNetworksFrequencies(const PbCan::CanNetworksFrequencies& message);
+    CanNetworksFrequencies(const PbCan::CanNetworksFrequencies& protobuf);
     operator PbCan::CanNetworksFrequencies() const;
 
     std::string serializeAsJsonString() const;

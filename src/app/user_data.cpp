@@ -6,12 +6,12 @@ namespace Serializers
 {
 namespace App
 {
-UserData::UserData(const PbApp::UserData& message) {
-    username = message.username();
-    token = message.token();
-    refreshToken = message.refreshtoken();
-    expiry = message.expiry();
-    role = message.role();
+UserData::UserData(const PbApp::UserData& protobuf) {
+    username = protobuf.username();
+    token = protobuf.token();
+    refreshToken = protobuf.refreshtoken();
+    expiry = protobuf.expiry();
+    role = protobuf.role();
 }
 
 UserData::operator PbApp::UserData() const {
@@ -25,24 +25,24 @@ UserData::operator PbApp::UserData() const {
 }
 
 std::string UserData::serializeAsJsonString() const {
-    PbApp::UserData message(*this);
+    PbApp::UserData protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(message, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string UserData::serializeAsProtobufString() const {
-    PbApp::UserData message(*this);
-    return message.SerializeAsString();
+    PbApp::UserData protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool UserData::deserializeFromJsonString(const std::string& str) {
-    PbApp::UserData message;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
+    PbApp::UserData protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = message;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -50,9 +50,9 @@ bool UserData::deserializeFromJsonString(const std::string& str) {
 }
 
 bool UserData::deserializeFromProtobufString(const std::string& str) {
-    PbApp::UserData message;
-    if(message.ParseFromString(str)) {
-        *this = message;
+    PbApp::UserData protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;

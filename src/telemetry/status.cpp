@@ -6,11 +6,11 @@ namespace Serializers
 {
 namespace Telemetry
 {
-MessagesPerSecond::MessagesPerSecond(const PbTelemetry::MessagesPerSecond& message) {
-    deviceName = message.devicename();
-    bitsPerSecond = message.bitspersecond();
-    busLoad = message.busload();
-    count = message.count();
+MessagesPerSecond::MessagesPerSecond(const PbTelemetry::MessagesPerSecond& protobuf) {
+    deviceName = protobuf.devicename();
+    bitsPerSecond = protobuf.bitspersecond();
+    busLoad = protobuf.busload();
+    count = protobuf.count();
 }
 
 MessagesPerSecond::operator PbTelemetry::MessagesPerSecond() const {
@@ -23,24 +23,24 @@ MessagesPerSecond::operator PbTelemetry::MessagesPerSecond() const {
 }
 
 std::string MessagesPerSecond::serializeAsJsonString() const {
-    PbTelemetry::MessagesPerSecond message(*this);
+    PbTelemetry::MessagesPerSecond protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(message, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string MessagesPerSecond::serializeAsProtobufString() const {
-    PbTelemetry::MessagesPerSecond message(*this);
-    return message.SerializeAsString();
+    PbTelemetry::MessagesPerSecond protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool MessagesPerSecond::deserializeFromJsonString(const std::string& str) {
-    PbTelemetry::MessagesPerSecond message;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
+    PbTelemetry::MessagesPerSecond protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = message;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -48,18 +48,18 @@ bool MessagesPerSecond::deserializeFromJsonString(const std::string& str) {
 }
 
 bool MessagesPerSecond::deserializeFromProtobufString(const std::string& str) {
-    PbTelemetry::MessagesPerSecond message;
-    if(message.ParseFromString(str)) {
-        *this = message;
+    PbTelemetry::MessagesPerSecond protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Camera::Camera(const PbTelemetry::Camera& message) {
-    status = message.status();
-    error = message.error();
+Camera::Camera(const PbTelemetry::Camera& protobuf) {
+    status = protobuf.status();
+    error = protobuf.error();
 }
 
 Camera::operator PbTelemetry::Camera() const {
@@ -70,24 +70,24 @@ Camera::operator PbTelemetry::Camera() const {
 }
 
 std::string Camera::serializeAsJsonString() const {
-    PbTelemetry::Camera message(*this);
+    PbTelemetry::Camera protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(message, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Camera::serializeAsProtobufString() const {
-    PbTelemetry::Camera message(*this);
-    return message.SerializeAsString();
+    PbTelemetry::Camera protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Camera::deserializeFromJsonString(const std::string& str) {
-    PbTelemetry::Camera message;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
+    PbTelemetry::Camera protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = message;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -95,26 +95,26 @@ bool Camera::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Camera::deserializeFromProtobufString(const std::string& str) {
-    PbTelemetry::Camera message;
-    if(message.ParseFromString(str)) {
-        *this = message;
+    PbTelemetry::Camera protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
     }
 }
 
-Status::Status(const PbTelemetry::Status& message) {
-    timestamp = message.timestamp();
-    zeroTimestamp = message.zerotimestamp();
-    data = message.data();
-    cpuTotalLoad = message.cputotalload();
-    cpuProcessLoad = message.cpuprocessload();
-    memProcessLoad = message.memprocessload();
-    canlibBuildTime = message.canlibbuildtime();
-    telemetryBuildTime = message.telemetrybuildtime();
-    camera = message.camera();
-    messagesPerSecond = {message.messagespersecond().begin(), message.messagespersecond().end()};
+Status::Status(const PbTelemetry::Status& protobuf) {
+    timestamp = protobuf.timestamp();
+    zeroTimestamp = protobuf.zerotimestamp();
+    data = protobuf.data();
+    cpuTotalLoad = protobuf.cputotalload();
+    cpuProcessLoad = protobuf.cpuprocessload();
+    memProcessLoad = protobuf.memprocessload();
+    canlibBuildTime = protobuf.canlibbuildtime();
+    telemetryBuildTime = protobuf.telemetrybuildtime();
+    camera = protobuf.camera();
+    messagesPerSecond = {protobuf.messagespersecond().begin(), protobuf.messagespersecond().end()};
 }
 
 Status::operator PbTelemetry::Status() const {
@@ -133,24 +133,24 @@ Status::operator PbTelemetry::Status() const {
 }
 
 std::string Status::serializeAsJsonString() const {
-    PbTelemetry::Status message(*this);
+    PbTelemetry::Status protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(message, &ret, options);
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
 std::string Status::serializeAsProtobufString() const {
-    PbTelemetry::Status message(*this);
-    return message.SerializeAsString();
+    PbTelemetry::Status protobuf(*this);
+    return protobuf.SerializeAsString();
 }
 
 bool Status::deserializeFromJsonString(const std::string& str) {
-    PbTelemetry::Status message;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &message);
+    PbTelemetry::Status protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
-        *this = message;
+        *this = protobuf;
         return true;
     } else {
         return false;
@@ -158,9 +158,9 @@ bool Status::deserializeFromJsonString(const std::string& str) {
 }
 
 bool Status::deserializeFromProtobufString(const std::string& str) {
-    PbTelemetry::Status message;
-    if(message.ParseFromString(str)) {
-        *this = message;
+    PbTelemetry::Status protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
         return true;
     } else {
         return false;
