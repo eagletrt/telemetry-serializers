@@ -10,6 +10,7 @@ add_library(
     ${PROJECT_NAME}
     STATIC
 
+    src/sessions/gpsSession.cpp
     src/handcart/settings.cpp
     src/app/app_config.cpp
     src/app/user_data.cpp

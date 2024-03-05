@@ -1,6 +1,7 @@
 #ifndef SERIALIZERS_H
 #define SERIALIZERS_H
 
+#include "sessions/gpsSession.h"
 #include "handcart/settings.h"
 #include "app/app_config.h"
 #include "app/user_data.h"

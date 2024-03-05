@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GpsSession",
+    "definitions": {
+        "GpsSession": {
+            "required": [
+                "gpsName",
+                "dateTime",
+                "durationSeconds",
+                "startTimestamp",
+                "endTimestamp",
+                "messages"
+            ],
+            "properties": {
+                "gpsName": {
+                    "type": "string"
+                },
+                "dateTime": {
+                    "type": "string"
+                },
+                "durationSeconds": {
+                    "type": "number"
+                },
+                "startTimestamp": {
+                    "type": "integer"
+                },
+                "endTimestamp": {
+                    "type": "integer"
+                },
+                "messages": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Gps Session"
+        }
+    }
+}
