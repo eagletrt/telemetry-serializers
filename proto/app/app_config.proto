@@ -9,14 +9,23 @@ message Connection
     string mode = 3;
 }
 
-message Trigger
+message SignalTrigger
 {
     string id = 1;
     string message = 2;
     string signal = 3;
-    uint32 comparator = 4;
+    int32 comparator = 4;
     double value = 5;
     uint32 color = 6;
+}
+
+message EnumTrigger
+{
+    string id = 1;
+    string message = 2;
+    string signal = 3;
+    int32 value = 4;
+    uint32 color = 5;
 }
 
 message AxisItem
@@ -47,9 +56,10 @@ message AppConfig
     Connection connection = 4;
     map<string, Connection> savedConnections = 5;
     repeated string activeTabs = 6;
-    repeated Trigger triggers = 7;
-    repeated CustomPlot customPlots = 8;
-    map<string, string> filesPaths = 9;  
-    map<string, string> stringCache = 10;
-    map<string, bool> boolCache = 11;
+    repeated SignalTrigger signalTriggers = 7;
+    repeated EnumTrigger enumTriggers = 8;
+    repeated CustomPlot customPlots = 9;
+    map<string, string> filesPaths = 10;  
+    map<string, string> stringCache = 11;
+    map<string, bool> boolCache = 12;
 }

@@ -10,7 +10,8 @@
                 "connection",
                 "savedConnections",
                 "activeTabs",
-                "triggers",
+                "signalTriggers",
+                "enumTriggers",
                 "customPlots",
                 "filesPaths",
                 "stringCache",
@@ -43,9 +44,16 @@
                     },
                     "type": "array"
                 },
-                "triggers": {
+                "signalTriggers": {
                     "items": {
-                        "$ref": "#/definitions/PbApp.Trigger"
+                        "$ref": "#/definitions/PbApp.SignalTrigger"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "enumTriggers": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.EnumTrigger"
                     },
                     "additionalProperties": false,
                     "type": "array"
@@ -168,7 +176,36 @@
             "type": "object",
             "title": "Custom Plot"
         },
-        "PbApp.Trigger": {
+        "PbApp.EnumTrigger": {
+            "required": [
+                "id",
+                "message",
+                "signal",
+                "value",
+                "color"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "signal": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "integer"
+                },
+                "color": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Enum Trigger"
+        },
+        "PbApp.SignalTrigger": {
             "required": [
                 "id",
                 "message",
@@ -199,7 +236,7 @@
             },
             "additionalProperties": false,
             "type": "object",
-            "title": "Trigger"
+            "title": "Signal Trigger"
         }
     }
 }

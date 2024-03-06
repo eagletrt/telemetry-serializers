@@ -28,18 +28,36 @@ struct Connection
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct Trigger
+struct SignalTrigger
 {
     std::string id;
     std::string message;
     std::string signal;
-    uint32_t comparator;
+    int32_t comparator;
     double value;
     uint32_t color;
     
-    Trigger() = default;
-    Trigger(const PbApp::Trigger& protobuf);
-    operator PbApp::Trigger() const;
+    SignalTrigger() = default;
+    SignalTrigger(const PbApp::SignalTrigger& protobuf);
+    operator PbApp::SignalTrigger() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
+struct EnumTrigger
+{
+    std::string id;
+    std::string message;
+    std::string signal;
+    int32_t value;
+    uint32_t color;
+    
+    EnumTrigger() = default;
+    EnumTrigger(const PbApp::EnumTrigger& protobuf);
+    operator PbApp::EnumTrigger() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -102,7 +120,8 @@ struct AppConfig
     Connection connection;
     std::unordered_map<std::string, Connection> savedConnections;
     std::vector<std::string> activeTabs;
-    std::vector<Trigger> triggers;
+    std::vector<SignalTrigger> signalTriggers;
+    std::vector<EnumTrigger> enumTriggers;
     std::vector<CustomPlot> customPlots;
     std::unordered_map<std::string, std::string> filesPaths;
     std::unordered_map<std::string, std::string> stringCache;

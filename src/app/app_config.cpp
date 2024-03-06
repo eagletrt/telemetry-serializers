@@ -55,7 +55,7 @@ bool Connection::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
-Trigger::Trigger(const PbApp::Trigger& protobuf) {
+SignalTrigger::SignalTrigger(const PbApp::SignalTrigger& protobuf) {
     id = protobuf.id();
     message = protobuf.message();
     signal = protobuf.signal();
@@ -64,8 +64,8 @@ Trigger::Trigger(const PbApp::Trigger& protobuf) {
     color = protobuf.color();
 }
 
-Trigger::operator PbApp::Trigger() const {
-    PbApp::Trigger ret;
+SignalTrigger::operator PbApp::SignalTrigger() const {
+    PbApp::SignalTrigger ret;
     ret.set_id(id);
     ret.set_message(message);
     ret.set_signal(signal);
@@ -75,8 +75,8 @@ Trigger::operator PbApp::Trigger() const {
     return ret;
 }
 
-std::string Trigger::serializeAsJsonString() const {
-    PbApp::Trigger protobuf(*this);
+std::string SignalTrigger::serializeAsJsonString() const {
+    PbApp::SignalTrigger protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
@@ -84,13 +84,13 @@ std::string Trigger::serializeAsJsonString() const {
     return ret;
 }
 
-std::string Trigger::serializeAsProtobufString() const {
-    PbApp::Trigger protobuf(*this);
+std::string SignalTrigger::serializeAsProtobufString() const {
+    PbApp::SignalTrigger protobuf(*this);
     return protobuf.SerializeAsString();
 }
 
-bool Trigger::deserializeFromJsonString(const std::string& str) {
-    PbApp::Trigger protobuf;
+bool SignalTrigger::deserializeFromJsonString(const std::string& str) {
+    PbApp::SignalTrigger protobuf;
     auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
         *this = protobuf;
@@ -100,8 +100,61 @@ bool Trigger::deserializeFromJsonString(const std::string& str) {
     }
 }
 
-bool Trigger::deserializeFromProtobufString(const std::string& str) {
-    PbApp::Trigger protobuf;
+bool SignalTrigger::deserializeFromProtobufString(const std::string& str) {
+    PbApp::SignalTrigger protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+EnumTrigger::EnumTrigger(const PbApp::EnumTrigger& protobuf) {
+    id = protobuf.id();
+    message = protobuf.message();
+    signal = protobuf.signal();
+    value = protobuf.value();
+    color = protobuf.color();
+}
+
+EnumTrigger::operator PbApp::EnumTrigger() const {
+    PbApp::EnumTrigger ret;
+    ret.set_id(id);
+    ret.set_message(message);
+    ret.set_signal(signal);
+    ret.set_value(value);
+    ret.set_color(color);
+    return ret;
+}
+
+std::string EnumTrigger::serializeAsJsonString() const {
+    PbApp::EnumTrigger protobuf(*this);
+    std::string ret;
+    google::protobuf::util::JsonPrintOptions options;
+    options.add_whitespace = true;
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    return ret;
+}
+
+std::string EnumTrigger::serializeAsProtobufString() const {
+    PbApp::EnumTrigger protobuf(*this);
+    return protobuf.SerializeAsString();
+}
+
+bool EnumTrigger::deserializeFromJsonString(const std::string& str) {
+    PbApp::EnumTrigger protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    if(status.ok()) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool EnumTrigger::deserializeFromProtobufString(const std::string& str) {
+    PbApp::EnumTrigger protobuf;
     if(protobuf.ParseFromString(str)) {
         *this = protobuf;
         return true;
@@ -262,7 +315,8 @@ AppConfig::AppConfig(const PbApp::AppConfig& protobuf) {
     connection = protobuf.connection();
     savedConnections = {protobuf.savedconnections().begin(), protobuf.savedconnections().end()};
     activeTabs = {protobuf.activetabs().begin(), protobuf.activetabs().end()};
-    triggers = {protobuf.triggers().begin(), protobuf.triggers().end()};
+    signalTriggers = {protobuf.signaltriggers().begin(), protobuf.signaltriggers().end()};
+    enumTriggers = {protobuf.enumtriggers().begin(), protobuf.enumtriggers().end()};
     customPlots = {protobuf.customplots().begin(), protobuf.customplots().end()};
     filesPaths = {protobuf.filespaths().begin(), protobuf.filespaths().end()};
     stringCache = {protobuf.stringcache().begin(), protobuf.stringcache().end()};
@@ -277,7 +331,8 @@ AppConfig::operator PbApp::AppConfig() const {
     *(ret.mutable_connection()) = connection;
     *(ret.mutable_savedconnections()) = {savedConnections.begin(), savedConnections.end()};
     *(ret.mutable_activetabs()) = {activeTabs.begin(), activeTabs.end()};
-    *(ret.mutable_triggers()) = {triggers.begin(), triggers.end()};
+    *(ret.mutable_signaltriggers()) = {signalTriggers.begin(), signalTriggers.end()};
+    *(ret.mutable_enumtriggers()) = {enumTriggers.begin(), enumTriggers.end()};
     *(ret.mutable_customplots()) = {customPlots.begin(), customPlots.end()};
     *(ret.mutable_filespaths()) = {filesPaths.begin(), filesPaths.end()};
     *(ret.mutable_stringcache()) = {stringCache.begin(), stringCache.end()};
