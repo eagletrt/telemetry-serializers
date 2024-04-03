@@ -1,5 +1,5 @@
-#ifndef SETTINGS_H
-#define SETTINGS_H
+#ifndef SERIALIZERS_SETTINGS_H
+#define SERIALIZERS_SETTINGS_H
 
 #include "settings.pb.h"
 

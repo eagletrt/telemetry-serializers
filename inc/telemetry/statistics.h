@@ -1,5 +1,5 @@
-#ifndef STATISTICS_H
-#define STATISTICS_H
+#ifndef SERIALIZERS_STATISTICS_H
+#define SERIALIZERS_STATISTICS_H
 
 #include "statistics.pb.h"
 

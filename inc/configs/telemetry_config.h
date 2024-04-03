@@ -1,5 +1,5 @@
-#ifndef TELEMETRY_CONFIG_H
-#define TELEMETRY_CONFIG_H
+#ifndef SERIALIZERS_TELEMETRY_CONFIG_H
+#define SERIALIZERS_TELEMETRY_CONFIG_H
 
 #include "telemetry_config.pb.h"
 

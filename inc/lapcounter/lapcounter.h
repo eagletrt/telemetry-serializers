@@ -1,5 +1,5 @@
-#ifndef LAPCOUNTER_H
-#define LAPCOUNTER_H
+#ifndef SERIALIZERS_LAPCOUNTER_H
+#define SERIALIZERS_LAPCOUNTER_H
 
 #include "lapcounter.pb.h"
 

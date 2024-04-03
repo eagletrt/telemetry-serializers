@@ -1,5 +1,5 @@
-#ifndef FILE_TRANSACTION_H
-#define FILE_TRANSACTION_H
+#ifndef SERIALIZERS_FILE_TRANSACTION_H
+#define SERIALIZERS_FILE_TRANSACTION_H
 
 #include "file_transaction.pb.h"
 

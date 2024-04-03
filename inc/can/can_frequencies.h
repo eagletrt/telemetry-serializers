@@ -1,5 +1,5 @@
-#ifndef CAN_FREQUENCIES_H
-#define CAN_FREQUENCIES_H
+#ifndef SERIALIZERS_CAN_FREQUENCIES_H
+#define SERIALIZERS_CAN_FREQUENCIES_H
 
 #include "can_frequencies.pb.h"
 

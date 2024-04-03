@@ -1,5 +1,5 @@
-#ifndef CAR_CONFIG_H
-#define CAR_CONFIG_H
+#ifndef SERIALIZERS_CAR_CONFIG_H
+#define SERIALIZERS_CAR_CONFIG_H
 
 #include "car_config.pb.h"
 

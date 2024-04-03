@@ -1,5 +1,5 @@
-#ifndef ERROR_H
-#define ERROR_H
+#ifndef SERIALIZERS_ERROR_H
+#define SERIALIZERS_ERROR_H
 
 #include "error.pb.h"
 

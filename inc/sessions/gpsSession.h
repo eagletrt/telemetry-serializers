@@ -1,5 +1,5 @@
-#ifndef GPSSESSION_H
-#define GPSSESSION_H
+#ifndef SERIALIZERS_GPSSESSION_H
+#define SERIALIZERS_GPSSESSION_H
 
 #include "gpsSession.pb.h"
 

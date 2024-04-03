@@ -1,5 +1,5 @@
-#ifndef COMMAND_H
-#define COMMAND_H
+#ifndef SERIALIZERS_COMMAND_H
+#define SERIALIZERS_COMMAND_H
 
 #include "command.pb.h"
 

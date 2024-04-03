@@ -1,0 +1,64 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/DataProcessing",
+    "definitions": {
+        "DataProcessing": {
+            "required": [
+                "plugins",
+                "resampledSignals"
+            ],
+            "properties": {
+                "plugins": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.Plugin"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "resampledSignals": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.Signal"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Data Processing"
+        },
+        "PbApp.Plugin": {
+            "required": [
+                "path"
+            ],
+            "properties": {
+                "path": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Plugin"
+        },
+        "PbApp.Signal": {
+            "required": [
+                "msg",
+                "fields"
+            ],
+            "properties": {
+                "msg": {
+                    "type": "string"
+                },
+                "fields": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Signal"
+        }
+    }
+}

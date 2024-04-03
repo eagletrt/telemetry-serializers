@@ -1,5 +1,5 @@
-#ifndef SESSION_CONFIG_H
-#define SESSION_CONFIG_H
+#ifndef SERIALIZERS_SESSION_CONFIG_H
+#define SERIALIZERS_SESSION_CONFIG_H
 
 #include "session_config.pb.h"
 

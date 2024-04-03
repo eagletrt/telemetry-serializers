@@ -1,5 +1,5 @@
-#ifndef STATUS_H
-#define STATUS_H
+#ifndef SERIALIZERS_STATUS_H
+#define SERIALIZERS_STATUS_H
 
 #include "status.pb.h"
 

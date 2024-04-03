@@ -1,5 +1,5 @@
-#ifndef USER_DATA_H
-#define USER_DATA_H
+#ifndef SERIALIZERS_USER_DATA_H
+#define SERIALIZERS_USER_DATA_H
 
 #include "user_data.pb.h"
 

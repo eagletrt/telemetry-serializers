@@ -1,5 +1,5 @@
-#ifndef APP_CONFIG_H
-#define APP_CONFIG_H
+#ifndef SERIALIZERS_APP_CONFIG_H
+#define SERIALIZERS_APP_CONFIG_H
 
 #include "app_config.pb.h"
 

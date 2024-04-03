@@ -1,5 +1,5 @@
-#ifndef CONFIGURATION_H
-#define CONFIGURATION_H
+#ifndef SERIALIZERS_CONFIGURATION_H
+#define SERIALIZERS_CONFIGURATION_H
 
 #include "configuration.pb.h"
 

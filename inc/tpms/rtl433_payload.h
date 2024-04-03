@@ -1,5 +1,5 @@
-#ifndef RTL433_PAYLOAD_H
-#define RTL433_PAYLOAD_H
+#ifndef SERIALIZERS_RTL433_PAYLOAD_H
+#define SERIALIZERS_RTL433_PAYLOAD_H
 
 #include "rtl433_payload.pb.h"
 

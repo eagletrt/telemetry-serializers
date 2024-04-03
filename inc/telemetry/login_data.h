@@ -1,5 +1,5 @@
-#ifndef LOGIN_DATA_H
-#define LOGIN_DATA_H
+#ifndef SERIALIZERS_LOGIN_DATA_H
+#define SERIALIZERS_LOGIN_DATA_H
 
 #include "login_data.pb.h"
 
