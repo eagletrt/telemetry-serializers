@@ -2,7 +2,10 @@ syntax = "proto3";
 
 package App;
 
-message Plugin { string path; }
+message Plugin {
+  string path = 1;
+}
+
 message Signal {
   string msg = 1;
   repeated string fields = 2;
