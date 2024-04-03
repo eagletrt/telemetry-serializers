@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package App;
+
+message Plugin { string path; }
+message Signal {
+  string msg = 1;
+  repeated string fields = 2;
+}
+
+message DataProcessing {
+  repeated Plugin plugins = 1;
+  repeated Signal resampledSignals = 2;
+}
