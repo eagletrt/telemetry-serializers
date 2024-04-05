@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package LapCounter;
+
+message LcPoint
+{
+    double position_x = 10;
+    double position_y = 20;
+    double inclination_x = 30;
+    double inclination_y = 40;
+    double line_x = 50;
+    double line_y = 60;
+}
+
+message TrackLayout
+{
+    int32 layout_id = 10;
+    string name = 20;
+    LcPoint start1 = 30;
+    LcPoint start2 = 40;
+    int32 sector_count = 50;
+    repeated LcPoint sectors = 60;
+}
+
+message Time
+{
+    int32 layout_id = 10;
+    string driver_name = 20;
+    int64 start_timestamp = 30;
+    int64 end_timestamp = 40;
+    repeated int64 sectors_timestamp = 50;
+}
+
+message DriverRecord
+{
+    string driver = 10;
+    int64 timestamp = 20;
+}
+
+message TrackRecord
+{
+    int32 layout_id = 10;
+    DriverRecord best_lap = 20;
+    repeated DriverRecord best_sectors = 30;
+}
+
+message Driver
+{
+    string name = 10;
+    repeated Time times = 20;
+}
+
+message DataBase
+{
+    repeated TrackLayout layouts = 10;
+    repeated Driver drivers = 20;
+    repeated TrackRecord records = 30;
+    int32 last_id = 40;
+}
