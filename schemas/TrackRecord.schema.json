@@ -1,0 +1,49 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/TrackRecord",
+    "definitions": {
+        "PbLapCounter.DriverRecord": {
+            "required": [
+                "driver",
+                "timestamp"
+            ],
+            "properties": {
+                "driver": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Driver Record"
+        },
+        "TrackRecord": {
+            "required": [
+                "layout_id",
+                "best_lap",
+                "best_sectors"
+            ],
+            "properties": {
+                "layout_id": {
+                    "type": "integer"
+                },
+                "best_lap": {
+                    "$ref": "#/definitions/PbLapCounter.DriverRecord",
+                    "additionalProperties": false
+                },
+                "best_sectors": {
+                    "items": {
+                        "$ref": "#/definitions/PbLapCounter.DriverRecord"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Track Record"
+        }
+    }
+}

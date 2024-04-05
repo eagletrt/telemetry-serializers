@@ -18,6 +18,7 @@
 #include "can/can_frequencies.h"
 #include "actions/command.h"
 #include "actions/file_transaction.h"
+#include "lapcounter/lap_counter.h"
 #include "lapcounter/lapcounter.h"
 
 #endif

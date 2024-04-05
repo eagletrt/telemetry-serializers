@@ -27,6 +27,7 @@ add_library(
     src/can/can_frequencies.cpp
     src/actions/command.cpp
     src/actions/file_transaction.cpp
+    src/lapcounter/lap_counter.cpp
     src/lapcounter/lapcounter.cpp
 )
 
