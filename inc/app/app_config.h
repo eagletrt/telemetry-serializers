@@ -52,12 +52,30 @@ struct EnumTrigger
     std::string id;
     std::string message;
     std::string signal;
-    int32_t value;
+    uint64_t value;
     uint32_t color;
     
     EnumTrigger() = default;
     EnumTrigger(const PbApp::EnumTrigger& protobuf);
     operator PbApp::EnumTrigger() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
+struct BitTrigger
+{
+    std::string id;
+    std::string message;
+    std::string signal;
+    uint64_t value;
+    uint32_t color;
+    
+    BitTrigger() = default;
+    BitTrigger(const PbApp::BitTrigger& protobuf);
+    operator PbApp::BitTrigger() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

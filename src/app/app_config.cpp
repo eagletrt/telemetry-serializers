@@ -163,6 +163,59 @@ bool EnumTrigger::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
+BitTrigger::BitTrigger(const PbApp::BitTrigger& protobuf) {
+    id = protobuf.id();
+    message = protobuf.message();
+    signal = protobuf.signal();
+    value = protobuf.value();
+    color = protobuf.color();
+}
+
+BitTrigger::operator PbApp::BitTrigger() const {
+    PbApp::BitTrigger ret;
+    ret.set_id(id);
+    ret.set_message(message);
+    ret.set_signal(signal);
+    ret.set_value(value);
+    ret.set_color(color);
+    return ret;
+}
+
+std::string BitTrigger::serializeAsJsonString() const {
+    PbApp::BitTrigger protobuf(*this);
+    std::string ret;
+    google::protobuf::util::JsonPrintOptions options;
+    options.add_whitespace = true;
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    return ret;
+}
+
+std::string BitTrigger::serializeAsProtobufString() const {
+    PbApp::BitTrigger protobuf(*this);
+    return protobuf.SerializeAsString();
+}
+
+bool BitTrigger::deserializeFromJsonString(const std::string& str) {
+    PbApp::BitTrigger protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    if(status.ok()) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool BitTrigger::deserializeFromProtobufString(const std::string& str) {
+    PbApp::BitTrigger protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
 AxisItem::AxisItem(const PbApp::AxisItem& protobuf) {
     message = protobuf.message();
     signal = protobuf.signal();
