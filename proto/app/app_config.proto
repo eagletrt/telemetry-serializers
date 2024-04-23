@@ -67,8 +67,9 @@ message AppConfig
     repeated string activeTabs = 6;
     repeated SignalTrigger signalTriggers = 7;
     repeated EnumTrigger enumTriggers = 8;
-    repeated CustomPlot customPlots = 9;
-    map<string, string> filesPaths = 10;  
-    map<string, string> stringCache = 11;
-    map<string, bool> boolCache = 12;
+    repeated BitTrigger bitTriggers = 9;
+    repeated CustomPlot customPlots = 10;
+    map<string, string> filesPaths = 11;  
+    map<string, string> stringCache = 12;
+    map<string, bool> boolCache = 13;
 }

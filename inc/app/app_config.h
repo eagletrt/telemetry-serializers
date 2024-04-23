@@ -140,6 +140,7 @@ struct AppConfig
     std::vector<std::string> activeTabs;
     std::vector<SignalTrigger> signalTriggers;
     std::vector<EnumTrigger> enumTriggers;
+    std::vector<BitTrigger> bitTriggers;
     std::vector<CustomPlot> customPlots;
     std::unordered_map<std::string, std::string> filesPaths;
     std::unordered_map<std::string, std::string> stringCache;

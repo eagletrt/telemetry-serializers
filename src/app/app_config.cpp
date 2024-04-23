@@ -370,6 +370,7 @@ AppConfig::AppConfig(const PbApp::AppConfig& protobuf) {
     activeTabs = {protobuf.activetabs().begin(), protobuf.activetabs().end()};
     signalTriggers = {protobuf.signaltriggers().begin(), protobuf.signaltriggers().end()};
     enumTriggers = {protobuf.enumtriggers().begin(), protobuf.enumtriggers().end()};
+    bitTriggers = {protobuf.bittriggers().begin(), protobuf.bittriggers().end()};
     customPlots = {protobuf.customplots().begin(), protobuf.customplots().end()};
     filesPaths = {protobuf.filespaths().begin(), protobuf.filespaths().end()};
     stringCache = {protobuf.stringcache().begin(), protobuf.stringcache().end()};
@@ -386,6 +387,7 @@ AppConfig::operator PbApp::AppConfig() const {
     *(ret.mutable_activetabs()) = {activeTabs.begin(), activeTabs.end()};
     *(ret.mutable_signaltriggers()) = {signalTriggers.begin(), signalTriggers.end()};
     *(ret.mutable_enumtriggers()) = {enumTriggers.begin(), enumTriggers.end()};
+    *(ret.mutable_bittriggers()) = {bitTriggers.begin(), bitTriggers.end()};
     *(ret.mutable_customplots()) = {customPlots.begin(), customPlots.end()};
     *(ret.mutable_filespaths()) = {filesPaths.begin(), filesPaths.end()};
     *(ret.mutable_stringcache()) = {stringCache.begin(), stringCache.end()};

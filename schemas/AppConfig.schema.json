@@ -12,6 +12,7 @@
                 "activeTabs",
                 "signalTriggers",
                 "enumTriggers",
+                "bitTriggers",
                 "customPlots",
                 "filesPaths",
                 "stringCache",
@@ -54,6 +55,13 @@
                 "enumTriggers": {
                     "items": {
                         "$ref": "#/definitions/PbApp.EnumTrigger"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "bitTriggers": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.BitTrigger"
                     },
                     "additionalProperties": false,
                     "type": "array"
@@ -133,6 +141,35 @@
             "additionalProperties": false,
             "type": "object",
             "title": "Axis Item"
+        },
+        "PbApp.BitTrigger": {
+            "required": [
+                "id",
+                "message",
+                "signal",
+                "value",
+                "color"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "signal": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "integer"
+                },
+                "color": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Bit Trigger"
         },
         "PbApp.Connection": {
             "required": [
