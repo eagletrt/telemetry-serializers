@@ -55,7 +55,7 @@ bool Connection::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
-SignalTrigger::SignalTrigger(const PbApp::SignalTrigger& protobuf) {
+DoubleTrigger::DoubleTrigger(const PbApp::DoubleTrigger& protobuf) {
     id = protobuf.id();
     message = protobuf.message();
     signal = protobuf.signal();
@@ -64,8 +64,8 @@ SignalTrigger::SignalTrigger(const PbApp::SignalTrigger& protobuf) {
     color = protobuf.color();
 }
 
-SignalTrigger::operator PbApp::SignalTrigger() const {
-    PbApp::SignalTrigger ret;
+DoubleTrigger::operator PbApp::DoubleTrigger() const {
+    PbApp::DoubleTrigger ret;
     ret.set_id(id);
     ret.set_message(message);
     ret.set_signal(signal);
@@ -75,8 +75,8 @@ SignalTrigger::operator PbApp::SignalTrigger() const {
     return ret;
 }
 
-std::string SignalTrigger::serializeAsJsonString() const {
-    PbApp::SignalTrigger protobuf(*this);
+std::string DoubleTrigger::serializeAsJsonString() const {
+    PbApp::DoubleTrigger protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
@@ -84,13 +84,13 @@ std::string SignalTrigger::serializeAsJsonString() const {
     return ret;
 }
 
-std::string SignalTrigger::serializeAsProtobufString() const {
-    PbApp::SignalTrigger protobuf(*this);
+std::string DoubleTrigger::serializeAsProtobufString() const {
+    PbApp::DoubleTrigger protobuf(*this);
     return protobuf.SerializeAsString();
 }
 
-bool SignalTrigger::deserializeFromJsonString(const std::string& str) {
-    PbApp::SignalTrigger protobuf;
+bool DoubleTrigger::deserializeFromJsonString(const std::string& str) {
+    PbApp::DoubleTrigger protobuf;
     auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
         *this = protobuf;
@@ -100,8 +100,8 @@ bool SignalTrigger::deserializeFromJsonString(const std::string& str) {
     }
 }
 
-bool SignalTrigger::deserializeFromProtobufString(const std::string& str) {
-    PbApp::SignalTrigger protobuf;
+bool DoubleTrigger::deserializeFromProtobufString(const std::string& str) {
+    PbApp::DoubleTrigger protobuf;
     if(protobuf.ParseFromString(str)) {
         *this = protobuf;
         return true;
@@ -368,7 +368,7 @@ AppConfig::AppConfig(const PbApp::AppConfig& protobuf) {
     connection = protobuf.connection();
     savedConnections = {protobuf.savedconnections().begin(), protobuf.savedconnections().end()};
     activeTabs = {protobuf.activetabs().begin(), protobuf.activetabs().end()};
-    signalTriggers = {protobuf.signaltriggers().begin(), protobuf.signaltriggers().end()};
+    doubleTriggers = {protobuf.doubletriggers().begin(), protobuf.doubletriggers().end()};
     enumTriggers = {protobuf.enumtriggers().begin(), protobuf.enumtriggers().end()};
     bitTriggers = {protobuf.bittriggers().begin(), protobuf.bittriggers().end()};
     customPlots = {protobuf.customplots().begin(), protobuf.customplots().end()};
@@ -385,7 +385,7 @@ AppConfig::operator PbApp::AppConfig() const {
     *(ret.mutable_connection()) = connection;
     *(ret.mutable_savedconnections()) = {savedConnections.begin(), savedConnections.end()};
     *(ret.mutable_activetabs()) = {activeTabs.begin(), activeTabs.end()};
-    *(ret.mutable_signaltriggers()) = {signalTriggers.begin(), signalTriggers.end()};
+    *(ret.mutable_doubletriggers()) = {doubleTriggers.begin(), doubleTriggers.end()};
     *(ret.mutable_enumtriggers()) = {enumTriggers.begin(), enumTriggers.end()};
     *(ret.mutable_bittriggers()) = {bitTriggers.begin(), bitTriggers.end()};
     *(ret.mutable_customplots()) = {customPlots.begin(), customPlots.end()};

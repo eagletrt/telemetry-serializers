@@ -9,7 +9,7 @@ message Connection
     string mode = 3;
 }
 
-message SignalTrigger
+message DoubleTrigger
 {
     string id = 1;
     string message = 2;
@@ -65,7 +65,7 @@ message AppConfig
     Connection connection = 4;
     map<string, Connection> savedConnections = 5;
     repeated string activeTabs = 6;
-    repeated SignalTrigger signalTriggers = 7;
+    repeated DoubleTrigger doubleTriggers = 7;
     repeated EnumTrigger enumTriggers = 8;
     repeated BitTrigger bitTriggers = 9;
     repeated CustomPlot customPlots = 10;

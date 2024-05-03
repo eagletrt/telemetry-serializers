@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/SignalTrigger",
+    "$ref": "#/definitions/DoubleTrigger",
     "definitions": {
-        "SignalTrigger": {
+        "DoubleTrigger": {
             "required": [
                 "id",
                 "message",
@@ -33,7 +33,7 @@
             },
             "additionalProperties": false,
             "type": "object",
-            "title": "Signal Trigger"
+            "title": "Double Trigger"
         }
     }
 }

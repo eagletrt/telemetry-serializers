@@ -10,7 +10,7 @@
                 "connection",
                 "savedConnections",
                 "activeTabs",
-                "signalTriggers",
+                "doubleTriggers",
                 "enumTriggers",
                 "bitTriggers",
                 "customPlots",
@@ -45,9 +45,9 @@
                     },
                     "type": "array"
                 },
-                "signalTriggers": {
+                "doubleTriggers": {
                     "items": {
-                        "$ref": "#/definitions/PbApp.SignalTrigger"
+                        "$ref": "#/definitions/PbApp.DoubleTrigger"
                     },
                     "additionalProperties": false,
                     "type": "array"
@@ -213,36 +213,7 @@
             "type": "object",
             "title": "Custom Plot"
         },
-        "PbApp.EnumTrigger": {
-            "required": [
-                "id",
-                "message",
-                "signal",
-                "value",
-                "color"
-            ],
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "message": {
-                    "type": "string"
-                },
-                "signal": {
-                    "type": "string"
-                },
-                "value": {
-                    "type": "integer"
-                },
-                "color": {
-                    "type": "integer"
-                }
-            },
-            "additionalProperties": false,
-            "type": "object",
-            "title": "Enum Trigger"
-        },
-        "PbApp.SignalTrigger": {
+        "PbApp.DoubleTrigger": {
             "required": [
                 "id",
                 "message",
@@ -273,7 +244,36 @@
             },
             "additionalProperties": false,
             "type": "object",
-            "title": "Signal Trigger"
+            "title": "Double Trigger"
+        },
+        "PbApp.EnumTrigger": {
+            "required": [
+                "id",
+                "message",
+                "signal",
+                "value",
+                "color"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "signal": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "integer"
+                },
+                "color": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Enum Trigger"
         }
     }
 }

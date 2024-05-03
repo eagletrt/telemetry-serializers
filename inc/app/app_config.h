@@ -28,7 +28,7 @@ struct Connection
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct SignalTrigger
+struct DoubleTrigger
 {
     std::string id;
     std::string message;
@@ -37,9 +37,9 @@ struct SignalTrigger
     double value;
     uint32_t color;
     
-    SignalTrigger() = default;
-    SignalTrigger(const PbApp::SignalTrigger& protobuf);
-    operator PbApp::SignalTrigger() const;
+    DoubleTrigger() = default;
+    DoubleTrigger(const PbApp::DoubleTrigger& protobuf);
+    operator PbApp::DoubleTrigger() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -138,7 +138,7 @@ struct AppConfig
     Connection connection;
     std::unordered_map<std::string, Connection> savedConnections;
     std::vector<std::string> activeTabs;
-    std::vector<SignalTrigger> signalTriggers;
+    std::vector<DoubleTrigger> doubleTriggers;
     std::vector<EnumTrigger> enumTriggers;
     std::vector<BitTrigger> bitTriggers;
     std::vector<CustomPlot> customPlots;
