@@ -24,8 +24,9 @@ message EnumTrigger
     string id = 1;
     string message = 2;
     string signal = 3;
-    uint64 value = 4;
-    uint32 color = 5;
+    int32 comparator = 4;
+    uint64 value = 5;
+    uint32 color = 6;
 }
 
 message BitTrigger
@@ -33,8 +34,9 @@ message BitTrigger
     string id = 1;
     string message = 2;
     string signal = 3;
-    uint64 value = 4;
-    uint32 color = 5;
+    int32 comparator = 4;
+    uint64 value = 5;
+    uint32 color = 6;
 }
 
 message AxisItem
