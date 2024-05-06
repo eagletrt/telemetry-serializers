@@ -52,6 +52,7 @@ struct EnumTrigger
     std::string id;
     std::string message;
     std::string signal;
+    int32_t comparator;
     uint64_t value;
     uint32_t color;
     
@@ -70,6 +71,7 @@ struct BitTrigger
     std::string id;
     std::string message;
     std::string signal;
+    int32_t comparator;
     uint64_t value;
     uint32_t color;
     

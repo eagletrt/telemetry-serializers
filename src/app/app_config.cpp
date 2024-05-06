@@ -114,6 +114,7 @@ EnumTrigger::EnumTrigger(const PbApp::EnumTrigger& protobuf) {
     id = protobuf.id();
     message = protobuf.message();
     signal = protobuf.signal();
+    comparator = protobuf.comparator();
     value = protobuf.value();
     color = protobuf.color();
 }
@@ -123,6 +124,7 @@ EnumTrigger::operator PbApp::EnumTrigger() const {
     ret.set_id(id);
     ret.set_message(message);
     ret.set_signal(signal);
+    ret.set_comparator(comparator);
     ret.set_value(value);
     ret.set_color(color);
     return ret;
@@ -167,6 +169,7 @@ BitTrigger::BitTrigger(const PbApp::BitTrigger& protobuf) {
     id = protobuf.id();
     message = protobuf.message();
     signal = protobuf.signal();
+    comparator = protobuf.comparator();
     value = protobuf.value();
     color = protobuf.color();
 }
@@ -176,6 +179,7 @@ BitTrigger::operator PbApp::BitTrigger() const {
     ret.set_id(id);
     ret.set_message(message);
     ret.set_signal(signal);
+    ret.set_comparator(comparator);
     ret.set_value(value);
     ret.set_color(color);
     return ret;

@@ -147,6 +147,7 @@
                 "id",
                 "message",
                 "signal",
+                "comparator",
                 "value",
                 "color"
             ],
@@ -159,6 +160,9 @@
                 },
                 "signal": {
                     "type": "string"
+                },
+                "comparator": {
+                    "type": "integer"
                 },
                 "value": {
                     "type": "integer"
@@ -251,6 +255,7 @@
                 "id",
                 "message",
                 "signal",
+                "comparator",
                 "value",
                 "color"
             ],
@@ -263,6 +268,9 @@
                 },
                 "signal": {
                     "type": "string"
+                },
+                "comparator": {
+                    "type": "integer"
                 },
                 "value": {
                     "type": "integer"
