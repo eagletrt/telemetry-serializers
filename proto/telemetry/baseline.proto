@@ -4,6 +4,6 @@ package Telemetry;
 
 message Baseline
 {
-    repeated double xs = 0;
-    repeated double ys = 1;
+    repeated double xs = 1;
+    repeated double ys = 2;
 }
