@@ -18,8 +18,6 @@ struct LcPoint
     double position_y;
     double inclination_x;
     double inclination_y;
-    double line_x;
-    double line_y;
     
     LcPoint() = default;
     LcPoint(const PbLapCounter::LcPoint& protobuf);
@@ -54,9 +52,9 @@ struct Time
 {
     int32_t layout_id;
     std::string driver_name;
-    int64_t start_timestamp;
-    int64_t end_timestamp;
-    std::vector<int64_t> sectors_timestamp;
+    uint64_t start_timestamp;
+    uint64_t end_timestamp;
+    std::vector<uint64_t> sectors_timestamp;
     
     Time() = default;
     Time(const PbLapCounter::Time& protobuf);
@@ -71,7 +69,7 @@ struct Time
 struct DriverRecord
 {
     std::string driver;
-    int64_t timestamp;
+    uint64_t timestamp;
     
     DriverRecord() = default;
     DriverRecord(const PbLapCounter::DriverRecord& protobuf);

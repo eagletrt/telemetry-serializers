@@ -10,25 +10,25 @@ add_library(
     ${PROJECT_NAME}
     STATIC
 
-    src/telemetry/status.cpp
-    src/telemetry/login_data.cpp
+    src/can/can_frequencies.cpp
     src/telemetry/statistics.cpp
     src/telemetry/error.cpp
-    src/configs/session_config.cpp
-    src/configs/car_config.cpp
-    src/configs/telemetry_config.cpp
-    src/app/app_config.cpp
-    src/app/user_data.cpp
-    src/app/data_processing.cpp
-    src/lapcounter/lap_counter.cpp
-    src/lapcounter/lapcounter.cpp
+    src/telemetry/status.cpp
+    src/telemetry/login_data.cpp
     src/actions/command.cpp
     src/actions/file_transaction.cpp
-    src/tpms/rtl433_payload.cpp
-    src/influxlogger/configuration.cpp
-    src/can/can_frequencies.cpp
     src/handcart/settings.cpp
+    src/lapcounter/lapcounter.cpp
+    src/lapcounter/lap_counter.cpp
+    src/app/user_data.cpp
+    src/app/data_processing.cpp
+    src/app/app_config.cpp
     src/sessions/gpsSession.cpp
+    src/influxlogger/configuration.cpp
+    src/tpms/rtl433_payload.cpp
+    src/configs/telemetry_config.cpp
+    src/configs/session_config.cpp
+    src/configs/car_config.cpp
 )
 
 target_include_directories(

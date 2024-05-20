@@ -11,8 +11,6 @@ LcPoint::LcPoint(const PbLapCounter::LcPoint& protobuf) {
     position_y = protobuf.position_y();
     inclination_x = protobuf.inclination_x();
     inclination_y = protobuf.inclination_y();
-    line_x = protobuf.line_x();
-    line_y = protobuf.line_y();
 }
 
 LcPoint::operator PbLapCounter::LcPoint() const {
@@ -21,8 +19,6 @@ LcPoint::operator PbLapCounter::LcPoint() const {
     ret.set_position_y(position_y);
     ret.set_inclination_x(inclination_x);
     ret.set_inclination_y(inclination_y);
-    ret.set_line_x(line_x);
-    ret.set_line_y(line_y);
     return ret;
 }
 

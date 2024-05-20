@@ -82,9 +82,7 @@
                 "position_x",
                 "position_y",
                 "inclination_x",
-                "inclination_y",
-                "line_x",
-                "line_y"
+                "inclination_y"
             ],
             "properties": {
                 "position_x": {
@@ -97,12 +95,6 @@
                     "type": "number"
                 },
                 "inclination_y": {
-                    "type": "number"
-                },
-                "line_x": {
-                    "type": "number"
-                },
-                "line_y": {
                     "type": "number"
                 }
             },

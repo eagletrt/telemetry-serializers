@@ -8,8 +8,6 @@ message LcPoint
     double position_y = 20;
     double inclination_x = 30;
     double inclination_y = 40;
-    double line_x = 50;
-    double line_y = 60;
 }
 
 message TrackLayout
@@ -26,15 +24,15 @@ message Time
 {
     int32 layout_id = 10;
     string driver_name = 20;
-    int64 start_timestamp = 30;
-    int64 end_timestamp = 40;
-    repeated int64 sectors_timestamp = 50;
+    uint64 start_timestamp = 30;
+    uint64 end_timestamp = 40;
+    repeated uint64 sectors_timestamp = 50;
 }
 
 message DriverRecord
 {
     string driver = 10;
-    int64 timestamp = 20;
+    uint64 timestamp = 20;
 }
 
 message TrackRecord
