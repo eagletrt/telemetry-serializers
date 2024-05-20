@@ -13,8 +13,10 @@ add_library(
     src/can/can_frequencies.cpp
     src/telemetry/statistics.cpp
     src/telemetry/error.cpp
+    src/telemetry/gps_maps.cpp
     src/telemetry/status.cpp
     src/telemetry/login_data.cpp
+    src/telemetry/baseline.cpp
     src/actions/command.cpp
     src/actions/file_transaction.cpp
     src/handcart/settings.cpp
