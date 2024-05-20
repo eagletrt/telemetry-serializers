@@ -1,0 +1,56 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GPSMapOrigins",
+    "definitions": {
+        "GPSMapOrigins": {
+            "required": [
+                "selectedMap",
+                "origins"
+            ],
+            "properties": {
+                "selectedMap": {
+                    "type": "string"
+                },
+                "origins": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbTelemetry.GPSMapOrigin",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "GPS Map Origins"
+        },
+        "PbTelemetry.GPSMapOrigin": {
+            "required": [
+                "latitude",
+                "longitude",
+                "ecefX",
+                "ecefY",
+                "ecefZ"
+            ],
+            "properties": {
+                "latitude": {
+                    "type": "number"
+                },
+                "longitude": {
+                    "type": "number"
+                },
+                "ecefX": {
+                    "type": "number"
+                },
+                "ecefY": {
+                    "type": "number"
+                },
+                "ecefZ": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "GPS Map Origin"
+        }
+    }
+}
