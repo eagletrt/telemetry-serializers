@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package Data;
+
+message VehicleState {
+    double x;
+    double y;
+    double heading;
+    double u;
+    double v;
+}
