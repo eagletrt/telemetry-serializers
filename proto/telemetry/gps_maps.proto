@@ -9,7 +9,8 @@ message Baseline
     repeated double y = 3;
 }
 
-message GPSMapOrigin {
+message GPSMapOrigin
+{
     double latitude = 1;
     double longitude = 2;
     double ecefX = 3;
@@ -17,7 +18,8 @@ message GPSMapOrigin {
     double ecefZ = 5;
 }
 
-message GPSMapOrigins {
+message GPSMapOrigins
+{
     string selectedMap = 1;
     map<string, GPSMapOrigin> origins = 2;
     map<string, Baseline> tracksBaseline = 3;

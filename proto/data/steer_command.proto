@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package Data;
 
-message SteerCommand {
+message SteerCommand
+{
     double angleDegrees = 1;
 }

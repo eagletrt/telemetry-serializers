@@ -2,10 +2,11 @@ syntax = "proto3";
 
 package Data;
 
-message VehicleState {
-    double x;
-    double y;
-    double heading;
-    double u;
-    double v;
+message VehicleState
+{
+    double x = 1;
+    double y = 2;
+    double heading = 3;
+    double u = 4;
+    double v = 5;
 }
