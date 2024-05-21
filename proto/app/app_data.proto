@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package App;
+
+message DoubleTrigger
+{
+    string id = 1;
+    string message = 2;
+    string signal = 3;
+    int32 comparator = 4;
+    double value = 5;
+    uint32 color = 6;
+}
+
+message EnumTrigger
+{
+    string id = 1;
+    string message = 2;
+    string signal = 3;
+    int32 comparator = 4;
+    uint64 value = 5;
+    uint32 color = 6;
+}
+
+message BitTrigger
+{
+    string id = 1;
+    string message = 2;
+    string signal = 3;
+    int32 comparator = 4;
+    uint64 value = 5;
+    uint32 color = 6;
+}
+
+message CustomPlotItem
+{
+    string messageAxisX = 1;
+    string messageAxisY = 2;
+    string signalAxisX = 3;
+    string signalAxisY = 4;
+    bool isEnum = 5;
+    uint32 color = 6;
+}
+
+message CustomPlotAxis 
+{
+    string label = 1;
+    repeated CustomPlotItem items = 2;
+}
+
+message CustomPlot
+{
+    string title = 1;
+    map<int32, Axis> axes = 2;
+}
+
+message CustomSubPlots
+{
+    uint32 rows = 1;
+    repeated CustomPlot plots = 2;
+}
+
+message CustomPlotsTab
+{
+    repeated CustomSubPlots subPlots = 1;
+}
+
+message AppData
+{
+    repeated DoubleTrigger doubleTriggers = 1;
+    repeated EnumTrigger enumTriggers = 2;
+    repeated BitTrigger bitTriggers = 3;
+    map<string, CustomPlotsTab> customPlotsTabs = 4;
+}
