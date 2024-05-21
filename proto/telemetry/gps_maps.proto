@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package Telemetry;
+
+message GPSMapOrigin {
+    double latitude = 1;
+    double longitude = 2;
+    double ecefX = 3;
+    double ecefY = 4;
+    double ecefZ = 5;
+}
+
+message GPSMapOrigins {
+    string selectedMap = 1;
+    map<string, GPSMapOrigin> origins = 2;
+}

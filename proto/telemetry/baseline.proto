@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package Telemetry;
+
+message Baseline
+{
+    repeated double xs = 1;
+    repeated double ys = 2;
+}
