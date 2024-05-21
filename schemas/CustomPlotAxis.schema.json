@@ -1,19 +1,19 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/Axis",
+    "$ref": "#/definitions/CustomPlotAxis",
     "definitions": {
-        "Axis": {
+        "CustomPlotAxis": {
             "required": [
-                "name",
+                "label",
                 "items"
             ],
             "properties": {
-                "name": {
+                "label": {
                     "type": "string"
                 },
                 "items": {
                     "items": {
-                        "$ref": "#/definitions/PbApp.AxisItem"
+                        "$ref": "#/definitions/PbApp.CustomPlotItem"
                     },
                     "additionalProperties": false,
                     "type": "array"
@@ -21,20 +21,28 @@
             },
             "additionalProperties": false,
             "type": "object",
-            "title": "Axis"
+            "title": "Custom Plot Axis"
         },
-        "PbApp.AxisItem": {
+        "PbApp.CustomPlotItem": {
             "required": [
-                "message",
-                "signal",
+                "messageAxisX",
+                "messageAxisY",
+                "signalAxisX",
+                "signalAxisY",
                 "isEnum",
                 "color"
             ],
             "properties": {
-                "message": {
+                "messageAxisX": {
                     "type": "string"
                 },
-                "signal": {
+                "messageAxisY": {
+                    "type": "string"
+                },
+                "signalAxisX": {
+                    "type": "string"
+                },
+                "signalAxisY": {
                     "type": "string"
                 },
                 "isEnum": {
@@ -46,7 +54,7 @@
             },
             "additionalProperties": false,
             "type": "object",
-            "title": "Axis Item"
+            "title": "Custom Plot Item"
         }
     }
 }

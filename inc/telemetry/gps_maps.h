@@ -12,6 +12,22 @@ namespace Serializers
 {
 namespace Telemetry
 {
+struct Baseline
+{
+    bool valid;
+    std::vector<double> x;
+    std::vector<double> y;
+    
+    Baseline() = default;
+    Baseline(const PbTelemetry::Baseline& protobuf);
+    operator PbTelemetry::Baseline() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
 struct GPSMapOrigin
 {
     double latitude;
@@ -34,6 +50,7 @@ struct GPSMapOrigins
 {
     std::string selectedMap;
     std::unordered_map<std::string, GPSMapOrigin> origins;
+    std::unordered_map<std::string, Baseline> tracksBaseline;
     
     GPSMapOrigins() = default;
     GPSMapOrigins(const PbTelemetry::GPSMapOrigins& protobuf);

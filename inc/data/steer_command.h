@@ -1,7 +1,7 @@
-#ifndef SERIALIZERS_BASELINE_H
-#define SERIALIZERS_BASELINE_H
+#ifndef SERIALIZERS_STEER_COMMAND_H
+#define SERIALIZERS_STEER_COMMAND_H
 
-#include "baseline.pb.h"
+#include "steer_command.pb.h"
 
 #include <cstdint>
 #include <string>
@@ -10,16 +10,15 @@
 
 namespace Serializers
 {
-namespace Telemetry
+namespace Data
 {
-struct Baseline
+struct SteerCommand
 {
-    std::vector<double> xs;
-    std::vector<double> ys;
+    double angleDegrees;
     
-    Baseline() = default;
-    Baseline(const PbTelemetry::Baseline& protobuf);
-    operator PbTelemetry::Baseline() const;
+    SteerCommand() = default;
+    SteerCommand(const PbData::SteerCommand& protobuf);
+    operator PbData::SteerCommand() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

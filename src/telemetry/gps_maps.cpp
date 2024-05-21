@@ -6,6 +6,55 @@ namespace Serializers
 {
 namespace Telemetry
 {
+Baseline::Baseline(const PbTelemetry::Baseline& protobuf) {
+    valid = protobuf.valid();
+    x = {protobuf.x().begin(), protobuf.x().end()};
+    y = {protobuf.y().begin(), protobuf.y().end()};
+}
+
+Baseline::operator PbTelemetry::Baseline() const {
+    PbTelemetry::Baseline ret;
+    ret.set_valid(valid);
+    *(ret.mutable_x()) = {x.begin(), x.end()};
+    *(ret.mutable_y()) = {y.begin(), y.end()};
+    return ret;
+}
+
+std::string Baseline::serializeAsJsonString() const {
+    PbTelemetry::Baseline protobuf(*this);
+    std::string ret;
+    google::protobuf::util::JsonPrintOptions options;
+    options.add_whitespace = true;
+    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    return ret;
+}
+
+std::string Baseline::serializeAsProtobufString() const {
+    PbTelemetry::Baseline protobuf(*this);
+    return protobuf.SerializeAsString();
+}
+
+bool Baseline::deserializeFromJsonString(const std::string& str) {
+    PbTelemetry::Baseline protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    if(status.ok()) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Baseline::deserializeFromProtobufString(const std::string& str) {
+    PbTelemetry::Baseline protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
 GPSMapOrigin::GPSMapOrigin(const PbTelemetry::GPSMapOrigin& protobuf) {
     latitude = protobuf.latitude();
     longitude = protobuf.longitude();
@@ -62,12 +111,14 @@ bool GPSMapOrigin::deserializeFromProtobufString(const std::string& str) {
 GPSMapOrigins::GPSMapOrigins(const PbTelemetry::GPSMapOrigins& protobuf) {
     selectedMap = protobuf.selectedmap();
     origins = {protobuf.origins().begin(), protobuf.origins().end()};
+    tracksBaseline = {protobuf.tracksbaseline().begin(), protobuf.tracksbaseline().end()};
 }
 
 GPSMapOrigins::operator PbTelemetry::GPSMapOrigins() const {
     PbTelemetry::GPSMapOrigins ret;
     ret.set_selectedmap(selectedMap);
     *(ret.mutable_origins()) = {origins.begin(), origins.end()};
+    *(ret.mutable_tracksbaseline()) = {tracksBaseline.begin(), tracksBaseline.end()};
     return ret;
 }
 

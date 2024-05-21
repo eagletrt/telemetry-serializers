@@ -5,7 +5,8 @@
         "GPSMapOrigins": {
             "required": [
                 "selectedMap",
-                "origins"
+                "origins",
+                "tracksBaseline"
             ],
             "properties": {
                 "selectedMap": {
@@ -17,11 +18,45 @@
                         "additionalProperties": false
                     },
                     "type": "object"
+                },
+                "tracksBaseline": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbTelemetry.Baseline",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
                 }
             },
             "additionalProperties": false,
             "type": "object",
             "title": "GPS Map Origins"
+        },
+        "PbTelemetry.Baseline": {
+            "required": [
+                "valid",
+                "x",
+                "y"
+            ],
+            "properties": {
+                "valid": {
+                    "type": "boolean"
+                },
+                "x": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "y": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Baseline"
         },
         "PbTelemetry.GPSMapOrigin": {
             "required": [

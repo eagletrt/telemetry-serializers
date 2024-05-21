@@ -1,8 +1,25 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/CustomPlot",
+    "$ref": "#/definitions/CustomPlotsTab",
     "definitions": {
-        "CustomPlot": {
+        "CustomPlotsTab": {
+            "required": [
+                "subPlots"
+            ],
+            "properties": {
+                "subPlots": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.CustomSubPlots"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Custom Plots Tab"
+        },
+        "PbApp.CustomPlot": {
             "required": [
                 "title",
                 "axes"
@@ -76,6 +93,27 @@
             "additionalProperties": false,
             "type": "object",
             "title": "Custom Plot Item"
+        },
+        "PbApp.CustomSubPlots": {
+            "required": [
+                "rows",
+                "plots"
+            ],
+            "properties": {
+                "rows": {
+                    "type": "integer"
+                },
+                "plots": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.CustomPlot"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Custom Sub Plots"
         }
     }
 }

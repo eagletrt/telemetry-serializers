@@ -1,8 +1,29 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/CustomPlot",
+    "$ref": "#/definitions/CustomSubPlots",
     "definitions": {
-        "CustomPlot": {
+        "CustomSubPlots": {
+            "required": [
+                "rows",
+                "plots"
+            ],
+            "properties": {
+                "rows": {
+                    "type": "integer"
+                },
+                "plots": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.CustomPlot"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Custom Sub Plots"
+        },
+        "PbApp.CustomPlot": {
             "required": [
                 "title",
                 "axes"

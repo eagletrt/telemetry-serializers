@@ -4,17 +4,21 @@
     "definitions": {
         "Baseline": {
             "required": [
-                "xs",
-                "ys"
+                "valid",
+                "x",
+                "y"
             ],
             "properties": {
-                "xs": {
+                "valid": {
+                    "type": "boolean"
+                },
+                "x": {
                     "items": {
                         "type": "number"
                     },
                     "type": "array"
                 },
-                "ys": {
+                "y": {
                     "items": {
                         "type": "number"
                     },

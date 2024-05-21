@@ -11,18 +11,20 @@ add_library(
     STATIC
 
     src/can/can_frequencies.cpp
+    src/data/steer_command.cpp
+    src/data/vehicle_state.cpp
     src/telemetry/statistics.cpp
     src/telemetry/error.cpp
     src/telemetry/gps_maps.cpp
     src/telemetry/status.cpp
     src/telemetry/login_data.cpp
-    src/telemetry/baseline.cpp
     src/actions/command.cpp
     src/actions/file_transaction.cpp
     src/handcart/settings.cpp
     src/lapcounter/lapcounter.cpp
     src/lapcounter/lap_counter.cpp
     src/app/user_data.cpp
+    src/app/app_data.cpp
     src/app/data_processing.cpp
     src/app/app_config.cpp
     src/sessions/gpsSession.cpp
