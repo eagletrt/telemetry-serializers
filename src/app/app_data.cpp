@@ -6,171 +6,6 @@ namespace Serializers
 {
 namespace App
 {
-DoubleTrigger::DoubleTrigger(const PbApp::DoubleTrigger& protobuf) {
-    id = protobuf.id();
-    message = protobuf.message();
-    signal = protobuf.signal();
-    comparator = protobuf.comparator();
-    value = protobuf.value();
-    color = protobuf.color();
-}
-
-DoubleTrigger::operator PbApp::DoubleTrigger() const {
-    PbApp::DoubleTrigger ret;
-    ret.set_id(id);
-    ret.set_message(message);
-    ret.set_signal(signal);
-    ret.set_comparator(comparator);
-    ret.set_value(value);
-    ret.set_color(color);
-    return ret;
-}
-
-std::string DoubleTrigger::serializeAsJsonString() const {
-    PbApp::DoubleTrigger protobuf(*this);
-    std::string ret;
-    google::protobuf::util::JsonPrintOptions options;
-    options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
-    return ret;
-}
-
-std::string DoubleTrigger::serializeAsProtobufString() const {
-    PbApp::DoubleTrigger protobuf(*this);
-    return protobuf.SerializeAsString();
-}
-
-bool DoubleTrigger::deserializeFromJsonString(const std::string& str) {
-    PbApp::DoubleTrigger protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
-    if(status.ok()) {
-        *this = protobuf;
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool DoubleTrigger::deserializeFromProtobufString(const std::string& str) {
-    PbApp::DoubleTrigger protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
-        return true;
-    } else {
-        return false;
-    }
-}
-
-EnumTrigger::EnumTrigger(const PbApp::EnumTrigger& protobuf) {
-    id = protobuf.id();
-    message = protobuf.message();
-    signal = protobuf.signal();
-    comparator = protobuf.comparator();
-    value = protobuf.value();
-    color = protobuf.color();
-}
-
-EnumTrigger::operator PbApp::EnumTrigger() const {
-    PbApp::EnumTrigger ret;
-    ret.set_id(id);
-    ret.set_message(message);
-    ret.set_signal(signal);
-    ret.set_comparator(comparator);
-    ret.set_value(value);
-    ret.set_color(color);
-    return ret;
-}
-
-std::string EnumTrigger::serializeAsJsonString() const {
-    PbApp::EnumTrigger protobuf(*this);
-    std::string ret;
-    google::protobuf::util::JsonPrintOptions options;
-    options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
-    return ret;
-}
-
-std::string EnumTrigger::serializeAsProtobufString() const {
-    PbApp::EnumTrigger protobuf(*this);
-    return protobuf.SerializeAsString();
-}
-
-bool EnumTrigger::deserializeFromJsonString(const std::string& str) {
-    PbApp::EnumTrigger protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
-    if(status.ok()) {
-        *this = protobuf;
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool EnumTrigger::deserializeFromProtobufString(const std::string& str) {
-    PbApp::EnumTrigger protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
-        return true;
-    } else {
-        return false;
-    }
-}
-
-BitTrigger::BitTrigger(const PbApp::BitTrigger& protobuf) {
-    id = protobuf.id();
-    message = protobuf.message();
-    signal = protobuf.signal();
-    comparator = protobuf.comparator();
-    value = protobuf.value();
-    color = protobuf.color();
-}
-
-BitTrigger::operator PbApp::BitTrigger() const {
-    PbApp::BitTrigger ret;
-    ret.set_id(id);
-    ret.set_message(message);
-    ret.set_signal(signal);
-    ret.set_comparator(comparator);
-    ret.set_value(value);
-    ret.set_color(color);
-    return ret;
-}
-
-std::string BitTrigger::serializeAsJsonString() const {
-    PbApp::BitTrigger protobuf(*this);
-    std::string ret;
-    google::protobuf::util::JsonPrintOptions options;
-    options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
-    return ret;
-}
-
-std::string BitTrigger::serializeAsProtobufString() const {
-    PbApp::BitTrigger protobuf(*this);
-    return protobuf.SerializeAsString();
-}
-
-bool BitTrigger::deserializeFromJsonString(const std::string& str) {
-    PbApp::BitTrigger protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
-    if(status.ok()) {
-        *this = protobuf;
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool BitTrigger::deserializeFromProtobufString(const std::string& str) {
-    PbApp::BitTrigger protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
-        return true;
-    } else {
-        return false;
-    }
-}
-
 CustomPlotItem::CustomPlotItem(const PbApp::CustomPlotItem& protobuf) {
     messageAxisX = protobuf.messageaxisx();
     messageAxisY = protobuf.messageaxisy();
@@ -273,20 +108,20 @@ bool CustomPlotAxis::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
-CustomPlot::CustomPlot(const PbApp::CustomPlot& protobuf) {
+NewCustomPlot::NewCustomPlot(const PbApp::NewCustomPlot& protobuf) {
     title = protobuf.title();
     axes = {protobuf.axes().begin(), protobuf.axes().end()};
 }
 
-CustomPlot::operator PbApp::CustomPlot() const {
-    PbApp::CustomPlot ret;
+NewCustomPlot::operator PbApp::NewCustomPlot() const {
+    PbApp::NewCustomPlot ret;
     ret.set_title(title);
     *(ret.mutable_axes()) = {axes.begin(), axes.end()};
     return ret;
 }
 
-std::string CustomPlot::serializeAsJsonString() const {
-    PbApp::CustomPlot protobuf(*this);
+std::string NewCustomPlot::serializeAsJsonString() const {
+    PbApp::NewCustomPlot protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
@@ -294,13 +129,13 @@ std::string CustomPlot::serializeAsJsonString() const {
     return ret;
 }
 
-std::string CustomPlot::serializeAsProtobufString() const {
-    PbApp::CustomPlot protobuf(*this);
+std::string NewCustomPlot::serializeAsProtobufString() const {
+    PbApp::NewCustomPlot protobuf(*this);
     return protobuf.SerializeAsString();
 }
 
-bool CustomPlot::deserializeFromJsonString(const std::string& str) {
-    PbApp::CustomPlot protobuf;
+bool NewCustomPlot::deserializeFromJsonString(const std::string& str) {
+    PbApp::NewCustomPlot protobuf;
     auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
         *this = protobuf;
@@ -310,8 +145,8 @@ bool CustomPlot::deserializeFromJsonString(const std::string& str) {
     }
 }
 
-bool CustomPlot::deserializeFromProtobufString(const std::string& str) {
-    PbApp::CustomPlot protobuf;
+bool NewCustomPlot::deserializeFromProtobufString(const std::string& str) {
+    PbApp::NewCustomPlot protobuf;
     if(protobuf.ParseFromString(str)) {
         *this = protobuf;
         return true;
@@ -413,17 +248,11 @@ bool CustomPlotsTab::deserializeFromProtobufString(const std::string& str) {
 }
 
 AppData::AppData(const PbApp::AppData& protobuf) {
-    doubleTriggers = {protobuf.doubletriggers().begin(), protobuf.doubletriggers().end()};
-    enumTriggers = {protobuf.enumtriggers().begin(), protobuf.enumtriggers().end()};
-    bitTriggers = {protobuf.bittriggers().begin(), protobuf.bittriggers().end()};
     customPlotsTabs = {protobuf.customplotstabs().begin(), protobuf.customplotstabs().end()};
 }
 
 AppData::operator PbApp::AppData() const {
     PbApp::AppData ret;
-    *(ret.mutable_doubletriggers()) = {doubleTriggers.begin(), doubleTriggers.end()};
-    *(ret.mutable_enumtriggers()) = {enumTriggers.begin(), enumTriggers.end()};
-    *(ret.mutable_bittriggers()) = {bitTriggers.begin(), bitTriggers.end()};
     *(ret.mutable_customplotstabs()) = {customPlotsTabs.begin(), customPlotsTabs.end()};
     return ret;
 }

@@ -9,6 +9,56 @@ message Connection
     string mode = 3;
 }
 
+message DoubleTrigger
+{
+    string id = 1;
+    string message = 2;
+    string signal = 3;
+    int32 comparator = 4;
+    double value = 5;
+    uint32 color = 6;
+}
+
+message EnumTrigger
+{
+    string id = 1;
+    string message = 2;
+    string signal = 3;
+    int32 comparator = 4;
+    uint64 value = 5;
+    uint32 color = 6;
+}
+
+message BitTrigger
+{
+    string id = 1;
+    string message = 2;
+    string signal = 3;
+    int32 comparator = 4;
+    uint64 value = 5;
+    uint32 color = 6;
+}
+
+message AxisItem
+{
+    string message = 1;
+    string signal = 2;
+    bool isEnum = 3;
+    uint32 color = 4;
+}
+
+message Axis 
+{
+    string name = 1;
+    repeated AxisItem items = 3;
+}
+
+message CustomPlot
+{
+    string name = 1;
+    map<int32, Axis> axes = 2; 
+}
+
 message AppConfig
 {
     uint64 loginTimestamp = 1;
@@ -20,4 +70,9 @@ message AppConfig
     map<string, string> filesPaths = 7;  
     map<string, string> stringCache = 8;
     map<string, bool> boolCache = 9;
+
+    repeated DoubleTrigger doubleTriggers = 10;
+    repeated EnumTrigger enumTriggers = 11;
+    repeated BitTrigger bitTriggers = 12;
+    repeated CustomPlot customPlots = 13;
 }

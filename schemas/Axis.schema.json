@@ -1,29 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/CustomPlot",
+    "$ref": "#/definitions/Axis",
     "definitions": {
-        "CustomPlot": {
-            "required": [
-                "name",
-                "axes"
-            ],
-            "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "axes": {
-                    "additionalProperties": {
-                        "$ref": "#/definitions/PbApp.Axis",
-                        "additionalProperties": false
-                    },
-                    "type": "object"
-                }
-            },
-            "additionalProperties": false,
-            "type": "object",
-            "title": "Custom Plot"
-        },
-        "PbApp.Axis": {
+        "Axis": {
             "required": [
                 "name",
                 "items"

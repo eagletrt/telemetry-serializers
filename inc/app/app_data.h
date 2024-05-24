@@ -12,63 +12,6 @@ namespace Serializers
 {
 namespace App
 {
-struct DoubleTrigger
-{
-    std::string id;
-    std::string message;
-    std::string signal;
-    int32_t comparator;
-    double value;
-    uint32_t color;
-    
-    DoubleTrigger() = default;
-    DoubleTrigger(const PbApp::DoubleTrigger& protobuf);
-    operator PbApp::DoubleTrigger() const;
-
-    std::string serializeAsJsonString() const;
-    std::string serializeAsProtobufString() const;
-    bool deserializeFromJsonString(const std::string& str);
-    bool deserializeFromProtobufString(const std::string& str);
-};
-
-struct EnumTrigger
-{
-    std::string id;
-    std::string message;
-    std::string signal;
-    int32_t comparator;
-    uint64_t value;
-    uint32_t color;
-    
-    EnumTrigger() = default;
-    EnumTrigger(const PbApp::EnumTrigger& protobuf);
-    operator PbApp::EnumTrigger() const;
-
-    std::string serializeAsJsonString() const;
-    std::string serializeAsProtobufString() const;
-    bool deserializeFromJsonString(const std::string& str);
-    bool deserializeFromProtobufString(const std::string& str);
-};
-
-struct BitTrigger
-{
-    std::string id;
-    std::string message;
-    std::string signal;
-    int32_t comparator;
-    uint64_t value;
-    uint32_t color;
-    
-    BitTrigger() = default;
-    BitTrigger(const PbApp::BitTrigger& protobuf);
-    operator PbApp::BitTrigger() const;
-
-    std::string serializeAsJsonString() const;
-    std::string serializeAsProtobufString() const;
-    bool deserializeFromJsonString(const std::string& str);
-    bool deserializeFromProtobufString(const std::string& str);
-};
-
 struct CustomPlotItem
 {
     std::string messageAxisX;
@@ -103,14 +46,14 @@ struct CustomPlotAxis
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct CustomPlot
+struct NewCustomPlot
 {
     std::string title;
     std::unordered_map<int32_t, CustomPlotAxis> axes;
     
-    CustomPlot() = default;
-    CustomPlot(const PbApp::CustomPlot& protobuf);
-    operator PbApp::CustomPlot() const;
+    NewCustomPlot() = default;
+    NewCustomPlot(const PbApp::NewCustomPlot& protobuf);
+    operator PbApp::NewCustomPlot() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -121,7 +64,7 @@ struct CustomPlot
 struct CustomSubPlots
 {
     uint32_t rows;
-    std::vector<CustomPlot> plots;
+    std::vector<NewCustomPlot> plots;
     
     CustomSubPlots() = default;
     CustomSubPlots(const PbApp::CustomSubPlots& protobuf);
@@ -149,9 +92,6 @@ struct CustomPlotsTab
 
 struct AppData
 {
-    std::vector<DoubleTrigger> doubleTriggers;
-    std::vector<EnumTrigger> enumTriggers;
-    std::vector<BitTrigger> bitTriggers;
     std::unordered_map<std::string, CustomPlotsTab> customPlotsTabs;
     
     AppData() = default;

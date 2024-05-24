@@ -4,33 +4,9 @@
     "definitions": {
         "AppData": {
             "required": [
-                "doubleTriggers",
-                "enumTriggers",
-                "bitTriggers",
                 "customPlotsTabs"
             ],
             "properties": {
-                "doubleTriggers": {
-                    "items": {
-                        "$ref": "#/definitions/PbApp.DoubleTrigger"
-                    },
-                    "additionalProperties": false,
-                    "type": "array"
-                },
-                "enumTriggers": {
-                    "items": {
-                        "$ref": "#/definitions/PbApp.EnumTrigger"
-                    },
-                    "additionalProperties": false,
-                    "type": "array"
-                },
-                "bitTriggers": {
-                    "items": {
-                        "$ref": "#/definitions/PbApp.BitTrigger"
-                    },
-                    "additionalProperties": false,
-                    "type": "array"
-                },
                 "customPlotsTabs": {
                     "additionalProperties": {
                         "$ref": "#/definitions/PbApp.CustomPlotsTab",
@@ -42,60 +18,6 @@
             "additionalProperties": false,
             "type": "object",
             "title": "App Data"
-        },
-        "PbApp.BitTrigger": {
-            "required": [
-                "id",
-                "message",
-                "signal",
-                "comparator",
-                "value",
-                "color"
-            ],
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "message": {
-                    "type": "string"
-                },
-                "signal": {
-                    "type": "string"
-                },
-                "comparator": {
-                    "type": "integer"
-                },
-                "value": {
-                    "type": "integer"
-                },
-                "color": {
-                    "type": "integer"
-                }
-            },
-            "additionalProperties": false,
-            "type": "object",
-            "title": "Bit Trigger"
-        },
-        "PbApp.CustomPlot": {
-            "required": [
-                "title",
-                "axes"
-            ],
-            "properties": {
-                "title": {
-                    "type": "string"
-                },
-                "axes": {
-                    "additionalProperties": {
-                        "$ref": "#/definitions/PbApp.CustomPlotAxis",
-                        "additionalProperties": false
-                    },
-                    "type": "object"
-                }
-            },
-            "additionalProperties": false,
-            "type": "object",
-            "title": "Custom Plot"
         },
         "PbApp.CustomPlotAxis": {
             "required": [
@@ -179,7 +101,7 @@
                 },
                 "plots": {
                     "items": {
-                        "$ref": "#/definitions/PbApp.CustomPlot"
+                        "$ref": "#/definitions/PbApp.NewCustomPlot"
                     },
                     "additionalProperties": false,
                     "type": "array"
@@ -189,71 +111,26 @@
             "type": "object",
             "title": "Custom Sub Plots"
         },
-        "PbApp.DoubleTrigger": {
+        "PbApp.NewCustomPlot": {
             "required": [
-                "id",
-                "message",
-                "signal",
-                "comparator",
-                "value",
-                "color"
+                "title",
+                "axes"
             ],
             "properties": {
-                "id": {
+                "title": {
                     "type": "string"
                 },
-                "message": {
-                    "type": "string"
-                },
-                "signal": {
-                    "type": "string"
-                },
-                "comparator": {
-                    "type": "integer"
-                },
-                "value": {
-                    "type": "number"
-                },
-                "color": {
-                    "type": "integer"
+                "axes": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbApp.CustomPlotAxis",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
                 }
             },
             "additionalProperties": false,
             "type": "object",
-            "title": "Double Trigger"
-        },
-        "PbApp.EnumTrigger": {
-            "required": [
-                "id",
-                "message",
-                "signal",
-                "comparator",
-                "value",
-                "color"
-            ],
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "message": {
-                    "type": "string"
-                },
-                "signal": {
-                    "type": "string"
-                },
-                "comparator": {
-                    "type": "integer"
-                },
-                "value": {
-                    "type": "integer"
-                },
-                "color": {
-                    "type": "integer"
-                }
-            },
-            "additionalProperties": false,
-            "type": "object",
-            "title": "Enum Trigger"
+            "title": "New Custom Plot"
         }
     }
 }

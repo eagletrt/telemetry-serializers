@@ -19,27 +19,6 @@
             "type": "object",
             "title": "Custom Plots Tab"
         },
-        "PbApp.CustomPlot": {
-            "required": [
-                "title",
-                "axes"
-            ],
-            "properties": {
-                "title": {
-                    "type": "string"
-                },
-                "axes": {
-                    "additionalProperties": {
-                        "$ref": "#/definitions/PbApp.CustomPlotAxis",
-                        "additionalProperties": false
-                    },
-                    "type": "object"
-                }
-            },
-            "additionalProperties": false,
-            "type": "object",
-            "title": "Custom Plot"
-        },
         "PbApp.CustomPlotAxis": {
             "required": [
                 "label",
@@ -105,7 +84,7 @@
                 },
                 "plots": {
                     "items": {
-                        "$ref": "#/definitions/PbApp.CustomPlot"
+                        "$ref": "#/definitions/PbApp.NewCustomPlot"
                     },
                     "additionalProperties": false,
                     "type": "array"
@@ -114,6 +93,27 @@
             "additionalProperties": false,
             "type": "object",
             "title": "Custom Sub Plots"
+        },
+        "PbApp.NewCustomPlot": {
+            "required": [
+                "title",
+                "axes"
+            ],
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "axes": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbApp.CustomPlotAxis",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "New Custom Plot"
         }
     }
 }
