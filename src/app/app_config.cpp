@@ -368,7 +368,6 @@ bool CustomPlot::deserializeFromProtobufString(const std::string& str) {
 AppConfig::AppConfig(const PbApp::AppConfig& protobuf) {
     loginTimestamp = protobuf.logintimestamp();
     colorTheme = protobuf.colortheme();
-    mode = protobuf.mode();
     connection = protobuf.connection();
     savedConnections = {protobuf.savedconnections().begin(), protobuf.savedconnections().end()};
     activeTabs = {protobuf.activetabs().begin(), protobuf.activetabs().end()};
@@ -385,7 +384,6 @@ AppConfig::operator PbApp::AppConfig() const {
     PbApp::AppConfig ret;
     ret.set_logintimestamp(loginTimestamp);
     ret.set_colortheme(colorTheme);
-    ret.set_mode(mode);
     *(ret.mutable_connection()) = connection;
     *(ret.mutable_savedconnections()) = {savedConnections.begin(), savedConnections.end()};
     *(ret.mutable_activetabs()) = {activeTabs.begin(), activeTabs.end()};

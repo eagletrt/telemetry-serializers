@@ -6,7 +6,6 @@
             "required": [
                 "loginTimestamp",
                 "colorTheme",
-                "mode",
                 "connection",
                 "savedConnections",
                 "activeTabs",
@@ -23,9 +22,6 @@
                     "type": "integer"
                 },
                 "colorTheme": {
-                    "type": "integer"
-                },
-                "mode": {
                     "type": "integer"
                 },
                 "connection": {

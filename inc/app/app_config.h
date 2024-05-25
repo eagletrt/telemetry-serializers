@@ -136,7 +136,6 @@ struct AppConfig
 {
     uint64_t loginTimestamp;
     uint32_t colorTheme;
-    uint32_t mode;
     Connection connection;
     std::unordered_map<std::string, Connection> savedConnections;
     std::vector<std::string> activeTabs;

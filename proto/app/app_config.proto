@@ -63,16 +63,15 @@ message AppConfig
 {
     uint64 loginTimestamp = 1;
     uint32 colorTheme = 2;
-    uint32 mode = 3;
-    Connection connection = 4;
-    map<string, Connection> savedConnections = 5;
-    repeated string activeTabs = 6;
-    map<string, string> filesPaths = 7;  
-    map<string, string> stringCache = 8;
-    map<string, bool> boolCache = 9;
+    Connection connection = 3;
+    map<string, Connection> savedConnections = 4;
+    repeated string activeTabs = 5;
+    map<string, string> filesPaths = 6;  
+    map<string, string> stringCache = 7;
+    map<string, bool> boolCache = 8;
 
-    repeated DoubleTrigger doubleTriggers = 10;
-    repeated EnumTrigger enumTriggers = 11;
-    repeated BitTrigger bitTriggers = 12;
-    repeated CustomPlot customPlots = 13;
+    repeated DoubleTrigger doubleTriggers = 9;
+    repeated EnumTrigger enumTriggers = 10;
+    repeated BitTrigger bitTriggers = 11;
+    repeated CustomPlot customPlots = 12;
 }
