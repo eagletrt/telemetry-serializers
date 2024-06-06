@@ -1,7 +1,7 @@
-#ifndef SERIALIZERS_KILOMETERS_COUNTER_H
-#define SERIALIZERS_KILOMETERS_COUNTER_H
+#ifndef SERIALIZERS_ODOMETER_H
+#define SERIALIZERS_ODOMETER_H
 
-#include "kilometers_counter.pb.h"
+#include "odometer.pb.h"
 
 #include <cstdint>
 #include <string>
@@ -12,14 +12,14 @@ namespace Serializers
 {
 namespace Telemetry
 {
-struct KilometersCounter
+struct Odometer
 {
     std::string startDate;
     double kilometers;
     
-    KilometersCounter() = default;
-    KilometersCounter(const PbTelemetry::KilometersCounter& protobuf);
-    operator PbTelemetry::KilometersCounter() const;
+    Odometer() = default;
+    Odometer(const PbTelemetry::Odometer& protobuf);
+    operator PbTelemetry::Odometer() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

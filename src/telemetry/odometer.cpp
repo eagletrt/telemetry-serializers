@@ -1,4 +1,4 @@
-#include "telemetry/kilometers_counter.h"
+#include "telemetry/odometer.h"
 
 #include <google/protobuf/util/json_util.h>
 
@@ -6,20 +6,20 @@ namespace Serializers
 {
 namespace Telemetry
 {
-KilometersCounter::KilometersCounter(const PbTelemetry::KilometersCounter& protobuf) {
+Odometer::Odometer(const PbTelemetry::Odometer& protobuf) {
     startDate = protobuf.startdate();
     kilometers = protobuf.kilometers();
 }
 
-KilometersCounter::operator PbTelemetry::KilometersCounter() const {
-    PbTelemetry::KilometersCounter ret;
+Odometer::operator PbTelemetry::Odometer() const {
+    PbTelemetry::Odometer ret;
     ret.set_startdate(startDate);
     ret.set_kilometers(kilometers);
     return ret;
 }
 
-std::string KilometersCounter::serializeAsJsonString() const {
-    PbTelemetry::KilometersCounter protobuf(*this);
+std::string Odometer::serializeAsJsonString() const {
+    PbTelemetry::Odometer protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
@@ -27,13 +27,13 @@ std::string KilometersCounter::serializeAsJsonString() const {
     return ret;
 }
 
-std::string KilometersCounter::serializeAsProtobufString() const {
-    PbTelemetry::KilometersCounter protobuf(*this);
+std::string Odometer::serializeAsProtobufString() const {
+    PbTelemetry::Odometer protobuf(*this);
     return protobuf.SerializeAsString();
 }
 
-bool KilometersCounter::deserializeFromJsonString(const std::string& str) {
-    PbTelemetry::KilometersCounter protobuf;
+bool Odometer::deserializeFromJsonString(const std::string& str) {
+    PbTelemetry::Odometer protobuf;
     auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
         *this = protobuf;
@@ -43,8 +43,8 @@ bool KilometersCounter::deserializeFromJsonString(const std::string& str) {
     }
 }
 
-bool KilometersCounter::deserializeFromProtobufString(const std::string& str) {
-    PbTelemetry::KilometersCounter protobuf;
+bool Odometer::deserializeFromProtobufString(const std::string& str) {
+    PbTelemetry::Odometer protobuf;
     if(protobuf.ParseFromString(str)) {
         *this = protobuf;
         return true;
