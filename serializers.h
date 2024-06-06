@@ -4,6 +4,7 @@
 #include "can/can_frequencies.h"
 #include "data/steer_command.h"
 #include "data/vehicle_state.h"
+#include "telemetry/kilometers_counter.h"
 #include "telemetry/statistics.h"
 #include "telemetry/error.h"
 #include "telemetry/gps_maps.h"

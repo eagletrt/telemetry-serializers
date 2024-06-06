@@ -13,6 +13,7 @@ add_library(
     src/can/can_frequencies.cpp
     src/data/steer_command.cpp
     src/data/vehicle_state.cpp
+    src/telemetry/kilometers_counter.cpp
     src/telemetry/statistics.cpp
     src/telemetry/error.cpp
     src/telemetry/gps_maps.cpp
