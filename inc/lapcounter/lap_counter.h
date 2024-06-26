@@ -51,6 +51,7 @@ struct TrackLayout
 struct Time
 {
     int32_t layout_id;
+    uint32_t lap_number;
     std::string driver_name;
     uint64_t start_timestamp;
     uint64_t end_timestamp;
@@ -84,6 +85,7 @@ struct DriverRecord
 struct TrackRecord
 {
     int32_t layout_id;
+    uint32_t lap_number;
     DriverRecord best_lap;
     std::vector<DriverRecord> best_sectors;
     
@@ -118,6 +120,7 @@ struct DataBase
     std::vector<Driver> drivers;
     std::vector<TrackRecord> records;
     int32_t last_id;
+    uint32_t lap_number;
     
     DataBase() = default;
     DataBase(const PbLapCounter::DataBase& protobuf);

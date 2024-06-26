@@ -26,6 +26,7 @@
         "PbLapCounter.Time": {
             "required": [
                 "layout_id",
+                "lap_number",
                 "driver_name",
                 "start_timestamp",
                 "end_timestamp",
@@ -33,6 +34,9 @@
             ],
             "properties": {
                 "layout_id": {
+                    "type": "integer"
+                },
+                "lap_number": {
                     "type": "integer"
                 },
                 "driver_name": {

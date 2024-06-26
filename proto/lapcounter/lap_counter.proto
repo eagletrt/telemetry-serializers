@@ -23,10 +23,11 @@ message TrackLayout
 message Time
 {
     int32 layout_id = 10;
-    string driver_name = 20;
-    uint64 start_timestamp = 30;
-    uint64 end_timestamp = 40;
-    repeated uint64 sectors_timestamp = 50;
+    uint32 lap_number = 20;
+    string driver_name = 30;
+    uint64 start_timestamp = 40;
+    uint64 end_timestamp = 50;
+    repeated uint64 sectors_timestamp = 60;
 }
 
 message DriverRecord
@@ -38,8 +39,9 @@ message DriverRecord
 message TrackRecord
 {
     int32 layout_id = 10;
-    DriverRecord best_lap = 20;
-    repeated DriverRecord best_sectors = 30;
+    uint32 lap_number = 20;
+    DriverRecord best_lap = 30;
+    repeated DriverRecord best_sectors = 40;
 }
 
 message Driver
@@ -54,4 +56,5 @@ message DataBase
     repeated Driver drivers = 20;
     repeated TrackRecord records = 30;
     int32 last_id = 40;
+    uint32 lap_number = 50;
 }

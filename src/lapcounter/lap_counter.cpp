@@ -114,6 +114,7 @@ bool TrackLayout::deserializeFromProtobufString(const std::string& str) {
 
 Time::Time(const PbLapCounter::Time& protobuf) {
     layout_id = protobuf.layout_id();
+    lap_number = protobuf.lap_number();
     driver_name = protobuf.driver_name();
     start_timestamp = protobuf.start_timestamp();
     end_timestamp = protobuf.end_timestamp();
@@ -123,6 +124,7 @@ Time::Time(const PbLapCounter::Time& protobuf) {
 Time::operator PbLapCounter::Time() const {
     PbLapCounter::Time ret;
     ret.set_layout_id(layout_id);
+    ret.set_lap_number(lap_number);
     ret.set_driver_name(driver_name);
     ret.set_start_timestamp(start_timestamp);
     ret.set_end_timestamp(end_timestamp);
@@ -214,6 +216,7 @@ bool DriverRecord::deserializeFromProtobufString(const std::string& str) {
 
 TrackRecord::TrackRecord(const PbLapCounter::TrackRecord& protobuf) {
     layout_id = protobuf.layout_id();
+    lap_number = protobuf.lap_number();
     best_lap = protobuf.best_lap();
     best_sectors = {protobuf.best_sectors().begin(), protobuf.best_sectors().end()};
 }
@@ -221,6 +224,7 @@ TrackRecord::TrackRecord(const PbLapCounter::TrackRecord& protobuf) {
 TrackRecord::operator PbLapCounter::TrackRecord() const {
     PbLapCounter::TrackRecord ret;
     ret.set_layout_id(layout_id);
+    ret.set_lap_number(lap_number);
     *(ret.mutable_best_lap()) = best_lap;
     *(ret.mutable_best_sectors()) = {best_sectors.begin(), best_sectors.end()};
     return ret;
@@ -313,6 +317,7 @@ DataBase::DataBase(const PbLapCounter::DataBase& protobuf) {
     drivers = {protobuf.drivers().begin(), protobuf.drivers().end()};
     records = {protobuf.records().begin(), protobuf.records().end()};
     last_id = protobuf.last_id();
+    lap_number = protobuf.lap_number();
 }
 
 DataBase::operator PbLapCounter::DataBase() const {
@@ -321,6 +326,7 @@ DataBase::operator PbLapCounter::DataBase() const {
     *(ret.mutable_drivers()) = {drivers.begin(), drivers.end()};
     *(ret.mutable_records()) = {records.begin(), records.end()};
     ret.set_last_id(last_id);
+    ret.set_lap_number(lap_number);
     return ret;
 }
 

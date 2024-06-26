@@ -7,7 +7,8 @@
                 "layouts",
                 "drivers",
                 "records",
-                "last_id"
+                "last_id",
+                "lap_number"
             ],
             "properties": {
                 "layouts": {
@@ -32,6 +33,9 @@
                     "type": "array"
                 },
                 "last_id": {
+                    "type": "integer"
+                },
+                "lap_number": {
                     "type": "integer"
                 }
             },
@@ -105,6 +109,7 @@
         "PbLapCounter.Time": {
             "required": [
                 "layout_id",
+                "lap_number",
                 "driver_name",
                 "start_timestamp",
                 "end_timestamp",
@@ -112,6 +117,9 @@
             ],
             "properties": {
                 "layout_id": {
+                    "type": "integer"
+                },
+                "lap_number": {
                     "type": "integer"
                 },
                 "driver_name": {
@@ -176,11 +184,15 @@
         "PbLapCounter.TrackRecord": {
             "required": [
                 "layout_id",
+                "lap_number",
                 "best_lap",
                 "best_sectors"
             ],
             "properties": {
                 "layout_id": {
+                    "type": "integer"
+                },
+                "lap_number": {
                     "type": "integer"
                 },
                 "best_lap": {

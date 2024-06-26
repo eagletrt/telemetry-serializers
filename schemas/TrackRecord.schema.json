@@ -22,11 +22,15 @@
         "TrackRecord": {
             "required": [
                 "layout_id",
+                "lap_number",
                 "best_lap",
                 "best_sectors"
             ],
             "properties": {
                 "layout_id": {
+                    "type": "integer"
+                },
+                "lap_number": {
                     "type": "integer"
                 },
                 "best_lap": {
