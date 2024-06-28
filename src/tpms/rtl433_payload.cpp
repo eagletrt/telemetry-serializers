@@ -1,6 +1,7 @@
 #include "tpms/rtl433_payload.h"
 
 #include <google/protobuf/util/json_util.h>
+#include <tuple>
 
 namespace Serializers
 {
@@ -41,7 +42,7 @@ std::string Rtl433Payload::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 

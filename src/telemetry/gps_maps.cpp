@@ -1,6 +1,7 @@
 #include "telemetry/gps_maps.h"
 
 #include <google/protobuf/util/json_util.h>
+#include <tuple>
 
 namespace Serializers
 {
@@ -25,7 +26,7 @@ std::string Baseline::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
@@ -78,7 +79,7 @@ std::string GPSMapOrigin::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
@@ -127,7 +128,7 @@ std::string GPSMapOrigins::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 

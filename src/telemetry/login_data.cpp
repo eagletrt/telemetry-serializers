@@ -1,6 +1,7 @@
 #include "telemetry/login_data.h"
 
 #include <google/protobuf/util/json_util.h>
+#include <tuple>
 
 namespace Serializers
 {
@@ -23,7 +24,7 @@ std::string LoginData::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 

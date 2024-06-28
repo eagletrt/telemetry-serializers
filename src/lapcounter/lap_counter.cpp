@@ -1,6 +1,7 @@
 #include "lapcounter/lap_counter.h"
 
 #include <google/protobuf/util/json_util.h>
+#include <tuple>
 
 namespace Serializers
 {
@@ -27,7 +28,7 @@ std::string LcPoint::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
@@ -82,7 +83,7 @@ std::string TrackLayout::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
@@ -137,7 +138,7 @@ std::string Time::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
@@ -184,7 +185,7 @@ std::string DriverRecord::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
@@ -235,7 +236,7 @@ std::string TrackRecord::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
@@ -282,7 +283,7 @@ std::string Driver::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
@@ -335,7 +336,7 @@ std::string DataBase::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 

@@ -1,6 +1,7 @@
 #include "app/app_config.h"
 
 #include <google/protobuf/util/json_util.h>
+#include <tuple>
 
 namespace Serializers
 {
@@ -25,7 +26,7 @@ std::string Connection::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
@@ -80,7 +81,7 @@ std::string DoubleTrigger::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
@@ -135,7 +136,7 @@ std::string EnumTrigger::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
@@ -190,7 +191,7 @@ std::string BitTrigger::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
@@ -241,7 +242,7 @@ std::string AxisItem::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
@@ -288,7 +289,7 @@ std::string Axis::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
@@ -335,7 +336,7 @@ std::string CustomPlot::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
@@ -402,7 +403,7 @@ std::string AppConfig::serializeAsJsonString() const {
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
-    google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
     return ret;
 }
 
