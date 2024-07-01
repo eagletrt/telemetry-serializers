@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package Data;
+
+message VectorDouble{
+    repeated double data = 1;
+}
+
+message TelemetryLapData{
+    string dateTime = 1;
+    string circuitId = 2;
+    string layoutId = 3;
+    string driverId = 4;
+    uint32 lapNumber = 5;
+    map<string, VectorDouble> data = 6;
+}
