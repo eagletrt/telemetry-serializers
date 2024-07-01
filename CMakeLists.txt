@@ -18,6 +18,7 @@ add_library(
     src/handcart/settings.cpp
     src/data/vehicle_state.cpp
     src/data/steer_command.cpp
+    src/data/telemetry_lap_data.cpp
     src/influxlogger/configuration.cpp
     src/sessions/gpsSession.cpp
     src/lapcounter/lapcounter.cpp

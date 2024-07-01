@@ -9,6 +9,7 @@
 #include "handcart/settings.h"
 #include "data/vehicle_state.h"
 #include "data/steer_command.h"
+#include "data/telemetry_lap_data.h"
 #include "influxlogger/configuration.h"
 #include "sessions/gpsSession.h"
 #include "lapcounter/lapcounter.h"

@@ -1,0 +1,59 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/TelemetryLapData",
+    "definitions": {
+        "PbData.VectorDouble": {
+            "required": [
+                "data"
+            ],
+            "properties": {
+                "data": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Vector Double"
+        },
+        "TelemetryLapData": {
+            "required": [
+                "dateTime",
+                "circuitId",
+                "layoutId",
+                "driverId",
+                "lapNumber",
+                "data"
+            ],
+            "properties": {
+                "dateTime": {
+                    "type": "string"
+                },
+                "circuitId": {
+                    "type": "string"
+                },
+                "layoutId": {
+                    "type": "string"
+                },
+                "driverId": {
+                    "type": "string"
+                },
+                "lapNumber": {
+                    "type": "integer"
+                },
+                "data": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbData.VectorDouble",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Telemetry Lap Data"
+        }
+    }
+}
