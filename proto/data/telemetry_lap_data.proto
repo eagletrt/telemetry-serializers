@@ -3,7 +3,11 @@ syntax = "proto3";
 package Data;
 
 message VectorDouble{
-    repeated double data = 1;
+    repeated double buffer = 1;
+}
+
+message DataFile {
+    map<string, VectorDouble> data = 6;
 }
 
 message TelemetryLapData{
@@ -12,5 +16,9 @@ message TelemetryLapData{
     string layoutId = 3;
     string driverId = 4;
     uint32 lapNumber = 5;
-    map<string, VectorDouble> data = 6;
+    string filenameHash = 6;
+}
+
+message DataBase{
+    repeated TelemetryLapData lapsData = 1;
 }
