@@ -8,12 +8,12 @@ namespace Serializers
 namespace Data
 {
 VectorDouble::VectorDouble(const PbData::VectorDouble& protobuf) {
-    data = {protobuf.data().begin(), protobuf.data().end()};
+    buffer = {protobuf.buffer().begin(), protobuf.buffer().end()};
 }
 
 VectorDouble::operator PbData::VectorDouble() const {
     PbData::VectorDouble ret;
-    *(ret.mutable_data()) = {data.begin(), data.end()};
+    *(ret.mutable_buffer()) = {buffer.begin(), buffer.end()};
     return ret;
 }
 
@@ -52,13 +52,58 @@ bool VectorDouble::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
+DataFile::DataFile(const PbData::DataFile& protobuf) {
+    data = {protobuf.data().begin(), protobuf.data().end()};
+}
+
+DataFile::operator PbData::DataFile() const {
+    PbData::DataFile ret;
+    *(ret.mutable_data()) = {data.begin(), data.end()};
+    return ret;
+}
+
+std::string DataFile::serializeAsJsonString() const {
+    PbData::DataFile protobuf(*this);
+    std::string ret;
+    google::protobuf::util::JsonPrintOptions options;
+    options.add_whitespace = true;
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    return ret;
+}
+
+std::string DataFile::serializeAsProtobufString() const {
+    PbData::DataFile protobuf(*this);
+    return protobuf.SerializeAsString();
+}
+
+bool DataFile::deserializeFromJsonString(const std::string& str) {
+    PbData::DataFile protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    if(status.ok()) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool DataFile::deserializeFromProtobufString(const std::string& str) {
+    PbData::DataFile protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
 TelemetryLapData::TelemetryLapData(const PbData::TelemetryLapData& protobuf) {
     dateTime = protobuf.datetime();
     circuitId = protobuf.circuitid();
     layoutId = protobuf.layoutid();
     driverId = protobuf.driverid();
     lapNumber = protobuf.lapnumber();
-    data = {protobuf.data().begin(), protobuf.data().end()};
+    filenameHash = protobuf.filenamehash();
 }
 
 TelemetryLapData::operator PbData::TelemetryLapData() const {
@@ -68,7 +113,7 @@ TelemetryLapData::operator PbData::TelemetryLapData() const {
     ret.set_layoutid(layoutId);
     ret.set_driverid(driverId);
     ret.set_lapnumber(lapNumber);
-    *(ret.mutable_data()) = {data.begin(), data.end()};
+    ret.set_filenamehash(filenameHash);
     return ret;
 }
 
@@ -99,6 +144,51 @@ bool TelemetryLapData::deserializeFromJsonString(const std::string& str) {
 
 bool TelemetryLapData::deserializeFromProtobufString(const std::string& str) {
     PbData::TelemetryLapData protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+DataBase::DataBase(const PbData::DataBase& protobuf) {
+    lapsData = {protobuf.lapsdata().begin(), protobuf.lapsdata().end()};
+}
+
+DataBase::operator PbData::DataBase() const {
+    PbData::DataBase ret;
+    *(ret.mutable_lapsdata()) = {lapsData.begin(), lapsData.end()};
+    return ret;
+}
+
+std::string DataBase::serializeAsJsonString() const {
+    PbData::DataBase protobuf(*this);
+    std::string ret;
+    google::protobuf::util::JsonPrintOptions options;
+    options.add_whitespace = true;
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    return ret;
+}
+
+std::string DataBase::serializeAsProtobufString() const {
+    PbData::DataBase protobuf(*this);
+    return protobuf.SerializeAsString();
+}
+
+bool DataBase::deserializeFromJsonString(const std::string& str) {
+    PbData::DataBase protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    if(status.ok()) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool DataBase::deserializeFromProtobufString(const std::string& str) {
+    PbData::DataBase protobuf;
     if(protobuf.ParseFromString(str)) {
         *this = protobuf;
         return true;

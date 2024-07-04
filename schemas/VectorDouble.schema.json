@@ -4,10 +4,10 @@
     "definitions": {
         "VectorDouble": {
             "required": [
-                "data"
+                "buffer"
             ],
             "properties": {
-                "data": {
+                "buffer": {
                     "items": {
                         "type": "number"
                     },
