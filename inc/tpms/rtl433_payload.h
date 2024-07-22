@@ -25,6 +25,11 @@ struct Rtl433Payload
     uint32_t wo_state;
     uint32_t checksum;
     std::string mic;
+    double freq1;
+    double freq2;
+    double rssi;
+    double snr;
+    double noise;
     
     Rtl433Payload() = default;
     Rtl433Payload(const PbTPMS::Rtl433Payload& protobuf);

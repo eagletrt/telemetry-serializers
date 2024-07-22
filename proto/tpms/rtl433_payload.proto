@@ -15,4 +15,9 @@ message Rtl433Payload
     uint32 wo_state     = 9;
     uint32 checksum     = 10;
     string mic          = 11;
+    double freq1        = 12;
+    double freq2        = 13;
+    double rssi         = 14;
+    double snr          = 15;
+    double noise        = 16;
 }

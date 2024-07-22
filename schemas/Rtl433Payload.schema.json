@@ -14,7 +14,12 @@
                 "interframe",
                 "wo_state",
                 "checksum",
-                "mic"
+                "mic",
+                "freq1",
+                "freq2",
+                "rssi",
+                "snr",
+                "noise"
             ],
             "properties": {
                 "time": {
@@ -49,6 +54,21 @@
                 },
                 "mic": {
                     "type": "string"
+                },
+                "freq1": {
+                    "type": "number"
+                },
+                "freq2": {
+                    "type": "number"
+                },
+                "rssi": {
+                    "type": "number"
+                },
+                "snr": {
+                    "type": "number"
+                },
+                "noise": {
+                    "type": "number"
                 }
             },
             "additionalProperties": false,

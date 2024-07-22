@@ -19,6 +19,11 @@ Rtl433Payload::Rtl433Payload(const PbTPMS::Rtl433Payload& protobuf) {
     wo_state = protobuf.wo_state();
     checksum = protobuf.checksum();
     mic = protobuf.mic();
+    freq1 = protobuf.freq1();
+    freq2 = protobuf.freq2();
+    rssi = protobuf.rssi();
+    snr = protobuf.snr();
+    noise = protobuf.noise();
 }
 
 Rtl433Payload::operator PbTPMS::Rtl433Payload() const {
@@ -34,6 +39,11 @@ Rtl433Payload::operator PbTPMS::Rtl433Payload() const {
     ret.set_wo_state(wo_state);
     ret.set_checksum(checksum);
     ret.set_mic(mic);
+    ret.set_freq1(freq1);
+    ret.set_freq2(freq2);
+    ret.set_rssi(rssi);
+    ret.set_snr(snr);
+    ret.set_noise(noise);
     return ret;
 }
 
