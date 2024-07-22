@@ -15,6 +15,7 @@
                 "wo_state",
                 "checksum",
                 "mic",
+                "mod",
                 "freq1",
                 "freq2",
                 "rssi",
@@ -53,6 +54,9 @@
                     "type": "integer"
                 },
                 "mic": {
+                    "type": "string"
+                },
+                "mod": {
                     "type": "string"
                 },
                 "freq1": {

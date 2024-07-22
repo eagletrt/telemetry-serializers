@@ -25,6 +25,7 @@ struct Rtl433Payload
     uint32_t wo_state;
     uint32_t checksum;
     std::string mic;
+    std::string mod;
     double freq1;
     double freq2;
     double rssi;
