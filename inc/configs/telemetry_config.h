@@ -85,23 +85,6 @@ struct ConnectionSettings
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct TpmsSensors
-{
-    bool enabled;
-    std::string rtl433Path;
-    bool recordSignals;
-    TpmsSensorIds sensorIds;
-    
-    TpmsSensors() = default;
-    TpmsSensors(const PbConfigs::TpmsSensors& protobuf);
-    operator PbConfigs::TpmsSensors() const;
-
-    std::string serializeAsJsonString() const;
-    std::string serializeAsProtobufString() const;
-    bool deserializeFromJsonString(const std::string& str);
-    bool deserializeFromProtobufString(const std::string& str);
-};
-
 struct TpmsSensorIds
 {
     uint32_t fl;
@@ -112,6 +95,23 @@ struct TpmsSensorIds
     TpmsSensorIds() = default;
     TpmsSensorIds(const PbConfigs::TpmsSensorIds& protobuf);
     operator PbConfigs::TpmsSensorIds() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
+struct TpmsSensors
+{
+    bool enabled;
+    std::string rtl433Path;
+    bool recordSignals;
+    TpmsSensorIds sensorIds;
+    
+    TpmsSensors() = default;
+    TpmsSensors(const PbConfigs::TpmsSensors& protobuf);
+    operator PbConfigs::TpmsSensors() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
