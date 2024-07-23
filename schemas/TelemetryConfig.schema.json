@@ -150,6 +150,32 @@
             "type": "object",
             "title": "Tpms Sensor Ids"
         },
+        "PbConfigs.TpmsSensors": {
+            "required": [
+                "enabled",
+                "rtl433Path",
+                "recordSignals",
+                "sensorIds"
+            ],
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "rtl433Path": {
+                    "type": "string"
+                },
+                "recordSignals": {
+                    "type": "boolean"
+                },
+                "sensorIds": {
+                    "$ref": "#/definitions/PbConfigs.TpmsSensorIds",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Tpms Sensors"
+        },
         "TelemetryConfig": {
             "required": [
                 "vehicleId",
@@ -202,7 +228,7 @@
                     "type": "array"
                 },
                 "tpmsSensors": {
-                    "$ref": "#/definitions/PbConfigs.TpmsSensorIds",
+                    "$ref": "#/definitions/PbConfigs.TpmsSensors",
                     "additionalProperties": false
                 }
             },

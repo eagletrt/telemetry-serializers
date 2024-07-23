@@ -221,6 +221,57 @@ bool ConnectionSettings::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
+TpmsSensors::TpmsSensors(const PbConfigs::TpmsSensors& protobuf) {
+    enabled = protobuf.enabled();
+    rtl433Path = protobuf.rtl433path();
+    recordSignals = protobuf.recordsignals();
+    sensorIds = protobuf.sensorids();
+}
+
+TpmsSensors::operator PbConfigs::TpmsSensors() const {
+    PbConfigs::TpmsSensors ret;
+    ret.set_enabled(enabled);
+    ret.set_rtl433path(rtl433Path);
+    ret.set_recordsignals(recordSignals);
+    *(ret.mutable_sensorids()) = sensorIds;
+    return ret;
+}
+
+std::string TpmsSensors::serializeAsJsonString() const {
+    PbConfigs::TpmsSensors protobuf(*this);
+    std::string ret;
+    google::protobuf::util::JsonPrintOptions options;
+    options.add_whitespace = true;
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    return ret;
+}
+
+std::string TpmsSensors::serializeAsProtobufString() const {
+    PbConfigs::TpmsSensors protobuf(*this);
+    return protobuf.SerializeAsString();
+}
+
+bool TpmsSensors::deserializeFromJsonString(const std::string& str) {
+    PbConfigs::TpmsSensors protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    if(status.ok()) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool TpmsSensors::deserializeFromProtobufString(const std::string& str) {
+    PbConfigs::TpmsSensors protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
 TpmsSensorIds::TpmsSensorIds(const PbConfigs::TpmsSensorIds& protobuf) {
     fl = protobuf.fl();
     fr = protobuf.fr();
