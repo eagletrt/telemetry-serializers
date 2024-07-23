@@ -221,6 +221,57 @@ bool ConnectionSettings::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
+TpmsSensorIds::TpmsSensorIds(const PbConfigs::TpmsSensorIds& protobuf) {
+    fl = protobuf.fl();
+    fr = protobuf.fr();
+    rl = protobuf.rl();
+    rr = protobuf.rr();
+}
+
+TpmsSensorIds::operator PbConfigs::TpmsSensorIds() const {
+    PbConfigs::TpmsSensorIds ret;
+    ret.set_fl(fl);
+    ret.set_fr(fr);
+    ret.set_rl(rl);
+    ret.set_rr(rr);
+    return ret;
+}
+
+std::string TpmsSensorIds::serializeAsJsonString() const {
+    PbConfigs::TpmsSensorIds protobuf(*this);
+    std::string ret;
+    google::protobuf::util::JsonPrintOptions options;
+    options.add_whitespace = true;
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    return ret;
+}
+
+std::string TpmsSensorIds::serializeAsProtobufString() const {
+    PbConfigs::TpmsSensorIds protobuf(*this);
+    return protobuf.SerializeAsString();
+}
+
+bool TpmsSensorIds::deserializeFromJsonString(const std::string& str) {
+    PbConfigs::TpmsSensorIds protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    if(status.ok()) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool TpmsSensorIds::deserializeFromProtobufString(const std::string& str) {
+    PbConfigs::TpmsSensorIds protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
 TelemetryConfig::TelemetryConfig(const PbConfigs::TelemetryConfig& protobuf) {
     vehicleId = protobuf.vehicleid();
     deviceId = protobuf.deviceid();
@@ -231,6 +282,7 @@ TelemetryConfig::TelemetryConfig(const PbConfigs::TelemetryConfig& protobuf) {
     connectionSettings = protobuf.connectionsettings();
     canDevices = {protobuf.candevices().begin(), protobuf.candevices().end()};
     gpsDevices = {protobuf.gpsdevices().begin(), protobuf.gpsdevices().end()};
+    tpmsSensors = protobuf.tpmssensors();
 }
 
 TelemetryConfig::operator PbConfigs::TelemetryConfig() const {
@@ -244,6 +296,7 @@ TelemetryConfig::operator PbConfigs::TelemetryConfig() const {
     *(ret.mutable_connectionsettings()) = connectionSettings;
     *(ret.mutable_candevices()) = {canDevices.begin(), canDevices.end()};
     *(ret.mutable_gpsdevices()) = {gpsDevices.begin(), gpsDevices.end()};
+    *(ret.mutable_tpmssensors()) = tpmsSensors;
     return ret;
 }
 

@@ -125,6 +125,31 @@
             "type": "object",
             "title": "Gps Device"
         },
+        "PbConfigs.TpmsSensorIds": {
+            "required": [
+                "fl",
+                "fr",
+                "rl",
+                "rr"
+            ],
+            "properties": {
+                "fl": {
+                    "type": "integer"
+                },
+                "fr": {
+                    "type": "integer"
+                },
+                "rl": {
+                    "type": "integer"
+                },
+                "rr": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Tpms Sensor Ids"
+        },
         "TelemetryConfig": {
             "required": [
                 "vehicleId",
@@ -135,7 +160,8 @@
                 "connection",
                 "connectionSettings",
                 "canDevices",
-                "gpsDevices"
+                "gpsDevices",
+                "tpmsSensors"
             ],
             "properties": {
                 "vehicleId": {
@@ -174,6 +200,10 @@
                     },
                     "additionalProperties": false,
                     "type": "array"
+                },
+                "tpmsSensors": {
+                    "$ref": "#/definitions/PbConfigs.TpmsSensorIds",
+                    "additionalProperties": false
                 }
             },
             "additionalProperties": false,

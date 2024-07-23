@@ -85,6 +85,23 @@ struct ConnectionSettings
     bool deserializeFromProtobufString(const std::string& str);
 };
 
+struct TpmsSensorIds
+{
+    uint32_t fl;
+    uint32_t fr;
+    uint32_t rl;
+    uint32_t rr;
+    
+    TpmsSensorIds() = default;
+    TpmsSensorIds(const PbConfigs::TpmsSensorIds& protobuf);
+    operator PbConfigs::TpmsSensorIds() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
 struct TelemetryConfig
 {
     std::string vehicleId;
@@ -96,6 +113,7 @@ struct TelemetryConfig
     ConnectionSettings connectionSettings;
     std::vector<CanDevice> canDevices;
     std::vector<GpsDevice> gpsDevices;
+    TpmsSensorIds tpmsSensors;
     
     TelemetryConfig() = default;
     TelemetryConfig(const PbConfigs::TelemetryConfig& protobuf);
