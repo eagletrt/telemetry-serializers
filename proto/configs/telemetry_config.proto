@@ -39,20 +39,20 @@ message ConnectionSettings
     bool sendSensorData = 6;
 }
 
-message TpmsSensors
-{
-    bool enabled = 1;
-    string rtl433Path = 2;
-    bool recordSignals = 3;
-    TpmsSensorIds sensorIds = 4;
-}
-
 message TpmsSensorIds
 {
     uint32 fl = 1;
     uint32 fr = 2;
     uint32 rl = 3;
     uint32 rr = 4;
+}
+
+message TpmsSensors
+{
+    bool enabled = 1;
+    string rtl433Path = 2;
+    bool recordSignals = 3;
+    TpmsSensorIds sensorIds = 4;
 }
 
 message TelemetryConfig
