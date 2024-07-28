@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Baseline",
+    "definitions": {
+        "Baseline": {
+            "required": [
+                "valid",
+                "length",
+                "x",
+                "y"
+            ],
+            "properties": {
+                "valid": {
+                    "type": "boolean"
+                },
+                "length": {
+                    "type": "number"
+                },
+                "x": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "y": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Baseline"
+        }
+    }
+}

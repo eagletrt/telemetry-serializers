@@ -5,8 +5,8 @@ package PbTelemetry;
 message Baseline {
   bool valid = 1;
   double length = 2;
-  repeated double x = 2;
-  repeated double y = 3;
+  repeated double x = 3;
+  repeated double y = 4;
 }
 
 message GPSMapOrigin {

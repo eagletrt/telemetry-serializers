@@ -1,0 +1,95 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GPSMapOrigins",
+    "definitions": {
+        "GPSMapOrigins": {
+            "required": [
+                "selectedMap",
+                "origins",
+                "tracksBaseline"
+            ],
+            "properties": {
+                "selectedMap": {
+                    "type": "string"
+                },
+                "origins": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbTelemetry.GPSMapOrigin",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                },
+                "tracksBaseline": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbTelemetry.Baseline",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "GPS Map Origins"
+        },
+        "PbTelemetry.Baseline": {
+            "required": [
+                "valid",
+                "length",
+                "x",
+                "y"
+            ],
+            "properties": {
+                "valid": {
+                    "type": "boolean"
+                },
+                "length": {
+                    "type": "number"
+                },
+                "x": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "y": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Baseline"
+        },
+        "PbTelemetry.GPSMapOrigin": {
+            "required": [
+                "latitude",
+                "longitude",
+                "ecefX",
+                "ecefY",
+                "ecefZ"
+            ],
+            "properties": {
+                "latitude": {
+                    "type": "number"
+                },
+                "longitude": {
+                    "type": "number"
+                },
+                "ecefX": {
+                    "type": "number"
+                },
+                "ecefY": {
+                    "type": "number"
+                },
+                "ecefZ": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "GPS Map Origin"
+        }
+    }
+}
