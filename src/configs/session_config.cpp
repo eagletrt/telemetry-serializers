@@ -8,15 +8,15 @@ namespace Serializers
 namespace Configs
 {
 Weather::Weather(const PbConfigs::Weather& protobuf) {
-    ambient_temperature = protobuf.ambient_temperature();
-    track_temperature = protobuf.track_temperature();
+    ambientTemperature = protobuf.ambienttemperature();
+    trackTemperature = protobuf.tracktemperature();
     humidity = protobuf.humidity();
 }
 
 Weather::operator PbConfigs::Weather() const {
     PbConfigs::Weather ret;
-    ret.set_ambient_temperature(ambient_temperature);
-    ret.set_track_temperature(track_temperature);
+    ret.set_ambienttemperature(ambientTemperature);
+    ret.set_tracktemperature(trackTemperature);
     ret.set_humidity(humidity);
     return ret;
 }
@@ -57,10 +57,10 @@ bool Weather::deserializeFromProtobufString(const std::string& str) {
 }
 
 SessionConfig::SessionConfig(const PbConfigs::SessionConfig& protobuf) {
-    circuitId = protobuf.circuitid();
-    raceId = protobuf.raceid();
-    test = protobuf.test();
-    driverId = protobuf.driverid();
+    trackLocation = protobuf.tracklocation();
+    trackLayout = protobuf.tracklayout();
+    sessionName = protobuf.sessionname();
+    driver = protobuf.driver();
     date = protobuf.date();
     time = protobuf.time();
     weather = protobuf.weather();
@@ -70,10 +70,10 @@ SessionConfig::SessionConfig(const PbConfigs::SessionConfig& protobuf) {
 
 SessionConfig::operator PbConfigs::SessionConfig() const {
     PbConfigs::SessionConfig ret;
-    ret.set_circuitid(circuitId);
-    ret.set_raceid(raceId);
-    ret.set_test(test);
-    ret.set_driverid(driverId);
+    ret.set_tracklocation(trackLocation);
+    ret.set_tracklayout(trackLayout);
+    ret.set_sessionname(sessionName);
+    ret.set_driver(driver);
     ret.set_date(date);
     ret.set_time(time);
     *(ret.mutable_weather()) = weather;

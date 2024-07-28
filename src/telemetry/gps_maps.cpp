@@ -9,6 +9,7 @@ namespace Telemetry
 {
 Baseline::Baseline(const PbTelemetry::Baseline& protobuf) {
     valid = protobuf.valid();
+    length = protobuf.length();
     x = {protobuf.x().begin(), protobuf.x().end()};
     y = {protobuf.y().begin(), protobuf.y().end()};
 }
@@ -16,6 +17,7 @@ Baseline::Baseline(const PbTelemetry::Baseline& protobuf) {
 Baseline::operator PbTelemetry::Baseline() const {
     PbTelemetry::Baseline ret;
     ret.set_valid(valid);
+    ret.set_length(length);
     *(ret.mutable_x()) = {x.begin(), x.end()};
     *(ret.mutable_y()) = {y.begin(), y.end()};
     return ret;

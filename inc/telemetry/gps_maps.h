@@ -15,6 +15,7 @@ namespace Telemetry
 struct Baseline
 {
     bool valid;
+    double length;
     std::vector<double> x;
     std::vector<double> y;
     

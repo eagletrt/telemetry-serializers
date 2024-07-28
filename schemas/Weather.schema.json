@@ -4,15 +4,15 @@
     "definitions": {
         "Weather": {
             "required": [
-                "ambient_temperature",
-                "track_temperature",
+                "ambientTemperature",
+                "trackTemperature",
                 "humidity"
             ],
             "properties": {
-                "ambient_temperature": {
+                "ambientTemperature": {
                     "type": "number"
                 },
-                "track_temperature": {
+                "trackTemperature": {
                     "type": "number"
                 },
                 "humidity": {

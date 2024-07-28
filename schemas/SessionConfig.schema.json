@@ -4,15 +4,15 @@
     "definitions": {
         "PbConfigs.Weather": {
             "required": [
-                "ambient_temperature",
-                "track_temperature",
+                "ambientTemperature",
+                "trackTemperature",
                 "humidity"
             ],
             "properties": {
-                "ambient_temperature": {
+                "ambientTemperature": {
                     "type": "number"
                 },
-                "track_temperature": {
+                "trackTemperature": {
                     "type": "number"
                 },
                 "humidity": {
@@ -25,10 +25,10 @@
         },
         "SessionConfig": {
             "required": [
-                "circuitId",
-                "raceId",
-                "test",
-                "driverId",
+                "trackLocation",
+                "trackLayout",
+                "sessionName",
+                "driver",
                 "date",
                 "time",
                 "weather",
@@ -36,16 +36,16 @@
                 "canlibVersion"
             ],
             "properties": {
-                "circuitId": {
+                "trackLocation": {
                     "type": "string"
                 },
-                "raceId": {
+                "trackLayout": {
                     "type": "string"
                 },
-                "test": {
+                "sessionName": {
                     "type": "string"
                 },
-                "driverId": {
+                "driver": {
                     "type": "string"
                 },
                 "date": {

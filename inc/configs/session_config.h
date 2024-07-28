@@ -14,8 +14,8 @@ namespace Configs
 {
 struct Weather
 {
-    double ambient_temperature;
-    double track_temperature;
+    double ambientTemperature;
+    double trackTemperature;
     double humidity;
     
     Weather() = default;
@@ -30,10 +30,10 @@ struct Weather
 
 struct SessionConfig
 {
-    std::string circuitId;
-    std::string raceId;
-    std::string test;
-    std::string driverId;
+    std::string trackLocation;
+    std::string trackLayout;
+    std::string sessionName;
+    std::string driver;
     std::string date;
     std::string time;
     Weather weather;
