@@ -6,7 +6,7 @@
             "required": [
                 "dateTime",
                 "trackLocation",
-                "tracklayout",
+                "trackLayout",
                 "driver",
                 "lapNumber",
                 "filenameHash"
@@ -18,7 +18,7 @@
                 "trackLocation": {
                     "type": "string"
                 },
-                "tracklayout": {
+                "trackLayout": {
                     "type": "string"
                 },
                 "driver": {

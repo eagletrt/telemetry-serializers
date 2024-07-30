@@ -44,7 +44,7 @@ struct TelemetryLapData
 {
     std::string dateTime;
     std::string trackLocation;
-    std::string tracklayout;
+    std::string trackLayout;
     std::string driver;
     uint32_t lapNumber;
     std::string filenameHash;

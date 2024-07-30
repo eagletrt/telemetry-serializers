@@ -100,7 +100,7 @@ bool DataFile::deserializeFromProtobufString(const std::string& str) {
 TelemetryLapData::TelemetryLapData(const PbData::TelemetryLapData& protobuf) {
     dateTime = protobuf.datetime();
     trackLocation = protobuf.tracklocation();
-    tracklayout = protobuf.tracklayout();
+    trackLayout = protobuf.tracklayout();
     driver = protobuf.driver();
     lapNumber = protobuf.lapnumber();
     filenameHash = protobuf.filenamehash();
@@ -110,7 +110,7 @@ TelemetryLapData::operator PbData::TelemetryLapData() const {
     PbData::TelemetryLapData ret;
     ret.set_datetime(dateTime);
     ret.set_tracklocation(trackLocation);
-    ret.set_tracklayout(tracklayout);
+    ret.set_tracklayout(trackLayout);
     ret.set_driver(driver);
     ret.set_lapnumber(lapNumber);
     ret.set_filenamehash(filenameHash);
