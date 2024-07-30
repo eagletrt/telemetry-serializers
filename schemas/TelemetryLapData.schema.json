@@ -5,9 +5,9 @@
         "TelemetryLapData": {
             "required": [
                 "dateTime",
-                "circuitId",
-                "layoutId",
-                "driverId",
+                "trackLocation",
+                "tracklayout",
+                "driver",
                 "lapNumber",
                 "filenameHash"
             ],
@@ -15,13 +15,13 @@
                 "dateTime": {
                     "type": "string"
                 },
-                "circuitId": {
+                "trackLocation": {
                     "type": "string"
                 },
-                "layoutId": {
+                "tracklayout": {
                     "type": "string"
                 },
-                "driverId": {
+                "driver": {
                     "type": "string"
                 },
                 "lapNumber": {

@@ -43,9 +43,9 @@ struct DataFile
 struct TelemetryLapData
 {
     std::string dateTime;
-    std::string circuitId;
-    std::string layoutId;
-    std::string driverId;
+    std::string trackLocation;
+    std::string tracklayout;
+    std::string driver;
     uint32_t lapNumber;
     std::string filenameHash;
     

@@ -99,9 +99,9 @@ bool DataFile::deserializeFromProtobufString(const std::string& str) {
 
 TelemetryLapData::TelemetryLapData(const PbData::TelemetryLapData& protobuf) {
     dateTime = protobuf.datetime();
-    circuitId = protobuf.circuitid();
-    layoutId = protobuf.layoutid();
-    driverId = protobuf.driverid();
+    trackLocation = protobuf.tracklocation();
+    tracklayout = protobuf.tracklayout();
+    driver = protobuf.driver();
     lapNumber = protobuf.lapnumber();
     filenameHash = protobuf.filenamehash();
 }
@@ -109,9 +109,9 @@ TelemetryLapData::TelemetryLapData(const PbData::TelemetryLapData& protobuf) {
 TelemetryLapData::operator PbData::TelemetryLapData() const {
     PbData::TelemetryLapData ret;
     ret.set_datetime(dateTime);
-    ret.set_circuitid(circuitId);
-    ret.set_layoutid(layoutId);
-    ret.set_driverid(driverId);
+    ret.set_tracklocation(trackLocation);
+    ret.set_tracklayout(tracklayout);
+    ret.set_driver(driver);
     ret.set_lapnumber(lapNumber);
     ret.set_filenamehash(filenameHash);
     return ret;
