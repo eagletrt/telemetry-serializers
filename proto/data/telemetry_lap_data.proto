@@ -2,23 +2,17 @@ syntax = "proto3";
 
 package Data;
 
-message VectorDouble{
-    repeated double buffer = 1;
+message VectorDouble { repeated double buffer = 1; }
+
+message DataFile { map<string, VectorDouble> data = 6; }
+
+message TelemetryLapData {
+  string dateTime = 1;
+  string trackLocation = 2;
+  string tracklayout = 3;
+  string driver = 4;
+  uint32 lapNumber = 5;
+  string filenameHash = 6;
 }
 
-message DataFile {
-    map<string, VectorDouble> data = 6;
-}
-
-message TelemetryLapData{
-    string dateTime = 1;
-    string circuitId = 2;
-    string layoutId = 3;
-    string driverId = 4;
-    uint32 lapNumber = 5;
-    string filenameHash = 6;
-}
-
-message DataBase{
-    repeated TelemetryLapData lapsData = 1;
-}
+message DataBase { repeated TelemetryLapData lapsData = 1; }
