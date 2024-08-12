@@ -15,6 +15,7 @@ namespace Telemetry
 struct Baseline
 {
     bool valid;
+    bool logging;
     double length;
     std::vector<double> x;
     std::vector<double> y;
@@ -33,9 +34,7 @@ struct GPSMapOrigin
 {
     double latitude;
     double longitude;
-    double ecefX;
-    double ecefY;
-    double ecefZ;
+    double altitude;
     
     GPSMapOrigin() = default;
     GPSMapOrigin(const PbTelemetry::GPSMapOrigin& protobuf);
@@ -49,7 +48,8 @@ struct GPSMapOrigin
 
 struct GPSMapOrigins
 {
-    std::string selectedMap;
+    std::string trackLocation;
+    std::string trackLayout;
     std::unordered_map<std::string, GPSMapOrigin> origins;
     std::unordered_map<std::string, Baseline> tracksBaseline;
     

@@ -5,12 +5,16 @@
         "Baseline": {
             "required": [
                 "valid",
+                "logging",
                 "length",
                 "x",
                 "y"
             ],
             "properties": {
                 "valid": {
+                    "type": "boolean"
+                },
+                "logging": {
                     "type": "boolean"
                 },
                 "length": {

@@ -6,9 +6,7 @@
             "required": [
                 "latitude",
                 "longitude",
-                "ecefX",
-                "ecefY",
-                "ecefZ"
+                "altitude"
             ],
             "properties": {
                 "latitude": {
@@ -17,13 +15,7 @@
                 "longitude": {
                     "type": "number"
                 },
-                "ecefX": {
-                    "type": "number"
-                },
-                "ecefY": {
-                    "type": "number"
-                },
-                "ecefZ": {
+                "altitude": {
                     "type": "number"
                 }
             },

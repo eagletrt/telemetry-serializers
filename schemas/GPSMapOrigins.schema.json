@@ -4,12 +4,16 @@
     "definitions": {
         "GPSMapOrigins": {
             "required": [
-                "selectedMap",
+                "trackLocation",
+                "trackLayout",
                 "origins",
                 "tracksBaseline"
             ],
             "properties": {
-                "selectedMap": {
+                "trackLocation": {
+                    "type": "string"
+                },
+                "trackLayout": {
                     "type": "string"
                 },
                 "origins": {
@@ -34,12 +38,16 @@
         "PbTelemetry.Baseline": {
             "required": [
                 "valid",
+                "logging",
                 "length",
                 "x",
                 "y"
             ],
             "properties": {
                 "valid": {
+                    "type": "boolean"
+                },
+                "logging": {
                     "type": "boolean"
                 },
                 "length": {
@@ -66,9 +74,7 @@
             "required": [
                 "latitude",
                 "longitude",
-                "ecefX",
-                "ecefY",
-                "ecefZ"
+                "altitude"
             ],
             "properties": {
                 "latitude": {
@@ -77,13 +83,7 @@
                 "longitude": {
                     "type": "number"
                 },
-                "ecefX": {
-                    "type": "number"
-                },
-                "ecefY": {
-                    "type": "number"
-                },
-                "ecefZ": {
+                "altitude": {
                     "type": "number"
                 }
             },

@@ -2,23 +2,6 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "$ref": "#/definitions/Status",
     "definitions": {
-        "PbTelemetry.Camera": {
-            "required": [
-                "status",
-                "error"
-            ],
-            "properties": {
-                "status": {
-                    "type": "string"
-                },
-                "error": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": false,
-            "type": "object",
-            "title": "Camera"
-        },
         "PbTelemetry.MessagesPerSecond": {
             "required": [
                 "deviceName",
@@ -48,13 +31,12 @@
             "required": [
                 "timestamp",
                 "zeroTimestamp",
-                "data",
+                "state",
                 "cpuTotalLoad",
                 "cpuProcessLoad",
                 "memProcessLoad",
                 "canlibBuildTime",
                 "telemetryBuildTime",
-                "camera",
                 "messagesPerSecond"
             ],
             "properties": {
@@ -64,8 +46,28 @@
                 "zeroTimestamp": {
                     "type": "integer"
                 },
-                "data": {
-                    "type": "integer"
+                "state": {
+                    "enum": [
+                        "INIT",
+                        0,
+                        "IDLE",
+                        1,
+                        "SETUP_RUN",
+                        2,
+                        "RUN",
+                        3,
+                        "ERROR",
+                        4
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Telemetry State"
                 },
                 "cpuTotalLoad": {
                     "type": "integer"
@@ -81,10 +83,6 @@
                 },
                 "telemetryBuildTime": {
                     "type": "integer"
-                },
-                "camera": {
-                    "$ref": "#/definitions/PbTelemetry.Camera",
-                    "additionalProperties": false
                 },
                 "messagesPerSecond": {
                     "items": {

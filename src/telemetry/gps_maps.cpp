@@ -9,6 +9,7 @@ namespace Telemetry
 {
 Baseline::Baseline(const PbTelemetry::Baseline& protobuf) {
     valid = protobuf.valid();
+    logging = protobuf.logging();
     length = protobuf.length();
     x = {protobuf.x().begin(), protobuf.x().end()};
     y = {protobuf.y().begin(), protobuf.y().end()};
@@ -17,6 +18,7 @@ Baseline::Baseline(const PbTelemetry::Baseline& protobuf) {
 Baseline::operator PbTelemetry::Baseline() const {
     PbTelemetry::Baseline ret;
     ret.set_valid(valid);
+    ret.set_logging(logging);
     ret.set_length(length);
     *(ret.mutable_x()) = {x.begin(), x.end()};
     *(ret.mutable_y()) = {y.begin(), y.end()};
@@ -61,18 +63,14 @@ bool Baseline::deserializeFromProtobufString(const std::string& str) {
 GPSMapOrigin::GPSMapOrigin(const PbTelemetry::GPSMapOrigin& protobuf) {
     latitude = protobuf.latitude();
     longitude = protobuf.longitude();
-    ecefX = protobuf.ecefx();
-    ecefY = protobuf.ecefy();
-    ecefZ = protobuf.ecefz();
+    altitude = protobuf.altitude();
 }
 
 GPSMapOrigin::operator PbTelemetry::GPSMapOrigin() const {
     PbTelemetry::GPSMapOrigin ret;
     ret.set_latitude(latitude);
     ret.set_longitude(longitude);
-    ret.set_ecefx(ecefX);
-    ret.set_ecefy(ecefY);
-    ret.set_ecefz(ecefZ);
+    ret.set_altitude(altitude);
     return ret;
 }
 
@@ -112,14 +110,16 @@ bool GPSMapOrigin::deserializeFromProtobufString(const std::string& str) {
 }
 
 GPSMapOrigins::GPSMapOrigins(const PbTelemetry::GPSMapOrigins& protobuf) {
-    selectedMap = protobuf.selectedmap();
+    trackLocation = protobuf.tracklocation();
+    trackLayout = protobuf.tracklayout();
     origins = {protobuf.origins().begin(), protobuf.origins().end()};
     tracksBaseline = {protobuf.tracksbaseline().begin(), protobuf.tracksbaseline().end()};
 }
 
 GPSMapOrigins::operator PbTelemetry::GPSMapOrigins() const {
     PbTelemetry::GPSMapOrigins ret;
-    ret.set_selectedmap(selectedMap);
+    ret.set_tracklocation(trackLocation);
+    ret.set_tracklayout(trackLayout);
     *(ret.mutable_origins()) = {origins.begin(), origins.end()};
     *(ret.mutable_tracksbaseline()) = {tracksBaseline.begin(), tracksBaseline.end()};
     return ret;
