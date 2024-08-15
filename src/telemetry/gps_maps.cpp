@@ -13,6 +13,8 @@ Baseline::Baseline(const PbTelemetry::Baseline& protobuf) {
     length = protobuf.length();
     x = {protobuf.x().begin(), protobuf.x().end()};
     y = {protobuf.y().begin(), protobuf.y().end()};
+    resampled = protobuf.resampled();
+    s = {protobuf.s().begin(), protobuf.s().end()};
 }
 
 Baseline::operator PbTelemetry::Baseline() const {
@@ -22,6 +24,8 @@ Baseline::operator PbTelemetry::Baseline() const {
     ret.set_length(length);
     *(ret.mutable_x()) = {x.begin(), x.end()};
     *(ret.mutable_y()) = {y.begin(), y.end()};
+    ret.set_resampled(resampled);
+    *(ret.mutable_s()) = {s.begin(), s.end()};
     return ret;
 }
 

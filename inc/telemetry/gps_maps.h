@@ -19,6 +19,8 @@ struct Baseline
     double length;
     std::vector<double> x;
     std::vector<double> y;
+    bool resampled;
+    std::vector<double> s;
     
     Baseline() = default;
     Baseline(const PbTelemetry::Baseline& protobuf);

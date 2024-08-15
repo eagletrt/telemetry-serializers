@@ -41,7 +41,9 @@
                 "logging",
                 "length",
                 "x",
-                "y"
+                "y",
+                "resampled",
+                "s"
             ],
             "properties": {
                 "valid": {
@@ -60,6 +62,15 @@
                     "type": "array"
                 },
                 "y": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "resampled": {
+                    "type": "boolean"
+                },
+                "s": {
                     "items": {
                         "type": "number"
                     },
