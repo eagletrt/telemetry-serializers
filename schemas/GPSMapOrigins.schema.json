@@ -43,7 +43,8 @@
                 "x",
                 "y",
                 "resampled",
-                "s"
+                "s",
+                "theta"
             ],
             "properties": {
                 "valid": {
@@ -71,6 +72,12 @@
                     "type": "boolean"
                 },
                 "s": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "theta": {
                     "items": {
                         "type": "number"
                     },

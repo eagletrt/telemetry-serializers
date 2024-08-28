@@ -21,6 +21,7 @@ struct Baseline
     std::vector<double> y;
     bool resampled;
     std::vector<double> s;
+    std::vector<double> theta;
     
     Baseline() = default;
     Baseline(const PbTelemetry::Baseline& protobuf);

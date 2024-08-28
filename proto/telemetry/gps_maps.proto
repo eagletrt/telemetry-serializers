@@ -8,9 +8,10 @@ message Baseline {
   double length = 3;
   repeated double x = 4;
   repeated double y = 5;
-  
+
   bool resampled = 6;
   repeated double s = 7;
+  repeated double theta = 8;
 }
 
 message GPSMapOrigin {
