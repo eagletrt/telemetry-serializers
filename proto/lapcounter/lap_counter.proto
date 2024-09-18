@@ -33,7 +33,9 @@ message Time
 message DriverRecord
 {
     string driver = 10;
-    uint64 timestamp = 20;
+    uint64 start_timestamp = 20;
+    uint64 end_timestamp = 30;
+    repeated uint64 sectors_timestamp = 40;
 }
 
 message TrackRecord

@@ -170,13 +170,17 @@ bool Time::deserializeFromProtobufString(const std::string& str) {
 
 DriverRecord::DriverRecord(const PbLapCounter::DriverRecord& protobuf) {
     driver = protobuf.driver();
-    timestamp = protobuf.timestamp();
+    start_timestamp = protobuf.start_timestamp();
+    end_timestamp = protobuf.end_timestamp();
+    sectors_timestamp = {protobuf.sectors_timestamp().begin(), protobuf.sectors_timestamp().end()};
 }
 
 DriverRecord::operator PbLapCounter::DriverRecord() const {
     PbLapCounter::DriverRecord ret;
     ret.set_driver(driver);
-    ret.set_timestamp(timestamp);
+    ret.set_start_timestamp(start_timestamp);
+    ret.set_end_timestamp(end_timestamp);
+    *(ret.mutable_sectors_timestamp()) = {sectors_timestamp.begin(), sectors_timestamp.end()};
     return ret;
 }
 

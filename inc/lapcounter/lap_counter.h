@@ -70,7 +70,9 @@ struct Time
 struct DriverRecord
 {
     std::string driver;
-    uint64_t timestamp;
+    uint64_t start_timestamp;
+    uint64_t end_timestamp;
+    std::vector<uint64_t> sectors_timestamp;
     
     DriverRecord() = default;
     DriverRecord(const PbLapCounter::DriverRecord& protobuf);
