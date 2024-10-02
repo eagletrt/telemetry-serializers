@@ -10,31 +10,34 @@ add_library(
     ${PROJECT_NAME}
     STATIC
 
-    src/tpms/rtl433_payload.cpp
-    src/telemetry/statistics.cpp
-    src/telemetry/odometer.cpp
-    src/telemetry/gps_maps.cpp
-    src/telemetry/error.cpp
-    src/telemetry/status.cpp
+    src/mongodb/lapcounter_layout.cpp
+    src/mongodb/lapcounter_lap_times.cpp
+    src/mongodb/lapcounter_lap_records.cpp
     src/telemetry/login_data.cpp
-    src/can/can_frequencies.cpp
-    src/handcart/settings.cpp
-    src/sessions/gpsSession.cpp
-    src/influxlogger/configuration.cpp
-    src/app/data_processing.cpp
-    src/app/user_data.cpp
-    src/app/app_config.cpp
-    src/app/app_data.cpp
+    src/telemetry/odometer.cpp
+    src/telemetry/error.cpp
+    src/telemetry/statistics.cpp
+    src/telemetry/gps_maps.cpp
+    src/telemetry/status.cpp
+    src/lapcounter/lap_counter.cpp
+    src/lapcounter/lapcounter.cpp
     src/configs/car_config.cpp
-    src/configs/session_config.cpp
     src/configs/telemetry_config.cpp
-    src/actions/command.cpp
-    src/actions/file_transaction.cpp
-    src/data/steer_command.cpp
+    src/configs/session_config.cpp
+    src/sessions/gpsSession.cpp
+    src/handcart/settings.cpp
+    src/tpms/rtl433_payload.cpp
     src/data/vehicle_state.cpp
     src/data/telemetry_lap_data.cpp
-    src/lapcounter/lapcounter.cpp
-    src/lapcounter/lap_counter.cpp
+    src/data/steer_command.cpp
+    src/app/app_data.cpp
+    src/app/user_data.cpp
+    src/app/app_config.cpp
+    src/app/data_processing.cpp
+    src/actions/command.cpp
+    src/actions/file_transaction.cpp
+    src/can/can_frequencies.cpp
+    src/influxlogger/configuration.cpp
 )
 
 target_include_directories(

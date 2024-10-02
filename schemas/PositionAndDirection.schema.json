@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/PositionAndDirection",
+    "definitions": {
+        "PbMongoDb.Vec2": {
+            "required": [
+                "x",
+                "y"
+            ],
+            "properties": {
+                "x": {
+                    "type": "integer"
+                },
+                "y": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Vec 2"
+        },
+        "PositionAndDirection": {
+            "required": [
+                "position",
+                "direction"
+            ],
+            "properties": {
+                "position": {
+                    "$ref": "#/definitions/PbMongoDb.Vec2",
+                    "additionalProperties": false
+                },
+                "direction": {
+                    "$ref": "#/definitions/PbMongoDb.Vec2",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Position And Direction"
+        }
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/LapTime",
+    "definitions": {
+        "LapTime": {
+            "required": [
+                "number",
+                "start_timestamp",
+                "end_timestamp",
+                "sectors"
+            ],
+            "properties": {
+                "number": {
+                    "type": "integer"
+                },
+                "start_timestamp": {
+                    "type": "integer"
+                },
+                "end_timestamp": {
+                    "type": "integer"
+                },
+                "sectors": {
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Lap Time"
+        }
+    }
+}

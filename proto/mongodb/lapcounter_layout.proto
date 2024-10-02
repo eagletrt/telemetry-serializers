@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package PbMongoDb;
+
+message Vec2 {
+    int32 x = 1;
+    int32 y = 2;
+}
+
+message PositionAndDirection {
+    Vec2 position = 1;
+    Vec2 direction = 2;
+}
+
+message Layout {
+    int32 version = 2;
+    int32 baseline_version = 3;
+    string vehicle_id = 4;
+    string device_id = 5;
+    string location = 6;
+    string layout = 7;
+    PositionAndDirection start_line = 8;
+    PositionAndDirection finish_line = 9;
+    repeated PositionAndDirection sectors = 10;
+}
