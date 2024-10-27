@@ -6,3 +6,11 @@ message SteerCommand
 {
     double angleDegrees = 1;
 }
+
+enum Status {
+    steer_status_disabled = 0;
+    steer_status_enabled = 1;
+}
+message SteerStatus{
+    Status status = 0;
+}
