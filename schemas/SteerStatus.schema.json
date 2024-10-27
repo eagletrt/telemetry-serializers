@@ -1,0 +1,33 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/SteerStatus",
+    "definitions": {
+        "SteerStatus": {
+            "required": [
+                "status"
+            ],
+            "properties": {
+                "status": {
+                    "enum": [
+                        "steer_status_disabled",
+                        0,
+                        "steer_status_enabled",
+                        1
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Status"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Steer Status"
+        }
+    }
+}
