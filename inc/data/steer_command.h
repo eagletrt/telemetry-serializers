@@ -25,6 +25,26 @@ struct SteerCommand
     bool deserializeFromJsonString(const std::string& str);
     bool deserializeFromProtobufString(const std::string& str);
 };
+
+enum class Status
+{
+    steer_status_disabled = 0,
+    steer_status_enabled = 1
+};
+
+struct SteerStatus
+{
+    Status status;
+    
+    SteerStatus() = default;
+    SteerStatus(const PbData::SteerStatus& protobuf);
+    operator PbData::SteerStatus() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
 }
 }
 
