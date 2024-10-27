@@ -12,5 +12,5 @@ enum Status {
     steer_status_enabled = 1;
 }
 message SteerStatus{
-    Status status = 0;
+    Status status = 1;
 }
