@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package Data;
+
+message RepeatedValue { repeated double values = 1; }
+
+message ValuesMap { map<string, RepeatedValue> valuesMap = 1; }
+
+message TimeValuesPack { map<string, TimeValue> valuesPack = 1; }
