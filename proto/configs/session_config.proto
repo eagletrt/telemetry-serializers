@@ -18,4 +18,6 @@ message SessionConfig {
   Weather weather = 7;
   string notes = 8;
   double canlibVersion = 9;
+  uint64 startTimestamp = 10;
+  uint64 endTimestamp = 11;
 }
