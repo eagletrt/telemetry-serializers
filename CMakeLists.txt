@@ -21,6 +21,7 @@ add_library(
     src/configs/car_config.cpp
     src/configs/telemetry_config.cpp
     src/data/steer_command.cpp
+    src/data/extra.cpp
     src/data/vehicle_state.cpp
     src/data/telemetry_lap_data.cpp
     src/influxlogger/configuration.cpp

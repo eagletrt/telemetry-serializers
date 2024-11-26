@@ -39,6 +39,8 @@ struct SessionConfig
     Weather weather;
     std::string notes;
     double canlibVersion;
+    uint64_t startTimestamp;
+    uint64_t endTimestamp;
     
     SessionConfig() = default;
     SessionConfig(const PbConfigs::SessionConfig& protobuf);

@@ -12,6 +12,7 @@
 #include "configs/car_config.h"
 #include "configs/telemetry_config.h"
 #include "data/steer_command.h"
+#include "data/extra.h"
 #include "data/vehicle_state.h"
 #include "data/telemetry_lap_data.h"
 #include "influxlogger/configuration.h"

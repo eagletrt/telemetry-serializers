@@ -66,6 +66,8 @@ SessionConfig::SessionConfig(const PbConfigs::SessionConfig& protobuf) {
     weather = protobuf.weather();
     notes = protobuf.notes();
     canlibVersion = protobuf.canlibversion();
+    startTimestamp = protobuf.starttimestamp();
+    endTimestamp = protobuf.endtimestamp();
 }
 
 SessionConfig::operator PbConfigs::SessionConfig() const {
@@ -79,6 +81,8 @@ SessionConfig::operator PbConfigs::SessionConfig() const {
     *(ret.mutable_weather()) = weather;
     ret.set_notes(notes);
     ret.set_canlibversion(canlibVersion);
+    ret.set_starttimestamp(startTimestamp);
+    ret.set_endtimestamp(endTimestamp);
     return ret;
 }
 

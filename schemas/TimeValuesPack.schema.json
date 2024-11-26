@@ -1,0 +1,56 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/TimeValuesPack",
+    "definitions": {
+        "PbData.RepeatedValue": {
+            "required": [
+                "values"
+            ],
+            "properties": {
+                "values": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Repeated Value"
+        },
+        "PbData.ValuesMap": {
+            "required": [
+                "valuesMap"
+            ],
+            "properties": {
+                "valuesMap": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbData.RepeatedValue",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Values Map"
+        },
+        "TimeValuesPack": {
+            "required": [
+                "valuesPack"
+            ],
+            "properties": {
+                "valuesPack": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbData.ValuesMap",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Time Values Pack"
+        }
+    }
+}

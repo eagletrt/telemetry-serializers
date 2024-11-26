@@ -33,7 +33,9 @@
                 "time",
                 "weather",
                 "notes",
-                "canlibVersion"
+                "canlibVersion",
+                "startTimestamp",
+                "endTimestamp"
             ],
             "properties": {
                 "trackLocation": {
@@ -63,6 +65,12 @@
                 },
                 "canlibVersion": {
                     "type": "number"
+                },
+                "startTimestamp": {
+                    "type": "integer"
+                },
+                "endTimestamp": {
+                    "type": "integer"
                 }
             },
             "additionalProperties": false,
