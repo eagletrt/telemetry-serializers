@@ -12,13 +12,27 @@ namespace Serializers
 {
 namespace Data
 {
-struct RepeatedValue
+struct RepeatedValueUint64
+{
+    std::vector<uint64_t> values;
+    
+    RepeatedValueUint64() = default;
+    RepeatedValueUint64(const PbData::RepeatedValueUint64& protobuf);
+    operator PbData::RepeatedValueUint64() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
+struct RepeatedValueDouble
 {
     std::vector<double> values;
     
-    RepeatedValue() = default;
-    RepeatedValue(const PbData::RepeatedValue& protobuf);
-    operator PbData::RepeatedValue() const;
+    RepeatedValueDouble() = default;
+    RepeatedValueDouble(const PbData::RepeatedValueDouble& protobuf);
+    operator PbData::RepeatedValueDouble() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -28,7 +42,8 @@ struct RepeatedValue
 
 struct ValuesMap
 {
-    std::unordered_map<std::string, RepeatedValue> valuesMap;
+    RepeatedValueUint64 timestamp;
+    std::unordered_map<std::string, RepeatedValueDouble> valuesMap;
     
     ValuesMap() = default;
     ValuesMap(const PbData::ValuesMap& protobuf);

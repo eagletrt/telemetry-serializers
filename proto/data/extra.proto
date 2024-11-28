@@ -2,8 +2,12 @@ syntax = "proto3";
 
 package PbData;
 
-message RepeatedValue { repeated double values = 1; }
+message RepeatedValueUint64 { repeated uint64 values = 1; }
+message RepeatedValueDouble { repeated double values = 1; }
 
-message ValuesMap { map<string, RepeatedValue> valuesMap = 1; }
+message ValuesMap {
+  RepeatedValueUint64 timestamp = 1;
+  map<string, RepeatedValueDouble> valuesMap = 2;
+}
 
 message TimeValuesPack { map<string, ValuesMap> valuesPack = 1; }

@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "$ref": "#/definitions/TimeValuesPack",
     "definitions": {
-        "PbData.RepeatedValue": {
+        "PbData.RepeatedValueDouble": {
             "required": [
                 "values"
             ],
@@ -16,16 +16,37 @@
             },
             "additionalProperties": false,
             "type": "object",
-            "title": "Repeated Value"
+            "title": "Repeated Value Double"
+        },
+        "PbData.RepeatedValueUint64": {
+            "required": [
+                "values"
+            ],
+            "properties": {
+                "values": {
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Repeated Value Uint 64"
         },
         "PbData.ValuesMap": {
             "required": [
+                "timestamp",
                 "valuesMap"
             ],
             "properties": {
+                "timestamp": {
+                    "$ref": "#/definitions/PbData.RepeatedValueUint64",
+                    "additionalProperties": false
+                },
                 "valuesMap": {
                     "additionalProperties": {
-                        "$ref": "#/definitions/PbData.RepeatedValue",
+                        "$ref": "#/definitions/PbData.RepeatedValueDouble",
                         "additionalProperties": false
                     },
                     "type": "object"

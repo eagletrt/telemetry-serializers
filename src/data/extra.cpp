@@ -7,18 +7,18 @@ namespace Serializers
 {
 namespace Data
 {
-RepeatedValue::RepeatedValue(const PbData::RepeatedValue& protobuf) {
+RepeatedValueUint64::RepeatedValueUint64(const PbData::RepeatedValueUint64& protobuf) {
     values = {protobuf.values().begin(), protobuf.values().end()};
 }
 
-RepeatedValue::operator PbData::RepeatedValue() const {
-    PbData::RepeatedValue ret;
+RepeatedValueUint64::operator PbData::RepeatedValueUint64() const {
+    PbData::RepeatedValueUint64 ret;
     *(ret.mutable_values()) = {values.begin(), values.end()};
     return ret;
 }
 
-std::string RepeatedValue::serializeAsJsonString() const {
-    PbData::RepeatedValue protobuf(*this);
+std::string RepeatedValueUint64::serializeAsJsonString() const {
+    PbData::RepeatedValueUint64 protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
@@ -26,13 +26,13 @@ std::string RepeatedValue::serializeAsJsonString() const {
     return ret;
 }
 
-std::string RepeatedValue::serializeAsProtobufString() const {
-    PbData::RepeatedValue protobuf(*this);
+std::string RepeatedValueUint64::serializeAsProtobufString() const {
+    PbData::RepeatedValueUint64 protobuf(*this);
     return protobuf.SerializeAsString();
 }
 
-bool RepeatedValue::deserializeFromJsonString(const std::string& str) {
-    PbData::RepeatedValue protobuf;
+bool RepeatedValueUint64::deserializeFromJsonString(const std::string& str) {
+    PbData::RepeatedValueUint64 protobuf;
     auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
         *this = protobuf;
@@ -42,8 +42,53 @@ bool RepeatedValue::deserializeFromJsonString(const std::string& str) {
     }
 }
 
-bool RepeatedValue::deserializeFromProtobufString(const std::string& str) {
-    PbData::RepeatedValue protobuf;
+bool RepeatedValueUint64::deserializeFromProtobufString(const std::string& str) {
+    PbData::RepeatedValueUint64 protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+RepeatedValueDouble::RepeatedValueDouble(const PbData::RepeatedValueDouble& protobuf) {
+    values = {protobuf.values().begin(), protobuf.values().end()};
+}
+
+RepeatedValueDouble::operator PbData::RepeatedValueDouble() const {
+    PbData::RepeatedValueDouble ret;
+    *(ret.mutable_values()) = {values.begin(), values.end()};
+    return ret;
+}
+
+std::string RepeatedValueDouble::serializeAsJsonString() const {
+    PbData::RepeatedValueDouble protobuf(*this);
+    std::string ret;
+    google::protobuf::util::JsonPrintOptions options;
+    options.add_whitespace = true;
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    return ret;
+}
+
+std::string RepeatedValueDouble::serializeAsProtobufString() const {
+    PbData::RepeatedValueDouble protobuf(*this);
+    return protobuf.SerializeAsString();
+}
+
+bool RepeatedValueDouble::deserializeFromJsonString(const std::string& str) {
+    PbData::RepeatedValueDouble protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    if(status.ok()) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool RepeatedValueDouble::deserializeFromProtobufString(const std::string& str) {
+    PbData::RepeatedValueDouble protobuf;
     if(protobuf.ParseFromString(str)) {
         *this = protobuf;
         return true;
@@ -53,11 +98,13 @@ bool RepeatedValue::deserializeFromProtobufString(const std::string& str) {
 }
 
 ValuesMap::ValuesMap(const PbData::ValuesMap& protobuf) {
+    timestamp = protobuf.timestamp();
     valuesMap = {protobuf.valuesmap().begin(), protobuf.valuesmap().end()};
 }
 
 ValuesMap::operator PbData::ValuesMap() const {
     PbData::ValuesMap ret;
+    *(ret.mutable_timestamp()) = timestamp;
     *(ret.mutable_valuesmap()) = {valuesMap.begin(), valuesMap.end()};
     return ret;
 }

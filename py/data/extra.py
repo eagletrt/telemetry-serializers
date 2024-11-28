@@ -7,13 +7,13 @@ from google.protobuf.json_format import MessageToJson, Parse
 
 
 @dataclass
-class RepeatedValue:
-    values: List[float] = field(default_factory=list)
+class RepeatedValueUint64:
+    values: List[int] = field(default_factory=list)
     
-    _proto_message: extra_pb2.RepeatedValue = field(init=False, repr=False)
+    _proto_message: extra_pb2.RepeatedValueUint64 = field(init=False, repr=False)
 
     def __post_init__(self):
-        self._proto_message = extra_pb2.RepeatedValue()
+        self._proto_message = extra_pb2.RepeatedValueUint64()
 
     def populate_proto(self):
         del self._proto_message.values[:]
@@ -27,8 +27,49 @@ class RepeatedValue:
         return self._proto_message.SerializeToString()
 
     @classmethod
-    def deserializeFromProtobufString(cls, data: bytes) -> "RepeatedValue":
-        message = extra_pb2.RepeatedValue()
+    def deserializeFromProtobufString(cls, data: bytes) -> "RepeatedValueUint64":
+        message = extra_pb2.RepeatedValueUint64()
+        message.ParseFromString(data)
+        return cls(
+            values=[int(value) for value in message.values],
+        )
+
+    def serializeAsJsonString(self) -> str:
+        self.populate_proto()
+        return MessageToJson(self._proto_message)
+
+    @classmethod
+    def deserializeFromJsonString(cls, data: str) -> "RepeatedValueUint64":
+        message = extra_pb2.RepeatedValueUint64()
+        Parse(data, message)
+        return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
+@dataclass
+class RepeatedValueDouble:
+    values: List[float] = field(default_factory=list)
+    
+    _proto_message: extra_pb2.RepeatedValueDouble = field(init=False, repr=False)
+
+    def __post_init__(self):
+        self._proto_message = extra_pb2.RepeatedValueDouble()
+
+    def populate_proto(self):
+        del self._proto_message.values[:]
+        for value in self.values:
+            value.populate_proto()
+            tmp = self._proto_message.values.add()
+            tmp.CopyFrom(value._proto_message)
+
+    def serializeAsProtobufString(self) -> bytes:
+        self.populate_proto()
+        return self._proto_message.SerializeToString()
+
+    @classmethod
+    def deserializeFromProtobufString(cls, data: bytes) -> "RepeatedValueDouble":
+        message = extra_pb2.RepeatedValueDouble()
         message.ParseFromString(data)
         return cls(
             values=[float(value) for value in message.values],
@@ -39,8 +80,8 @@ class RepeatedValue:
         return MessageToJson(self._proto_message)
 
     @classmethod
-    def deserializeFromJsonString(cls, data: str) -> "RepeatedValue":
-        message = extra_pb2.RepeatedValue()
+    def deserializeFromJsonString(cls, data: str) -> "RepeatedValueDouble":
+        message = extra_pb2.RepeatedValueDouble()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
 
@@ -49,7 +90,8 @@ class RepeatedValue:
 
 @dataclass
 class ValuesMap:
-    valuesMap: Dict[str, RepeatedValue] = field(default_factory=dict)
+    timestamp: RepeatedValueUint64 = None
+    valuesMap: Dict[str, RepeatedValueDouble] = field(default_factory=dict)
     
     _proto_message: extra_pb2.ValuesMap = field(init=False, repr=False)
 
@@ -57,6 +99,8 @@ class ValuesMap:
         self._proto_message = extra_pb2.ValuesMap()
 
     def populate_proto(self):
+        if self.timestamp:
+            self._proto_message.timestamp.CopyFrom(self.timestamp._proto_message)
         self._proto_message.valuesMap.clear()
         for key, value in self.valuesMap.items():
             value.populate_proto()
@@ -72,6 +116,7 @@ class ValuesMap:
         message = extra_pb2.ValuesMap()
         message.ParseFromString(data)
         return cls(
+            timestamp=message.timestamp,
             valuesMap={key: value for key, value in message.valuesMap.items()},
         )
 
