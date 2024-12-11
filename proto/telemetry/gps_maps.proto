@@ -26,3 +26,11 @@ message GPSMapOrigins {
   map<string, GPSMapOrigin> origins = 3;
   map<string, Baseline> tracksBaseline = 4;
 }
+
+message SetBaseline {
+  string trackLocation = 1;
+  string trackLayout = 2;
+  GPSMapOrigin origin = 3;
+  repeated double x = 4;
+  repeated double y = 5;
+}

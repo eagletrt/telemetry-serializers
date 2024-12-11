@@ -176,3 +176,61 @@ class GPSMapOrigins:
 
     def __str__(self):
         return self.serializeAsJsonString()
+
+@dataclass
+class SetBaseline:
+    trackLocation: str = ""
+    trackLayout: str = ""
+    origin: GPSMapOrigin = None
+    x: List[float] = field(default_factory=list)
+    y: List[float] = field(default_factory=list)
+    
+    _proto_message: gps_maps_pb2.SetBaseline = field(init=False, repr=False)
+
+    def __post_init__(self):
+        self._proto_message = gps_maps_pb2.SetBaseline()
+
+    def populate_proto(self):
+        self._proto_message.trackLocation = self.trackLocation
+        self._proto_message.trackLayout = self.trackLayout
+        if self.origin:
+            self._proto_message.origin.CopyFrom(self.origin._proto_message)
+        del self._proto_message.x[:]
+        for value in self.x:
+            value.populate_proto()
+            tmp = self._proto_message.x.add()
+            tmp.CopyFrom(value._proto_message)
+        del self._proto_message.y[:]
+        for value in self.y:
+            value.populate_proto()
+            tmp = self._proto_message.y.add()
+            tmp.CopyFrom(value._proto_message)
+
+    def serializeAsProtobufString(self) -> bytes:
+        self.populate_proto()
+        return self._proto_message.SerializeToString()
+
+    @classmethod
+    def deserializeFromProtobufString(cls, data: bytes) -> "SetBaseline":
+        message = gps_maps_pb2.SetBaseline()
+        message.ParseFromString(data)
+        return cls(
+            trackLocation=message.trackLocation,
+            trackLayout=message.trackLayout,
+            origin=message.origin,
+            x=[float(value) for value in message.x],
+            y=[float(value) for value in message.y],
+        )
+
+    def serializeAsJsonString(self) -> str:
+        self.populate_proto()
+        return MessageToJson(self._proto_message)
+
+    @classmethod
+    def deserializeFromJsonString(cls, data: str) -> "SetBaseline":
+        message = gps_maps_pb2.SetBaseline()
+        Parse(data, message)
+        return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    def __str__(self):
+        return self.serializeAsJsonString()

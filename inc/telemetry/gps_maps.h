@@ -65,6 +65,24 @@ struct GPSMapOrigins
     bool deserializeFromJsonString(const std::string& str);
     bool deserializeFromProtobufString(const std::string& str);
 };
+
+struct SetBaseline
+{
+    std::string trackLocation;
+    std::string trackLayout;
+    GPSMapOrigin origin;
+    std::vector<double> x;
+    std::vector<double> y;
+    
+    SetBaseline() = default;
+    SetBaseline(const PbTelemetry::SetBaseline& protobuf);
+    operator PbTelemetry::SetBaseline() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
 }
 }
 

@@ -165,5 +165,58 @@ bool GPSMapOrigins::deserializeFromProtobufString(const std::string& str) {
         return false;
     }
 }
+
+SetBaseline::SetBaseline(const PbTelemetry::SetBaseline& protobuf) {
+    trackLocation = protobuf.tracklocation();
+    trackLayout = protobuf.tracklayout();
+    origin = protobuf.origin();
+    x = {protobuf.x().begin(), protobuf.x().end()};
+    y = {protobuf.y().begin(), protobuf.y().end()};
+}
+
+SetBaseline::operator PbTelemetry::SetBaseline() const {
+    PbTelemetry::SetBaseline ret;
+    ret.set_tracklocation(trackLocation);
+    ret.set_tracklayout(trackLayout);
+    *(ret.mutable_origin()) = origin;
+    *(ret.mutable_x()) = {x.begin(), x.end()};
+    *(ret.mutable_y()) = {y.begin(), y.end()};
+    return ret;
+}
+
+std::string SetBaseline::serializeAsJsonString() const {
+    PbTelemetry::SetBaseline protobuf(*this);
+    std::string ret;
+    google::protobuf::util::JsonPrintOptions options;
+    options.add_whitespace = true;
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    return ret;
+}
+
+std::string SetBaseline::serializeAsProtobufString() const {
+    PbTelemetry::SetBaseline protobuf(*this);
+    return protobuf.SerializeAsString();
+}
+
+bool SetBaseline::deserializeFromJsonString(const std::string& str) {
+    PbTelemetry::SetBaseline protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    if(status.ok()) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool SetBaseline::deserializeFromProtobufString(const std::string& str) {
+    PbTelemetry::SetBaseline protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
 }
 }
