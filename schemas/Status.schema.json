@@ -56,8 +56,10 @@
                         2,
                         "RUN",
                         3,
+                        "WAIT_READY",
+                        4,
                         "ERROR",
-                        4
+                        5
                     ],
                     "oneOf": [
                         {

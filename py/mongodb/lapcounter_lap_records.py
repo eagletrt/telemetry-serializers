@@ -37,10 +37,10 @@ class LapRecord:
         message = lapcounter_lap_records_pb2.LapRecord()
         message.ParseFromString(data)
         return cls(
-            driver=message.driver,
-            start=message.start,
-            end=message.end,
-            sectors=[int(value) for value in message.sectors],
+            driver = message.driver,
+            start = message.start,
+            end = message.end,
+            sectors = [int(value) for value in message.sectors],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -52,6 +52,15 @@ class LapRecord:
         message = lapcounter_lap_records_pb2.LapRecord()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "LapRecord":
+        return cls(
+            driver = proto_message.driver,
+            start = proto_message.start,
+            end = proto_message.end,
+            sectors = proto_message.sectors,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -81,9 +90,9 @@ class SectorsRecord:
         message = lapcounter_lap_records_pb2.SectorsRecord()
         message.ParseFromString(data)
         return cls(
-            driver=message.driver,
-            start_time_sector=message.start_time_sector,
-            end_time_sector=message.end_time_sector,
+            driver = message.driver,
+            start_time_sector = message.start_time_sector,
+            end_time_sector = message.end_time_sector,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -95,6 +104,14 @@ class SectorsRecord:
         message = lapcounter_lap_records_pb2.SectorsRecord()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "SectorsRecord":
+        return cls(
+            driver = proto_message.driver,
+            start_time_sector = proto_message.start_time_sector,
+            end_time_sector = proto_message.end_time_sector,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -113,6 +130,7 @@ class DriverRecord:
     def populate_proto(self):
         self._proto_message.driver = self.driver
         if self.best_lap:
+            self.best_lap.populate_proto()
             self._proto_message.best_lap.CopyFrom(self.best_lap._proto_message)
         del self._proto_message.best_sectors[:]
         for value in self.best_sectors:
@@ -129,9 +147,13 @@ class DriverRecord:
         message = lapcounter_lap_records_pb2.DriverRecord()
         message.ParseFromString(data)
         return cls(
-            driver=message.driver,
-            best_lap=message.best_lap,
-            best_sectors=[SectorsRecord(value) for value in message.best_sectors],
+            driver = message.driver,
+            best_lap = (
+                LapRecord.from_proto(message.best_lap)
+                if message.HasField("best_lap")
+                else None
+            ),
+            best_sectors = [SectorsRecord.from_proto(value) for value in message.best_sectors],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -143,6 +165,14 @@ class DriverRecord:
         message = lapcounter_lap_records_pb2.DriverRecord()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "DriverRecord":
+        return cls(
+            driver = proto_message.driver,
+            best_lap = proto_message.best_lap,
+            best_sectors = proto_message.best_sectors,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -172,6 +202,7 @@ class LapRecords:
         self._proto_message.location = self.location
         self._proto_message.layout = self.layout
         if self.best_lap:
+            self.best_lap.populate_proto()
             self._proto_message.best_lap.CopyFrom(self.best_lap._proto_message)
         del self._proto_message.best_sectors[:]
         for value in self.best_sectors:
@@ -193,15 +224,19 @@ class LapRecords:
         message = lapcounter_lap_records_pb2.LapRecords()
         message.ParseFromString(data)
         return cls(
-            version=message.version,
-            baseline_version=message.baseline_version,
-            vehicle_id=message.vehicle_id,
-            device_id=message.device_id,
-            location=message.location,
-            layout=message.layout,
-            best_lap=message.best_lap,
-            best_sectors=[SectorsRecord(value) for value in message.best_sectors],
-            drivers_records=[DriverRecord(value) for value in message.drivers_records],
+            version = message.version,
+            baseline_version = message.baseline_version,
+            vehicle_id = message.vehicle_id,
+            device_id = message.device_id,
+            location = message.location,
+            layout = message.layout,
+            best_lap = (
+                LapRecord.from_proto(message.best_lap)
+                if message.HasField("best_lap")
+                else None
+            ),
+            best_sectors = [SectorsRecord.from_proto(value) for value in message.best_sectors],
+            drivers_records = [DriverRecord.from_proto(value) for value in message.drivers_records],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -213,6 +248,20 @@ class LapRecords:
         message = lapcounter_lap_records_pb2.LapRecords()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "LapRecords":
+        return cls(
+            version = proto_message.version,
+            baseline_version = proto_message.baseline_version,
+            vehicle_id = proto_message.vehicle_id,
+            device_id = proto_message.device_id,
+            location = proto_message.location,
+            layout = proto_message.layout,
+            best_lap = proto_message.best_lap,
+            best_sectors = proto_message.best_sectors,
+            drivers_records = proto_message.drivers_records,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

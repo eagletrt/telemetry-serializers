@@ -31,9 +31,9 @@ class Connection:
         message = app_config_pb2.Connection()
         message.ParseFromString(data)
         return cls(
-            ip=message.ip,
-            port=message.port,
-            mode=message.mode,
+            ip = message.ip,
+            port = message.port,
+            mode = message.mode,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -45,6 +45,14 @@ class Connection:
         message = app_config_pb2.Connection()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "Connection":
+        return cls(
+            ip = proto_message.ip,
+            port = proto_message.port,
+            mode = proto_message.mode,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -80,12 +88,12 @@ class DoubleTrigger:
         message = app_config_pb2.DoubleTrigger()
         message.ParseFromString(data)
         return cls(
-            id=message.id,
-            message=message.message,
-            signal=message.signal,
-            comparator=message.comparator,
-            value=message.value,
-            color=message.color,
+            id = message.id,
+            message = message.message,
+            signal = message.signal,
+            comparator = message.comparator,
+            value = message.value,
+            color = message.color,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -97,6 +105,17 @@ class DoubleTrigger:
         message = app_config_pb2.DoubleTrigger()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "DoubleTrigger":
+        return cls(
+            id = proto_message.id,
+            message = proto_message.message,
+            signal = proto_message.signal,
+            comparator = proto_message.comparator,
+            value = proto_message.value,
+            color = proto_message.color,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -132,12 +151,12 @@ class EnumTrigger:
         message = app_config_pb2.EnumTrigger()
         message.ParseFromString(data)
         return cls(
-            id=message.id,
-            message=message.message,
-            signal=message.signal,
-            comparator=message.comparator,
-            value=message.value,
-            color=message.color,
+            id = message.id,
+            message = message.message,
+            signal = message.signal,
+            comparator = message.comparator,
+            value = message.value,
+            color = message.color,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -149,6 +168,17 @@ class EnumTrigger:
         message = app_config_pb2.EnumTrigger()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "EnumTrigger":
+        return cls(
+            id = proto_message.id,
+            message = proto_message.message,
+            signal = proto_message.signal,
+            comparator = proto_message.comparator,
+            value = proto_message.value,
+            color = proto_message.color,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -184,12 +214,12 @@ class BitTrigger:
         message = app_config_pb2.BitTrigger()
         message.ParseFromString(data)
         return cls(
-            id=message.id,
-            message=message.message,
-            signal=message.signal,
-            comparator=message.comparator,
-            value=message.value,
-            color=message.color,
+            id = message.id,
+            message = message.message,
+            signal = message.signal,
+            comparator = message.comparator,
+            value = message.value,
+            color = message.color,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -201,6 +231,17 @@ class BitTrigger:
         message = app_config_pb2.BitTrigger()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "BitTrigger":
+        return cls(
+            id = proto_message.id,
+            message = proto_message.message,
+            signal = proto_message.signal,
+            comparator = proto_message.comparator,
+            value = proto_message.value,
+            color = proto_message.color,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -232,10 +273,10 @@ class AxisItem:
         message = app_config_pb2.AxisItem()
         message.ParseFromString(data)
         return cls(
-            message=message.message,
-            signal=message.signal,
-            isEnum=message.isEnum,
-            color=message.color,
+            message = message.message,
+            signal = message.signal,
+            isEnum = message.isEnum,
+            color = message.color,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -247,6 +288,15 @@ class AxisItem:
         message = app_config_pb2.AxisItem()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "AxisItem":
+        return cls(
+            message = proto_message.message,
+            signal = proto_message.signal,
+            isEnum = proto_message.isEnum,
+            color = proto_message.color,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -278,8 +328,8 @@ class Axis:
         message = app_config_pb2.Axis()
         message.ParseFromString(data)
         return cls(
-            name=message.name,
-            items=[AxisItem(value) for value in message.items],
+            name = message.name,
+            items = [AxisItem.from_proto(value) for value in message.items],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -291,6 +341,13 @@ class Axis:
         message = app_config_pb2.Axis()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "Axis":
+        return cls(
+            name = proto_message.name,
+            items = proto_message.items,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -322,8 +379,8 @@ class CustomPlot:
         message = app_config_pb2.CustomPlot()
         message.ParseFromString(data)
         return cls(
-            name=message.name,
-            axes={key: value for key, value in message.axes.items()},
+            name = message.name,
+            axes = {key: value for key, value in message.axes.items()},
         )
 
     def serializeAsJsonString(self) -> str:
@@ -335,6 +392,13 @@ class CustomPlot:
         message = app_config_pb2.CustomPlot()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "CustomPlot":
+        return cls(
+            name = proto_message.name,
+            axes = proto_message.axes,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -363,6 +427,7 @@ class AppConfig:
         self._proto_message.loginTimestamp = self.loginTimestamp
         self._proto_message.colorTheme = self.colorTheme
         if self.connection:
+            self.connection.populate_proto()
             self._proto_message.connection.CopyFrom(self.connection._proto_message)
         self._proto_message.savedConnections.clear()
         for key, value in self.savedConnections.items():
@@ -419,18 +484,22 @@ class AppConfig:
         message = app_config_pb2.AppConfig()
         message.ParseFromString(data)
         return cls(
-            loginTimestamp=message.loginTimestamp,
-            colorTheme=message.colorTheme,
-            connection=message.connection,
-            savedConnections={key: value for key, value in message.savedConnections.items()},
-            activeTabs=[str(value) for value in message.activeTabs],
-            filesPaths={key: value for key, value in message.filesPaths.items()},
-            stringCache={key: value for key, value in message.stringCache.items()},
-            boolCache={key: value for key, value in message.boolCache.items()},
-            doubleTriggers=[DoubleTrigger(value) for value in message.doubleTriggers],
-            enumTriggers=[EnumTrigger(value) for value in message.enumTriggers],
-            bitTriggers=[BitTrigger(value) for value in message.bitTriggers],
-            customPlots=[CustomPlot(value) for value in message.customPlots],
+            loginTimestamp = message.loginTimestamp,
+            colorTheme = message.colorTheme,
+            connection = (
+                Connection.from_proto(message.connection)
+                if message.HasField("connection")
+                else None
+            ),
+            savedConnections = {key: value for key, value in message.savedConnections.items()},
+            activeTabs = [str(value) for value in message.activeTabs],
+            filesPaths = {key: value for key, value in message.filesPaths.items()},
+            stringCache = {key: value for key, value in message.stringCache.items()},
+            boolCache = {key: value for key, value in message.boolCache.items()},
+            doubleTriggers = [DoubleTrigger.from_proto(value) for value in message.doubleTriggers],
+            enumTriggers = [EnumTrigger.from_proto(value) for value in message.enumTriggers],
+            bitTriggers = [BitTrigger.from_proto(value) for value in message.bitTriggers],
+            customPlots = [CustomPlot.from_proto(value) for value in message.customPlots],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -442,6 +511,23 @@ class AppConfig:
         message = app_config_pb2.AppConfig()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "AppConfig":
+        return cls(
+            loginTimestamp = proto_message.loginTimestamp,
+            colorTheme = proto_message.colorTheme,
+            connection = proto_message.connection,
+            savedConnections = proto_message.savedConnections,
+            activeTabs = proto_message.activeTabs,
+            filesPaths = proto_message.filesPaths,
+            stringCache = proto_message.stringCache,
+            boolCache = proto_message.boolCache,
+            doubleTriggers = proto_message.doubleTriggers,
+            enumTriggers = proto_message.enumTriggers,
+            bitTriggers = proto_message.bitTriggers,
+            customPlots = proto_message.customPlots,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

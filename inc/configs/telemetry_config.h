@@ -126,6 +126,7 @@ struct TelemetryConfig
     uint64_t role;
     bool cameraEnabled;
     bool generateCsv;
+    bool waitForReady;
     Connection connection;
     ConnectionSettings connectionSettings;
     std::vector<CanDevice> canDevices;

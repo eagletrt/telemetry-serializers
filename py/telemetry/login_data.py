@@ -29,8 +29,8 @@ class LoginData:
         message = login_data_pb2.LoginData()
         message.ParseFromString(data)
         return cls(
-            username=message.username,
-            password=message.password,
+            username = message.username,
+            password = message.password,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -42,6 +42,13 @@ class LoginData:
         message = login_data_pb2.LoginData()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "LoginData":
+        return cls(
+            username = proto_message.username,
+            password = proto_message.password,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

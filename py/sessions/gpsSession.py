@@ -37,12 +37,12 @@ class GpsSession:
         message = gpsSession_pb2.GpsSession()
         message.ParseFromString(data)
         return cls(
-            gpsName=message.gpsName,
-            dateTime=message.dateTime,
-            durationSeconds=message.durationSeconds,
-            startTimestamp=message.startTimestamp,
-            endTimestamp=message.endTimestamp,
-            messages=message.messages,
+            gpsName = message.gpsName,
+            dateTime = message.dateTime,
+            durationSeconds = message.durationSeconds,
+            startTimestamp = message.startTimestamp,
+            endTimestamp = message.endTimestamp,
+            messages = message.messages,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -54,6 +54,17 @@ class GpsSession:
         message = gpsSession_pb2.GpsSession()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "GpsSession":
+        return cls(
+            gpsName = proto_message.gpsName,
+            dateTime = proto_message.dateTime,
+            durationSeconds = proto_message.durationSeconds,
+            startTimestamp = proto_message.startTimestamp,
+            endTimestamp = proto_message.endTimestamp,
+            messages = proto_message.messages,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

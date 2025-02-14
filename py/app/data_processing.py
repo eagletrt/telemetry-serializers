@@ -27,7 +27,7 @@ class Plugin:
         message = data_processing_pb2.Plugin()
         message.ParseFromString(data)
         return cls(
-            path=message.path,
+            path = message.path,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -39,6 +39,12 @@ class Plugin:
         message = data_processing_pb2.Plugin()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "Plugin":
+        return cls(
+            path = proto_message.path,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -70,8 +76,8 @@ class Signal:
         message = data_processing_pb2.Signal()
         message.ParseFromString(data)
         return cls(
-            msg=message.msg,
-            fields=[str(value) for value in message.fields],
+            msg = message.msg,
+            fields = [str(value) for value in message.fields],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -83,6 +89,13 @@ class Signal:
         message = data_processing_pb2.Signal()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "Signal":
+        return cls(
+            msg = proto_message.msg,
+            fields = proto_message.fields,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -118,8 +131,8 @@ class DataProcessing:
         message = data_processing_pb2.DataProcessing()
         message.ParseFromString(data)
         return cls(
-            plugins=[Plugin(value) for value in message.plugins],
-            resampledSignals=[Signal(value) for value in message.resampledSignals],
+            plugins = [Plugin.from_proto(value) for value in message.plugins],
+            resampledSignals = [Signal.from_proto(value) for value in message.resampledSignals],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -131,6 +144,13 @@ class DataProcessing:
         message = data_processing_pb2.DataProcessing()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "DataProcessing":
+        return cls(
+            plugins = proto_message.plugins,
+            resampledSignals = proto_message.resampledSignals,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

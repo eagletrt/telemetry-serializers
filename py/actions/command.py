@@ -29,8 +29,8 @@ class Command:
         message = command_pb2.Command()
         message.ParseFromString(data)
         return cls(
-            input=message.input,
-            output=message.output,
+            input = message.input,
+            output = message.output,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -42,6 +42,13 @@ class Command:
         message = command_pb2.Command()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "Command":
+        return cls(
+            input = proto_message.input,
+            output = proto_message.output,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

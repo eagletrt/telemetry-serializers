@@ -31,9 +31,9 @@ class Aero:
         message = car_config_pb2.Aero()
         message.ParseFromString(data)
         return cls(
-            angleOfIncidenceFront=message.angleOfIncidenceFront,
-            angleOfIncidenceRear=message.angleOfIncidenceRear,
-            flap=message.flap,
+            angleOfIncidenceFront = message.angleOfIncidenceFront,
+            angleOfIncidenceRear = message.angleOfIncidenceRear,
+            flap = message.flap,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -45,6 +45,14 @@ class Aero:
         message = car_config_pb2.Aero()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "Aero":
+        return cls(
+            angleOfIncidenceFront = proto_message.angleOfIncidenceFront,
+            angleOfIncidenceRear = proto_message.angleOfIncidenceRear,
+            flap = proto_message.flap,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -74,9 +82,9 @@ class Wheel:
         message = car_config_pb2.Wheel()
         message.ParseFromString(data)
         return cls(
-            camber=message.camber,
-            toe=message.toe,
-            pressure=message.pressure,
+            camber = message.camber,
+            toe = message.toe,
+            pressure = message.pressure,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -88,6 +96,14 @@ class Wheel:
         message = car_config_pb2.Wheel()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "Wheel":
+        return cls(
+            camber = proto_message.camber,
+            toe = proto_message.toe,
+            pressure = proto_message.pressure,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -119,10 +135,10 @@ class Damper:
         message = car_config_pb2.Damper()
         message.ParseFromString(data)
         return cls(
-            bound_low_comp=message.bound_low_comp,
-            bound_high_comp=message.bound_high_comp,
-            rebound=message.rebound,
-            preload=message.preload,
+            bound_low_comp = message.bound_low_comp,
+            bound_high_comp = message.bound_high_comp,
+            rebound = message.rebound,
+            preload = message.preload,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -134,6 +150,15 @@ class Damper:
         message = car_config_pb2.Damper()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "Damper":
+        return cls(
+            bound_low_comp = proto_message.bound_low_comp,
+            bound_high_comp = proto_message.bound_high_comp,
+            rebound = proto_message.rebound,
+            preload = proto_message.preload,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -157,14 +182,19 @@ class CarConfig:
 
     def populate_proto(self):
         if self.aero:
+            self.aero.populate_proto()
             self._proto_message.aero.CopyFrom(self.aero._proto_message)
         if self.wheelFront:
+            self.wheelFront.populate_proto()
             self._proto_message.wheelFront.CopyFrom(self.wheelFront._proto_message)
         if self.wheelRear:
+            self.wheelRear.populate_proto()
             self._proto_message.wheelRear.CopyFrom(self.wheelRear._proto_message)
         if self.damperFront:
+            self.damperFront.populate_proto()
             self._proto_message.damperFront.CopyFrom(self.damperFront._proto_message)
         if self.damperRear:
+            self.damperRear.populate_proto()
             self._proto_message.damperRear.CopyFrom(self.damperRear._proto_message)
         self._proto_message.wheelCompound = self.wheelCompound
         self._proto_message.rideHeight = self.rideHeight
@@ -180,15 +210,35 @@ class CarConfig:
         message = car_config_pb2.CarConfig()
         message.ParseFromString(data)
         return cls(
-            aero=message.aero,
-            wheelFront=message.wheelFront,
-            wheelRear=message.wheelRear,
-            damperFront=message.damperFront,
-            damperRear=message.damperRear,
-            wheelCompound=message.wheelCompound,
-            rideHeight=message.rideHeight,
-            balancing=message.balancing,
-            notes=message.notes,
+            aero = (
+                Aero.from_proto(message.aero)
+                if message.HasField("aero")
+                else None
+            ),
+            wheelFront = (
+                Wheel.from_proto(message.wheelFront)
+                if message.HasField("wheelFront")
+                else None
+            ),
+            wheelRear = (
+                Wheel.from_proto(message.wheelRear)
+                if message.HasField("wheelRear")
+                else None
+            ),
+            damperFront = (
+                Damper.from_proto(message.damperFront)
+                if message.HasField("damperFront")
+                else None
+            ),
+            damperRear = (
+                Damper.from_proto(message.damperRear)
+                if message.HasField("damperRear")
+                else None
+            ),
+            wheelCompound = message.wheelCompound,
+            rideHeight = message.rideHeight,
+            balancing = message.balancing,
+            notes = message.notes,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -200,6 +250,20 @@ class CarConfig:
         message = car_config_pb2.CarConfig()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "CarConfig":
+        return cls(
+            aero = proto_message.aero,
+            wheelFront = proto_message.wheelFront,
+            wheelRear = proto_message.wheelRear,
+            damperFront = proto_message.damperFront,
+            damperRear = proto_message.damperRear,
+            wheelCompound = proto_message.wheelCompound,
+            rideHeight = proto_message.rideHeight,
+            balancing = proto_message.balancing,
+            notes = proto_message.notes,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

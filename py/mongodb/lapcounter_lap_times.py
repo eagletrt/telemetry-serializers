@@ -37,10 +37,10 @@ class LapTime:
         message = lapcounter_lap_times_pb2.LapTime()
         message.ParseFromString(data)
         return cls(
-            number=message.number,
-            start_timestamp=message.start_timestamp,
-            end_timestamp=message.end_timestamp,
-            sectors=[int(value) for value in message.sectors],
+            number = message.number,
+            start_timestamp = message.start_timestamp,
+            end_timestamp = message.end_timestamp,
+            sectors = [int(value) for value in message.sectors],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -52,6 +52,15 @@ class LapTime:
         message = lapcounter_lap_times_pb2.LapTime()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "LapTime":
+        return cls(
+            number = proto_message.number,
+            start_timestamp = proto_message.start_timestamp,
+            end_timestamp = proto_message.end_timestamp,
+            sectors = proto_message.sectors,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -95,14 +104,14 @@ class LapTimes:
         message = lapcounter_lap_times_pb2.LapTimes()
         message.ParseFromString(data)
         return cls(
-            version=message.version,
-            baseline_version=message.baseline_version,
-            vehicle_id=message.vehicle_id,
-            device_id=message.device_id,
-            location=message.location,
-            layout=message.layout,
-            driver=message.driver,
-            times=[LapTime(value) for value in message.times],
+            version = message.version,
+            baseline_version = message.baseline_version,
+            vehicle_id = message.vehicle_id,
+            device_id = message.device_id,
+            location = message.location,
+            layout = message.layout,
+            driver = message.driver,
+            times = [LapTime.from_proto(value) for value in message.times],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -114,6 +123,19 @@ class LapTimes:
         message = lapcounter_lap_times_pb2.LapTimes()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "LapTimes":
+        return cls(
+            version = proto_message.version,
+            baseline_version = proto_message.baseline_version,
+            vehicle_id = proto_message.vehicle_id,
+            device_id = proto_message.device_id,
+            location = proto_message.location,
+            layout = proto_message.layout,
+            driver = proto_message.driver,
+            times = proto_message.times,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

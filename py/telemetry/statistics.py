@@ -31,9 +31,9 @@ class Statistics:
         message = statistics_pb2.Statistics()
         message.ParseFromString(data)
         return cls(
-            messages=message.messages,
-            averageFrequency=message.averageFrequency,
-            seconds=message.seconds,
+            messages = message.messages,
+            averageFrequency = message.averageFrequency,
+            seconds = message.seconds,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -45,6 +45,14 @@ class Statistics:
         message = statistics_pb2.Statistics()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "Statistics":
+        return cls(
+            messages = proto_message.messages,
+            averageFrequency = proto_message.averageFrequency,
+            seconds = proto_message.seconds,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

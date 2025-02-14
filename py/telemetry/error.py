@@ -31,9 +31,9 @@ class Error:
         message = error_pb2.Error()
         message.ParseFromString(data)
         return cls(
-            timestamp=message.timestamp,
-            function=message.function,
-            description=message.description,
+            timestamp = message.timestamp,
+            function = message.function,
+            description = message.description,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -45,6 +45,14 @@ class Error:
         message = error_pb2.Error()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "Error":
+        return cls(
+            timestamp = proto_message.timestamp,
+            function = proto_message.function,
+            description = proto_message.description,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

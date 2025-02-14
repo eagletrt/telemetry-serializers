@@ -35,11 +35,11 @@ class UserData:
         message = user_data_pb2.UserData()
         message.ParseFromString(data)
         return cls(
-            username=message.username,
-            token=message.token,
-            refreshToken=message.refreshToken,
-            expiry=message.expiry,
-            role=message.role,
+            username = message.username,
+            token = message.token,
+            refreshToken = message.refreshToken,
+            expiry = message.expiry,
+            role = message.role,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -51,6 +51,16 @@ class UserData:
         message = user_data_pb2.UserData()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "UserData":
+        return cls(
+            username = proto_message.username,
+            token = proto_message.token,
+            refreshToken = proto_message.refreshToken,
+            expiry = proto_message.expiry,
+            role = proto_message.role,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

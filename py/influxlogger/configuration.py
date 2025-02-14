@@ -55,19 +55,19 @@ class Configuration:
         message = configuration_pb2.Configuration()
         message.ParseFromString(data)
         return cls(
-            mqtt_host=message.mqtt_host,
-            mqtt_port=message.mqtt_port,
-            vehicle_id=message.vehicle_id,
-            device_id=message.device_id,
-            influx_host=message.influx_host,
-            influx_port=message.influx_port,
-            influx_https=message.influx_https,
-            influx_bucket=message.influx_bucket,
-            influx_orgid=message.influx_orgid,
-            influx_token=message.influx_token,
-            networks=[str(value) for value in message.networks],
-            proxy_host=message.proxy_host,
-            proxy_port=message.proxy_port,
+            mqtt_host = message.mqtt_host,
+            mqtt_port = message.mqtt_port,
+            vehicle_id = message.vehicle_id,
+            device_id = message.device_id,
+            influx_host = message.influx_host,
+            influx_port = message.influx_port,
+            influx_https = message.influx_https,
+            influx_bucket = message.influx_bucket,
+            influx_orgid = message.influx_orgid,
+            influx_token = message.influx_token,
+            networks = [str(value) for value in message.networks],
+            proxy_host = message.proxy_host,
+            proxy_port = message.proxy_port,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -79,6 +79,24 @@ class Configuration:
         message = configuration_pb2.Configuration()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "Configuration":
+        return cls(
+            mqtt_host = proto_message.mqtt_host,
+            mqtt_port = proto_message.mqtt_port,
+            vehicle_id = proto_message.vehicle_id,
+            device_id = proto_message.device_id,
+            influx_host = proto_message.influx_host,
+            influx_port = proto_message.influx_port,
+            influx_https = proto_message.influx_https,
+            influx_bucket = proto_message.influx_bucket,
+            influx_orgid = proto_message.influx_orgid,
+            influx_token = proto_message.influx_token,
+            networks = proto_message.networks,
+            proxy_host = proto_message.proxy_host,
+            proxy_port = proto_message.proxy_port,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

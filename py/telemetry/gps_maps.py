@@ -57,14 +57,14 @@ class Baseline:
         message = gps_maps_pb2.Baseline()
         message.ParseFromString(data)
         return cls(
-            valid=message.valid,
-            logging=message.logging,
-            length=message.length,
-            x=[float(value) for value in message.x],
-            y=[float(value) for value in message.y],
-            resampled=message.resampled,
-            s=[float(value) for value in message.s],
-            theta=[float(value) for value in message.theta],
+            valid = message.valid,
+            logging = message.logging,
+            length = message.length,
+            x = [float(value) for value in message.x],
+            y = [float(value) for value in message.y],
+            resampled = message.resampled,
+            s = [float(value) for value in message.s],
+            theta = [float(value) for value in message.theta],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -76,6 +76,19 @@ class Baseline:
         message = gps_maps_pb2.Baseline()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "Baseline":
+        return cls(
+            valid = proto_message.valid,
+            logging = proto_message.logging,
+            length = proto_message.length,
+            x = proto_message.x,
+            y = proto_message.y,
+            resampled = proto_message.resampled,
+            s = proto_message.s,
+            theta = proto_message.theta,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -105,9 +118,9 @@ class GPSMapOrigin:
         message = gps_maps_pb2.GPSMapOrigin()
         message.ParseFromString(data)
         return cls(
-            latitude=message.latitude,
-            longitude=message.longitude,
-            altitude=message.altitude,
+            latitude = message.latitude,
+            longitude = message.longitude,
+            altitude = message.altitude,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -119,6 +132,14 @@ class GPSMapOrigin:
         message = gps_maps_pb2.GPSMapOrigin()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "GPSMapOrigin":
+        return cls(
+            latitude = proto_message.latitude,
+            longitude = proto_message.longitude,
+            altitude = proto_message.altitude,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -158,10 +179,10 @@ class GPSMapOrigins:
         message = gps_maps_pb2.GPSMapOrigins()
         message.ParseFromString(data)
         return cls(
-            trackLocation=message.trackLocation,
-            trackLayout=message.trackLayout,
-            origins={key: value for key, value in message.origins.items()},
-            tracksBaseline={key: value for key, value in message.tracksBaseline.items()},
+            trackLocation = message.trackLocation,
+            trackLayout = message.trackLayout,
+            origins = {key: value for key, value in message.origins.items()},
+            tracksBaseline = {key: value for key, value in message.tracksBaseline.items()},
         )
 
     def serializeAsJsonString(self) -> str:
@@ -173,6 +194,15 @@ class GPSMapOrigins:
         message = gps_maps_pb2.GPSMapOrigins()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "GPSMapOrigins":
+        return cls(
+            trackLocation = proto_message.trackLocation,
+            trackLayout = proto_message.trackLayout,
+            origins = proto_message.origins,
+            tracksBaseline = proto_message.tracksBaseline,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -194,6 +224,7 @@ class SetBaseline:
         self._proto_message.trackLocation = self.trackLocation
         self._proto_message.trackLayout = self.trackLayout
         if self.origin:
+            self.origin.populate_proto()
             self._proto_message.origin.CopyFrom(self.origin._proto_message)
         del self._proto_message.x[:]
         for value in self.x:
@@ -215,11 +246,15 @@ class SetBaseline:
         message = gps_maps_pb2.SetBaseline()
         message.ParseFromString(data)
         return cls(
-            trackLocation=message.trackLocation,
-            trackLayout=message.trackLayout,
-            origin=message.origin,
-            x=[float(value) for value in message.x],
-            y=[float(value) for value in message.y],
+            trackLocation = message.trackLocation,
+            trackLayout = message.trackLayout,
+            origin = (
+                GPSMapOrigin.from_proto(message.origin)
+                if message.HasField("origin")
+                else None
+            ),
+            x = [float(value) for value in message.x],
+            y = [float(value) for value in message.y],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -231,6 +266,16 @@ class SetBaseline:
         message = gps_maps_pb2.SetBaseline()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "SetBaseline":
+        return cls(
+            trackLocation = proto_message.trackLocation,
+            trackLayout = proto_message.trackLayout,
+            origin = proto_message.origin,
+            x = proto_message.x,
+            y = proto_message.y,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

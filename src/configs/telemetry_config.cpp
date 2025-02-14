@@ -329,6 +329,7 @@ TelemetryConfig::TelemetryConfig(const PbConfigs::TelemetryConfig& protobuf) {
     role = protobuf.role();
     cameraEnabled = protobuf.cameraenabled();
     generateCsv = protobuf.generatecsv();
+    waitForReady = protobuf.waitforready();
     connection = protobuf.connection();
     connectionSettings = protobuf.connectionsettings();
     canDevices = {protobuf.candevices().begin(), protobuf.candevices().end()};
@@ -343,6 +344,7 @@ TelemetryConfig::operator PbConfigs::TelemetryConfig() const {
     ret.set_role(role);
     ret.set_cameraenabled(cameraEnabled);
     ret.set_generatecsv(generateCsv);
+    ret.set_waitforready(waitForReady);
     *(ret.mutable_connection()) = connection;
     *(ret.mutable_connectionsettings()) = connectionSettings;
     *(ret.mutable_candevices()) = {canDevices.begin(), canDevices.end()};

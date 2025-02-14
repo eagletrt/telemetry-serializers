@@ -35,11 +35,11 @@ class VehicleState:
         message = vehicle_state_pb2.VehicleState()
         message.ParseFromString(data)
         return cls(
-            x=message.x,
-            y=message.y,
-            heading=message.heading,
-            u=message.u,
-            v=message.v,
+            x = message.x,
+            y = message.y,
+            heading = message.heading,
+            u = message.u,
+            v = message.v,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -51,6 +51,16 @@ class VehicleState:
         message = vehicle_state_pb2.VehicleState()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "VehicleState":
+        return cls(
+            x = proto_message.x,
+            y = proto_message.y,
+            heading = proto_message.heading,
+            u = proto_message.u,
+            v = proto_message.v,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

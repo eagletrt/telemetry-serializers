@@ -31,7 +31,7 @@ class VectorDouble:
         message = telemetry_lap_data_pb2.VectorDouble()
         message.ParseFromString(data)
         return cls(
-            buffer=[float(value) for value in message.buffer],
+            buffer = [float(value) for value in message.buffer],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -43,6 +43,12 @@ class VectorDouble:
         message = telemetry_lap_data_pb2.VectorDouble()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "VectorDouble":
+        return cls(
+            buffer = proto_message.buffer,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -72,7 +78,7 @@ class DataFile:
         message = telemetry_lap_data_pb2.DataFile()
         message.ParseFromString(data)
         return cls(
-            data={key: value for key, value in message.data.items()},
+            data = {key: value for key, value in message.data.items()},
         )
 
     def serializeAsJsonString(self) -> str:
@@ -84,6 +90,12 @@ class DataFile:
         message = telemetry_lap_data_pb2.DataFile()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "DataFile":
+        return cls(
+            data = proto_message.data,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -119,12 +131,12 @@ class TelemetryLapData:
         message = telemetry_lap_data_pb2.TelemetryLapData()
         message.ParseFromString(data)
         return cls(
-            dateTime=message.dateTime,
-            trackLocation=message.trackLocation,
-            trackLayout=message.trackLayout,
-            driver=message.driver,
-            lapNumber=message.lapNumber,
-            filenameHash=message.filenameHash,
+            dateTime = message.dateTime,
+            trackLocation = message.trackLocation,
+            trackLayout = message.trackLayout,
+            driver = message.driver,
+            lapNumber = message.lapNumber,
+            filenameHash = message.filenameHash,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -136,6 +148,17 @@ class TelemetryLapData:
         message = telemetry_lap_data_pb2.TelemetryLapData()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "TelemetryLapData":
+        return cls(
+            dateTime = proto_message.dateTime,
+            trackLocation = proto_message.trackLocation,
+            trackLayout = proto_message.trackLayout,
+            driver = proto_message.driver,
+            lapNumber = proto_message.lapNumber,
+            filenameHash = proto_message.filenameHash,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -165,7 +188,7 @@ class DataBase:
         message = telemetry_lap_data_pb2.DataBase()
         message.ParseFromString(data)
         return cls(
-            lapsData=[TelemetryLapData(value) for value in message.lapsData],
+            lapsData = [TelemetryLapData.from_proto(value) for value in message.lapsData],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -177,6 +200,12 @@ class DataBase:
         message = telemetry_lap_data_pb2.DataBase()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "DataBase":
+        return cls(
+            lapsData = proto_message.lapsData,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

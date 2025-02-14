@@ -29,8 +29,8 @@ class Vec2:
         message = lapcounter_layout_pb2.Vec2()
         message.ParseFromString(data)
         return cls(
-            x=message.x,
-            y=message.y,
+            x = message.x,
+            y = message.y,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -42,6 +42,13 @@ class Vec2:
         message = lapcounter_layout_pb2.Vec2()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "Vec2":
+        return cls(
+            x = proto_message.x,
+            y = proto_message.y,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -58,8 +65,10 @@ class PositionAndDirection:
 
     def populate_proto(self):
         if self.position:
+            self.position.populate_proto()
             self._proto_message.position.CopyFrom(self.position._proto_message)
         if self.direction:
+            self.direction.populate_proto()
             self._proto_message.direction.CopyFrom(self.direction._proto_message)
 
     def serializeAsProtobufString(self) -> bytes:
@@ -71,8 +80,16 @@ class PositionAndDirection:
         message = lapcounter_layout_pb2.PositionAndDirection()
         message.ParseFromString(data)
         return cls(
-            position=message.position,
-            direction=message.direction,
+            position = (
+                Vec2.from_proto(message.position)
+                if message.HasField("position")
+                else None
+            ),
+            direction = (
+                Vec2.from_proto(message.direction)
+                if message.HasField("direction")
+                else None
+            ),
         )
 
     def serializeAsJsonString(self) -> str:
@@ -84,6 +101,13 @@ class PositionAndDirection:
         message = lapcounter_layout_pb2.PositionAndDirection()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "PositionAndDirection":
+        return cls(
+            position = proto_message.position,
+            direction = proto_message.direction,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -113,8 +137,10 @@ class Layout:
         self._proto_message.location = self.location
         self._proto_message.layout = self.layout
         if self.start_line:
+            self.start_line.populate_proto()
             self._proto_message.start_line.CopyFrom(self.start_line._proto_message)
         if self.finish_line:
+            self.finish_line.populate_proto()
             self._proto_message.finish_line.CopyFrom(self.finish_line._proto_message)
         del self._proto_message.sectors[:]
         for value in self.sectors:
@@ -131,15 +157,23 @@ class Layout:
         message = lapcounter_layout_pb2.Layout()
         message.ParseFromString(data)
         return cls(
-            version=message.version,
-            baseline_version=message.baseline_version,
-            vehicle_id=message.vehicle_id,
-            device_id=message.device_id,
-            location=message.location,
-            layout=message.layout,
-            start_line=message.start_line,
-            finish_line=message.finish_line,
-            sectors=[PositionAndDirection(value) for value in message.sectors],
+            version = message.version,
+            baseline_version = message.baseline_version,
+            vehicle_id = message.vehicle_id,
+            device_id = message.device_id,
+            location = message.location,
+            layout = message.layout,
+            start_line = (
+                PositionAndDirection.from_proto(message.start_line)
+                if message.HasField("start_line")
+                else None
+            ),
+            finish_line = (
+                PositionAndDirection.from_proto(message.finish_line)
+                if message.HasField("finish_line")
+                else None
+            ),
+            sectors = [PositionAndDirection.from_proto(value) for value in message.sectors],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -151,6 +185,20 @@ class Layout:
         message = lapcounter_layout_pb2.Layout()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "Layout":
+        return cls(
+            version = proto_message.version,
+            baseline_version = proto_message.baseline_version,
+            vehicle_id = proto_message.vehicle_id,
+            device_id = proto_message.device_id,
+            location = proto_message.location,
+            layout = proto_message.layout,
+            start_line = proto_message.start_line,
+            finish_line = proto_message.finish_line,
+            sectors = proto_message.sectors,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

@@ -59,23 +59,23 @@ class Rtl433Payload:
         message = rtl433_payload_pb2.Rtl433Payload()
         message.ParseFromString(data)
         return cls(
-            time=message.time,
-            model=message.model,
-            id=message.id,
-            pressure=message.pressure,
-            temperature=message.temperature,
-            acceleration=message.acceleration,
-            battery=message.battery,
-            interframe=message.interframe,
-            wo_state=message.wo_state,
-            checksum=message.checksum,
-            mic=message.mic,
-            mod=message.mod,
-            freq1=message.freq1,
-            freq2=message.freq2,
-            rssi=message.rssi,
-            snr=message.snr,
-            noise=message.noise,
+            time = message.time,
+            model = message.model,
+            id = message.id,
+            pressure = message.pressure,
+            temperature = message.temperature,
+            acceleration = message.acceleration,
+            battery = message.battery,
+            interframe = message.interframe,
+            wo_state = message.wo_state,
+            checksum = message.checksum,
+            mic = message.mic,
+            mod = message.mod,
+            freq1 = message.freq1,
+            freq2 = message.freq2,
+            rssi = message.rssi,
+            snr = message.snr,
+            noise = message.noise,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -87,6 +87,28 @@ class Rtl433Payload:
         message = rtl433_payload_pb2.Rtl433Payload()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "Rtl433Payload":
+        return cls(
+            time = proto_message.time,
+            model = proto_message.model,
+            id = proto_message.id,
+            pressure = proto_message.pressure,
+            temperature = proto_message.temperature,
+            acceleration = proto_message.acceleration,
+            battery = proto_message.battery,
+            interframe = proto_message.interframe,
+            wo_state = proto_message.wo_state,
+            checksum = proto_message.checksum,
+            mic = proto_message.mic,
+            mod = proto_message.mod,
+            freq1 = proto_message.freq1,
+            freq2 = proto_message.freq2,
+            rssi = proto_message.rssi,
+            snr = proto_message.snr,
+            noise = proto_message.noise,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

@@ -33,10 +33,10 @@ class LcPoint:
         message = lap_counter_pb2.LcPoint()
         message.ParseFromString(data)
         return cls(
-            position_x=message.position_x,
-            position_y=message.position_y,
-            inclination_x=message.inclination_x,
-            inclination_y=message.inclination_y,
+            position_x = message.position_x,
+            position_y = message.position_y,
+            inclination_x = message.inclination_x,
+            inclination_y = message.inclination_y,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -48,6 +48,15 @@ class LcPoint:
         message = lap_counter_pb2.LcPoint()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "LcPoint":
+        return cls(
+            position_x = proto_message.position_x,
+            position_y = proto_message.position_y,
+            inclination_x = proto_message.inclination_x,
+            inclination_y = proto_message.inclination_y,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -70,8 +79,10 @@ class TrackLayout:
         self._proto_message.layout_id = self.layout_id
         self._proto_message.name = self.name
         if self.start1:
+            self.start1.populate_proto()
             self._proto_message.start1.CopyFrom(self.start1._proto_message)
         if self.start2:
+            self.start2.populate_proto()
             self._proto_message.start2.CopyFrom(self.start2._proto_message)
         self._proto_message.sector_count = self.sector_count
         del self._proto_message.sectors[:]
@@ -89,12 +100,20 @@ class TrackLayout:
         message = lap_counter_pb2.TrackLayout()
         message.ParseFromString(data)
         return cls(
-            layout_id=message.layout_id,
-            name=message.name,
-            start1=message.start1,
-            start2=message.start2,
-            sector_count=message.sector_count,
-            sectors=[LcPoint(value) for value in message.sectors],
+            layout_id = message.layout_id,
+            name = message.name,
+            start1 = (
+                LcPoint.from_proto(message.start1)
+                if message.HasField("start1")
+                else None
+            ),
+            start2 = (
+                LcPoint.from_proto(message.start2)
+                if message.HasField("start2")
+                else None
+            ),
+            sector_count = message.sector_count,
+            sectors = [LcPoint.from_proto(value) for value in message.sectors],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -106,6 +125,17 @@ class TrackLayout:
         message = lap_counter_pb2.TrackLayout()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "TrackLayout":
+        return cls(
+            layout_id = proto_message.layout_id,
+            name = proto_message.name,
+            start1 = proto_message.start1,
+            start2 = proto_message.start2,
+            sector_count = proto_message.sector_count,
+            sectors = proto_message.sectors,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -145,12 +175,12 @@ class Time:
         message = lap_counter_pb2.Time()
         message.ParseFromString(data)
         return cls(
-            layout_id=message.layout_id,
-            lap_number=message.lap_number,
-            driver_name=message.driver_name,
-            start_timestamp=message.start_timestamp,
-            end_timestamp=message.end_timestamp,
-            sectors_timestamp=[int(value) for value in message.sectors_timestamp],
+            layout_id = message.layout_id,
+            lap_number = message.lap_number,
+            driver_name = message.driver_name,
+            start_timestamp = message.start_timestamp,
+            end_timestamp = message.end_timestamp,
+            sectors_timestamp = [int(value) for value in message.sectors_timestamp],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -162,6 +192,17 @@ class Time:
         message = lap_counter_pb2.Time()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "Time":
+        return cls(
+            layout_id = proto_message.layout_id,
+            lap_number = proto_message.lap_number,
+            driver_name = proto_message.driver_name,
+            start_timestamp = proto_message.start_timestamp,
+            end_timestamp = proto_message.end_timestamp,
+            sectors_timestamp = proto_message.sectors_timestamp,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -197,10 +238,10 @@ class DriverRecord:
         message = lap_counter_pb2.DriverRecord()
         message.ParseFromString(data)
         return cls(
-            driver=message.driver,
-            start_timestamp=message.start_timestamp,
-            end_timestamp=message.end_timestamp,
-            sectors_timestamp=[int(value) for value in message.sectors_timestamp],
+            driver = message.driver,
+            start_timestamp = message.start_timestamp,
+            end_timestamp = message.end_timestamp,
+            sectors_timestamp = [int(value) for value in message.sectors_timestamp],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -212,6 +253,15 @@ class DriverRecord:
         message = lap_counter_pb2.DriverRecord()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "DriverRecord":
+        return cls(
+            driver = proto_message.driver,
+            start_timestamp = proto_message.start_timestamp,
+            end_timestamp = proto_message.end_timestamp,
+            sectors_timestamp = proto_message.sectors_timestamp,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -232,6 +282,7 @@ class TrackRecord:
         self._proto_message.layout_id = self.layout_id
         self._proto_message.lap_number = self.lap_number
         if self.best_lap:
+            self.best_lap.populate_proto()
             self._proto_message.best_lap.CopyFrom(self.best_lap._proto_message)
         del self._proto_message.best_sectors[:]
         for value in self.best_sectors:
@@ -248,10 +299,14 @@ class TrackRecord:
         message = lap_counter_pb2.TrackRecord()
         message.ParseFromString(data)
         return cls(
-            layout_id=message.layout_id,
-            lap_number=message.lap_number,
-            best_lap=message.best_lap,
-            best_sectors=[DriverRecord(value) for value in message.best_sectors],
+            layout_id = message.layout_id,
+            lap_number = message.lap_number,
+            best_lap = (
+                DriverRecord.from_proto(message.best_lap)
+                if message.HasField("best_lap")
+                else None
+            ),
+            best_sectors = [DriverRecord.from_proto(value) for value in message.best_sectors],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -263,6 +318,15 @@ class TrackRecord:
         message = lap_counter_pb2.TrackRecord()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "TrackRecord":
+        return cls(
+            layout_id = proto_message.layout_id,
+            lap_number = proto_message.lap_number,
+            best_lap = proto_message.best_lap,
+            best_sectors = proto_message.best_sectors,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -294,8 +358,8 @@ class Driver:
         message = lap_counter_pb2.Driver()
         message.ParseFromString(data)
         return cls(
-            name=message.name,
-            times=[Time(value) for value in message.times],
+            name = message.name,
+            times = [Time.from_proto(value) for value in message.times],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -307,6 +371,13 @@ class Driver:
         message = lap_counter_pb2.Driver()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "Driver":
+        return cls(
+            name = proto_message.name,
+            times = proto_message.times,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -352,11 +423,11 @@ class DataBase:
         message = lap_counter_pb2.DataBase()
         message.ParseFromString(data)
         return cls(
-            layouts=[TrackLayout(value) for value in message.layouts],
-            drivers=[Driver(value) for value in message.drivers],
-            records=[TrackRecord(value) for value in message.records],
-            last_id=message.last_id,
-            lap_number=message.lap_number,
+            layouts = [TrackLayout.from_proto(value) for value in message.layouts],
+            drivers = [Driver.from_proto(value) for value in message.drivers],
+            records = [TrackRecord.from_proto(value) for value in message.records],
+            last_id = message.last_id,
+            lap_number = message.lap_number,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -368,6 +439,16 @@ class DataBase:
         message = lap_counter_pb2.DataBase()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "DataBase":
+        return cls(
+            layouts = proto_message.layouts,
+            drivers = proto_message.drivers,
+            records = proto_message.records,
+            last_id = proto_message.last_id,
+            lap_number = proto_message.lap_number,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

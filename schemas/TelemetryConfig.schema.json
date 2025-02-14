@@ -183,6 +183,7 @@
                 "role",
                 "cameraEnabled",
                 "generateCsv",
+                "waitForReady",
                 "connection",
                 "connectionSettings",
                 "canDevices",
@@ -203,6 +204,9 @@
                     "type": "boolean"
                 },
                 "generateCsv": {
+                    "type": "boolean"
+                },
+                "waitForReady": {
                     "type": "boolean"
                 },
                 "connection": {

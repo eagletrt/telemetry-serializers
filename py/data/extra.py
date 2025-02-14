@@ -31,7 +31,7 @@ class RepeatedValueUint64:
         message = extra_pb2.RepeatedValueUint64()
         message.ParseFromString(data)
         return cls(
-            values=[int(value) for value in message.values],
+            values = [int(value) for value in message.values],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -43,6 +43,12 @@ class RepeatedValueUint64:
         message = extra_pb2.RepeatedValueUint64()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "RepeatedValueUint64":
+        return cls(
+            values = proto_message.values,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -72,7 +78,7 @@ class RepeatedValueDouble:
         message = extra_pb2.RepeatedValueDouble()
         message.ParseFromString(data)
         return cls(
-            values=[float(value) for value in message.values],
+            values = [float(value) for value in message.values],
         )
 
     def serializeAsJsonString(self) -> str:
@@ -84,6 +90,12 @@ class RepeatedValueDouble:
         message = extra_pb2.RepeatedValueDouble()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "RepeatedValueDouble":
+        return cls(
+            values = proto_message.values,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -100,6 +112,7 @@ class ValuesMap:
 
     def populate_proto(self):
         if self.timestamp:
+            self.timestamp.populate_proto()
             self._proto_message.timestamp.CopyFrom(self.timestamp._proto_message)
         self._proto_message.valuesMap.clear()
         for key, value in self.valuesMap.items():
@@ -116,8 +129,12 @@ class ValuesMap:
         message = extra_pb2.ValuesMap()
         message.ParseFromString(data)
         return cls(
-            timestamp=message.timestamp,
-            valuesMap={key: value for key, value in message.valuesMap.items()},
+            timestamp = (
+                RepeatedValueUint64.from_proto(message.timestamp)
+                if message.HasField("timestamp")
+                else None
+            ),
+            valuesMap = {key: value for key, value in message.valuesMap.items()},
         )
 
     def serializeAsJsonString(self) -> str:
@@ -129,6 +146,13 @@ class ValuesMap:
         message = extra_pb2.ValuesMap()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "ValuesMap":
+        return cls(
+            timestamp = proto_message.timestamp,
+            valuesMap = proto_message.valuesMap,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
@@ -158,7 +182,7 @@ class TimeValuesPack:
         message = extra_pb2.TimeValuesPack()
         message.ParseFromString(data)
         return cls(
-            valuesPack={key: value for key, value in message.valuesPack.items()},
+            valuesPack = {key: value for key, value in message.valuesPack.items()},
         )
 
     def serializeAsJsonString(self) -> str:
@@ -170,6 +194,12 @@ class TimeValuesPack:
         message = extra_pb2.TimeValuesPack()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "TimeValuesPack":
+        return cls(
+            valuesPack = proto_message.valuesPack,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()

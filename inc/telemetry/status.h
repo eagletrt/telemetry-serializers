@@ -18,7 +18,8 @@ enum class TelemetryState
     IDLE = 1,
     SETUP_RUN = 2,
     RUN = 3,
-    ERROR = 4
+    WAIT_READY = 4,
+    ERROR = 5
 };
 
 struct MessagesPerSecond

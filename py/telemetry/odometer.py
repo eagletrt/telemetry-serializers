@@ -29,8 +29,8 @@ class Odometer:
         message = odometer_pb2.Odometer()
         message.ParseFromString(data)
         return cls(
-            startDate=message.startDate,
-            kilometers=message.kilometers,
+            startDate = message.startDate,
+            kilometers = message.kilometers,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -42,6 +42,13 @@ class Odometer:
         message = odometer_pb2.Odometer()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+
+    @classmethod
+    def from_proto(cls, proto_message) -> "Odometer":
+        return cls(
+            startDate = proto_message.startDate,
+            kilometers = proto_message.kilometers,
+        )
 
     def __str__(self):
         return self.serializeAsJsonString()
