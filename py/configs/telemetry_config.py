@@ -360,7 +360,7 @@ class TpmsSensors:
             enabled = proto_message.enabled,
             rtl433Path = proto_message.rtl433Path,
             recordSignals = proto_message.recordSignals,
-            sensorIds = proto_message.sensorIds,
+            sensorIds = TpmsSensorIds.from_proto(proto_message.sensorIds),
         )
 
     def __str__(self):
@@ -465,11 +465,11 @@ class TelemetryConfig:
             cameraEnabled = proto_message.cameraEnabled,
             generateCsv = proto_message.generateCsv,
             waitForReady = proto_message.waitForReady,
-            connection = proto_message.connection,
-            connectionSettings = proto_message.connectionSettings,
-            canDevices = proto_message.canDevices,
-            gpsDevices = proto_message.gpsDevices,
-            tpmsSensors = proto_message.tpmsSensors,
+            connection = Connection.from_proto(proto_message.connection),
+            connectionSettings = ConnectionSettings.from_proto(proto_message.connectionSettings),
+            canDevices = CanDevice.from_proto(proto_message.canDevices),
+            gpsDevices = GpsDevice.from_proto(proto_message.gpsDevices),
+            tpmsSensors = TpmsSensors.from_proto(proto_message.tpmsSensors),
         )
 
     def __str__(self):

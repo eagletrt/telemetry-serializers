@@ -131,10 +131,10 @@ class TrackLayout:
         return cls(
             layout_id = proto_message.layout_id,
             name = proto_message.name,
-            start1 = proto_message.start1,
-            start2 = proto_message.start2,
+            start1 = LcPoint.from_proto(proto_message.start1),
+            start2 = LcPoint.from_proto(proto_message.start2),
             sector_count = proto_message.sector_count,
-            sectors = proto_message.sectors,
+            sectors = LcPoint.from_proto(proto_message.sectors),
         )
 
     def __str__(self):
@@ -324,8 +324,8 @@ class TrackRecord:
         return cls(
             layout_id = proto_message.layout_id,
             lap_number = proto_message.lap_number,
-            best_lap = proto_message.best_lap,
-            best_sectors = proto_message.best_sectors,
+            best_lap = DriverRecord.from_proto(proto_message.best_lap),
+            best_sectors = DriverRecord.from_proto(proto_message.best_sectors),
         )
 
     def __str__(self):
@@ -376,7 +376,7 @@ class Driver:
     def from_proto(cls, proto_message) -> "Driver":
         return cls(
             name = proto_message.name,
-            times = proto_message.times,
+            times = Time.from_proto(proto_message.times),
         )
 
     def __str__(self):
@@ -443,9 +443,9 @@ class DataBase:
     @classmethod
     def from_proto(cls, proto_message) -> "DataBase":
         return cls(
-            layouts = proto_message.layouts,
-            drivers = proto_message.drivers,
-            records = proto_message.records,
+            layouts = TrackLayout.from_proto(proto_message.layouts),
+            drivers = Driver.from_proto(proto_message.drivers),
+            records = TrackRecord.from_proto(proto_message.records),
             last_id = proto_message.last_id,
             lap_number = proto_message.lap_number,
         )

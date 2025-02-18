@@ -254,11 +254,11 @@ class CarConfig:
     @classmethod
     def from_proto(cls, proto_message) -> "CarConfig":
         return cls(
-            aero = proto_message.aero,
-            wheelFront = proto_message.wheelFront,
-            wheelRear = proto_message.wheelRear,
-            damperFront = proto_message.damperFront,
-            damperRear = proto_message.damperRear,
+            aero = Aero.from_proto(proto_message.aero),
+            wheelFront = Wheel.from_proto(proto_message.wheelFront),
+            wheelRear = Wheel.from_proto(proto_message.wheelRear),
+            damperFront = Damper.from_proto(proto_message.damperFront),
+            damperRear = Damper.from_proto(proto_message.damperRear),
             wheelCompound = proto_message.wheelCompound,
             rideHeight = proto_message.rideHeight,
             balancing = proto_message.balancing,

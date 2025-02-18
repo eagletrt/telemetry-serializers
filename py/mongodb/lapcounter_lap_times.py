@@ -134,7 +134,7 @@ class LapTimes:
             location = proto_message.location,
             layout = proto_message.layout,
             driver = proto_message.driver,
-            times = proto_message.times,
+            times = LapTime.from_proto(proto_message.times),
         )
 
     def __str__(self):

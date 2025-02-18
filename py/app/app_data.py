@@ -114,7 +114,7 @@ class CustomPlotAxis:
     def from_proto(cls, proto_message) -> "CustomPlotAxis":
         return cls(
             label = proto_message.label,
-            items = proto_message.items,
+            items = CustomPlotItem.from_proto(proto_message.items),
         )
 
     def __str__(self):
@@ -216,7 +216,7 @@ class CustomSubPlots:
     def from_proto(cls, proto_message) -> "CustomSubPlots":
         return cls(
             rows = proto_message.rows,
-            plots = proto_message.plots,
+            plots = NewCustomPlot.from_proto(proto_message.plots),
         )
 
     def __str__(self):
@@ -263,7 +263,7 @@ class CustomPlotsTab:
     @classmethod
     def from_proto(cls, proto_message) -> "CustomPlotsTab":
         return cls(
-            subPlots = proto_message.subPlots,
+            subPlots = CustomSubPlots.from_proto(proto_message.subPlots),
         )
 
     def __str__(self):

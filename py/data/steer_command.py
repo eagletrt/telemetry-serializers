@@ -96,7 +96,7 @@ class SteerStatus:
     @classmethod
     def from_proto(cls, proto_message) -> "SteerStatus":
         return cls(
-            status = proto_message.status,
+            status = Status.from_proto(proto_message.status),
         )
 
     def __str__(self):

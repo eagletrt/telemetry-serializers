@@ -148,8 +148,8 @@ class DataProcessing:
     @classmethod
     def from_proto(cls, proto_message) -> "DataProcessing":
         return cls(
-            plugins = proto_message.plugins,
-            resampledSignals = proto_message.resampledSignals,
+            plugins = Plugin.from_proto(proto_message.plugins),
+            resampledSignals = Signal.from_proto(proto_message.resampledSignals),
         )
 
     def __str__(self):

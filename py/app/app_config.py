@@ -346,7 +346,7 @@ class Axis:
     def from_proto(cls, proto_message) -> "Axis":
         return cls(
             name = proto_message.name,
-            items = proto_message.items,
+            items = AxisItem.from_proto(proto_message.items),
         )
 
     def __str__(self):
@@ -517,16 +517,16 @@ class AppConfig:
         return cls(
             loginTimestamp = proto_message.loginTimestamp,
             colorTheme = proto_message.colorTheme,
-            connection = proto_message.connection,
+            connection = Connection.from_proto(proto_message.connection),
             savedConnections = proto_message.savedConnections,
             activeTabs = proto_message.activeTabs,
             filesPaths = proto_message.filesPaths,
             stringCache = proto_message.stringCache,
             boolCache = proto_message.boolCache,
-            doubleTriggers = proto_message.doubleTriggers,
-            enumTriggers = proto_message.enumTriggers,
-            bitTriggers = proto_message.bitTriggers,
-            customPlots = proto_message.customPlots,
+            doubleTriggers = DoubleTrigger.from_proto(proto_message.doubleTriggers),
+            enumTriggers = EnumTrigger.from_proto(proto_message.enumTriggers),
+            bitTriggers = BitTrigger.from_proto(proto_message.bitTriggers),
+            customPlots = CustomPlot.from_proto(proto_message.customPlots),
         )
 
     def __str__(self):

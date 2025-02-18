@@ -150,7 +150,7 @@ class ValuesMap:
     @classmethod
     def from_proto(cls, proto_message) -> "ValuesMap":
         return cls(
-            timestamp = proto_message.timestamp,
+            timestamp = RepeatedValueUint64.from_proto(proto_message.timestamp),
             valuesMap = proto_message.valuesMap,
         )
 

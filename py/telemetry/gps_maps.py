@@ -272,7 +272,7 @@ class SetBaseline:
         return cls(
             trackLocation = proto_message.trackLocation,
             trackLayout = proto_message.trackLayout,
-            origin = proto_message.origin,
+            origin = GPSMapOrigin.from_proto(proto_message.origin),
             x = proto_message.x,
             y = proto_message.y,
         )

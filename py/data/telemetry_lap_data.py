@@ -204,7 +204,7 @@ class DataBase:
     @classmethod
     def from_proto(cls, proto_message) -> "DataBase":
         return cls(
-            lapsData = proto_message.lapsData,
+            lapsData = TelemetryLapData.from_proto(proto_message.lapsData),
         )
 
     def __str__(self):

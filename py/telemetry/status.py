@@ -142,13 +142,13 @@ class Status:
         return cls(
             timestamp = proto_message.timestamp,
             zeroTimestamp = proto_message.zeroTimestamp,
-            state = proto_message.state,
+            state = TelemetryState.from_proto(proto_message.state),
             cpuTotalLoad = proto_message.cpuTotalLoad,
             cpuProcessLoad = proto_message.cpuProcessLoad,
             memProcessLoad = proto_message.memProcessLoad,
             canlibBuildTime = proto_message.canlibBuildTime,
             telemetryBuildTime = proto_message.telemetryBuildTime,
-            messagesPerSecond = proto_message.messagesPerSecond,
+            messagesPerSecond = MessagesPerSecond.from_proto(proto_message.messagesPerSecond),
         )
 
     def __str__(self):

@@ -105,8 +105,8 @@ class PositionAndDirection:
     @classmethod
     def from_proto(cls, proto_message) -> "PositionAndDirection":
         return cls(
-            position = proto_message.position,
-            direction = proto_message.direction,
+            position = Vec2.from_proto(proto_message.position),
+            direction = Vec2.from_proto(proto_message.direction),
         )
 
     def __str__(self):
@@ -195,9 +195,9 @@ class Layout:
             device_id = proto_message.device_id,
             location = proto_message.location,
             layout = proto_message.layout,
-            start_line = proto_message.start_line,
-            finish_line = proto_message.finish_line,
-            sectors = proto_message.sectors,
+            start_line = PositionAndDirection.from_proto(proto_message.start_line),
+            finish_line = PositionAndDirection.from_proto(proto_message.finish_line),
+            sectors = PositionAndDirection.from_proto(proto_message.sectors),
         )
 
     def __str__(self):

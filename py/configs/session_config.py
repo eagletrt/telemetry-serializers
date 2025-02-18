@@ -136,7 +136,7 @@ class SessionConfig:
             driver = proto_message.driver,
             date = proto_message.date,
             time = proto_message.time,
-            weather = proto_message.weather,
+            weather = Weather.from_proto(proto_message.weather),
             notes = proto_message.notes,
             canlibVersion = proto_message.canlibVersion,
             startTimestamp = proto_message.startTimestamp,

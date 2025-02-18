@@ -170,8 +170,8 @@ class DriverRecord:
     def from_proto(cls, proto_message) -> "DriverRecord":
         return cls(
             driver = proto_message.driver,
-            best_lap = proto_message.best_lap,
-            best_sectors = proto_message.best_sectors,
+            best_lap = LapRecord.from_proto(proto_message.best_lap),
+            best_sectors = SectorsRecord.from_proto(proto_message.best_sectors),
         )
 
     def __str__(self):
@@ -258,9 +258,9 @@ class LapRecords:
             device_id = proto_message.device_id,
             location = proto_message.location,
             layout = proto_message.layout,
-            best_lap = proto_message.best_lap,
-            best_sectors = proto_message.best_sectors,
-            drivers_records = proto_message.drivers_records,
+            best_lap = LapRecord.from_proto(proto_message.best_lap),
+            best_sectors = SectorsRecord.from_proto(proto_message.best_sectors),
+            drivers_records = DriverRecord.from_proto(proto_message.drivers_records),
         )
 
     def __str__(self):

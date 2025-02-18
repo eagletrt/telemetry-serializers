@@ -105,8 +105,8 @@ class Line:
     @classmethod
     def from_proto(cls, proto_message) -> "Line":
         return cls(
-            position = proto_message.position,
-            direction = proto_message.direction,
+            position = Vector.from_proto(proto_message.position),
+            direction = Vector.from_proto(proto_message.direction),
         )
 
     def __str__(self):
@@ -164,8 +164,8 @@ class Circuit:
     def from_proto(cls, proto_message) -> "Circuit":
         return cls(
             circuitId = proto_message.circuitId,
-            checksLines = proto_message.checksLines,
-            sectorsLines = proto_message.sectorsLines,
+            checksLines = Line.from_proto(proto_message.checksLines),
+            sectorsLines = Line.from_proto(proto_message.sectorsLines),
         )
 
     def __str__(self):
@@ -283,7 +283,7 @@ class Race:
             raceId = proto_message.raceId,
             circuitId = proto_message.circuitId,
             driverId = proto_message.driverId,
-            laps = proto_message.laps,
+            laps = Lap.from_proto(proto_message.laps),
         )
 
     def __str__(self):
