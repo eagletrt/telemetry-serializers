@@ -19,15 +19,28 @@ class VehicleState:
     def __post_init__(self):
         self._proto_message = vehicle_state_pb2.VehicleState()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.x = self.x
         self._proto_message.y = self.y
         self._proto_message.heading = self.heading
         self._proto_message.u = self.u
         self._proto_message.v = self.v
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "VehicleState":
+        return cls(
+            x = proto_message.x,
+            y = proto_message.y,
+            heading = proto_message.heading,
+            u = proto_message.u,
+            v = proto_message.v,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -43,7 +56,7 @@ class VehicleState:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -51,16 +64,3 @@ class VehicleState:
         message = vehicle_state_pb2.VehicleState()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "VehicleState":
-        return cls(
-            x = proto_message.x,
-            y = proto_message.y,
-            heading = proto_message.heading,
-            u = proto_message.u,
-            v = proto_message.v,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()

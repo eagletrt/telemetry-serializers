@@ -17,13 +17,24 @@ class Error:
     def __post_init__(self):
         self._proto_message = error_pb2.Error()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.timestamp = self.timestamp
         self._proto_message.function = self.function
         self._proto_message.description = self.description
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "Error":
+        return cls(
+            timestamp = proto_message.timestamp,
+            function = proto_message.function,
+            description = proto_message.description,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -37,7 +48,7 @@ class Error:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -45,14 +56,3 @@ class Error:
         message = error_pb2.Error()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "Error":
-        return cls(
-            timestamp = proto_message.timestamp,
-            function = proto_message.function,
-            description = proto_message.description,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()

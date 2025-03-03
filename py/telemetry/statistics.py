@@ -17,13 +17,24 @@ class Statistics:
     def __post_init__(self):
         self._proto_message = statistics_pb2.Statistics()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.messages = self.messages
         self._proto_message.averageFrequency = self.averageFrequency
         self._proto_message.seconds = self.seconds
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "Statistics":
+        return cls(
+            messages = proto_message.messages,
+            averageFrequency = proto_message.averageFrequency,
+            seconds = proto_message.seconds,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -37,7 +48,7 @@ class Statistics:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -45,14 +56,3 @@ class Statistics:
         message = statistics_pb2.Statistics()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "Statistics":
-        return cls(
-            messages = proto_message.messages,
-            averageFrequency = proto_message.averageFrequency,
-            seconds = proto_message.seconds,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()

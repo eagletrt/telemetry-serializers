@@ -17,13 +17,24 @@ class FileTransactionSetup:
     def __post_init__(self):
         self._proto_message = file_transaction_pb2.FileTransactionSetup()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.id = self.id
         self._proto_message.hash = self.hash
         self._proto_message.topic = self.topic
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "FileTransactionSetup":
+        return cls(
+            id = proto_message.id,
+            hash = proto_message.hash,
+            topic = proto_message.topic,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -37,7 +48,7 @@ class FileTransactionSetup:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -45,17 +56,6 @@ class FileTransactionSetup:
         message = file_transaction_pb2.FileTransactionSetup()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "FileTransactionSetup":
-        return cls(
-            id = proto_message.id,
-            hash = proto_message.hash,
-            topic = proto_message.topic,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
 
 @dataclass
 class FileTransactionStatus:
@@ -69,14 +69,26 @@ class FileTransactionStatus:
     def __post_init__(self):
         self._proto_message = file_transaction_pb2.FileTransactionStatus()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.fileName = self.fileName
         self._proto_message.hash = self.hash
         self._proto_message.destinationPath = self.destinationPath
         self._proto_message.totalChunks = self.totalChunks
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "FileTransactionStatus":
+        return cls(
+            fileName = proto_message.fileName,
+            hash = proto_message.hash,
+            destinationPath = proto_message.destinationPath,
+            totalChunks = proto_message.totalChunks,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -91,7 +103,7 @@ class FileTransactionStatus:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -99,18 +111,6 @@ class FileTransactionStatus:
         message = file_transaction_pb2.FileTransactionStatus()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "FileTransactionStatus":
-        return cls(
-            fileName = proto_message.fileName,
-            hash = proto_message.hash,
-            destinationPath = proto_message.destinationPath,
-            totalChunks = proto_message.totalChunks,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
 
 @dataclass
 class FileTransactionChunk:
@@ -124,14 +124,26 @@ class FileTransactionChunk:
     def __post_init__(self):
         self._proto_message = file_transaction_pb2.FileTransactionChunk()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.data = self.data
         self._proto_message.hash = self.hash
         self._proto_message.chunkNumber = self.chunkNumber
         self._proto_message.totalChunks = self.totalChunks
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "FileTransactionChunk":
+        return cls(
+            data = proto_message.data,
+            hash = proto_message.hash,
+            chunkNumber = proto_message.chunkNumber,
+            totalChunks = proto_message.totalChunks,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -146,7 +158,7 @@ class FileTransactionChunk:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -154,15 +166,3 @@ class FileTransactionChunk:
         message = file_transaction_pb2.FileTransactionChunk()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "FileTransactionChunk":
-        return cls(
-            data = proto_message.data,
-            hash = proto_message.hash,
-            chunkNumber = proto_message.chunkNumber,
-            totalChunks = proto_message.totalChunks,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()

@@ -20,7 +20,7 @@ class GpsSession:
     def __post_init__(self):
         self._proto_message = gpsSession_pb2.GpsSession()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.gpsName = self.gpsName
         self._proto_message.dateTime = self.dateTime
         self._proto_message.durationSeconds = self.durationSeconds
@@ -28,8 +28,22 @@ class GpsSession:
         self._proto_message.endTimestamp = self.endTimestamp
         self._proto_message.messages = self.messages
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "GpsSession":
+        return cls(
+            gpsName = proto_message.gpsName,
+            dateTime = proto_message.dateTime,
+            durationSeconds = proto_message.durationSeconds,
+            startTimestamp = proto_message.startTimestamp,
+            endTimestamp = proto_message.endTimestamp,
+            messages = proto_message.messages,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -46,7 +60,7 @@ class GpsSession:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -54,17 +68,3 @@ class GpsSession:
         message = gpsSession_pb2.GpsSession()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "GpsSession":
-        return cls(
-            gpsName = proto_message.gpsName,
-            dateTime = proto_message.dateTime,
-            durationSeconds = proto_message.durationSeconds,
-            startTimestamp = proto_message.startTimestamp,
-            endTimestamp = proto_message.endTimestamp,
-            messages = proto_message.messages,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()

@@ -16,12 +16,22 @@ class LoginData:
     def __post_init__(self):
         self._proto_message = login_data_pb2.LoginData()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.username = self.username
         self._proto_message.password = self.password
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "LoginData":
+        return cls(
+            username = proto_message.username,
+            password = proto_message.password,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -34,7 +44,7 @@ class LoginData:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -42,13 +52,3 @@ class LoginData:
         message = login_data_pb2.LoginData()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "LoginData":
-        return cls(
-            username = proto_message.username,
-            password = proto_message.password,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()

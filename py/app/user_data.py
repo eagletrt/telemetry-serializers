@@ -19,15 +19,28 @@ class UserData:
     def __post_init__(self):
         self._proto_message = user_data_pb2.UserData()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.username = self.username
         self._proto_message.token = self.token
         self._proto_message.refreshToken = self.refreshToken
         self._proto_message.expiry = self.expiry
         self._proto_message.role = self.role
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "UserData":
+        return cls(
+            username = proto_message.username,
+            token = proto_message.token,
+            refreshToken = proto_message.refreshToken,
+            expiry = proto_message.expiry,
+            role = proto_message.role,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -43,7 +56,7 @@ class UserData:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -51,16 +64,3 @@ class UserData:
         message = user_data_pb2.UserData()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "UserData":
-        return cls(
-            username = proto_message.username,
-            token = proto_message.token,
-            refreshToken = proto_message.refreshToken,
-            expiry = proto_message.expiry,
-            role = proto_message.role,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()

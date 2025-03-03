@@ -18,18 +18,28 @@ class LapRecord:
     def __post_init__(self):
         self._proto_message = lapcounter_lap_records_pb2.LapRecord()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.driver = self.driver
         self._proto_message.start = self.start
         self._proto_message.end = self.end
         del self._proto_message.sectors[:]
-        for value in self.sectors:
-            value.populate_proto()
-            tmp = self._proto_message.sectors.add()
-            tmp.CopyFrom(value._proto_message)
+        for val in self.sectors:
+            self._proto_message.sectors.append(val)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "LapRecord":
+        return cls(
+            driver = proto_message.driver,
+            start = proto_message.start,
+            end = proto_message.end,
+            sectors=[int(val) for val in proto_message.sectors],
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
 
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -40,11 +50,11 @@ class LapRecord:
             driver = message.driver,
             start = message.start,
             end = message.end,
-            sectors = [int(value) for value in message.sectors],
+            sectors = [int(val) for val in message.sectors],
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -52,18 +62,6 @@ class LapRecord:
         message = lapcounter_lap_records_pb2.LapRecord()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "LapRecord":
-        return cls(
-            driver = proto_message.driver,
-            start = proto_message.start,
-            end = proto_message.end,
-            sectors = proto_message.sectors,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
 
 @dataclass
 class SectorsRecord:
@@ -76,13 +74,24 @@ class SectorsRecord:
     def __post_init__(self):
         self._proto_message = lapcounter_lap_records_pb2.SectorsRecord()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.driver = self.driver
         self._proto_message.start_time_sector = self.start_time_sector
         self._proto_message.end_time_sector = self.end_time_sector
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "SectorsRecord":
+        return cls(
+            driver = proto_message.driver,
+            start_time_sector = proto_message.start_time_sector,
+            end_time_sector = proto_message.end_time_sector,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -96,7 +105,7 @@ class SectorsRecord:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -104,17 +113,6 @@ class SectorsRecord:
         message = lapcounter_lap_records_pb2.SectorsRecord()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "SectorsRecord":
-        return cls(
-            driver = proto_message.driver,
-            start_time_sector = proto_message.start_time_sector,
-            end_time_sector = proto_message.end_time_sector,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
 
 @dataclass
 class DriverRecord:
@@ -127,19 +125,30 @@ class DriverRecord:
     def __post_init__(self):
         self._proto_message = lapcounter_lap_records_pb2.DriverRecord()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.driver = self.driver
         if self.best_lap:
-            self.best_lap.populate_proto()
+            self.best_lap._populate_proto()
             self._proto_message.best_lap.CopyFrom(self.best_lap._proto_message)
         del self._proto_message.best_sectors[:]
-        for value in self.best_sectors:
-            value.populate_proto()
+        for val in self.best_sectors:
+            val._populate_proto()
             tmp = self._proto_message.best_sectors.add()
-            tmp.CopyFrom(value._proto_message)
+            tmp.CopyFrom(val._proto_message)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "DriverRecord":
+        return cls(
+            driver = proto_message.driver,
+            best_lap = LapRecord._from_proto(proto_message.best_lap),
+            best_sectors=[SectorsRecord._from_proto(val) for val in proto_message.best_sectors],
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
 
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -149,15 +158,15 @@ class DriverRecord:
         return cls(
             driver = message.driver,
             best_lap = (
-                LapRecord.from_proto(message.best_lap)
+                LapRecord._from_proto(message.best_lap)
                 if message.HasField("best_lap")
                 else None
             ),
-            best_sectors = [SectorsRecord.from_proto(value) for value in message.best_sectors],
+            best_sectors = [SectorsRecord._from_proto(val) for val in message.best_sectors],
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -165,17 +174,6 @@ class DriverRecord:
         message = lapcounter_lap_records_pb2.DriverRecord()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "DriverRecord":
-        return cls(
-            driver = proto_message.driver,
-            best_lap = LapRecord.from_proto(proto_message.best_lap),
-            best_sectors = SectorsRecord.from_proto(proto_message.best_sectors),
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
 
 @dataclass
 class LapRecords:
@@ -194,7 +192,7 @@ class LapRecords:
     def __post_init__(self):
         self._proto_message = lapcounter_lap_records_pb2.LapRecords()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.version = self.version
         self._proto_message.baseline_version = self.baseline_version
         self._proto_message.vehicle_id = self.vehicle_id
@@ -202,21 +200,38 @@ class LapRecords:
         self._proto_message.location = self.location
         self._proto_message.layout = self.layout
         if self.best_lap:
-            self.best_lap.populate_proto()
+            self.best_lap._populate_proto()
             self._proto_message.best_lap.CopyFrom(self.best_lap._proto_message)
         del self._proto_message.best_sectors[:]
-        for value in self.best_sectors:
-            value.populate_proto()
+        for val in self.best_sectors:
+            val._populate_proto()
             tmp = self._proto_message.best_sectors.add()
-            tmp.CopyFrom(value._proto_message)
+            tmp.CopyFrom(val._proto_message)
         del self._proto_message.drivers_records[:]
-        for value in self.drivers_records:
-            value.populate_proto()
+        for val in self.drivers_records:
+            val._populate_proto()
             tmp = self._proto_message.drivers_records.add()
-            tmp.CopyFrom(value._proto_message)
+            tmp.CopyFrom(val._proto_message)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "LapRecords":
+        return cls(
+            version = proto_message.version,
+            baseline_version = proto_message.baseline_version,
+            vehicle_id = proto_message.vehicle_id,
+            device_id = proto_message.device_id,
+            location = proto_message.location,
+            layout = proto_message.layout,
+            best_lap = LapRecord._from_proto(proto_message.best_lap),
+            best_sectors=[SectorsRecord._from_proto(val) for val in proto_message.best_sectors],
+            drivers_records=[DriverRecord._from_proto(val) for val in proto_message.drivers_records],
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
 
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -231,16 +246,16 @@ class LapRecords:
             location = message.location,
             layout = message.layout,
             best_lap = (
-                LapRecord.from_proto(message.best_lap)
+                LapRecord._from_proto(message.best_lap)
                 if message.HasField("best_lap")
                 else None
             ),
-            best_sectors = [SectorsRecord.from_proto(value) for value in message.best_sectors],
-            drivers_records = [DriverRecord.from_proto(value) for value in message.drivers_records],
+            best_sectors = [SectorsRecord._from_proto(val) for val in message.best_sectors],
+            drivers_records = [DriverRecord._from_proto(val) for val in message.drivers_records],
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -248,20 +263,3 @@ class LapRecords:
         message = lapcounter_lap_records_pb2.LapRecords()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "LapRecords":
-        return cls(
-            version = proto_message.version,
-            baseline_version = proto_message.baseline_version,
-            vehicle_id = proto_message.vehicle_id,
-            device_id = proto_message.device_id,
-            location = proto_message.location,
-            layout = proto_message.layout,
-            best_lap = LapRecord.from_proto(proto_message.best_lap),
-            best_sectors = SectorsRecord.from_proto(proto_message.best_sectors),
-            drivers_records = DriverRecord.from_proto(proto_message.drivers_records),
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()

@@ -19,15 +19,28 @@ class CanFrequency:
     def __post_init__(self):
         self._proto_message = can_frequencies_pb2.CanFrequency()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.timestamp = self.timestamp
         self._proto_message.id = self.id
         self._proto_message.name = self.name
         self._proto_message.data = self.data
         self._proto_message.frequency = self.frequency
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "CanFrequency":
+        return cls(
+            timestamp = proto_message.timestamp,
+            id = proto_message.id,
+            name = proto_message.name,
+            data = proto_message.data,
+            frequency = proto_message.frequency,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -43,7 +56,7 @@ class CanFrequency:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -51,19 +64,6 @@ class CanFrequency:
         message = can_frequencies_pb2.CanFrequency()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "CanFrequency":
-        return cls(
-            timestamp = proto_message.timestamp,
-            id = proto_message.id,
-            name = proto_message.name,
-            data = proto_message.data,
-            frequency = proto_message.frequency,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
 
 @dataclass
 class CanFrequencies:
@@ -74,15 +74,24 @@ class CanFrequencies:
     def __post_init__(self):
         self._proto_message = can_frequencies_pb2.CanFrequencies()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.frequencies.clear()
-        for key, value in self.frequencies.items():
-            value.populate_proto()
+        for key, val in self.frequencies.items():
+            val._populate_proto()
             tmp = self._proto_message.frequencies.setdefault(key)
-            tmp.CopyFrom(value._proto_message)
+            tmp.CopyFrom(val._proto_message)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "CanFrequencies":
+        return cls(
+            frequencies={key: CanFrequency._from_proto(val) for key, val in proto_message.frequencies.items()},
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
 
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -90,11 +99,11 @@ class CanFrequencies:
         message = can_frequencies_pb2.CanFrequencies()
         message.ParseFromString(data)
         return cls(
-            frequencies = {key: value for key, value in message.frequencies.items()},
+            frequencies = {key: CanFrequency._from_proto(val) for key, val in message.frequencies.items()},
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -102,15 +111,6 @@ class CanFrequencies:
         message = can_frequencies_pb2.CanFrequencies()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "CanFrequencies":
-        return cls(
-            frequencies = proto_message.frequencies,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
 
 @dataclass
 class CanNetworksFrequencies:
@@ -122,16 +122,26 @@ class CanNetworksFrequencies:
     def __post_init__(self):
         self._proto_message = can_frequencies_pb2.CanNetworksFrequencies()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.timestamp = self.timestamp
         self._proto_message.networks.clear()
-        for key, value in self.networks.items():
-            value.populate_proto()
+        for key, val in self.networks.items():
+            val._populate_proto()
             tmp = self._proto_message.networks.setdefault(key)
-            tmp.CopyFrom(value._proto_message)
+            tmp.CopyFrom(val._proto_message)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "CanNetworksFrequencies":
+        return cls(
+            timestamp = proto_message.timestamp,
+            networks={key: CanFrequencies._from_proto(val) for key, val in proto_message.networks.items()},
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
 
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -140,11 +150,11 @@ class CanNetworksFrequencies:
         message.ParseFromString(data)
         return cls(
             timestamp = message.timestamp,
-            networks = {key: value for key, value in message.networks.items()},
+            networks = {key: CanFrequencies._from_proto(val) for key, val in message.networks.items()},
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -152,13 +162,3 @@ class CanNetworksFrequencies:
         message = can_frequencies_pb2.CanNetworksFrequencies()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "CanNetworksFrequencies":
-        return cls(
-            timestamp = proto_message.timestamp,
-            networks = proto_message.networks,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()

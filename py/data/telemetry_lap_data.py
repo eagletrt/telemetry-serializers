@@ -15,15 +15,22 @@ class VectorDouble:
     def __post_init__(self):
         self._proto_message = telemetry_lap_data_pb2.VectorDouble()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         del self._proto_message.buffer[:]
-        for value in self.buffer:
-            value.populate_proto()
-            tmp = self._proto_message.buffer.add()
-            tmp.CopyFrom(value._proto_message)
+        for val in self.buffer:
+            self._proto_message.buffer.append(val)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "VectorDouble":
+        return cls(
+            buffer=[float(val) for val in proto_message.buffer],
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
 
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -31,11 +38,11 @@ class VectorDouble:
         message = telemetry_lap_data_pb2.VectorDouble()
         message.ParseFromString(data)
         return cls(
-            buffer = [float(value) for value in message.buffer],
+            buffer = [float(val) for val in message.buffer],
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -43,15 +50,6 @@ class VectorDouble:
         message = telemetry_lap_data_pb2.VectorDouble()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "VectorDouble":
-        return cls(
-            buffer = proto_message.buffer,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
 
 @dataclass
 class DataFile:
@@ -62,15 +60,24 @@ class DataFile:
     def __post_init__(self):
         self._proto_message = telemetry_lap_data_pb2.DataFile()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.data.clear()
-        for key, value in self.data.items():
-            value.populate_proto()
+        for key, val in self.data.items():
+            val._populate_proto()
             tmp = self._proto_message.data.setdefault(key)
-            tmp.CopyFrom(value._proto_message)
+            tmp.CopyFrom(val._proto_message)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "DataFile":
+        return cls(
+            data={key: VectorDouble._from_proto(val) for key, val in proto_message.data.items()},
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
 
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -78,11 +85,11 @@ class DataFile:
         message = telemetry_lap_data_pb2.DataFile()
         message.ParseFromString(data)
         return cls(
-            data = {key: value for key, value in message.data.items()},
+            data = {key: VectorDouble._from_proto(val) for key, val in message.data.items()},
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -90,15 +97,6 @@ class DataFile:
         message = telemetry_lap_data_pb2.DataFile()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "DataFile":
-        return cls(
-            data = proto_message.data,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
 
 @dataclass
 class TelemetryLapData:
@@ -114,7 +112,7 @@ class TelemetryLapData:
     def __post_init__(self):
         self._proto_message = telemetry_lap_data_pb2.TelemetryLapData()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.dateTime = self.dateTime
         self._proto_message.trackLocation = self.trackLocation
         self._proto_message.trackLayout = self.trackLayout
@@ -122,8 +120,22 @@ class TelemetryLapData:
         self._proto_message.lapNumber = self.lapNumber
         self._proto_message.filenameHash = self.filenameHash
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "TelemetryLapData":
+        return cls(
+            dateTime = proto_message.dateTime,
+            trackLocation = proto_message.trackLocation,
+            trackLayout = proto_message.trackLayout,
+            driver = proto_message.driver,
+            lapNumber = proto_message.lapNumber,
+            filenameHash = proto_message.filenameHash,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -140,7 +152,7 @@ class TelemetryLapData:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -148,20 +160,6 @@ class TelemetryLapData:
         message = telemetry_lap_data_pb2.TelemetryLapData()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "TelemetryLapData":
-        return cls(
-            dateTime = proto_message.dateTime,
-            trackLocation = proto_message.trackLocation,
-            trackLayout = proto_message.trackLayout,
-            driver = proto_message.driver,
-            lapNumber = proto_message.lapNumber,
-            filenameHash = proto_message.filenameHash,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
 
 @dataclass
 class DataBase:
@@ -172,15 +170,24 @@ class DataBase:
     def __post_init__(self):
         self._proto_message = telemetry_lap_data_pb2.DataBase()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         del self._proto_message.lapsData[:]
-        for value in self.lapsData:
-            value.populate_proto()
+        for val in self.lapsData:
+            val._populate_proto()
             tmp = self._proto_message.lapsData.add()
-            tmp.CopyFrom(value._proto_message)
+            tmp.CopyFrom(val._proto_message)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "DataBase":
+        return cls(
+            lapsData=[TelemetryLapData._from_proto(val) for val in proto_message.lapsData],
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
 
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -188,11 +195,11 @@ class DataBase:
         message = telemetry_lap_data_pb2.DataBase()
         message.ParseFromString(data)
         return cls(
-            lapsData = [TelemetryLapData.from_proto(value) for value in message.lapsData],
+            lapsData = [TelemetryLapData._from_proto(val) for val in message.lapsData],
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -200,12 +207,3 @@ class DataBase:
         message = telemetry_lap_data_pb2.DataBase()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "DataBase":
-        return cls(
-            lapsData = TelemetryLapData.from_proto(proto_message.lapsData),
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()

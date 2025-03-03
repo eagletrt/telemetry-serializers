@@ -15,11 +15,20 @@ class Plugin:
     def __post_init__(self):
         self._proto_message = data_processing_pb2.Plugin()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.path = self.path
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "Plugin":
+        return cls(
+            path = proto_message.path,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -31,7 +40,7 @@ class Plugin:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -39,15 +48,6 @@ class Plugin:
         message = data_processing_pb2.Plugin()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "Plugin":
-        return cls(
-            path = proto_message.path,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
 
 @dataclass
 class Signal:
@@ -59,16 +59,24 @@ class Signal:
     def __post_init__(self):
         self._proto_message = data_processing_pb2.Signal()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.msg = self.msg
         del self._proto_message.fields[:]
-        for value in self.fields:
-            value.populate_proto()
-            tmp = self._proto_message.fields.add()
-            tmp.CopyFrom(value._proto_message)
+        for val in self.fields:
+            self._proto_message.fields.append(val)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "Signal":
+        return cls(
+            msg = proto_message.msg,
+            fields=[str(val) for val in proto_message.fields],
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
 
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -77,11 +85,11 @@ class Signal:
         message.ParseFromString(data)
         return cls(
             msg = message.msg,
-            fields = [str(value) for value in message.fields],
+            fields = [str(val) for val in message.fields],
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -89,16 +97,6 @@ class Signal:
         message = data_processing_pb2.Signal()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "Signal":
-        return cls(
-            msg = proto_message.msg,
-            fields = proto_message.fields,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
 
 @dataclass
 class DataProcessing:
@@ -110,20 +108,30 @@ class DataProcessing:
     def __post_init__(self):
         self._proto_message = data_processing_pb2.DataProcessing()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         del self._proto_message.plugins[:]
-        for value in self.plugins:
-            value.populate_proto()
+        for val in self.plugins:
+            val._populate_proto()
             tmp = self._proto_message.plugins.add()
-            tmp.CopyFrom(value._proto_message)
+            tmp.CopyFrom(val._proto_message)
         del self._proto_message.resampledSignals[:]
-        for value in self.resampledSignals:
-            value.populate_proto()
+        for val in self.resampledSignals:
+            val._populate_proto()
             tmp = self._proto_message.resampledSignals.add()
-            tmp.CopyFrom(value._proto_message)
+            tmp.CopyFrom(val._proto_message)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "DataProcessing":
+        return cls(
+            plugins=[Plugin._from_proto(val) for val in proto_message.plugins],
+            resampledSignals=[Signal._from_proto(val) for val in proto_message.resampledSignals],
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
 
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -131,12 +139,12 @@ class DataProcessing:
         message = data_processing_pb2.DataProcessing()
         message.ParseFromString(data)
         return cls(
-            plugins = [Plugin.from_proto(value) for value in message.plugins],
-            resampledSignals = [Signal.from_proto(value) for value in message.resampledSignals],
+            plugins = [Plugin._from_proto(val) for val in message.plugins],
+            resampledSignals = [Signal._from_proto(val) for val in message.resampledSignals],
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -144,13 +152,3 @@ class DataProcessing:
         message = data_processing_pb2.DataProcessing()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "DataProcessing":
-        return cls(
-            plugins = Plugin.from_proto(proto_message.plugins),
-            resampledSignals = Signal.from_proto(proto_message.resampledSignals),
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()

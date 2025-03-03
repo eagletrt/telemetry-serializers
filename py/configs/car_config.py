@@ -17,13 +17,24 @@ class Aero:
     def __post_init__(self):
         self._proto_message = car_config_pb2.Aero()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.angleOfIncidenceFront = self.angleOfIncidenceFront
         self._proto_message.angleOfIncidenceRear = self.angleOfIncidenceRear
         self._proto_message.flap = self.flap
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "Aero":
+        return cls(
+            angleOfIncidenceFront = proto_message.angleOfIncidenceFront,
+            angleOfIncidenceRear = proto_message.angleOfIncidenceRear,
+            flap = proto_message.flap,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -37,7 +48,7 @@ class Aero:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -45,17 +56,6 @@ class Aero:
         message = car_config_pb2.Aero()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "Aero":
-        return cls(
-            angleOfIncidenceFront = proto_message.angleOfIncidenceFront,
-            angleOfIncidenceRear = proto_message.angleOfIncidenceRear,
-            flap = proto_message.flap,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
 
 @dataclass
 class Wheel:
@@ -68,13 +68,24 @@ class Wheel:
     def __post_init__(self):
         self._proto_message = car_config_pb2.Wheel()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.camber = self.camber
         self._proto_message.toe = self.toe
         self._proto_message.pressure = self.pressure
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "Wheel":
+        return cls(
+            camber = proto_message.camber,
+            toe = proto_message.toe,
+            pressure = proto_message.pressure,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -88,7 +99,7 @@ class Wheel:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -96,17 +107,6 @@ class Wheel:
         message = car_config_pb2.Wheel()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "Wheel":
-        return cls(
-            camber = proto_message.camber,
-            toe = proto_message.toe,
-            pressure = proto_message.pressure,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
 
 @dataclass
 class Damper:
@@ -120,14 +120,26 @@ class Damper:
     def __post_init__(self):
         self._proto_message = car_config_pb2.Damper()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.bound_low_comp = self.bound_low_comp
         self._proto_message.bound_high_comp = self.bound_high_comp
         self._proto_message.rebound = self.rebound
         self._proto_message.preload = self.preload
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "Damper":
+        return cls(
+            bound_low_comp = proto_message.bound_low_comp,
+            bound_high_comp = proto_message.bound_high_comp,
+            rebound = proto_message.rebound,
+            preload = proto_message.preload,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -142,7 +154,7 @@ class Damper:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -150,18 +162,6 @@ class Damper:
         message = car_config_pb2.Damper()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "Damper":
-        return cls(
-            bound_low_comp = proto_message.bound_low_comp,
-            bound_high_comp = proto_message.bound_high_comp,
-            rebound = proto_message.rebound,
-            preload = proto_message.preload,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
 
 @dataclass
 class CarConfig:
@@ -180,29 +180,46 @@ class CarConfig:
     def __post_init__(self):
         self._proto_message = car_config_pb2.CarConfig()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         if self.aero:
-            self.aero.populate_proto()
+            self.aero._populate_proto()
             self._proto_message.aero.CopyFrom(self.aero._proto_message)
         if self.wheelFront:
-            self.wheelFront.populate_proto()
+            self.wheelFront._populate_proto()
             self._proto_message.wheelFront.CopyFrom(self.wheelFront._proto_message)
         if self.wheelRear:
-            self.wheelRear.populate_proto()
+            self.wheelRear._populate_proto()
             self._proto_message.wheelRear.CopyFrom(self.wheelRear._proto_message)
         if self.damperFront:
-            self.damperFront.populate_proto()
+            self.damperFront._populate_proto()
             self._proto_message.damperFront.CopyFrom(self.damperFront._proto_message)
         if self.damperRear:
-            self.damperRear.populate_proto()
+            self.damperRear._populate_proto()
             self._proto_message.damperRear.CopyFrom(self.damperRear._proto_message)
         self._proto_message.wheelCompound = self.wheelCompound
         self._proto_message.rideHeight = self.rideHeight
         self._proto_message.balancing = self.balancing
         self._proto_message.notes = self.notes
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "CarConfig":
+        return cls(
+            aero = Aero._from_proto(proto_message.aero),
+            wheelFront = Wheel._from_proto(proto_message.wheelFront),
+            wheelRear = Wheel._from_proto(proto_message.wheelRear),
+            damperFront = Damper._from_proto(proto_message.damperFront),
+            damperRear = Damper._from_proto(proto_message.damperRear),
+            wheelCompound = proto_message.wheelCompound,
+            rideHeight = proto_message.rideHeight,
+            balancing = proto_message.balancing,
+            notes = proto_message.notes,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -211,27 +228,27 @@ class CarConfig:
         message.ParseFromString(data)
         return cls(
             aero = (
-                Aero.from_proto(message.aero)
+                Aero._from_proto(message.aero)
                 if message.HasField("aero")
                 else None
             ),
             wheelFront = (
-                Wheel.from_proto(message.wheelFront)
+                Wheel._from_proto(message.wheelFront)
                 if message.HasField("wheelFront")
                 else None
             ),
             wheelRear = (
-                Wheel.from_proto(message.wheelRear)
+                Wheel._from_proto(message.wheelRear)
                 if message.HasField("wheelRear")
                 else None
             ),
             damperFront = (
-                Damper.from_proto(message.damperFront)
+                Damper._from_proto(message.damperFront)
                 if message.HasField("damperFront")
                 else None
             ),
             damperRear = (
-                Damper.from_proto(message.damperRear)
+                Damper._from_proto(message.damperRear)
                 if message.HasField("damperRear")
                 else None
             ),
@@ -242,7 +259,7 @@ class CarConfig:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -250,20 +267,3 @@ class CarConfig:
         message = car_config_pb2.CarConfig()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "CarConfig":
-        return cls(
-            aero = Aero.from_proto(proto_message.aero),
-            wheelFront = Wheel.from_proto(proto_message.wheelFront),
-            wheelRear = Wheel.from_proto(proto_message.wheelRear),
-            damperFront = Damper.from_proto(proto_message.damperFront),
-            damperRear = Damper.from_proto(proto_message.damperRear),
-            wheelCompound = proto_message.wheelCompound,
-            rideHeight = proto_message.rideHeight,
-            balancing = proto_message.balancing,
-            notes = proto_message.notes,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()

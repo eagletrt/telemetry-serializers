@@ -16,12 +16,22 @@ class Command:
     def __post_init__(self):
         self._proto_message = command_pb2.Command()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.input = self.input
         self._proto_message.output = self.output
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "Command":
+        return cls(
+            input = proto_message.input,
+            output = proto_message.output,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -34,7 +44,7 @@ class Command:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -42,13 +52,3 @@ class Command:
         message = command_pb2.Command()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "Command":
-        return cls(
-            input = proto_message.input,
-            output = proto_message.output,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()

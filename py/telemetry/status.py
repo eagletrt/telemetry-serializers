@@ -26,14 +26,26 @@ class MessagesPerSecond:
     def __post_init__(self):
         self._proto_message = status_pb2.MessagesPerSecond()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.deviceName = self.deviceName
         self._proto_message.bitsPerSecond = self.bitsPerSecond
         self._proto_message.busLoad = self.busLoad
         self._proto_message.count = self.count
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "MessagesPerSecond":
+        return cls(
+            deviceName = proto_message.deviceName,
+            bitsPerSecond = proto_message.bitsPerSecond,
+            busLoad = proto_message.busLoad,
+            count = proto_message.count,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -48,7 +60,7 @@ class MessagesPerSecond:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -56,18 +68,6 @@ class MessagesPerSecond:
         message = status_pb2.MessagesPerSecond()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "MessagesPerSecond":
-        return cls(
-            deviceName = proto_message.deviceName,
-            bitsPerSecond = proto_message.bitsPerSecond,
-            busLoad = proto_message.busLoad,
-            count = proto_message.count,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
 
 @dataclass
 class Status:
@@ -86,25 +86,40 @@ class Status:
     def __post_init__(self):
         self._proto_message = status_pb2.Status()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.timestamp = self.timestamp
         self._proto_message.zeroTimestamp = self.zeroTimestamp
-        if self.state:
-            self.state.populate_proto()
-            self._proto_message.state.CopyFrom(self.state._proto_message)
+        self._proto_message.state = self.state.value
         self._proto_message.cpuTotalLoad = self.cpuTotalLoad
         self._proto_message.cpuProcessLoad = self.cpuProcessLoad
         self._proto_message.memProcessLoad = self.memProcessLoad
         self._proto_message.canlibBuildTime = self.canlibBuildTime
         self._proto_message.telemetryBuildTime = self.telemetryBuildTime
         del self._proto_message.messagesPerSecond[:]
-        for value in self.messagesPerSecond:
-            value.populate_proto()
+        for val in self.messagesPerSecond:
+            val._populate_proto()
             tmp = self._proto_message.messagesPerSecond.add()
-            tmp.CopyFrom(value._proto_message)
+            tmp.CopyFrom(val._proto_message)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "Status":
+        return cls(
+            timestamp = proto_message.timestamp,
+            zeroTimestamp = proto_message.zeroTimestamp,
+            state = TelemetryState._from_proto(proto_message.state),
+            cpuTotalLoad = proto_message.cpuTotalLoad,
+            cpuProcessLoad = proto_message.cpuProcessLoad,
+            memProcessLoad = proto_message.memProcessLoad,
+            canlibBuildTime = proto_message.canlibBuildTime,
+            telemetryBuildTime = proto_message.telemetryBuildTime,
+            messagesPerSecond=[MessagesPerSecond._from_proto(val) for val in proto_message.messagesPerSecond],
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
 
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -114,21 +129,17 @@ class Status:
         return cls(
             timestamp = message.timestamp,
             zeroTimestamp = message.zeroTimestamp,
-            state = (
-                TelemetryState.from_proto(message.state)
-                if message.HasField("state")
-                else None
-            ),
+            state = TelemetryState(message.state),
             cpuTotalLoad = message.cpuTotalLoad,
             cpuProcessLoad = message.cpuProcessLoad,
             memProcessLoad = message.memProcessLoad,
             canlibBuildTime = message.canlibBuildTime,
             telemetryBuildTime = message.telemetryBuildTime,
-            messagesPerSecond = [MessagesPerSecond.from_proto(value) for value in message.messagesPerSecond],
+            messagesPerSecond = [MessagesPerSecond._from_proto(val) for val in message.messagesPerSecond],
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -136,20 +147,3 @@ class Status:
         message = status_pb2.Status()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "Status":
-        return cls(
-            timestamp = proto_message.timestamp,
-            zeroTimestamp = proto_message.zeroTimestamp,
-            state = TelemetryState.from_proto(proto_message.state),
-            cpuTotalLoad = proto_message.cpuTotalLoad,
-            cpuProcessLoad = proto_message.cpuProcessLoad,
-            memProcessLoad = proto_message.memProcessLoad,
-            canlibBuildTime = proto_message.canlibBuildTime,
-            telemetryBuildTime = proto_message.telemetryBuildTime,
-            messagesPerSecond = MessagesPerSecond.from_proto(proto_message.messagesPerSecond),
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()

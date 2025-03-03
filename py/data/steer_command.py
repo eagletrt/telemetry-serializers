@@ -15,11 +15,20 @@ class SteerCommand:
     def __post_init__(self):
         self._proto_message = steer_command_pb2.SteerCommand()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.angleDegrees = self.angleDegrees
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "SteerCommand":
+        return cls(
+            angleDegrees = proto_message.angleDegrees,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -31,7 +40,7 @@ class SteerCommand:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -39,15 +48,6 @@ class SteerCommand:
         message = steer_command_pb2.SteerCommand()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "SteerCommand":
-        return cls(
-            angleDegrees = proto_message.angleDegrees,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
 class Status(Enum):
     steer_status_disabled = 0
     steer_status_enabled = 1
@@ -62,13 +62,20 @@ class SteerStatus:
     def __post_init__(self):
         self._proto_message = steer_command_pb2.SteerStatus()
 
-    def populate_proto(self):
-        if self.status:
-            self.status.populate_proto()
-            self._proto_message.status.CopyFrom(self.status._proto_message)
+    def _populate_proto(self):
+        self._proto_message.status = self.status.value
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "SteerStatus":
+        return cls(
+            status = Status._from_proto(proto_message.status),
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
 
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -76,15 +83,11 @@ class SteerStatus:
         message = steer_command_pb2.SteerStatus()
         message.ParseFromString(data)
         return cls(
-            status = (
-                Status.from_proto(message.status)
-                if message.HasField("status")
-                else None
-            ),
+            status = Status(message.status),
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -92,12 +95,3 @@ class SteerStatus:
         message = steer_command_pb2.SteerStatus()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "SteerStatus":
-        return cls(
-            status = Status.from_proto(proto_message.status),
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()

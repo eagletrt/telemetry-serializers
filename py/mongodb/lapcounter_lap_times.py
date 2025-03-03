@@ -18,18 +18,28 @@ class LapTime:
     def __post_init__(self):
         self._proto_message = lapcounter_lap_times_pb2.LapTime()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.number = self.number
         self._proto_message.start_timestamp = self.start_timestamp
         self._proto_message.end_timestamp = self.end_timestamp
         del self._proto_message.sectors[:]
-        for value in self.sectors:
-            value.populate_proto()
-            tmp = self._proto_message.sectors.add()
-            tmp.CopyFrom(value._proto_message)
+        for val in self.sectors:
+            self._proto_message.sectors.append(val)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "LapTime":
+        return cls(
+            number = proto_message.number,
+            start_timestamp = proto_message.start_timestamp,
+            end_timestamp = proto_message.end_timestamp,
+            sectors=[int(val) for val in proto_message.sectors],
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
 
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -40,11 +50,11 @@ class LapTime:
             number = message.number,
             start_timestamp = message.start_timestamp,
             end_timestamp = message.end_timestamp,
-            sectors = [int(value) for value in message.sectors],
+            sectors = [int(val) for val in message.sectors],
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -52,18 +62,6 @@ class LapTime:
         message = lapcounter_lap_times_pb2.LapTime()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "LapTime":
-        return cls(
-            number = proto_message.number,
-            start_timestamp = proto_message.start_timestamp,
-            end_timestamp = proto_message.end_timestamp,
-            sectors = proto_message.sectors,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
 
 @dataclass
 class LapTimes:
@@ -81,7 +79,7 @@ class LapTimes:
     def __post_init__(self):
         self._proto_message = lapcounter_lap_times_pb2.LapTimes()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.version = self.version
         self._proto_message.baseline_version = self.baseline_version
         self._proto_message.vehicle_id = self.vehicle_id
@@ -90,13 +88,29 @@ class LapTimes:
         self._proto_message.layout = self.layout
         self._proto_message.driver = self.driver
         del self._proto_message.times[:]
-        for value in self.times:
-            value.populate_proto()
+        for val in self.times:
+            val._populate_proto()
             tmp = self._proto_message.times.add()
-            tmp.CopyFrom(value._proto_message)
+            tmp.CopyFrom(val._proto_message)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "LapTimes":
+        return cls(
+            version = proto_message.version,
+            baseline_version = proto_message.baseline_version,
+            vehicle_id = proto_message.vehicle_id,
+            device_id = proto_message.device_id,
+            location = proto_message.location,
+            layout = proto_message.layout,
+            driver = proto_message.driver,
+            times=[LapTime._from_proto(val) for val in proto_message.times],
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
 
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -111,11 +125,11 @@ class LapTimes:
             location = message.location,
             layout = message.layout,
             driver = message.driver,
-            times = [LapTime.from_proto(value) for value in message.times],
+            times = [LapTime._from_proto(val) for val in message.times],
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -123,19 +137,3 @@ class LapTimes:
         message = lapcounter_lap_times_pb2.LapTimes()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "LapTimes":
-        return cls(
-            version = proto_message.version,
-            baseline_version = proto_message.baseline_version,
-            vehicle_id = proto_message.vehicle_id,
-            device_id = proto_message.device_id,
-            location = proto_message.location,
-            layout = proto_message.layout,
-            driver = proto_message.driver,
-            times = LapTime.from_proto(proto_message.times),
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()

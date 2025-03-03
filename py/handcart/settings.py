@@ -10,7 +10,7 @@ from google.protobuf.json_format import MessageToJson, Parse
 class Settings:
     status: int = 0
     targetVoltage: float = 0.0
-    fansOverride: bool = ""
+    fansOverride: bool = False
     fansSpeed: float = 0.0
     accChargeCurrent: float = 0.0
     gridMaxCurrent: float = 0.0
@@ -20,7 +20,7 @@ class Settings:
     def __post_init__(self):
         self._proto_message = settings_pb2.Settings()
 
-    def populate_proto(self):
+    def _populate_proto(self):
         self._proto_message.status = self.status
         self._proto_message.targetVoltage = self.targetVoltage
         self._proto_message.fansOverride = self.fansOverride
@@ -28,8 +28,22 @@ class Settings:
         self._proto_message.accChargeCurrent = self.accChargeCurrent
         self._proto_message.gridMaxCurrent = self.gridMaxCurrent
 
+    @classmethod
+    def _from_proto(cls, proto_message) -> "Settings":
+        return cls(
+            status = proto_message.status,
+            targetVoltage = proto_message.targetVoltage,
+            fansOverride = proto_message.fansOverride,
+            fansSpeed = proto_message.fansSpeed,
+            accChargeCurrent = proto_message.accChargeCurrent,
+            gridMaxCurrent = proto_message.gridMaxCurrent,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
     def serializeAsProtobufString(self) -> bytes:
-        self.populate_proto()
+        self._populate_proto()
         return self._proto_message.SerializeToString()
 
     @classmethod
@@ -46,7 +60,7 @@ class Settings:
         )
 
     def serializeAsJsonString(self) -> str:
-        self.populate_proto()
+        self._populate_proto()
         return MessageToJson(self._proto_message)
 
     @classmethod
@@ -54,17 +68,3 @@ class Settings:
         message = settings_pb2.Settings()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
-
-    @classmethod
-    def from_proto(cls, proto_message) -> "Settings":
-        return cls(
-            status = proto_message.status,
-            targetVoltage = proto_message.targetVoltage,
-            fansOverride = proto_message.fansOverride,
-            fansSpeed = proto_message.fansSpeed,
-            accChargeCurrent = proto_message.accChargeCurrent,
-            gridMaxCurrent = proto_message.gridMaxCurrent,
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
