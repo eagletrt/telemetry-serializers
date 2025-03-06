@@ -24,6 +24,6 @@ from .actions import command
 from .data import telemetry_lap_data
 from .data import vehicle_state
 from .data import extra
-from .data import dv_commands
+from .data import as_commands
 from .sessions import gpsSession
 from .influxlogger import configuration

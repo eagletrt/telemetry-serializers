@@ -36,7 +36,7 @@ add_library(
     src/data/telemetry_lap_data.cpp
     src/data/vehicle_state.cpp
     src/data/extra.cpp
-    src/data/dv_commands.cpp
+    src/data/as_commands.cpp
     src/sessions/gpsSession.cpp
     src/influxlogger/configuration.cpp
 )

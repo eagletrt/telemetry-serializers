@@ -1,7 +1,7 @@
-#ifndef SERIALIZERS_DV_COMMANDS_H
-#define SERIALIZERS_DV_COMMANDS_H
+#ifndef SERIALIZERS_AS_COMMANDS_H
+#define SERIALIZERS_AS_COMMANDS_H
 
-#include "dv_commands.pb.h"
+#include "as_commands.pb.h"
 
 #include <cstdint>
 #include <string>
@@ -12,15 +12,15 @@ namespace Serializers
 {
 namespace Data
 {
-struct ActuatorsCommands
+struct ASCommands
 {
     double steerAngleDegrees;
     double pedalThrottle;
     double pedalBrakes;
     
-    ActuatorsCommands() = default;
-    ActuatorsCommands(const PbData::ActuatorsCommands& protobuf);
-    operator PbData::ActuatorsCommands() const;
+    ASCommands() = default;
+    ASCommands(const PbData::ASCommands& protobuf);
+    operator PbData::ASCommands() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -34,15 +34,15 @@ enum class Status
     status_enabled = 1
 };
 
-struct ActuatorsStatus
+struct ASStatus
 {
     Status steerStatus;
     Status throttleStatus;
     Status brakesStatus;
     
-    ActuatorsStatus() = default;
-    ActuatorsStatus(const PbData::ActuatorsStatus& protobuf);
-    operator PbData::ActuatorsStatus() const;
+    ASStatus() = default;
+    ASStatus(const PbData::ASStatus& protobuf);
+    operator PbData::ASStatus() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

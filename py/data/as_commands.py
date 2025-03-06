@@ -2,20 +2,20 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Dict
 
-from data import dv_commands_pb2
+from data import as_commands_pb2
 from google.protobuf.json_format import MessageToJson, Parse
 
 
 @dataclass
-class ActuatorsCommands:
+class ASCommands:
     steerAngleDegrees: float = 0.0
     pedalThrottle: float = 0.0
     pedalBrakes: float = 0.0
     
-    _proto_message: dv_commands_pb2.ActuatorsCommands = field(init=False, repr=False)
+    _proto_message: as_commands_pb2.ASCommands = field(init=False, repr=False)
 
     def __post_init__(self):
-        self._proto_message = dv_commands_pb2.ActuatorsCommands()
+        self._proto_message = as_commands_pb2.ASCommands()
 
     def _populate_proto(self):
         self._proto_message.steerAngleDegrees = self.steerAngleDegrees
@@ -23,7 +23,7 @@ class ActuatorsCommands:
         self._proto_message.pedalBrakes = self.pedalBrakes
 
     @classmethod
-    def _from_proto(cls, proto_message) -> "ActuatorsCommands":
+    def _from_proto(cls, proto_message) -> "ASCommands":
         return cls(
             steerAngleDegrees = proto_message.steerAngleDegrees,
             pedalThrottle = proto_message.pedalThrottle,
@@ -38,8 +38,8 @@ class ActuatorsCommands:
         return self._proto_message.SerializeToString()
 
     @classmethod
-    def deserializeFromProtobufString(cls, data: bytes) -> "ActuatorsCommands":
-        message = dv_commands_pb2.ActuatorsCommands()
+    def deserializeFromProtobufString(cls, data: bytes) -> "ASCommands":
+        message = as_commands_pb2.ASCommands()
         message.ParseFromString(data)
         return cls(
             steerAngleDegrees = message.steerAngleDegrees,
@@ -52,8 +52,8 @@ class ActuatorsCommands:
         return MessageToJson(self._proto_message)
 
     @classmethod
-    def deserializeFromJsonString(cls, data: str) -> "ActuatorsCommands":
-        message = dv_commands_pb2.ActuatorsCommands()
+    def deserializeFromJsonString(cls, data: str) -> "ASCommands":
+        message = as_commands_pb2.ASCommands()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
 class Status(Enum):
@@ -62,15 +62,15 @@ class Status(Enum):
 
 
 @dataclass
-class ActuatorsStatus:
+class ASStatus:
     steerStatus: Status = None
     throttleStatus: Status = None
     brakesStatus: Status = None
     
-    _proto_message: dv_commands_pb2.ActuatorsStatus = field(init=False, repr=False)
+    _proto_message: as_commands_pb2.ASStatus = field(init=False, repr=False)
 
     def __post_init__(self):
-        self._proto_message = dv_commands_pb2.ActuatorsStatus()
+        self._proto_message = as_commands_pb2.ASStatus()
 
     def _populate_proto(self):
         self._proto_message.steerStatus = self.steerStatus.value
@@ -78,7 +78,7 @@ class ActuatorsStatus:
         self._proto_message.brakesStatus = self.brakesStatus.value
 
     @classmethod
-    def _from_proto(cls, proto_message) -> "ActuatorsStatus":
+    def _from_proto(cls, proto_message) -> "ASStatus":
         return cls(
             steerStatus = Status._from_proto(proto_message.steerStatus),
             throttleStatus = Status._from_proto(proto_message.throttleStatus),
@@ -93,8 +93,8 @@ class ActuatorsStatus:
         return self._proto_message.SerializeToString()
 
     @classmethod
-    def deserializeFromProtobufString(cls, data: bytes) -> "ActuatorsStatus":
-        message = dv_commands_pb2.ActuatorsStatus()
+    def deserializeFromProtobufString(cls, data: bytes) -> "ASStatus":
+        message = as_commands_pb2.ASStatus()
         message.ParseFromString(data)
         return cls(
             steerStatus = Status(message.steerStatus),
@@ -107,7 +107,7 @@ class ActuatorsStatus:
         return MessageToJson(self._proto_message)
 
     @classmethod
-    def deserializeFromJsonString(cls, data: str) -> "ActuatorsStatus":
-        message = dv_commands_pb2.ActuatorsStatus()
+    def deserializeFromJsonString(cls, data: str) -> "ASStatus":
+        message = as_commands_pb2.ASStatus()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
