@@ -1,0 +1,60 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ValuesMap",
+    "definitions": {
+        "PbData.RepeatedValueDouble": {
+            "required": [
+                "values"
+            ],
+            "properties": {
+                "values": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Repeated Value Double"
+        },
+        "PbData.RepeatedValueUint64": {
+            "required": [
+                "values"
+            ],
+            "properties": {
+                "values": {
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Repeated Value Uint 64"
+        },
+        "ValuesMap": {
+            "required": [
+                "timestamp",
+                "valuesMap"
+            ],
+            "properties": {
+                "timestamp": {
+                    "$ref": "#/definitions/PbData.RepeatedValueUint64",
+                    "additionalProperties": false
+                },
+                "valuesMap": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbData.RepeatedValueDouble",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Values Map"
+        }
+    }
+}

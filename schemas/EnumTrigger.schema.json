@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/EnumTrigger",
+    "definitions": {
+        "EnumTrigger": {
+            "required": [
+                "id",
+                "message",
+                "signal",
+                "comparator",
+                "value",
+                "color"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "signal": {
+                    "type": "string"
+                },
+                "comparator": {
+                    "type": "integer"
+                },
+                "value": {
+                    "type": "integer"
+                },
+                "color": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Enum Trigger"
+        }
+    }
+}

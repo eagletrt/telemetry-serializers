@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package PbApp;
+
+
+message CustomPlotItem
+{
+    string messageAxisX = 1;
+    string messageAxisY = 2;
+    string signalAxisX = 3;
+    string signalAxisY = 4;
+    bool isEnum = 5;
+    uint32 color = 6;
+}
+
+message CustomPlotAxis 
+{
+    string label = 1;
+    repeated CustomPlotItem items = 2;
+}
+
+message NewCustomPlot
+{
+    string title = 1;
+    map<int32, CustomPlotAxis> axes = 2;
+}
+
+message CustomSubPlots
+{
+    uint32 rows = 1;
+    repeated NewCustomPlot plots = 2;
+}
+
+message CustomPlotsTab
+{
+    repeated CustomSubPlots subPlots = 1;
+}
+
+message AppData
+{
+    map<string, CustomPlotsTab> customPlotsTabs = 4;
+}

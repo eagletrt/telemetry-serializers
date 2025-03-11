@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Line",
+    "definitions": {
+        "Line": {
+            "required": [
+                "position",
+                "direction"
+            ],
+            "properties": {
+                "position": {
+                    "$ref": "#/definitions/PbLapCounter.Vector",
+                    "additionalProperties": false
+                },
+                "direction": {
+                    "$ref": "#/definitions/PbLapCounter.Vector",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Line"
+        },
+        "PbLapCounter.Vector": {
+            "required": [
+                "x",
+                "y"
+            ],
+            "properties": {
+                "x": {
+                    "type": "number"
+                },
+                "y": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Vector"
+        }
+    }
+}

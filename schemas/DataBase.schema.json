@@ -1,0 +1,226 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/DataBase",
+    "definitions": {
+        "DataBase": {
+            "required": [
+                "layouts",
+                "drivers",
+                "records",
+                "last_id",
+                "lap_number"
+            ],
+            "properties": {
+                "layouts": {
+                    "items": {
+                        "$ref": "#/definitions/PbLapCounter.TrackLayout"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "drivers": {
+                    "items": {
+                        "$ref": "#/definitions/PbLapCounter.Driver"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "records": {
+                    "items": {
+                        "$ref": "#/definitions/PbLapCounter.TrackRecord"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "last_id": {
+                    "type": "integer"
+                },
+                "lap_number": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Data Base"
+        },
+        "PbLapCounter.Driver": {
+            "required": [
+                "name",
+                "times"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "times": {
+                    "items": {
+                        "$ref": "#/definitions/PbLapCounter.Time"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Driver"
+        },
+        "PbLapCounter.DriverRecord": {
+            "required": [
+                "driver",
+                "start_timestamp",
+                "end_timestamp",
+                "sectors_timestamp"
+            ],
+            "properties": {
+                "driver": {
+                    "type": "string"
+                },
+                "start_timestamp": {
+                    "type": "integer"
+                },
+                "end_timestamp": {
+                    "type": "integer"
+                },
+                "sectors_timestamp": {
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Driver Record"
+        },
+        "PbLapCounter.LcPoint": {
+            "required": [
+                "position_x",
+                "position_y",
+                "inclination_x",
+                "inclination_y"
+            ],
+            "properties": {
+                "position_x": {
+                    "type": "number"
+                },
+                "position_y": {
+                    "type": "number"
+                },
+                "inclination_x": {
+                    "type": "number"
+                },
+                "inclination_y": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Lc Point"
+        },
+        "PbLapCounter.Time": {
+            "required": [
+                "layout_id",
+                "lap_number",
+                "driver_name",
+                "start_timestamp",
+                "end_timestamp",
+                "sectors_timestamp"
+            ],
+            "properties": {
+                "layout_id": {
+                    "type": "integer"
+                },
+                "lap_number": {
+                    "type": "integer"
+                },
+                "driver_name": {
+                    "type": "string"
+                },
+                "start_timestamp": {
+                    "type": "integer"
+                },
+                "end_timestamp": {
+                    "type": "integer"
+                },
+                "sectors_timestamp": {
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Time"
+        },
+        "PbLapCounter.TrackLayout": {
+            "required": [
+                "layout_id",
+                "name",
+                "start1",
+                "start2",
+                "sector_count",
+                "sectors"
+            ],
+            "properties": {
+                "layout_id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "start1": {
+                    "$ref": "#/definitions/PbLapCounter.LcPoint",
+                    "additionalProperties": false
+                },
+                "start2": {
+                    "$ref": "#/definitions/PbLapCounter.LcPoint",
+                    "additionalProperties": false
+                },
+                "sector_count": {
+                    "type": "integer"
+                },
+                "sectors": {
+                    "items": {
+                        "$ref": "#/definitions/PbLapCounter.LcPoint"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Track Layout"
+        },
+        "PbLapCounter.TrackRecord": {
+            "required": [
+                "layout_id",
+                "lap_number",
+                "best_lap",
+                "best_sectors"
+            ],
+            "properties": {
+                "layout_id": {
+                    "type": "integer"
+                },
+                "lap_number": {
+                    "type": "integer"
+                },
+                "best_lap": {
+                    "$ref": "#/definitions/PbLapCounter.DriverRecord",
+                    "additionalProperties": false
+                },
+                "best_sectors": {
+                    "items": {
+                        "$ref": "#/definitions/PbLapCounter.DriverRecord"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Track Record"
+        }
+    }
+}

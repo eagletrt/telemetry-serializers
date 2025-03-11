@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package PbMongoDb;
+
+message LapRecord
+{
+    string driver = 1;
+    uint64 start = 2;
+    uint64 end = 3;
+    repeated uint64 sectors = 4;
+}
+
+message SectorsRecord
+{
+    string driver = 1;
+    uint64 start_time_sector = 2;
+    uint64 end_time_sector = 3;
+}
+
+message DriverRecord
+{
+    string driver = 1;
+    LapRecord best_lap = 2;
+    repeated SectorsRecord best_sectors = 3;
+}
+
+message LapRecords
+{
+    int32 version = 2;
+    int32 baseline_version = 3;
+    string vehicle_id = 4;
+    string device_id = 5;
+    string location = 6;
+    string layout = 7;
+    LapRecord best_lap = 8;
+    repeated SectorsRecord best_sectors = 9;
+    repeated DriverRecord drivers_records = 10;
+}

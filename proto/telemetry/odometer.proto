@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package PbTelemetry;
+
+message Odometer
+{
+    string startDate = 1;
+    double kilometers = 2;
+}

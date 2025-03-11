@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package PbData;
+
+message ASCommands{
+    double steerAngleDegrees = 1;
+    double pedalThrottle = 2;
+    double pedalBrakes = 3;
+}
+
+enum Status {
+    status_disabled = 0;
+    status_enabled = 1;
+}
+message ASStatus{
+    Status steerStatus = 1;
+    Status throttleStatus = 2;
+    Status brakesStatus = 3;
+}

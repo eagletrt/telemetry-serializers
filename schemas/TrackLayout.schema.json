@@ -1,0 +1,70 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/TrackLayout",
+    "definitions": {
+        "PbLapCounter.LcPoint": {
+            "required": [
+                "position_x",
+                "position_y",
+                "inclination_x",
+                "inclination_y"
+            ],
+            "properties": {
+                "position_x": {
+                    "type": "number"
+                },
+                "position_y": {
+                    "type": "number"
+                },
+                "inclination_x": {
+                    "type": "number"
+                },
+                "inclination_y": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Lc Point"
+        },
+        "TrackLayout": {
+            "required": [
+                "layout_id",
+                "name",
+                "start1",
+                "start2",
+                "sector_count",
+                "sectors"
+            ],
+            "properties": {
+                "layout_id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "start1": {
+                    "$ref": "#/definitions/PbLapCounter.LcPoint",
+                    "additionalProperties": false
+                },
+                "start2": {
+                    "$ref": "#/definitions/PbLapCounter.LcPoint",
+                    "additionalProperties": false
+                },
+                "sector_count": {
+                    "type": "integer"
+                },
+                "sectors": {
+                    "items": {
+                        "$ref": "#/definitions/PbLapCounter.LcPoint"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Track Layout"
+        }
+    }
+}

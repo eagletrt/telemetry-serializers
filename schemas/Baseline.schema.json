@@ -1,0 +1,59 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Baseline",
+    "definitions": {
+        "Baseline": {
+            "required": [
+                "valid",
+                "logging",
+                "length",
+                "x",
+                "y",
+                "resampled",
+                "s",
+                "theta"
+            ],
+            "properties": {
+                "valid": {
+                    "type": "boolean"
+                },
+                "logging": {
+                    "type": "boolean"
+                },
+                "length": {
+                    "type": "number"
+                },
+                "x": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "y": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "resampled": {
+                    "type": "boolean"
+                },
+                "s": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "theta": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Baseline"
+        }
+    }
+}

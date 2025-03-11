@@ -1,0 +1,63 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/SetBaseline",
+    "definitions": {
+        "PbTelemetry.GPSMapOrigin": {
+            "required": [
+                "latitude",
+                "longitude",
+                "altitude"
+            ],
+            "properties": {
+                "latitude": {
+                    "type": "number"
+                },
+                "longitude": {
+                    "type": "number"
+                },
+                "altitude": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "GPS Map Origin"
+        },
+        "SetBaseline": {
+            "required": [
+                "trackLocation",
+                "trackLayout",
+                "origin",
+                "x",
+                "y"
+            ],
+            "properties": {
+                "trackLocation": {
+                    "type": "string"
+                },
+                "trackLayout": {
+                    "type": "string"
+                },
+                "origin": {
+                    "$ref": "#/definitions/PbTelemetry.GPSMapOrigin",
+                    "additionalProperties": false
+                },
+                "x": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "y": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Set Baseline"
+        }
+    }
+}

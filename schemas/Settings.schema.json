@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Settings",
+    "definitions": {
+        "Settings": {
+            "required": [
+                "status",
+                "targetVoltage",
+                "fansOverride",
+                "fansSpeed",
+                "accChargeCurrent",
+                "gridMaxCurrent"
+            ],
+            "properties": {
+                "status": {
+                    "type": "integer"
+                },
+                "targetVoltage": {
+                    "type": "number"
+                },
+                "fansOverride": {
+                    "type": "boolean"
+                },
+                "fansSpeed": {
+                    "type": "number"
+                },
+                "accChargeCurrent": {
+                    "type": "number"
+                },
+                "gridMaxCurrent": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Settings"
+        }
+    }
+}

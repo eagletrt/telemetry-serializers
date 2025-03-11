@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Time",
+    "definitions": {
+        "Time": {
+            "required": [
+                "layout_id",
+                "lap_number",
+                "driver_name",
+                "start_timestamp",
+                "end_timestamp",
+                "sectors_timestamp"
+            ],
+            "properties": {
+                "layout_id": {
+                    "type": "integer"
+                },
+                "lap_number": {
+                    "type": "integer"
+                },
+                "driver_name": {
+                    "type": "string"
+                },
+                "start_timestamp": {
+                    "type": "integer"
+                },
+                "end_timestamp": {
+                    "type": "integer"
+                },
+                "sectors_timestamp": {
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Time"
+        }
+    }
+}

@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package PbConfigs;
+
+message CanDevice
+{
+    string socket = 1;
+    string name = 2;
+    repeated string networks = 3;
+}
+
+message GpsDevice
+{
+    string address = 1;
+    string mode = 2;
+    bool enabled = 3;
+}
+
+message Connection
+{
+    string ip = 1;
+    string port = 2;
+    string mode = 3;
+    string whoamiUrl = 4;
+    bool tlsEnabled = 5;
+    string cafile = 6;
+    string capath = 7;
+    string certfile = 8;
+    string keyfile = 9;
+}
+
+message ConnectionSettings
+{
+    bool enabled = 1;
+    bool downsampleEnabled = 2;
+    bool downsampleSkipData = 3;
+    int64 downsampleMps = 4;
+    int64 sendRate = 5;
+    bool sendSensorData = 6;
+}
+
+message TpmsSensorIds
+{
+    uint32 fl = 1;
+    uint32 fr = 2;
+    uint32 rl = 3;
+    uint32 rr = 4;
+}
+
+message TpmsSensors
+{
+    bool enabled = 1;
+    string rtl433Path = 2;
+    bool recordSignals = 3;
+    TpmsSensorIds sensorIds = 4;
+}
+
+message TelemetryConfig
+{
+    string vehicleId = 1;
+    string deviceId = 2;
+    uint64 role = 3;
+    bool cameraEnabled = 4;
+    bool generateCsv = 5;
+    bool waitForReady = 6;
+    Connection connection = 7;
+    ConnectionSettings connectionSettings = 8;
+    repeated CanDevice canDevices = 9;
+    repeated GpsDevice gpsDevices = 10;
+    TpmsSensors tpmsSensors = 11;
+}

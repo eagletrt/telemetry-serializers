@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package PbLapCounter;
+
+message LcPoint
+{
+    double position_x = 10;
+    double position_y = 20;
+    double inclination_x = 30;
+    double inclination_y = 40;
+}
+
+message TrackLayout
+{
+    int32 layout_id = 10;
+    string name = 20;
+    LcPoint start1 = 30;
+    LcPoint start2 = 40;
+    int32 sector_count = 50;
+    repeated LcPoint sectors = 60;
+}
+
+message Time
+{
+    int32 layout_id = 10;
+    uint32 lap_number = 20;
+    string driver_name = 30;
+    uint64 start_timestamp = 40;
+    uint64 end_timestamp = 50;
+    repeated uint64 sectors_timestamp = 60;
+}
+
+message DriverRecord
+{
+    string driver = 10;
+    uint64 start_timestamp = 20;
+    uint64 end_timestamp = 30;
+    repeated uint64 sectors_timestamp = 40;
+}
+
+message TrackRecord
+{
+    int32 layout_id = 10;
+    uint32 lap_number = 20;
+    DriverRecord best_lap = 30;
+    repeated DriverRecord best_sectors = 40;
+}
+
+message Driver
+{
+    string name = 10;
+    repeated Time times = 20;
+}
+
+message DataBase
+{
+    repeated TrackLayout layouts = 10;
+    repeated Driver drivers = 20;
+    repeated TrackRecord records = 30;
+    int32 last_id = 40;
+    uint32 lap_number = 50;
+}

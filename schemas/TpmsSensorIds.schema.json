@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/TpmsSensorIds",
+    "definitions": {
+        "TpmsSensorIds": {
+            "required": [
+                "fl",
+                "fr",
+                "rl",
+                "rr"
+            ],
+            "properties": {
+                "fl": {
+                    "type": "integer"
+                },
+                "fr": {
+                    "type": "integer"
+                },
+                "rl": {
+                    "type": "integer"
+                },
+                "rr": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Tpms Sensor Ids"
+        }
+    }
+}

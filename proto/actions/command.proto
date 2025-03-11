@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package PbActions;
+
+message Command
+{
+    string input = 1;
+    string output = 2;
+}

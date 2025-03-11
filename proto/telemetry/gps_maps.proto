@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package PbTelemetry;
+
+message Baseline {
+  bool valid = 1;
+  bool logging = 2;
+  double length = 3;
+  repeated double x = 4;
+  repeated double y = 5;
+
+  bool resampled = 6;
+  repeated double s = 7;
+  repeated double theta = 8;
+}
+
+message GPSMapOrigin {
+  double latitude = 1;
+  double longitude = 2;
+  double altitude = 3;
+}
+
+message GPSMapOrigins {
+  string trackLocation = 1;
+  string trackLayout = 2;
+  map<string, GPSMapOrigin> origins = 3;
+  map<string, Baseline> tracksBaseline = 4;
+}
+
+message SetBaseline {
+  string trackLocation = 1;
+  string trackLayout = 2;
+  GPSMapOrigin origin = 3;
+  repeated double x = 4;
+  repeated double y = 5;
+}

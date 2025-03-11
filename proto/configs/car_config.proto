@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package PbConfigs;
+
+message Aero
+{
+    double angleOfIncidenceFront = 1;
+    double angleOfIncidenceRear = 2;
+    string flap = 3;
+}
+
+message Wheel
+{
+    double camber = 1;
+    double toe = 2;
+    string pressure = 3;
+}
+
+message Damper 
+{
+    double bound_low_comp = 1;
+    double bound_high_comp = 2;
+    double rebound = 3;
+    double preload = 4;
+}
+
+message CarConfig
+{
+    Aero aero = 1;
+    Wheel wheelFront = 2;
+    Wheel wheelRear = 3;
+    Damper damperFront = 4;
+    Damper damperRear = 5;
+    string wheelCompound = 6;
+    double rideHeight = 7;
+    string balancing = 8;
+    string notes = 9;
+}

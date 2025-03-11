@@ -1,0 +1,83 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Rtl433Payload",
+    "definitions": {
+        "Rtl433Payload": {
+            "required": [
+                "time",
+                "model",
+                "id",
+                "pressure",
+                "temperature",
+                "acceleration",
+                "battery",
+                "interframe",
+                "wo_state",
+                "checksum",
+                "mic",
+                "mod",
+                "freq1",
+                "freq2",
+                "rssi",
+                "snr",
+                "noise"
+            ],
+            "properties": {
+                "time": {
+                    "type": "string"
+                },
+                "model": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "pressure": {
+                    "type": "integer"
+                },
+                "temperature": {
+                    "type": "integer"
+                },
+                "acceleration": {
+                    "type": "integer"
+                },
+                "battery": {
+                    "type": "integer"
+                },
+                "interframe": {
+                    "type": "integer"
+                },
+                "wo_state": {
+                    "type": "integer"
+                },
+                "checksum": {
+                    "type": "integer"
+                },
+                "mic": {
+                    "type": "string"
+                },
+                "mod": {
+                    "type": "string"
+                },
+                "freq1": {
+                    "type": "number"
+                },
+                "freq2": {
+                    "type": "number"
+                },
+                "rssi": {
+                    "type": "number"
+                },
+                "snr": {
+                    "type": "number"
+                },
+                "noise": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Rtl 433 Payload"
+        }
+    }
+}

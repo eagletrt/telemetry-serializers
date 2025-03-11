@@ -1,0 +1,27 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ASCommands",
+    "definitions": {
+        "ASCommands": {
+            "required": [
+                "steerAngleDegrees",
+                "pedalThrottle",
+                "pedalBrakes"
+            ],
+            "properties": {
+                "steerAngleDegrees": {
+                    "type": "number"
+                },
+                "pedalThrottle": {
+                    "type": "number"
+                },
+                "pedalBrakes": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "AS Commands"
+        }
+    }
+}

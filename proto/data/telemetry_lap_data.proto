@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package PbData;
+
+message VectorDouble { repeated double buffer = 1; }
+
+message DataFile { map<string, VectorDouble> data = 6; }
+
+message TelemetryLapData {
+  string dateTime = 1;
+  string trackLocation = 2;
+  string trackLayout = 3;
+  string driver = 4;
+  uint32 lapNumber = 5;
+  string filenameHash = 6;
+}
+
+message DataBase { repeated TelemetryLapData lapsData = 1; }

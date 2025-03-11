@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Connection",
+    "definitions": {
+        "Connection": {
+            "required": [
+                "ip",
+                "port",
+                "mode",
+                "whoamiUrl",
+                "tlsEnabled",
+                "cafile",
+                "capath",
+                "certfile",
+                "keyfile"
+            ],
+            "properties": {
+                "ip": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "string"
+                },
+                "mode": {
+                    "type": "string"
+                },
+                "whoamiUrl": {
+                    "type": "string"
+                },
+                "tlsEnabled": {
+                    "type": "boolean"
+                },
+                "cafile": {
+                    "type": "string"
+                },
+                "capath": {
+                    "type": "string"
+                },
+                "certfile": {
+                    "type": "string"
+                },
+                "keyfile": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection"
+        }
+    }
+}

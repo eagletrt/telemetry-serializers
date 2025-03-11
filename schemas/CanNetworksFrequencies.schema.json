@@ -1,0 +1,73 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/CanNetworksFrequencies",
+    "definitions": {
+        "CanNetworksFrequencies": {
+            "required": [
+                "timestamp",
+                "networks"
+            ],
+            "properties": {
+                "timestamp": {
+                    "type": "integer"
+                },
+                "networks": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbCan.CanFrequencies",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Can Networks Frequencies"
+        },
+        "PbCan.CanFrequencies": {
+            "required": [
+                "frequencies"
+            ],
+            "properties": {
+                "frequencies": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbCan.CanFrequency",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Can Frequencies"
+        },
+        "PbCan.CanFrequency": {
+            "required": [
+                "timestamp",
+                "id",
+                "name",
+                "data",
+                "frequency"
+            ],
+            "properties": {
+                "timestamp": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "integer"
+                },
+                "frequency": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Can Frequency"
+        }
+    }
+}

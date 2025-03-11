@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/TelemetryLapData",
+    "definitions": {
+        "TelemetryLapData": {
+            "required": [
+                "dateTime",
+                "trackLocation",
+                "trackLayout",
+                "driver",
+                "lapNumber",
+                "filenameHash"
+            ],
+            "properties": {
+                "dateTime": {
+                    "type": "string"
+                },
+                "trackLocation": {
+                    "type": "string"
+                },
+                "trackLayout": {
+                    "type": "string"
+                },
+                "driver": {
+                    "type": "string"
+                },
+                "lapNumber": {
+                    "type": "integer"
+                },
+                "filenameHash": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Telemetry Lap Data"
+        }
+    }
+}

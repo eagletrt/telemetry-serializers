@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ConnectionSettings",
+    "definitions": {
+        "ConnectionSettings": {
+            "required": [
+                "enabled",
+                "downsampleEnabled",
+                "downsampleSkipData",
+                "downsampleMps",
+                "sendRate",
+                "sendSensorData"
+            ],
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "downsampleEnabled": {
+                    "type": "boolean"
+                },
+                "downsampleSkipData": {
+                    "type": "boolean"
+                },
+                "downsampleMps": {
+                    "type": "integer"
+                },
+                "sendRate": {
+                    "type": "integer"
+                },
+                "sendSensorData": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection Settings"
+        }
+    }
+}

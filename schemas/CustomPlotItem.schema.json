@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/CustomPlotItem",
+    "definitions": {
+        "CustomPlotItem": {
+            "required": [
+                "messageAxisX",
+                "messageAxisY",
+                "signalAxisX",
+                "signalAxisY",
+                "isEnum",
+                "color"
+            ],
+            "properties": {
+                "messageAxisX": {
+                    "type": "string"
+                },
+                "messageAxisY": {
+                    "type": "string"
+                },
+                "signalAxisX": {
+                    "type": "string"
+                },
+                "signalAxisY": {
+                    "type": "string"
+                },
+                "isEnum": {
+                    "type": "boolean"
+                },
+                "color": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Custom Plot Item"
+        }
+    }
+}

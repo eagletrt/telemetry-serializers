@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/VectorDouble",
+    "definitions": {
+        "VectorDouble": {
+            "required": [
+                "buffer"
+            ],
+            "properties": {
+                "buffer": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Vector Double"
+        }
+    }
+}

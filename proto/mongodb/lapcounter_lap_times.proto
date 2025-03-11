@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package PbMongoDb;
+
+message LapTime {
+    uint64 number = 1;
+    uint64 start_timestamp = 2;
+    uint64 end_timestamp = 3;
+    repeated uint64 sectors = 4;
+}
+
+message LapTimes {
+    int32 version = 2;
+    int32 baseline_version = 3;
+    string vehicle_id = 4;
+    string device_id = 5;
+    string location = 6;
+    string layout = 7;
+    string driver = 8;
+    repeated LapTime times = 9;
+}

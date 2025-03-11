@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/FileTransactionStatus",
+    "definitions": {
+        "FileTransactionStatus": {
+            "required": [
+                "fileName",
+                "hash",
+                "destinationPath",
+                "totalChunks"
+            ],
+            "properties": {
+                "fileName": {
+                    "type": "string"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "destinationPath": {
+                    "type": "string"
+                },
+                "totalChunks": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "File Transaction Status"
+        }
+    }
+}

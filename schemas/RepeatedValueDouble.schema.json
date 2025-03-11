@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/RepeatedValueDouble",
+    "definitions": {
+        "RepeatedValueDouble": {
+            "required": [
+                "values"
+            ],
+            "properties": {
+                "values": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Repeated Value Double"
+        }
+    }
+}

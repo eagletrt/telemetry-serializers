@@ -1,0 +1,63 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Race",
+    "definitions": {
+        "PbLapCounter.Lap": {
+            "required": [
+                "number",
+                "startTimestamp",
+                "endTimestamp",
+                "sectorsTimestamps"
+            ],
+            "properties": {
+                "number": {
+                    "type": "integer"
+                },
+                "startTimestamp": {
+                    "type": "integer"
+                },
+                "endTimestamp": {
+                    "type": "integer"
+                },
+                "sectorsTimestamps": {
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Lap"
+        },
+        "Race": {
+            "required": [
+                "raceId",
+                "circuitId",
+                "driverId",
+                "laps"
+            ],
+            "properties": {
+                "raceId": {
+                    "type": "string"
+                },
+                "circuitId": {
+                    "type": "string"
+                },
+                "driverId": {
+                    "type": "string"
+                },
+                "laps": {
+                    "items": {
+                        "$ref": "#/definitions/PbLapCounter.Lap"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Race"
+        }
+    }
+}

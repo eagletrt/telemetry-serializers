@@ -1,0 +1,93 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Layout",
+    "definitions": {
+        "Layout": {
+            "required": [
+                "version",
+                "baseline_version",
+                "vehicle_id",
+                "device_id",
+                "location",
+                "layout",
+                "start_line",
+                "finish_line",
+                "sectors"
+            ],
+            "properties": {
+                "version": {
+                    "type": "integer"
+                },
+                "baseline_version": {
+                    "type": "integer"
+                },
+                "vehicle_id": {
+                    "type": "string"
+                },
+                "device_id": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "layout": {
+                    "type": "string"
+                },
+                "start_line": {
+                    "$ref": "#/definitions/PbMongoDb.PositionAndDirection",
+                    "additionalProperties": false
+                },
+                "finish_line": {
+                    "$ref": "#/definitions/PbMongoDb.PositionAndDirection",
+                    "additionalProperties": false
+                },
+                "sectors": {
+                    "items": {
+                        "$ref": "#/definitions/PbMongoDb.PositionAndDirection"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Layout"
+        },
+        "PbMongoDb.PositionAndDirection": {
+            "required": [
+                "position",
+                "direction"
+            ],
+            "properties": {
+                "position": {
+                    "$ref": "#/definitions/PbMongoDb.Vec2",
+                    "additionalProperties": false
+                },
+                "direction": {
+                    "$ref": "#/definitions/PbMongoDb.Vec2",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Position And Direction"
+        },
+        "PbMongoDb.Vec2": {
+            "required": [
+                "x",
+                "y"
+            ],
+            "properties": {
+                "x": {
+                    "type": "integer"
+                },
+                "y": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Vec 2"
+        }
+    }
+}

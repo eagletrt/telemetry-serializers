@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package PbSessions;
+
+message GpsSession
+{
+    string gpsName = 1;
+    string dateTime = 2;
+    double durationSeconds = 3;
+    uint64 startTimestamp = 4;
+    uint64 endTimestamp = 5;
+    uint64 messages = 6;
+}
