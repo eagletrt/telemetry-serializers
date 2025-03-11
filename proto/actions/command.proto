@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-package Actions;
-
-message Command
-{
-    string input = 1;
-    string output = 2;
-}

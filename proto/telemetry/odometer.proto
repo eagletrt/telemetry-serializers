@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-package Telemetry;
-
-message Odometer
-{
-    string startDate = 1;
-    double kilometers = 2;
-}
