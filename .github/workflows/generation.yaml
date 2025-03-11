@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - dev
 jobs:
   generation:
     runs-on: ubuntu-latest
@@ -20,14 +20,16 @@ jobs:
           repository: 'eagletrt/serializers'
           path: serializers
 
-      - name: Set up Python 3.11
+      - name: Set up Python 3.12
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: '3.12'
           cache: 'pip'
 
       - name: Install Python requirements
-        run:  'pip install -r serializers/requirements.txt'
+        run:  |
+          pip install protobuf==3.20.0
+          pip install -r serializers/requirements.txt
 
       - name: Set up Go
         uses: actions/setup-go@v4
@@ -48,7 +50,19 @@ jobs:
       - name: Run Serializers files generation
         working-directory: serializers
         run: |
-          python3 src/generator/main.py ../proto /tmp/generated
+          python3 src/generator/main.py ../proto serializers
+
+      - name: Run tests
+        working-directory: serializers
+        run: |
+          chmod +x ./scripts/compile_proto.sh && ./scripts/compile_proto.sh
+          pytest --verbose
+
+      - name: Move generated files
+        working-directory: serializers
+        run: |
+          mkdir -p /tmp/generated
+          mv serializers/* /tmp/generated
 
       - name: Run JSON Schema files generation
         run: |
@@ -57,7 +71,7 @@ jobs:
       - name: Change branch to 'build'
         uses: actions/checkout@v4
         with:
-          ref: build
+          ref: dev-build
 
       - name: Publish generated code on build branch
         run: |
