@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - dev
+      - main
 jobs:
   generation:
     runs-on: ubuntu-latest
@@ -71,7 +71,7 @@ jobs:
       - name: Change branch to 'build'
         uses: actions/checkout@v4
         with:
-          ref: dev-build
+          ref: build
 
       - name: Publish generated code on build branch
         run: |
