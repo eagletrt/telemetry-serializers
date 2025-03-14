@@ -1,4 +1,4 @@
-name: Generation with Serializers
+name: Dev Generation with Serializers
 
 on:
   workflow_dispatch:
@@ -68,12 +68,12 @@ jobs:
         run: |
           ./serializers/scripts/generate_schemas /tmp/generated/proto /tmp/generated
 
-      - name: Change branch to 'build'
+      - name: Change branch to 'dev-build'
         uses: actions/checkout@v4
         with:
           ref: dev-build
 
-      - name: Publish generated code on build branch
+      - name: Publish generated code on dev-build branch
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
