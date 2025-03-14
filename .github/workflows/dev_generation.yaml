@@ -1,21 +1,20 @@
-name: Dry-Generation with Serializers
+name: Generation with Serializers
 
 on:
   workflow_dispatch:
-  pull_request:
-    types: ["opened", "edited", "reopened", "synchronize"]
-    branches: [main]
-
+  push:
+    branches:
+      - dev
 jobs:
-  dry_generation:
+  generation:
     runs-on: ubuntu-latest
     steps:
-      - name: Clone 'eagletrt/telemetry-serializers'
+      - name: Clone telemetry-serializers
         uses: actions/checkout@v4
         with:
           repository: '${{ github.repository }}'
 
-      - name: Clone 'eagletrt/serializers'
+      - name: Clone serializers
         uses: actions/checkout@v4
         with:
           repository: 'eagletrt/serializers'
@@ -28,7 +27,7 @@ jobs:
           cache: 'pip'
 
       - name: Install Python requirements
-        run: |
+        run:  |
           pip install protobuf==3.20.0
           pip install -r serializers/requirements.txt
 
@@ -68,3 +67,19 @@ jobs:
       - name: Run JSON Schema files generation
         run: |
           ./serializers/scripts/generate_schemas /tmp/generated/proto /tmp/generated
+
+      - name: Change branch to 'build'
+        uses: actions/checkout@v4
+        with:
+          ref: dev-build
+
+      - name: Publish generated code on build branch
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git rm -r --ignore-unmatch */*
+          rm -rf *
+          cp -r /tmp/generated/* .
+          git add .
+          if [[ $(git status --porcelain) ]]; then git commit -am "chore: automatically generated files" && git push; fi
+          echo "::set-output name=HASH::$(git rev-parse HEAD)"
