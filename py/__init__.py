@@ -5,6 +5,7 @@ from .app import app_config
 from .can import can_frequencies
 from .handcart import settings
 from .tpms import rtl433_payload
+from .telemetry import wait_ready
 from .telemetry import odometer
 from .telemetry import gps_maps
 from .telemetry import statistics

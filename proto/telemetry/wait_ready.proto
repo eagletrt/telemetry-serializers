@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package PbTelemetry;
+
+enum ReadyStatus {
+  WAITING = 0;
+  READY = 1;
+}
+
+message ReplayReady {
+  ReadyStatus status = 1;
+}
+
+message ReplayStart {
+  uint64 startTimestamp = 1;
+}
+

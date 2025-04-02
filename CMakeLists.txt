@@ -17,6 +17,7 @@ add_library(
     src/can/can_frequencies.cpp
     src/handcart/settings.cpp
     src/tpms/rtl433_payload.cpp
+    src/telemetry/wait_ready.cpp
     src/telemetry/odometer.cpp
     src/telemetry/gps_maps.cpp
     src/telemetry/statistics.cpp

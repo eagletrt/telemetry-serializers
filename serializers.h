@@ -8,6 +8,7 @@
 #include "can/can_frequencies.h"
 #include "handcart/settings.h"
 #include "tpms/rtl433_payload.h"
+#include "telemetry/wait_ready.h"
 #include "telemetry/odometer.h"
 #include "telemetry/gps_maps.h"
 #include "telemetry/statistics.h"
