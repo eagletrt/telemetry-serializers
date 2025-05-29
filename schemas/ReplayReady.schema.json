@@ -1,0 +1,33 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ReplayReady",
+    "definitions": {
+        "ReplayReady": {
+            "required": [
+                "status"
+            ],
+            "properties": {
+                "status": {
+                    "enum": [
+                        "WAITING",
+                        0,
+                        "READY",
+                        1
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Ready Status"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Replay Ready"
+        }
+    }
+}
