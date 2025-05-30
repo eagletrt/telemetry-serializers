@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package LapCounter;
+
+message NewLap{
+  uint64 timestamp = 1;
+}
