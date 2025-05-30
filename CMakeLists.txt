@@ -40,6 +40,7 @@ add_library(
     src/handcart/settings.cpp
     src/lapcounter/lap_counter.cpp
     src/lapcounter/lapcounter.cpp
+    src/lapcounter/new_lap.cpp
 )
 
 target_include_directories(

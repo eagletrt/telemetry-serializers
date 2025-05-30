@@ -28,3 +28,4 @@ from .data import vehicle_state
 from .handcart import settings
 from .lapcounter import lap_counter
 from .lapcounter import lapcounter
+from .lapcounter import new_lap

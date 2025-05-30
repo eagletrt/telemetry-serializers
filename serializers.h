@@ -31,5 +31,6 @@
 #include "handcart/settings.h"
 #include "lapcounter/lap_counter.h"
 #include "lapcounter/lapcounter.h"
+#include "lapcounter/new_lap.h"
 
 #endif
