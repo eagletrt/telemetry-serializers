@@ -80,9 +80,9 @@ class ASStatus:
     @classmethod
     def _from_proto(cls, proto_message) -> "ASStatus":
         return cls(
-            steerStatus = Status._from_proto(proto_message.steerStatus),
-            throttleStatus = Status._from_proto(proto_message.throttleStatus),
-            brakesStatus = Status._from_proto(proto_message.brakesStatus),
+            steerStatus = Status(proto_message.steerStatus),
+            throttleStatus = Status(proto_message.throttleStatus),
+            brakesStatus = Status(proto_message.brakesStatus),
         )
 
     def __str__(self):
