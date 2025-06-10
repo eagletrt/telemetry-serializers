@@ -8,8 +8,8 @@ enum PlotType {
 }
 
 message Size {
-  float w = 1;
-  float h = 2;
+  double w = 1;
+  double h = 2;
 }
 
 message GraphElement {
