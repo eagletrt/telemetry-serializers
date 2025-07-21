@@ -56,12 +56,12 @@ message TpmsSensors
 }
 
 message ConnectionPair{
-	Connection config = 1;
-	ConnectionSettings settings = 2;
+    Connection config = 1;
+    ConnectionSettings settings = 2;
 }
 
 message ConnectionRepeated{
-	repeated ConnectionPair pairs = 1; 
+    repeated ConnectionPair pairs = 1; 
 }
 
 message TelemetryConfig
@@ -74,7 +74,7 @@ message TelemetryConfig
     bool cameraEnabled = 6;
     bool generateCsv = 7;
     bool waitForReady = 8;
-		map<string,ConnectionRepeated> connections = 9;
+    map<string,ConnectionRepeated> connections = 9;
     repeated CanDevice canDevices = 10;
     repeated GpsDevice gpsDevices = 11;
     TpmsSensors tpmsSensors = 12;
