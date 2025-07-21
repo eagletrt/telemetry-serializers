@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package PbConfigs;
+package Configs;
 
 message CanDevice
 {
@@ -69,8 +69,8 @@ message TelemetryConfig
     string vehicleId = 1;
     string deviceId = 2;
     uint64 role = 3;
-		string conn_name = 4;
-		string dev_name = 5;
+    string conn_name = 4;
+    string dev_name = 5;
     bool cameraEnabled = 6;
     bool generateCsv = 7;
     bool waitForReady = 8;
