@@ -365,15 +365,122 @@ class TpmsSensors:
         return cls.deserializeFromProtobufString(message.SerializeToString())
 
 @dataclass
+class ConnectionPair:
+    config: Connection = None
+    settings: ConnectionSettings = None
+    
+    _proto_message: telemetry_config_pb2.ConnectionPair = field(init=False, repr=False)
+
+    def __post_init__(self):
+        self._proto_message = telemetry_config_pb2.ConnectionPair()
+
+    def _populate_proto(self):
+        if self.config:
+            self.config._populate_proto()
+            self._proto_message.config.CopyFrom(self.config._proto_message)
+        if self.settings:
+            self.settings._populate_proto()
+            self._proto_message.settings.CopyFrom(self.settings._proto_message)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "ConnectionPair":
+        return cls(
+            config = Connection._from_proto(proto_message.config),
+            settings = ConnectionSettings._from_proto(proto_message.settings),
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
+    def serializeAsProtobufString(self) -> bytes:
+        self._populate_proto()
+        return self._proto_message.SerializeToString()
+
+    @classmethod
+    def deserializeFromProtobufString(cls, data: bytes) -> "ConnectionPair":
+        message = telemetry_config_pb2.ConnectionPair()
+        message.ParseFromString(data)
+        return cls(
+            config = (
+                Connection._from_proto(message.config)
+                if message.HasField("config")
+                else None
+            ),
+            settings = (
+                ConnectionSettings._from_proto(message.settings)
+                if message.HasField("settings")
+                else None
+            ),
+        )
+
+    def serializeAsJsonString(self) -> str:
+        self._populate_proto()
+        return MessageToJson(self._proto_message)
+
+    @classmethod
+    def deserializeFromJsonString(cls, data: str) -> "ConnectionPair":
+        message = telemetry_config_pb2.ConnectionPair()
+        Parse(data, message)
+        return cls.deserializeFromProtobufString(message.SerializeToString())
+
+@dataclass
+class ConnectionRepeated:
+    pairs: List[ConnectionPair] = field(default_factory=list)
+    
+    _proto_message: telemetry_config_pb2.ConnectionRepeated = field(init=False, repr=False)
+
+    def __post_init__(self):
+        self._proto_message = telemetry_config_pb2.ConnectionRepeated()
+
+    def _populate_proto(self):
+        del self._proto_message.pairs[:]
+        for val in self.pairs:
+            val._populate_proto()
+            tmp = self._proto_message.pairs.add()
+            tmp.CopyFrom(val._proto_message)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "ConnectionRepeated":
+        return cls(
+            pairs=[ConnectionPair._from_proto(val) for val in proto_message.pairs],
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
+    def serializeAsProtobufString(self) -> bytes:
+        self._populate_proto()
+        return self._proto_message.SerializeToString()
+
+    @classmethod
+    def deserializeFromProtobufString(cls, data: bytes) -> "ConnectionRepeated":
+        message = telemetry_config_pb2.ConnectionRepeated()
+        message.ParseFromString(data)
+        return cls(
+            pairs = [ConnectionPair._from_proto(val) for val in message.pairs],
+        )
+
+    def serializeAsJsonString(self) -> str:
+        self._populate_proto()
+        return MessageToJson(self._proto_message)
+
+    @classmethod
+    def deserializeFromJsonString(cls, data: str) -> "ConnectionRepeated":
+        message = telemetry_config_pb2.ConnectionRepeated()
+        Parse(data, message)
+        return cls.deserializeFromProtobufString(message.SerializeToString())
+
+@dataclass
 class TelemetryConfig:
     vehicleId: str = ""
     deviceId: str = ""
     role: int = 0
+    conn_name: str = ""
+    dev_name: str = ""
     cameraEnabled: bool = False
     generateCsv: bool = False
     waitForReady: bool = False
-    connection: Connection = None
-    connectionSettings: ConnectionSettings = None
+    connections: Dict[str, ConnectionRepeated] = field(default_factory=dict)
     canDevices: List[CanDevice] = field(default_factory=list)
     gpsDevices: List[GpsDevice] = field(default_factory=list)
     tpmsSensors: TpmsSensors = None
@@ -387,15 +494,16 @@ class TelemetryConfig:
         self._proto_message.vehicleId = self.vehicleId
         self._proto_message.deviceId = self.deviceId
         self._proto_message.role = self.role
+        self._proto_message.conn_name = self.conn_name
+        self._proto_message.dev_name = self.dev_name
         self._proto_message.cameraEnabled = self.cameraEnabled
         self._proto_message.generateCsv = self.generateCsv
         self._proto_message.waitForReady = self.waitForReady
-        if self.connection:
-            self.connection._populate_proto()
-            self._proto_message.connection.CopyFrom(self.connection._proto_message)
-        if self.connectionSettings:
-            self.connectionSettings._populate_proto()
-            self._proto_message.connectionSettings.CopyFrom(self.connectionSettings._proto_message)
+        self._proto_message.connections.clear()
+        for key, val in self.connections.items():
+            val._populate_proto()
+            tmp = self._proto_message.connections.setdefault(key)
+            tmp.CopyFrom(val._proto_message)
         del self._proto_message.canDevices[:]
         for val in self.canDevices:
             val._populate_proto()
@@ -416,11 +524,12 @@ class TelemetryConfig:
             vehicleId = proto_message.vehicleId,
             deviceId = proto_message.deviceId,
             role = proto_message.role,
+            conn_name = proto_message.conn_name,
+            dev_name = proto_message.dev_name,
             cameraEnabled = proto_message.cameraEnabled,
             generateCsv = proto_message.generateCsv,
             waitForReady = proto_message.waitForReady,
-            connection = Connection._from_proto(proto_message.connection),
-            connectionSettings = ConnectionSettings._from_proto(proto_message.connectionSettings),
+            connections={key: ConnectionRepeated._from_proto(val) for key, val in proto_message.connections.items()},
             canDevices=[CanDevice._from_proto(val) for val in proto_message.canDevices],
             gpsDevices=[GpsDevice._from_proto(val) for val in proto_message.gpsDevices],
             tpmsSensors = TpmsSensors._from_proto(proto_message.tpmsSensors),
@@ -441,19 +550,12 @@ class TelemetryConfig:
             vehicleId = message.vehicleId,
             deviceId = message.deviceId,
             role = message.role,
+            conn_name = message.conn_name,
+            dev_name = message.dev_name,
             cameraEnabled = message.cameraEnabled,
             generateCsv = message.generateCsv,
             waitForReady = message.waitForReady,
-            connection = (
-                Connection._from_proto(message.connection)
-                if message.HasField("connection")
-                else None
-            ),
-            connectionSettings = (
-                ConnectionSettings._from_proto(message.connectionSettings)
-                if message.HasField("connectionSettings")
-                else None
-            ),
+            connections = {key: ConnectionRepeated._from_proto(val) for key, val in message.connections.items()},
             canDevices = [CanDevice._from_proto(val) for val in message.canDevices],
             gpsDevices = [GpsDevice._from_proto(val) for val in message.gpsDevices],
             tpmsSensors = (

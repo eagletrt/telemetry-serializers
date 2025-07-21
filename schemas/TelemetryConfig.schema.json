@@ -71,6 +71,42 @@
             "type": "object",
             "title": "Connection"
         },
+        "PbConfigs.ConnectionPair": {
+            "required": [
+                "config",
+                "settings"
+            ],
+            "properties": {
+                "config": {
+                    "$ref": "#/definitions/PbConfigs.Connection",
+                    "additionalProperties": false
+                },
+                "settings": {
+                    "$ref": "#/definitions/PbConfigs.ConnectionSettings",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection Pair"
+        },
+        "PbConfigs.ConnectionRepeated": {
+            "required": [
+                "pairs"
+            ],
+            "properties": {
+                "pairs": {
+                    "items": {
+                        "$ref": "#/definitions/PbConfigs.ConnectionPair"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection Repeated"
+        },
         "PbConfigs.ConnectionSettings": {
             "required": [
                 "enabled",
@@ -181,11 +217,12 @@
                 "vehicleId",
                 "deviceId",
                 "role",
+                "conn_name",
+                "dev_name",
                 "cameraEnabled",
                 "generateCsv",
                 "waitForReady",
-                "connection",
-                "connectionSettings",
+                "connections",
                 "canDevices",
                 "gpsDevices",
                 "tpmsSensors"
@@ -200,6 +237,12 @@
                 "role": {
                     "type": "integer"
                 },
+                "conn_name": {
+                    "type": "string"
+                },
+                "dev_name": {
+                    "type": "string"
+                },
                 "cameraEnabled": {
                     "type": "boolean"
                 },
@@ -209,13 +252,12 @@
                 "waitForReady": {
                     "type": "boolean"
                 },
-                "connection": {
-                    "$ref": "#/definitions/PbConfigs.Connection",
-                    "additionalProperties": false
-                },
-                "connectionSettings": {
-                    "$ref": "#/definitions/PbConfigs.ConnectionSettings",
-                    "additionalProperties": false
+                "connections": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbConfigs.ConnectionRepeated",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
                 },
                 "canDevices": {
                     "items": {

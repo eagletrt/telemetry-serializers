@@ -119,16 +119,46 @@ struct TpmsSensors
     bool deserializeFromProtobufString(const std::string& str);
 };
 
+struct ConnectionPair
+{
+    Connection config;
+    ConnectionSettings settings;
+    
+    ConnectionPair() = default;
+    ConnectionPair(const PbConfigs::ConnectionPair& protobuf);
+    operator PbConfigs::ConnectionPair() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
+struct ConnectionRepeated
+{
+    std::vector<ConnectionPair> pairs;
+    
+    ConnectionRepeated() = default;
+    ConnectionRepeated(const PbConfigs::ConnectionRepeated& protobuf);
+    operator PbConfigs::ConnectionRepeated() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
 struct TelemetryConfig
 {
     std::string vehicleId;
     std::string deviceId;
     uint64_t role;
+    std::string conn_name;
+    std::string dev_name;
     bool cameraEnabled;
     bool generateCsv;
     bool waitForReady;
-    Connection connection;
-    ConnectionSettings connectionSettings;
+    std::unordered_map<std::string, ConnectionRepeated> connections;
     std::vector<CanDevice> canDevices;
     std::vector<GpsDevice> gpsDevices;
     TpmsSensors tpmsSensors;

@@ -55,17 +55,27 @@ message TpmsSensors
     TpmsSensorIds sensorIds = 4;
 }
 
+message ConnectionPair{
+    Connection config = 1;
+    ConnectionSettings settings = 2;
+}
+
+message ConnectionRepeated{
+    repeated ConnectionPair pairs = 1; 
+}
+
 message TelemetryConfig
 {
     string vehicleId = 1;
     string deviceId = 2;
     uint64 role = 3;
-    bool cameraEnabled = 4;
-    bool generateCsv = 5;
-    bool waitForReady = 6;
-    Connection connection = 7;
-    ConnectionSettings connectionSettings = 8;
-    repeated CanDevice canDevices = 9;
-    repeated GpsDevice gpsDevices = 10;
-    TpmsSensors tpmsSensors = 11;
+    string conn_name = 4;
+    string dev_name = 5;
+    bool cameraEnabled = 6;
+    bool generateCsv = 7;
+    bool waitForReady = 8;
+    map<string,ConnectionRepeated> connections = 9;
+    repeated CanDevice canDevices = 10;
+    repeated GpsDevice gpsDevices = 11;
+    TpmsSensors tpmsSensors = 12;
 }
