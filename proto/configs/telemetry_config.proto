@@ -24,7 +24,7 @@ message DevicesPair
 
 message Devices
 {
-	repeated DevicesPair pairs;
+	repeated DevicesPair pairs = 1;
 }
 
 message Connection
