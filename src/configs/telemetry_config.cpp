@@ -105,60 +105,15 @@ bool GpsDevice::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
-DevicesPair::DevicesPair(const PbConfigs::DevicesPair& protobuf) {
-    can = protobuf.can();
-    gps = protobuf.gps();
-}
-
-DevicesPair::operator PbConfigs::DevicesPair() const {
-    PbConfigs::DevicesPair ret;
-    *(ret.mutable_can()) = can;
-    *(ret.mutable_gps()) = gps;
-    return ret;
-}
-
-std::string DevicesPair::serializeAsJsonString() const {
-    PbConfigs::DevicesPair protobuf(*this);
-    std::string ret;
-    google::protobuf::util::JsonPrintOptions options;
-    options.add_whitespace = true;
-    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
-    return ret;
-}
-
-std::string DevicesPair::serializeAsProtobufString() const {
-    PbConfigs::DevicesPair protobuf(*this);
-    return protobuf.SerializeAsString();
-}
-
-bool DevicesPair::deserializeFromJsonString(const std::string& str) {
-    PbConfigs::DevicesPair protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
-    if(status.ok()) {
-        *this = protobuf;
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool DevicesPair::deserializeFromProtobufString(const std::string& str) {
-    PbConfigs::DevicesPair protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
-        return true;
-    } else {
-        return false;
-    }
-}
-
 Devices::Devices(const PbConfigs::Devices& protobuf) {
-    pairs = {protobuf.pairs().begin(), protobuf.pairs().end()};
+    can = {protobuf.can().begin(), protobuf.can().end()};
+    gps = {protobuf.gps().begin(), protobuf.gps().end()};
 }
 
 Devices::operator PbConfigs::Devices() const {
     PbConfigs::Devices ret;
-    *(ret.mutable_pairs()) = {pairs.begin(), pairs.end()};
+    *(ret.mutable_can()) = {can.begin(), can.end()};
+    *(ret.mutable_gps()) = {gps.begin(), gps.end()};
     return ret;
 }
 

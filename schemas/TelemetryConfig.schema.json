@@ -142,12 +142,20 @@
         },
         "PbConfigs.Devices": {
             "required": [
-                "pairs"
+                "can",
+                "gps"
             ],
             "properties": {
-                "pairs": {
+                "can": {
                     "items": {
-                        "$ref": "#/definitions/PbConfigs.DevicesPair"
+                        "$ref": "#/definitions/PbConfigs.CanDevice"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "gps": {
+                    "items": {
+                        "$ref": "#/definitions/PbConfigs.GpsDevice"
                     },
                     "additionalProperties": false,
                     "type": "array"
@@ -156,25 +164,6 @@
             "additionalProperties": false,
             "type": "object",
             "title": "Devices"
-        },
-        "PbConfigs.DevicesPair": {
-            "required": [
-                "can",
-                "gps"
-            ],
-            "properties": {
-                "can": {
-                    "$ref": "#/definitions/PbConfigs.CanDevice",
-                    "additionalProperties": false
-                },
-                "gps": {
-                    "$ref": "#/definitions/PbConfigs.GpsDevice",
-                    "additionalProperties": false
-                }
-            },
-            "additionalProperties": false,
-            "type": "object",
-            "title": "Devices Pair"
         },
         "PbConfigs.GpsDevice": {
             "required": [

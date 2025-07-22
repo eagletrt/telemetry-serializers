@@ -44,24 +44,10 @@ struct GpsDevice
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct DevicesPair
-{
-    CanDevice can;
-    GpsDevice gps;
-    
-    DevicesPair() = default;
-    DevicesPair(const PbConfigs::DevicesPair& protobuf);
-    operator PbConfigs::DevicesPair() const;
-
-    std::string serializeAsJsonString() const;
-    std::string serializeAsProtobufString() const;
-    bool deserializeFromJsonString(const std::string& str);
-    bool deserializeFromProtobufString(const std::string& str);
-};
-
 struct Devices
 {
-    std::vector<DevicesPair> pairs;
+    std::vector<CanDevice> can;
+    std::vector<GpsDevice> gps;
     
     Devices() = default;
     Devices(const PbConfigs::Devices& protobuf);

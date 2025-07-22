@@ -111,67 +111,9 @@ class GpsDevice:
         return cls.deserializeFromProtobufString(message.SerializeToString())
 
 @dataclass
-class DevicesPair:
-    can: CanDevice = None
-    gps: GpsDevice = None
-    
-    _proto_message: telemetry_config_pb2.DevicesPair = field(init=False, repr=False)
-
-    def __post_init__(self):
-        self._proto_message = telemetry_config_pb2.DevicesPair()
-
-    def _populate_proto(self):
-        if self.can:
-            self.can._populate_proto()
-            self._proto_message.can.CopyFrom(self.can._proto_message)
-        if self.gps:
-            self.gps._populate_proto()
-            self._proto_message.gps.CopyFrom(self.gps._proto_message)
-
-    @classmethod
-    def _from_proto(cls, proto_message) -> "DevicesPair":
-        return cls(
-            can = CanDevice._from_proto(proto_message.can),
-            gps = GpsDevice._from_proto(proto_message.gps),
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
-
-    def serializeAsProtobufString(self) -> bytes:
-        self._populate_proto()
-        return self._proto_message.SerializeToString()
-
-    @classmethod
-    def deserializeFromProtobufString(cls, data: bytes) -> "DevicesPair":
-        message = telemetry_config_pb2.DevicesPair()
-        message.ParseFromString(data)
-        return cls(
-            can = (
-                CanDevice._from_proto(message.can)
-                if message.HasField("can")
-                else None
-            ),
-            gps = (
-                GpsDevice._from_proto(message.gps)
-                if message.HasField("gps")
-                else None
-            ),
-        )
-
-    def serializeAsJsonString(self) -> str:
-        self._populate_proto()
-        return MessageToJson(self._proto_message)
-
-    @classmethod
-    def deserializeFromJsonString(cls, data: str) -> "DevicesPair":
-        message = telemetry_config_pb2.DevicesPair()
-        Parse(data, message)
-        return cls.deserializeFromProtobufString(message.SerializeToString())
-
-@dataclass
 class Devices:
-    pairs: List[DevicesPair] = field(default_factory=list)
+    can: List[CanDevice] = field(default_factory=list)
+    gps: List[GpsDevice] = field(default_factory=list)
     
     _proto_message: telemetry_config_pb2.Devices = field(init=False, repr=False)
 
@@ -179,16 +121,22 @@ class Devices:
         self._proto_message = telemetry_config_pb2.Devices()
 
     def _populate_proto(self):
-        del self._proto_message.pairs[:]
-        for val in self.pairs:
+        del self._proto_message.can[:]
+        for val in self.can:
             val._populate_proto()
-            tmp = self._proto_message.pairs.add()
+            tmp = self._proto_message.can.add()
+            tmp.CopyFrom(val._proto_message)
+        del self._proto_message.gps[:]
+        for val in self.gps:
+            val._populate_proto()
+            tmp = self._proto_message.gps.add()
             tmp.CopyFrom(val._proto_message)
 
     @classmethod
     def _from_proto(cls, proto_message) -> "Devices":
         return cls(
-            pairs=[DevicesPair._from_proto(val) for val in proto_message.pairs],
+            can=[CanDevice._from_proto(val) for val in proto_message.can],
+            gps=[GpsDevice._from_proto(val) for val in proto_message.gps],
         )
 
     def __str__(self):
@@ -203,7 +151,8 @@ class Devices:
         message = telemetry_config_pb2.Devices()
         message.ParseFromString(data)
         return cls(
-            pairs = [DevicesPair._from_proto(val) for val in message.pairs],
+            can = [CanDevice._from_proto(val) for val in message.can],
+            gps = [GpsDevice._from_proto(val) for val in message.gps],
         )
 
     def serializeAsJsonString(self) -> str:
