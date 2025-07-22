@@ -16,16 +16,12 @@ message GpsDevice
     bool enabled = 3;
 }
 
-message DevicesPair
-{
-	CanDevice can = 1;
-	GpsDevice gps = 2;
-}
-
 message Devices
 {
-	repeated DevicesPair pairs = 1;
+    repeated CanDevice can = 1;
+    repeated GpsDevice gps = 2;
 }
+
 
 message Connection
 {
@@ -77,8 +73,6 @@ message TpmsSensors
     TpmsSensorIds sensorIds = 4;
 }
 
-
-
 message TelemetryConfig
 {
     string vehicleId = 1;
@@ -90,6 +84,6 @@ message TelemetryConfig
     bool generateCsv = 7;
     bool waitForReady = 8;
     map<string,ConnectionRepeated> connections = 9;
-		map<string,Devices> devices = 10;
+    map<string,Devices> devices = 10;
     TpmsSensors tpmsSensors = 11;
 }
