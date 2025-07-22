@@ -44,6 +44,35 @@ struct GpsDevice
     bool deserializeFromProtobufString(const std::string& str);
 };
 
+struct DevicesPair
+{
+    CanDevice can;
+    GpsDevice gps;
+    
+    DevicesPair() = default;
+    DevicesPair(const PbConfigs::DevicesPair& protobuf);
+    operator PbConfigs::DevicesPair() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
+struct Devices
+{
+    std::vector<DevicesPair> pairs;
+    
+    Devices() = default;
+    Devices(const PbConfigs::Devices& protobuf);
+    operator PbConfigs::Devices() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
 struct Connection
 {
     std::string ip;
@@ -85,6 +114,35 @@ struct ConnectionSettings
     bool deserializeFromProtobufString(const std::string& str);
 };
 
+struct ConnectionPair
+{
+    Connection config;
+    ConnectionSettings settings;
+    
+    ConnectionPair() = default;
+    ConnectionPair(const PbConfigs::ConnectionPair& protobuf);
+    operator PbConfigs::ConnectionPair() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
+struct ConnectionRepeated
+{
+    std::vector<ConnectionPair> pairs;
+    
+    ConnectionRepeated() = default;
+    ConnectionRepeated(const PbConfigs::ConnectionRepeated& protobuf);
+    operator PbConfigs::ConnectionRepeated() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
 struct TpmsSensorIds
 {
     uint32_t fl;
@@ -119,35 +177,6 @@ struct TpmsSensors
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct ConnectionPair
-{
-    Connection config;
-    ConnectionSettings settings;
-    
-    ConnectionPair() = default;
-    ConnectionPair(const PbConfigs::ConnectionPair& protobuf);
-    operator PbConfigs::ConnectionPair() const;
-
-    std::string serializeAsJsonString() const;
-    std::string serializeAsProtobufString() const;
-    bool deserializeFromJsonString(const std::string& str);
-    bool deserializeFromProtobufString(const std::string& str);
-};
-
-struct ConnectionRepeated
-{
-    std::vector<ConnectionPair> pairs;
-    
-    ConnectionRepeated() = default;
-    ConnectionRepeated(const PbConfigs::ConnectionRepeated& protobuf);
-    operator PbConfigs::ConnectionRepeated() const;
-
-    std::string serializeAsJsonString() const;
-    std::string serializeAsProtobufString() const;
-    bool deserializeFromJsonString(const std::string& str);
-    bool deserializeFromProtobufString(const std::string& str);
-};
-
 struct TelemetryConfig
 {
     std::string vehicleId;
@@ -159,8 +188,7 @@ struct TelemetryConfig
     bool generateCsv;
     bool waitForReady;
     std::unordered_map<std::string, ConnectionRepeated> connections;
-    std::vector<CanDevice> canDevices;
-    std::vector<GpsDevice> gpsDevices;
+    std::unordered_map<std::string, Devices> devices;
     TpmsSensors tpmsSensors;
     
     TelemetryConfig() = default;

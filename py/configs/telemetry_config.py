@@ -111,6 +111,112 @@ class GpsDevice:
         return cls.deserializeFromProtobufString(message.SerializeToString())
 
 @dataclass
+class DevicesPair:
+    can: CanDevice = None
+    gps: GpsDevice = None
+    
+    _proto_message: telemetry_config_pb2.DevicesPair = field(init=False, repr=False)
+
+    def __post_init__(self):
+        self._proto_message = telemetry_config_pb2.DevicesPair()
+
+    def _populate_proto(self):
+        if self.can:
+            self.can._populate_proto()
+            self._proto_message.can.CopyFrom(self.can._proto_message)
+        if self.gps:
+            self.gps._populate_proto()
+            self._proto_message.gps.CopyFrom(self.gps._proto_message)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "DevicesPair":
+        return cls(
+            can = CanDevice._from_proto(proto_message.can),
+            gps = GpsDevice._from_proto(proto_message.gps),
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
+    def serializeAsProtobufString(self) -> bytes:
+        self._populate_proto()
+        return self._proto_message.SerializeToString()
+
+    @classmethod
+    def deserializeFromProtobufString(cls, data: bytes) -> "DevicesPair":
+        message = telemetry_config_pb2.DevicesPair()
+        message.ParseFromString(data)
+        return cls(
+            can = (
+                CanDevice._from_proto(message.can)
+                if message.HasField("can")
+                else None
+            ),
+            gps = (
+                GpsDevice._from_proto(message.gps)
+                if message.HasField("gps")
+                else None
+            ),
+        )
+
+    def serializeAsJsonString(self) -> str:
+        self._populate_proto()
+        return MessageToJson(self._proto_message)
+
+    @classmethod
+    def deserializeFromJsonString(cls, data: str) -> "DevicesPair":
+        message = telemetry_config_pb2.DevicesPair()
+        Parse(data, message)
+        return cls.deserializeFromProtobufString(message.SerializeToString())
+
+@dataclass
+class Devices:
+    pairs: List[DevicesPair] = field(default_factory=list)
+    
+    _proto_message: telemetry_config_pb2.Devices = field(init=False, repr=False)
+
+    def __post_init__(self):
+        self._proto_message = telemetry_config_pb2.Devices()
+
+    def _populate_proto(self):
+        del self._proto_message.pairs[:]
+        for val in self.pairs:
+            val._populate_proto()
+            tmp = self._proto_message.pairs.add()
+            tmp.CopyFrom(val._proto_message)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "Devices":
+        return cls(
+            pairs=[DevicesPair._from_proto(val) for val in proto_message.pairs],
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
+    def serializeAsProtobufString(self) -> bytes:
+        self._populate_proto()
+        return self._proto_message.SerializeToString()
+
+    @classmethod
+    def deserializeFromProtobufString(cls, data: bytes) -> "Devices":
+        message = telemetry_config_pb2.Devices()
+        message.ParseFromString(data)
+        return cls(
+            pairs = [DevicesPair._from_proto(val) for val in message.pairs],
+        )
+
+    def serializeAsJsonString(self) -> str:
+        self._populate_proto()
+        return MessageToJson(self._proto_message)
+
+    @classmethod
+    def deserializeFromJsonString(cls, data: str) -> "Devices":
+        message = telemetry_config_pb2.Devices()
+        Parse(data, message)
+        return cls.deserializeFromProtobufString(message.SerializeToString())
+
+@dataclass
 class Connection:
     ip: str = ""
     port: str = ""
@@ -249,6 +355,112 @@ class ConnectionSettings:
         return cls.deserializeFromProtobufString(message.SerializeToString())
 
 @dataclass
+class ConnectionPair:
+    config: Connection = None
+    settings: ConnectionSettings = None
+    
+    _proto_message: telemetry_config_pb2.ConnectionPair = field(init=False, repr=False)
+
+    def __post_init__(self):
+        self._proto_message = telemetry_config_pb2.ConnectionPair()
+
+    def _populate_proto(self):
+        if self.config:
+            self.config._populate_proto()
+            self._proto_message.config.CopyFrom(self.config._proto_message)
+        if self.settings:
+            self.settings._populate_proto()
+            self._proto_message.settings.CopyFrom(self.settings._proto_message)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "ConnectionPair":
+        return cls(
+            config = Connection._from_proto(proto_message.config),
+            settings = ConnectionSettings._from_proto(proto_message.settings),
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
+    def serializeAsProtobufString(self) -> bytes:
+        self._populate_proto()
+        return self._proto_message.SerializeToString()
+
+    @classmethod
+    def deserializeFromProtobufString(cls, data: bytes) -> "ConnectionPair":
+        message = telemetry_config_pb2.ConnectionPair()
+        message.ParseFromString(data)
+        return cls(
+            config = (
+                Connection._from_proto(message.config)
+                if message.HasField("config")
+                else None
+            ),
+            settings = (
+                ConnectionSettings._from_proto(message.settings)
+                if message.HasField("settings")
+                else None
+            ),
+        )
+
+    def serializeAsJsonString(self) -> str:
+        self._populate_proto()
+        return MessageToJson(self._proto_message)
+
+    @classmethod
+    def deserializeFromJsonString(cls, data: str) -> "ConnectionPair":
+        message = telemetry_config_pb2.ConnectionPair()
+        Parse(data, message)
+        return cls.deserializeFromProtobufString(message.SerializeToString())
+
+@dataclass
+class ConnectionRepeated:
+    pairs: List[ConnectionPair] = field(default_factory=list)
+    
+    _proto_message: telemetry_config_pb2.ConnectionRepeated = field(init=False, repr=False)
+
+    def __post_init__(self):
+        self._proto_message = telemetry_config_pb2.ConnectionRepeated()
+
+    def _populate_proto(self):
+        del self._proto_message.pairs[:]
+        for val in self.pairs:
+            val._populate_proto()
+            tmp = self._proto_message.pairs.add()
+            tmp.CopyFrom(val._proto_message)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "ConnectionRepeated":
+        return cls(
+            pairs=[ConnectionPair._from_proto(val) for val in proto_message.pairs],
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
+    def serializeAsProtobufString(self) -> bytes:
+        self._populate_proto()
+        return self._proto_message.SerializeToString()
+
+    @classmethod
+    def deserializeFromProtobufString(cls, data: bytes) -> "ConnectionRepeated":
+        message = telemetry_config_pb2.ConnectionRepeated()
+        message.ParseFromString(data)
+        return cls(
+            pairs = [ConnectionPair._from_proto(val) for val in message.pairs],
+        )
+
+    def serializeAsJsonString(self) -> str:
+        self._populate_proto()
+        return MessageToJson(self._proto_message)
+
+    @classmethod
+    def deserializeFromJsonString(cls, data: str) -> "ConnectionRepeated":
+        message = telemetry_config_pb2.ConnectionRepeated()
+        Parse(data, message)
+        return cls.deserializeFromProtobufString(message.SerializeToString())
+
+@dataclass
 class TpmsSensorIds:
     fl: int = 0
     fr: int = 0
@@ -365,112 +577,6 @@ class TpmsSensors:
         return cls.deserializeFromProtobufString(message.SerializeToString())
 
 @dataclass
-class ConnectionPair:
-    config: Connection = None
-    settings: ConnectionSettings = None
-    
-    _proto_message: telemetry_config_pb2.ConnectionPair = field(init=False, repr=False)
-
-    def __post_init__(self):
-        self._proto_message = telemetry_config_pb2.ConnectionPair()
-
-    def _populate_proto(self):
-        if self.config:
-            self.config._populate_proto()
-            self._proto_message.config.CopyFrom(self.config._proto_message)
-        if self.settings:
-            self.settings._populate_proto()
-            self._proto_message.settings.CopyFrom(self.settings._proto_message)
-
-    @classmethod
-    def _from_proto(cls, proto_message) -> "ConnectionPair":
-        return cls(
-            config = Connection._from_proto(proto_message.config),
-            settings = ConnectionSettings._from_proto(proto_message.settings),
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
-
-    def serializeAsProtobufString(self) -> bytes:
-        self._populate_proto()
-        return self._proto_message.SerializeToString()
-
-    @classmethod
-    def deserializeFromProtobufString(cls, data: bytes) -> "ConnectionPair":
-        message = telemetry_config_pb2.ConnectionPair()
-        message.ParseFromString(data)
-        return cls(
-            config = (
-                Connection._from_proto(message.config)
-                if message.HasField("config")
-                else None
-            ),
-            settings = (
-                ConnectionSettings._from_proto(message.settings)
-                if message.HasField("settings")
-                else None
-            ),
-        )
-
-    def serializeAsJsonString(self) -> str:
-        self._populate_proto()
-        return MessageToJson(self._proto_message)
-
-    @classmethod
-    def deserializeFromJsonString(cls, data: str) -> "ConnectionPair":
-        message = telemetry_config_pb2.ConnectionPair()
-        Parse(data, message)
-        return cls.deserializeFromProtobufString(message.SerializeToString())
-
-@dataclass
-class ConnectionRepeated:
-    pairs: List[ConnectionPair] = field(default_factory=list)
-    
-    _proto_message: telemetry_config_pb2.ConnectionRepeated = field(init=False, repr=False)
-
-    def __post_init__(self):
-        self._proto_message = telemetry_config_pb2.ConnectionRepeated()
-
-    def _populate_proto(self):
-        del self._proto_message.pairs[:]
-        for val in self.pairs:
-            val._populate_proto()
-            tmp = self._proto_message.pairs.add()
-            tmp.CopyFrom(val._proto_message)
-
-    @classmethod
-    def _from_proto(cls, proto_message) -> "ConnectionRepeated":
-        return cls(
-            pairs=[ConnectionPair._from_proto(val) for val in proto_message.pairs],
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
-
-    def serializeAsProtobufString(self) -> bytes:
-        self._populate_proto()
-        return self._proto_message.SerializeToString()
-
-    @classmethod
-    def deserializeFromProtobufString(cls, data: bytes) -> "ConnectionRepeated":
-        message = telemetry_config_pb2.ConnectionRepeated()
-        message.ParseFromString(data)
-        return cls(
-            pairs = [ConnectionPair._from_proto(val) for val in message.pairs],
-        )
-
-    def serializeAsJsonString(self) -> str:
-        self._populate_proto()
-        return MessageToJson(self._proto_message)
-
-    @classmethod
-    def deserializeFromJsonString(cls, data: str) -> "ConnectionRepeated":
-        message = telemetry_config_pb2.ConnectionRepeated()
-        Parse(data, message)
-        return cls.deserializeFromProtobufString(message.SerializeToString())
-
-@dataclass
 class TelemetryConfig:
     vehicleId: str = ""
     deviceId: str = ""
@@ -481,8 +587,7 @@ class TelemetryConfig:
     generateCsv: bool = False
     waitForReady: bool = False
     connections: Dict[str, ConnectionRepeated] = field(default_factory=dict)
-    canDevices: List[CanDevice] = field(default_factory=list)
-    gpsDevices: List[GpsDevice] = field(default_factory=list)
+    devices: Dict[str, Devices] = field(default_factory=dict)
     tpmsSensors: TpmsSensors = None
     
     _proto_message: telemetry_config_pb2.TelemetryConfig = field(init=False, repr=False)
@@ -504,15 +609,10 @@ class TelemetryConfig:
             val._populate_proto()
             tmp = self._proto_message.connections.setdefault(key)
             tmp.CopyFrom(val._proto_message)
-        del self._proto_message.canDevices[:]
-        for val in self.canDevices:
+        self._proto_message.devices.clear()
+        for key, val in self.devices.items():
             val._populate_proto()
-            tmp = self._proto_message.canDevices.add()
-            tmp.CopyFrom(val._proto_message)
-        del self._proto_message.gpsDevices[:]
-        for val in self.gpsDevices:
-            val._populate_proto()
-            tmp = self._proto_message.gpsDevices.add()
+            tmp = self._proto_message.devices.setdefault(key)
             tmp.CopyFrom(val._proto_message)
         if self.tpmsSensors:
             self.tpmsSensors._populate_proto()
@@ -530,8 +630,7 @@ class TelemetryConfig:
             generateCsv = proto_message.generateCsv,
             waitForReady = proto_message.waitForReady,
             connections={key: ConnectionRepeated._from_proto(val) for key, val in proto_message.connections.items()},
-            canDevices=[CanDevice._from_proto(val) for val in proto_message.canDevices],
-            gpsDevices=[GpsDevice._from_proto(val) for val in proto_message.gpsDevices],
+            devices={key: Devices._from_proto(val) for key, val in proto_message.devices.items()},
             tpmsSensors = TpmsSensors._from_proto(proto_message.tpmsSensors),
         )
 
@@ -556,8 +655,7 @@ class TelemetryConfig:
             generateCsv = message.generateCsv,
             waitForReady = message.waitForReady,
             connections = {key: ConnectionRepeated._from_proto(val) for key, val in message.connections.items()},
-            canDevices = [CanDevice._from_proto(val) for val in message.canDevices],
-            gpsDevices = [GpsDevice._from_proto(val) for val in message.gpsDevices],
+            devices = {key: Devices._from_proto(val) for key, val in message.devices.items()},
             tpmsSensors = (
                 TpmsSensors._from_proto(message.tpmsSensors)
                 if message.HasField("tpmsSensors")
