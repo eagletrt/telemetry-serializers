@@ -168,8 +168,8 @@ struct TelemetryConfig
     std::string vehicleId;
     std::string deviceId;
     uint64_t role;
-    std::string conn_name;
-    std::string dev_name;
+    std::string connName;
+    std::string devName;
     bool cameraEnabled;
     bool generateCsv;
     bool waitForReady;

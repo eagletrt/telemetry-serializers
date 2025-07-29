@@ -530,8 +530,8 @@ class TelemetryConfig:
     vehicleId: str = ""
     deviceId: str = ""
     role: int = 0
-    conn_name: str = ""
-    dev_name: str = ""
+    connName: str = ""
+    devName: str = ""
     cameraEnabled: bool = False
     generateCsv: bool = False
     waitForReady: bool = False
@@ -548,8 +548,8 @@ class TelemetryConfig:
         self._proto_message.vehicleId = self.vehicleId
         self._proto_message.deviceId = self.deviceId
         self._proto_message.role = self.role
-        self._proto_message.conn_name = self.conn_name
-        self._proto_message.dev_name = self.dev_name
+        self._proto_message.connName = self.connName
+        self._proto_message.devName = self.devName
         self._proto_message.cameraEnabled = self.cameraEnabled
         self._proto_message.generateCsv = self.generateCsv
         self._proto_message.waitForReady = self.waitForReady
@@ -573,8 +573,8 @@ class TelemetryConfig:
             vehicleId = proto_message.vehicleId,
             deviceId = proto_message.deviceId,
             role = proto_message.role,
-            conn_name = proto_message.conn_name,
-            dev_name = proto_message.dev_name,
+            connName = proto_message.connName,
+            devName = proto_message.devName,
             cameraEnabled = proto_message.cameraEnabled,
             generateCsv = proto_message.generateCsv,
             waitForReady = proto_message.waitForReady,
@@ -598,8 +598,8 @@ class TelemetryConfig:
             vehicleId = message.vehicleId,
             deviceId = message.deviceId,
             role = message.role,
-            conn_name = message.conn_name,
-            dev_name = message.dev_name,
+            connName = message.connName,
+            devName = message.devName,
             cameraEnabled = message.cameraEnabled,
             generateCsv = message.generateCsv,
             waitForReady = message.waitForReady,

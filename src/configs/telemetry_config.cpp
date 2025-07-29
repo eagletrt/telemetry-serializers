@@ -466,8 +466,8 @@ TelemetryConfig::TelemetryConfig(const PbConfigs::TelemetryConfig& protobuf) {
     vehicleId = protobuf.vehicleid();
     deviceId = protobuf.deviceid();
     role = protobuf.role();
-    conn_name = protobuf.conn_name();
-    dev_name = protobuf.dev_name();
+    connName = protobuf.connname();
+    devName = protobuf.devname();
     cameraEnabled = protobuf.cameraenabled();
     generateCsv = protobuf.generatecsv();
     waitForReady = protobuf.waitforready();
@@ -481,8 +481,8 @@ TelemetryConfig::operator PbConfigs::TelemetryConfig() const {
     ret.set_vehicleid(vehicleId);
     ret.set_deviceid(deviceId);
     ret.set_role(role);
-    ret.set_conn_name(conn_name);
-    ret.set_dev_name(dev_name);
+    ret.set_connname(connName);
+    ret.set_devname(devName);
     ret.set_cameraenabled(cameraEnabled);
     ret.set_generatecsv(generateCsv);
     ret.set_waitforready(waitForReady);

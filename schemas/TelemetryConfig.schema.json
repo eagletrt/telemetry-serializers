@@ -242,8 +242,8 @@
                 "vehicleId",
                 "deviceId",
                 "role",
-                "conn_name",
-                "dev_name",
+                "connName",
+                "devName",
                 "cameraEnabled",
                 "generateCsv",
                 "waitForReady",
@@ -261,10 +261,10 @@
                 "role": {
                     "type": "integer"
                 },
-                "conn_name": {
+                "connName": {
                     "type": "string"
                 },
-                "dev_name": {
+                "devName": {
                     "type": "string"
                 },
                 "cameraEnabled": {
