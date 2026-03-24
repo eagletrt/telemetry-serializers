@@ -1,0 +1,79 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ForwarderConfig",
+    "definitions": {
+        "ForwarderConfig": {
+            "required": [
+                "gpsDevice",
+                "ntripClient"
+            ],
+            "properties": {
+                "gpsDevice": {
+                    "$ref": "#/definitions/PbConfigs.GpsDev",
+                    "additionalProperties": false
+                },
+                "ntripClient": {
+                    "$ref": "#/definitions/PbConfigs.NtripClient",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Forwarder Config"
+        },
+        "PbConfigs.GpsDev": {
+            "required": [
+                "address",
+                "port",
+                "mode",
+                "enabled"
+            ],
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "string"
+                },
+                "mode": {
+                    "type": "string"
+                },
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Gps Dev"
+        },
+        "PbConfigs.NtripClient": {
+            "required": [
+                "casterHost",
+                "casterPort",
+                "mountPoint",
+                "username",
+                "password"
+            ],
+            "properties": {
+                "casterHost": {
+                    "type": "string"
+                },
+                "casterPort": {
+                    "type": "integer"
+                },
+                "mountPoint": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Ntrip Client"
+        }
+    }
+}
