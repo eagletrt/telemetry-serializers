@@ -152,16 +152,13 @@
         },
         "PbApp.GridPlot": {
             "required": [
-                "name",
                 "id",
                 "size",
                 "flags",
-                "graphID"
+                "graphID",
+                "name"
             ],
             "properties": {
-                "name": {
-                    "type": "string"
-                },
                 "id": {
                     "type": "string"
                 },
@@ -177,6 +174,9 @@
                         "type": "string"
                     },
                     "type": "array"
+                },
+                "name": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false,
