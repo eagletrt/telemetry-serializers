@@ -37,10 +37,11 @@ message Graph {
 }
 
 message GridPlot {
-  string                   id     = 1;
-  Size                     size   = 2;
-  int32                    flags  = 3;
-  repeated string          graphID  = 4;
+  string                   name   = 1;
+  string                   id     = 2;
+  Size                     size   = 3;
+  int32                    flags  = 4;
+  repeated string          graphID  = 5;
 }
 
 message CustomPage {
