@@ -1,5 +1,5 @@
 syntax = "proto3";
-package PbApp;
+package App;
 
 enum PlotType {
   UNKNOWN    = 0;
