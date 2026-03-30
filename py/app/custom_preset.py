@@ -210,6 +210,7 @@ class Graph:
 
 @dataclass
 class GridPlot:
+    name: str = ""
     id: str = ""
     size: Size = None
     flags: int = 0
@@ -221,6 +222,7 @@ class GridPlot:
         self._proto_message = custom_preset_pb2.GridPlot()
 
     def _populate_proto(self):
+        self._proto_message.name = self.name
         self._proto_message.id = self.id
         if self.size:
             self.size._populate_proto()
@@ -233,6 +235,7 @@ class GridPlot:
     @classmethod
     def _from_proto(cls, proto_message) -> "GridPlot":
         return cls(
+            name = proto_message.name,
             id = proto_message.id,
             size = Size._from_proto(proto_message.size),
             flags = proto_message.flags,
@@ -251,6 +254,7 @@ class GridPlot:
         message = custom_preset_pb2.GridPlot()
         message.ParseFromString(data)
         return cls(
+            name = message.name,
             id = message.id,
             size = (
                 Size._from_proto(message.size)

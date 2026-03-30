@@ -173,6 +173,7 @@ bool Graph::deserializeFromProtobufString(const std::string& str) {
 }
 
 GridPlot::GridPlot(const PbApp::GridPlot& protobuf) {
+    name = protobuf.name();
     id = protobuf.id();
     size = protobuf.size();
     flags = protobuf.flags();
@@ -181,6 +182,7 @@ GridPlot::GridPlot(const PbApp::GridPlot& protobuf) {
 
 GridPlot::operator PbApp::GridPlot() const {
     PbApp::GridPlot ret;
+    ret.set_name(name);
     ret.set_id(id);
     *(ret.mutable_size()) = size;
     ret.set_flags(flags);

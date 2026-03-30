@@ -78,6 +78,7 @@ struct Graph
 
 struct GridPlot
 {
+    std::string name;
     std::string id;
     Size size;
     int32_t flags;
