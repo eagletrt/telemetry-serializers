@@ -1,0 +1,81 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/SessionConfig",
+    "definitions": {
+        "PbConfigs.Weather": {
+            "required": [
+                "ambientTemperature",
+                "trackTemperature",
+                "humidity"
+            ],
+            "properties": {
+                "ambientTemperature": {
+                    "type": "number"
+                },
+                "trackTemperature": {
+                    "type": "number"
+                },
+                "humidity": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Weather"
+        },
+        "SessionConfig": {
+            "required": [
+                "trackLocation",
+                "trackLayout",
+                "sessionName",
+                "driver",
+                "date",
+                "time",
+                "weather",
+                "notes",
+                "canlibVersion",
+                "startTimestamp",
+                "endTimestamp"
+            ],
+            "properties": {
+                "trackLocation": {
+                    "type": "string"
+                },
+                "trackLayout": {
+                    "type": "string"
+                },
+                "sessionName": {
+                    "type": "string"
+                },
+                "driver": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "time": {
+                    "type": "string"
+                },
+                "weather": {
+                    "$ref": "#/definitions/PbConfigs.Weather",
+                    "additionalProperties": false
+                },
+                "notes": {
+                    "type": "string"
+                },
+                "canlibVersion": {
+                    "type": "number"
+                },
+                "startTimestamp": {
+                    "type": "integer"
+                },
+                "endTimestamp": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Session Config"
+        }
+    }
+}

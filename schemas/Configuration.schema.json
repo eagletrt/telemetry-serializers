@@ -1,0 +1,68 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Configuration",
+    "definitions": {
+        "Configuration": {
+            "required": [
+                "mqtt_host",
+                "mqtt_port",
+                "vehicle_id",
+                "device_id",
+                "influx_host",
+                "influx_port",
+                "influx_https",
+                "influx_bucket",
+                "influx_orgid",
+                "influx_token",
+                "networks"
+            ],
+            "properties": {
+                "mqtt_host": {
+                    "type": "string"
+                },
+                "mqtt_port": {
+                    "type": "integer"
+                },
+                "vehicle_id": {
+                    "type": "string"
+                },
+                "device_id": {
+                    "type": "string"
+                },
+                "influx_host": {
+                    "type": "string"
+                },
+                "influx_port": {
+                    "type": "integer"
+                },
+                "influx_https": {
+                    "type": "boolean"
+                },
+                "influx_bucket": {
+                    "type": "string"
+                },
+                "influx_orgid": {
+                    "type": "string"
+                },
+                "influx_token": {
+                    "type": "string"
+                },
+                "networks": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "proxy_host": {
+                    "type": "string"
+                },
+                "proxy_port": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Configuration"
+        }
+    }
+}

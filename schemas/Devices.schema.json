@@ -1,0 +1,76 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Devices",
+    "definitions": {
+        "Devices": {
+            "required": [
+                "can",
+                "gps"
+            ],
+            "properties": {
+                "can": {
+                    "items": {
+                        "$ref": "#/definitions/PbConfigs.CanDevice"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "gps": {
+                    "items": {
+                        "$ref": "#/definitions/PbConfigs.GpsDevice"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Devices"
+        },
+        "PbConfigs.CanDevice": {
+            "required": [
+                "socket",
+                "name",
+                "networks"
+            ],
+            "properties": {
+                "socket": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "networks": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Can Device"
+        },
+        "PbConfigs.GpsDevice": {
+            "required": [
+                "address",
+                "mode",
+                "enabled"
+            ],
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "mode": {
+                    "type": "string"
+                },
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Gps Device"
+        }
+    }
+}

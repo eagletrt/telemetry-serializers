@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/DataFile",
+    "definitions": {
+        "DataFile": {
+            "required": [
+                "data"
+            ],
+            "properties": {
+                "data": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbData.VectorDouble",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Data File"
+        },
+        "PbData.VectorDouble": {
+            "required": [
+                "buffer"
+            ],
+            "properties": {
+                "buffer": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Vector Double"
+        }
+    }
+}

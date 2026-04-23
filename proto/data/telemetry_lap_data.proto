@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Data;
+package PbData;
 
 message VectorDouble { repeated double buffer = 1; }
 

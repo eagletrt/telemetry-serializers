@@ -1,0 +1,113 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GPSMapOrigins",
+    "definitions": {
+        "GPSMapOrigins": {
+            "required": [
+                "trackLocation",
+                "trackLayout",
+                "origins",
+                "tracksBaseline"
+            ],
+            "properties": {
+                "trackLocation": {
+                    "type": "string"
+                },
+                "trackLayout": {
+                    "type": "string"
+                },
+                "origins": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbTelemetry.GPSMapOrigin",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                },
+                "tracksBaseline": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbTelemetry.Baseline",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "GPS Map Origins"
+        },
+        "PbTelemetry.Baseline": {
+            "required": [
+                "valid",
+                "logging",
+                "length",
+                "x",
+                "y",
+                "resampled",
+                "s",
+                "theta"
+            ],
+            "properties": {
+                "valid": {
+                    "type": "boolean"
+                },
+                "logging": {
+                    "type": "boolean"
+                },
+                "length": {
+                    "type": "number"
+                },
+                "x": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "y": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "resampled": {
+                    "type": "boolean"
+                },
+                "s": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "theta": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Baseline"
+        },
+        "PbTelemetry.GPSMapOrigin": {
+            "required": [
+                "latitude",
+                "longitude",
+                "altitude"
+            ],
+            "properties": {
+                "latitude": {
+                    "type": "number"
+                },
+                "longitude": {
+                    "type": "number"
+                },
+                "altitude": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "GPS Map Origin"
+        }
+    }
+}

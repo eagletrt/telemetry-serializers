@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/FileTransactionChunk",
+    "definitions": {
+        "FileTransactionChunk": {
+            "required": [
+                "data",
+                "hash",
+                "chunkNumber",
+                "totalChunks"
+            ],
+            "properties": {
+                "data": {
+                    "type": "string"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "chunkNumber": {
+                    "type": "integer"
+                },
+                "totalChunks": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "File Transaction Chunk"
+        }
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Damper",
+    "definitions": {
+        "Damper": {
+            "required": [
+                "bound_low_comp",
+                "bound_high_comp",
+                "rebound",
+                "preload"
+            ],
+            "properties": {
+                "bound_low_comp": {
+                    "type": "number"
+                },
+                "bound_high_comp": {
+                    "type": "number"
+                },
+                "rebound": {
+                    "type": "number"
+                },
+                "preload": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Damper"
+        }
+    }
+}

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Actions;
+package PbActions;
 
 message Command
 {

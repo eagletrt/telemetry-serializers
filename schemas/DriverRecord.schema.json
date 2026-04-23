@@ -1,0 +1,81 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/DriverRecord",
+    "definitions": {
+        "DriverRecord": {
+            "required": [
+                "driver",
+                "best_lap",
+                "best_sectors"
+            ],
+            "properties": {
+                "driver": {
+                    "type": "string"
+                },
+                "best_lap": {
+                    "$ref": "#/definitions/PbMongoDb.LapRecord",
+                    "additionalProperties": false
+                },
+                "best_sectors": {
+                    "items": {
+                        "$ref": "#/definitions/PbMongoDb.SectorsRecord"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Driver Record"
+        },
+        "PbMongoDb.LapRecord": {
+            "required": [
+                "driver",
+                "start",
+                "end",
+                "sectors"
+            ],
+            "properties": {
+                "driver": {
+                    "type": "string"
+                },
+                "start": {
+                    "type": "integer"
+                },
+                "end": {
+                    "type": "integer"
+                },
+                "sectors": {
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Lap Record"
+        },
+        "PbMongoDb.SectorsRecord": {
+            "required": [
+                "driver",
+                "start_time_sector",
+                "end_time_sector"
+            ],
+            "properties": {
+                "driver": {
+                    "type": "string"
+                },
+                "start_time_sector": {
+                    "type": "integer"
+                },
+                "end_time_sector": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Sectors Record"
+        }
+    }
+}

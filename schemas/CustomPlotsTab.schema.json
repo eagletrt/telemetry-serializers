@@ -1,0 +1,119 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/CustomPlotsTab",
+    "definitions": {
+        "CustomPlotsTab": {
+            "required": [
+                "subPlots"
+            ],
+            "properties": {
+                "subPlots": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.CustomSubPlots"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Custom Plots Tab"
+        },
+        "PbApp.CustomPlotAxis": {
+            "required": [
+                "label",
+                "items"
+            ],
+            "properties": {
+                "label": {
+                    "type": "string"
+                },
+                "items": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.CustomPlotItem"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Custom Plot Axis"
+        },
+        "PbApp.CustomPlotItem": {
+            "required": [
+                "messageAxisX",
+                "messageAxisY",
+                "signalAxisX",
+                "signalAxisY",
+                "isEnum",
+                "color"
+            ],
+            "properties": {
+                "messageAxisX": {
+                    "type": "string"
+                },
+                "messageAxisY": {
+                    "type": "string"
+                },
+                "signalAxisX": {
+                    "type": "string"
+                },
+                "signalAxisY": {
+                    "type": "string"
+                },
+                "isEnum": {
+                    "type": "boolean"
+                },
+                "color": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Custom Plot Item"
+        },
+        "PbApp.CustomSubPlots": {
+            "required": [
+                "rows",
+                "plots"
+            ],
+            "properties": {
+                "rows": {
+                    "type": "integer"
+                },
+                "plots": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.NewCustomPlot"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Custom Sub Plots"
+        },
+        "PbApp.NewCustomPlot": {
+            "required": [
+                "title",
+                "axes"
+            ],
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "axes": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbApp.CustomPlotAxis",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "New Custom Plot"
+        }
+    }
+}

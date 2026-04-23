@@ -1,0 +1,73 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/CustomPlot",
+    "definitions": {
+        "CustomPlot": {
+            "required": [
+                "name",
+                "axes"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "axes": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbApp.Axis",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Custom Plot"
+        },
+        "PbApp.Axis": {
+            "required": [
+                "name",
+                "items"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "items": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.AxisItem"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Axis"
+        },
+        "PbApp.AxisItem": {
+            "required": [
+                "message",
+                "signal",
+                "isEnum",
+                "color"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "signal": {
+                    "type": "string"
+                },
+                "isEnum": {
+                    "type": "boolean"
+                },
+                "color": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Axis Item"
+        }
+    }
+}

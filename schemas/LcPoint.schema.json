@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/LcPoint",
+    "definitions": {
+        "LcPoint": {
+            "required": [
+                "position_x",
+                "position_y",
+                "inclination_x",
+                "inclination_y"
+            ],
+            "properties": {
+                "position_x": {
+                    "type": "number"
+                },
+                "position_y": {
+                    "type": "number"
+                },
+                "inclination_x": {
+                    "type": "number"
+                },
+                "inclination_y": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Lc Point"
+        }
+    }
+}

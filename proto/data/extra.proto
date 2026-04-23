@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Data;
+package PbData;
 
 message RepeatedValueUint64 { repeated uint64 values = 1; }
 message RepeatedValueDouble { repeated double values = 1; }

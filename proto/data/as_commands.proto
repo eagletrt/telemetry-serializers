@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Data;
+package PbData;
 
 message ASCommands{
     double steerAngleDegrees = 1;

@@ -1,0 +1,303 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/TelemetryConfig",
+    "definitions": {
+        "PbConfigs.CanDevice": {
+            "required": [
+                "socket",
+                "name",
+                "networks"
+            ],
+            "properties": {
+                "socket": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "networks": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Can Device"
+        },
+        "PbConfigs.Connection": {
+            "required": [
+                "ip",
+                "port",
+                "mode",
+                "whoamiUrl",
+                "tlsEnabled",
+                "cafile",
+                "capath",
+                "certfile",
+                "keyfile"
+            ],
+            "properties": {
+                "ip": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "string"
+                },
+                "mode": {
+                    "type": "string"
+                },
+                "whoamiUrl": {
+                    "type": "string"
+                },
+                "tlsEnabled": {
+                    "type": "boolean"
+                },
+                "cafile": {
+                    "type": "string"
+                },
+                "capath": {
+                    "type": "string"
+                },
+                "certfile": {
+                    "type": "string"
+                },
+                "keyfile": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection"
+        },
+        "PbConfigs.ConnectionPair": {
+            "required": [
+                "config",
+                "settings"
+            ],
+            "properties": {
+                "config": {
+                    "$ref": "#/definitions/PbConfigs.Connection",
+                    "additionalProperties": false
+                },
+                "settings": {
+                    "$ref": "#/definitions/PbConfigs.ConnectionSettings",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection Pair"
+        },
+        "PbConfigs.ConnectionRepeated": {
+            "required": [
+                "pairs"
+            ],
+            "properties": {
+                "pairs": {
+                    "items": {
+                        "$ref": "#/definitions/PbConfigs.ConnectionPair"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection Repeated"
+        },
+        "PbConfigs.ConnectionSettings": {
+            "required": [
+                "enabled",
+                "downsampleEnabled",
+                "downsampleSkipData",
+                "downsampleMps",
+                "sendRate",
+                "sendSensorData"
+            ],
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "downsampleEnabled": {
+                    "type": "boolean"
+                },
+                "downsampleSkipData": {
+                    "type": "boolean"
+                },
+                "downsampleMps": {
+                    "type": "integer"
+                },
+                "sendRate": {
+                    "type": "integer"
+                },
+                "sendSensorData": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection Settings"
+        },
+        "PbConfigs.Devices": {
+            "required": [
+                "can",
+                "gps"
+            ],
+            "properties": {
+                "can": {
+                    "items": {
+                        "$ref": "#/definitions/PbConfigs.CanDevice"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "gps": {
+                    "items": {
+                        "$ref": "#/definitions/PbConfigs.GpsDevice"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Devices"
+        },
+        "PbConfigs.GpsDevice": {
+            "required": [
+                "address",
+                "mode",
+                "enabled"
+            ],
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "mode": {
+                    "type": "string"
+                },
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Gps Device"
+        },
+        "PbConfigs.TpmsSensorIds": {
+            "required": [
+                "fl",
+                "fr",
+                "rl",
+                "rr"
+            ],
+            "properties": {
+                "fl": {
+                    "type": "integer"
+                },
+                "fr": {
+                    "type": "integer"
+                },
+                "rl": {
+                    "type": "integer"
+                },
+                "rr": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Tpms Sensor Ids"
+        },
+        "PbConfigs.TpmsSensors": {
+            "required": [
+                "enabled",
+                "rtl433Path",
+                "recordSignals",
+                "sensorIds"
+            ],
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "rtl433Path": {
+                    "type": "string"
+                },
+                "recordSignals": {
+                    "type": "boolean"
+                },
+                "sensorIds": {
+                    "$ref": "#/definitions/PbConfigs.TpmsSensorIds",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Tpms Sensors"
+        },
+        "TelemetryConfig": {
+            "required": [
+                "vehicleId",
+                "deviceId",
+                "role",
+                "connName",
+                "devName",
+                "cameraEnabled",
+                "generateCsv",
+                "waitForReady",
+                "connections",
+                "devices",
+                "tpmsSensors"
+            ],
+            "properties": {
+                "vehicleId": {
+                    "type": "string"
+                },
+                "deviceId": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "integer"
+                },
+                "connName": {
+                    "type": "string"
+                },
+                "devName": {
+                    "type": "string"
+                },
+                "cameraEnabled": {
+                    "type": "boolean"
+                },
+                "generateCsv": {
+                    "type": "boolean"
+                },
+                "waitForReady": {
+                    "type": "boolean"
+                },
+                "connections": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbConfigs.ConnectionRepeated",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                },
+                "devices": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbConfigs.Devices",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                },
+                "tpmsSensors": {
+                    "$ref": "#/definitions/PbConfigs.TpmsSensors",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Telemetry Config"
+        }
+    }
+}

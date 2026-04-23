@@ -1,0 +1,102 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Status",
+    "definitions": {
+        "PbTelemetry.MessagesPerSecond": {
+            "required": [
+                "deviceName",
+                "bitsPerSecond",
+                "busLoad",
+                "count"
+            ],
+            "properties": {
+                "deviceName": {
+                    "type": "string"
+                },
+                "bitsPerSecond": {
+                    "type": "integer"
+                },
+                "busLoad": {
+                    "type": "number"
+                },
+                "count": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Messages Per Second"
+        },
+        "Status": {
+            "required": [
+                "timestamp",
+                "zeroTimestamp",
+                "state",
+                "cpuTotalLoad",
+                "cpuProcessLoad",
+                "memProcessLoad",
+                "canlibBuildTime",
+                "telemetryBuildTime",
+                "messagesPerSecond"
+            ],
+            "properties": {
+                "timestamp": {
+                    "type": "integer"
+                },
+                "zeroTimestamp": {
+                    "type": "integer"
+                },
+                "state": {
+                    "enum": [
+                        "INIT",
+                        0,
+                        "IDLE",
+                        1,
+                        "SETUP_RUN",
+                        2,
+                        "RUN",
+                        3,
+                        "WAIT_READY",
+                        4,
+                        "ERROR",
+                        5
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Telemetry State"
+                },
+                "cpuTotalLoad": {
+                    "type": "integer"
+                },
+                "cpuProcessLoad": {
+                    "type": "integer"
+                },
+                "memProcessLoad": {
+                    "type": "integer"
+                },
+                "canlibBuildTime": {
+                    "type": "integer"
+                },
+                "telemetryBuildTime": {
+                    "type": "integer"
+                },
+                "messagesPerSecond": {
+                    "items": {
+                        "$ref": "#/definitions/PbTelemetry.MessagesPerSecond"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Status"
+        }
+    }
+}

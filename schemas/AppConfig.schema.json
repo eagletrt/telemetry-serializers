@@ -1,0 +1,283 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/AppConfig",
+    "definitions": {
+        "AppConfig": {
+            "required": [
+                "loginTimestamp",
+                "colorTheme",
+                "connection",
+                "savedConnections",
+                "activeTabs",
+                "filesPaths",
+                "stringCache",
+                "boolCache",
+                "doubleTriggers",
+                "enumTriggers",
+                "bitTriggers",
+                "customPlots"
+            ],
+            "properties": {
+                "loginTimestamp": {
+                    "type": "integer"
+                },
+                "colorTheme": {
+                    "type": "integer"
+                },
+                "connection": {
+                    "$ref": "#/definitions/PbApp.Connection",
+                    "additionalProperties": false
+                },
+                "savedConnections": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbApp.Connection",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                },
+                "activeTabs": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "filesPaths": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "type": "object"
+                },
+                "stringCache": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "type": "object"
+                },
+                "boolCache": {
+                    "additionalProperties": {
+                        "type": "boolean"
+                    },
+                    "type": "object"
+                },
+                "doubleTriggers": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.DoubleTrigger"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "enumTriggers": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.EnumTrigger"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "bitTriggers": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.BitTrigger"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "customPlots": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.CustomPlot"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "App Config"
+        },
+        "PbApp.Axis": {
+            "required": [
+                "name",
+                "items"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "items": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.AxisItem"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Axis"
+        },
+        "PbApp.AxisItem": {
+            "required": [
+                "message",
+                "signal",
+                "isEnum",
+                "color"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "signal": {
+                    "type": "string"
+                },
+                "isEnum": {
+                    "type": "boolean"
+                },
+                "color": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Axis Item"
+        },
+        "PbApp.BitTrigger": {
+            "required": [
+                "id",
+                "message",
+                "signal",
+                "comparator",
+                "value",
+                "color"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "signal": {
+                    "type": "string"
+                },
+                "comparator": {
+                    "type": "integer"
+                },
+                "value": {
+                    "type": "integer"
+                },
+                "color": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Bit Trigger"
+        },
+        "PbApp.Connection": {
+            "required": [
+                "ip",
+                "port",
+                "mode"
+            ],
+            "properties": {
+                "ip": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "string"
+                },
+                "mode": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection"
+        },
+        "PbApp.CustomPlot": {
+            "required": [
+                "name",
+                "axes"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "axes": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbApp.Axis",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Custom Plot"
+        },
+        "PbApp.DoubleTrigger": {
+            "required": [
+                "id",
+                "message",
+                "signal",
+                "comparator",
+                "value",
+                "color"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "signal": {
+                    "type": "string"
+                },
+                "comparator": {
+                    "type": "integer"
+                },
+                "value": {
+                    "type": "number"
+                },
+                "color": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Double Trigger"
+        },
+        "PbApp.EnumTrigger": {
+            "required": [
+                "id",
+                "message",
+                "signal",
+                "comparator",
+                "value",
+                "color"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "signal": {
+                    "type": "string"
+                },
+                "comparator": {
+                    "type": "integer"
+                },
+                "value": {
+                    "type": "integer"
+                },
+                "color": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Enum Trigger"
+        }
+    }
+}

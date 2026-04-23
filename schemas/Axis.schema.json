@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Axis",
+    "definitions": {
+        "Axis": {
+            "required": [
+                "name",
+                "items"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "items": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.AxisItem"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Axis"
+        },
+        "PbApp.AxisItem": {
+            "required": [
+                "message",
+                "signal",
+                "isEnum",
+                "color"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "signal": {
+                    "type": "string"
+                },
+                "isEnum": {
+                    "type": "boolean"
+                },
+                "color": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Axis Item"
+        }
+    }
+}

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package MongoDb;
+package PbMongoDb;
 
 message Vec2 {
     int32 x = 1;

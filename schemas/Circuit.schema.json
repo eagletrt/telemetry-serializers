@@ -1,0 +1,71 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Circuit",
+    "definitions": {
+        "Circuit": {
+            "required": [
+                "circuitId",
+                "checksLines",
+                "sectorsLines"
+            ],
+            "properties": {
+                "circuitId": {
+                    "type": "string"
+                },
+                "checksLines": {
+                    "items": {
+                        "$ref": "#/definitions/PbLapCounter.Line"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "sectorsLines": {
+                    "items": {
+                        "$ref": "#/definitions/PbLapCounter.Line"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Circuit"
+        },
+        "PbLapCounter.Line": {
+            "required": [
+                "position",
+                "direction"
+            ],
+            "properties": {
+                "position": {
+                    "$ref": "#/definitions/PbLapCounter.Vector",
+                    "additionalProperties": false
+                },
+                "direction": {
+                    "$ref": "#/definitions/PbLapCounter.Vector",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Line"
+        },
+        "PbLapCounter.Vector": {
+            "required": [
+                "x",
+                "y"
+            ],
+            "properties": {
+                "x": {
+                    "type": "number"
+                },
+                "y": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Vector"
+        }
+    }
+}

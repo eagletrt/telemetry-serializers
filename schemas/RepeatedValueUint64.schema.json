@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/RepeatedValueUint64",
+    "definitions": {
+        "RepeatedValueUint64": {
+            "required": [
+                "values"
+            ],
+            "properties": {
+                "values": {
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Repeated Value Uint 64"
+        }
+    }
+}
