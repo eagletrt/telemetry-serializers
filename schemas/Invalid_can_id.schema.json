@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Invalid_can_id",
+    "definitions": {
+        "Invalid_can_id": {
+            "required": [
+                "timestamp",
+                "id",
+                "payload"
+            ],
+            "properties": {
+                "timestamp": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "payload": {
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Invalid Can Id"
+        }
+    }
+}
