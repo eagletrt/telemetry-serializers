@@ -6,4 +6,5 @@ message Invalid_can_id{
     uint64 timestamp = 1;
     uint32 id = 2;
     repeated uint32 payload = 3;
+    string network = 4; 
 }
