@@ -32,6 +32,7 @@ add_library(
     src/configs/session_config.cpp
     src/influxlogger/configuration.cpp
     src/can/can_frequencies.cpp
+    src/can/can_error.cpp
     src/telemetry/wait_ready.cpp
     src/telemetry/gps_maps.cpp
     src/telemetry/statistics.cpp
@@ -39,7 +40,6 @@ add_library(
     src/telemetry/login_data.cpp
     src/telemetry/odometer.cpp
     src/telemetry/error.cpp
-    src/telemetry/can_error.cpp
     src/data/extra.cpp
     src/data/vehicle_state.cpp
     src/data/as_commands.cpp

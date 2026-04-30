@@ -20,6 +20,7 @@ from .configs import forwarder_config
 from .configs import session_config
 from .influxlogger import configuration
 from .can import can_frequencies
+from .can import can_error
 from .telemetry import wait_ready
 from .telemetry import gps_maps
 from .telemetry import statistics
@@ -27,7 +28,6 @@ from .telemetry import status
 from .telemetry import login_data
 from .telemetry import odometer
 from .telemetry import error
-from .telemetry import can_error
 from .data import extra
 from .data import vehicle_state
 from .data import as_commands

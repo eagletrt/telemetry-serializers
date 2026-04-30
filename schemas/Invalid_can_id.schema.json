@@ -6,7 +6,8 @@
             "required": [
                 "timestamp",
                 "id",
-                "payload"
+                "payload",
+                "network"
             ],
             "properties": {
                 "timestamp": {
@@ -20,6 +21,9 @@
                         "type": "integer"
                     },
                     "type": "array"
+                },
+                "network": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false,

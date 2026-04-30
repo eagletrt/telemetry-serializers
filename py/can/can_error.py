@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Dict
 
-from telemetry import can_error_pb2
+from can import can_error_pb2
 from google.protobuf.json_format import MessageToJson, Parse
 
 
@@ -11,6 +11,7 @@ class Invalid_can_id:
     timestamp: int = 0
     id: int = 0
     payload: List[int] = field(default_factory=list)
+    network: str = ""
     
     _proto_message: can_error_pb2.Invalid_can_id = field(init=False, repr=False)
 
@@ -23,6 +24,7 @@ class Invalid_can_id:
         del self._proto_message.payload[:]
         for val in self.payload:
             self._proto_message.payload.append(val)
+        self._proto_message.network = self.network
 
     @classmethod
     def _from_proto(cls, proto_message) -> "Invalid_can_id":
@@ -30,6 +32,7 @@ class Invalid_can_id:
             timestamp = proto_message.timestamp,
             id = proto_message.id,
             payload=[int(val) for val in proto_message.payload],
+            network = proto_message.network,
         )
 
     def __str__(self):
@@ -47,6 +50,7 @@ class Invalid_can_id:
             timestamp = message.timestamp,
             id = message.id,
             payload = [int(val) for val in message.payload],
+            network = message.network,
         )
 
     def serializeAsJsonString(self) -> str:

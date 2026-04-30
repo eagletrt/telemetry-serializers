@@ -10,17 +10,18 @@
 
 namespace Serializers
 {
-namespace Telemetry
+namespace Can
 {
 struct Invalid_can_id
 {
     uint64_t timestamp;
     uint32_t id;
     std::vector<uint32_t> payload;
+    std::string network;
     
     Invalid_can_id() = default;
-    Invalid_can_id(const PbTelemetry::Invalid_can_id& protobuf);
-    operator PbTelemetry::Invalid_can_id() const;
+    Invalid_can_id(const PbCan::Invalid_can_id& protobuf);
+    operator PbCan::Invalid_can_id() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
