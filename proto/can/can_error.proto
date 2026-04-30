@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Telemetry;
+package Can;
 
 message Invalid_can_id{
     uint64 timestamp = 1;
