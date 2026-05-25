@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Tyre",
+    "definitions": {
+        "Tyre": {
+            "required": [
+                "id",
+                "kilometers"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "kilometers": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Tyre"
+        }
+    }
+}

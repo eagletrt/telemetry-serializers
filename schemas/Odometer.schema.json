@@ -5,10 +5,31 @@
         "Odometer": {
             "required": [
                 "startDate",
-                "kilometers"
+                "tyres"
             ],
             "properties": {
                 "startDate": {
+                    "type": "string"
+                },
+                "tyres": {
+                    "items": {
+                        "$ref": "#/definitions/PbTelemetry.Tyre"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Odometer"
+        },
+        "PbTelemetry.Tyre": {
+            "required": [
+                "id",
+                "kilometers"
+            ],
+            "properties": {
+                "id": {
                     "type": "string"
                 },
                 "kilometers": {
@@ -17,7 +38,7 @@
             },
             "additionalProperties": false,
             "type": "object",
-            "title": "Odometer"
+            "title": "Tyre"
         }
     }
 }

@@ -12,10 +12,25 @@ namespace Serializers
 {
 namespace Telemetry
 {
+struct Tyre
+{
+    std::string id;
+    double kilometers;
+    
+    Tyre() = default;
+    Tyre(const PbTelemetry::Tyre& protobuf);
+    operator PbTelemetry::Tyre() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
 struct Odometer
 {
     std::string startDate;
-    double kilometers;
+    std::vector<Tyre> tyres;
     
     Odometer() = default;
     Odometer(const PbTelemetry::Odometer& protobuf);
