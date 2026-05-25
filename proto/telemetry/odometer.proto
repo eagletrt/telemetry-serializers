@@ -2,8 +2,12 @@ syntax = "proto3";
 
 package Telemetry;
 
-message Odometer
-{
-    string startDate = 1;
+message Tyre {
+    string id = 1;
     double kilometers = 2;
+}
+
+message Odometer {
+    string startDate = 1;
+    repeated Tyre tyres = 2;
 }
