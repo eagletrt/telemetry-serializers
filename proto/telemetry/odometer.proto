@@ -9,5 +9,8 @@ message Tyre {
 
 message Odometer {
     string startDate = 1;
-    repeated Tyre tyres = 2;
+    Tyre fl = 2;
+    Tyre fr = 3;
+    Tyre rl = 4;
+    Tyre rr = 5;
 }

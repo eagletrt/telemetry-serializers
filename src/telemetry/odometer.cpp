@@ -56,13 +56,19 @@ bool Tyre::deserializeFromProtobufString(const std::string& str) {
 
 Odometer::Odometer(const PbTelemetry::Odometer& protobuf) {
     startDate = protobuf.startdate();
-    tyres = {protobuf.tyres().begin(), protobuf.tyres().end()};
+    fl = protobuf.fl();
+    fr = protobuf.fr();
+    rl = protobuf.rl();
+    rr = protobuf.rr();
 }
 
 Odometer::operator PbTelemetry::Odometer() const {
     PbTelemetry::Odometer ret;
     ret.set_startdate(startDate);
-    *(ret.mutable_tyres()) = {tyres.begin(), tyres.end()};
+    *(ret.mutable_fl()) = fl;
+    *(ret.mutable_fr()) = fr;
+    *(ret.mutable_rl()) = rl;
+    *(ret.mutable_rr()) = rr;
     return ret;
 }
 

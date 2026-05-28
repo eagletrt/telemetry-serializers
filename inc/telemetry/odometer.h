@@ -30,7 +30,10 @@ struct Tyre
 struct Odometer
 {
     std::string startDate;
-    std::vector<Tyre> tyres;
+    Tyre fl;
+    Tyre fr;
+    Tyre rl;
+    Tyre rr;
     
     Odometer() = default;
     Odometer(const PbTelemetry::Odometer& protobuf);

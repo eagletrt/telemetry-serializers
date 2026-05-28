@@ -56,7 +56,10 @@ class Tyre:
 @dataclass
 class Odometer:
     startDate: str = ""
-    tyres: List[Tyre] = field(default_factory=list)
+    fl: Tyre = None
+    fr: Tyre = None
+    rl: Tyre = None
+    rr: Tyre = None
     
     _proto_message: odometer_pb2.Odometer = field(init=False, repr=False)
 
@@ -65,17 +68,27 @@ class Odometer:
 
     def _populate_proto(self):
         self._proto_message.startDate = self.startDate
-        del self._proto_message.tyres[:]
-        for val in self.tyres:
-            val._populate_proto()
-            tmp = self._proto_message.tyres.add()
-            tmp.CopyFrom(val._proto_message)
+        if self.fl:
+            self.fl._populate_proto()
+            self._proto_message.fl.CopyFrom(self.fl._proto_message)
+        if self.fr:
+            self.fr._populate_proto()
+            self._proto_message.fr.CopyFrom(self.fr._proto_message)
+        if self.rl:
+            self.rl._populate_proto()
+            self._proto_message.rl.CopyFrom(self.rl._proto_message)
+        if self.rr:
+            self.rr._populate_proto()
+            self._proto_message.rr.CopyFrom(self.rr._proto_message)
 
     @classmethod
     def _from_proto(cls, proto_message) -> "Odometer":
         return cls(
             startDate = proto_message.startDate,
-            tyres=[Tyre._from_proto(val) for val in proto_message.tyres],
+            fl = Tyre._from_proto(proto_message.fl),
+            fr = Tyre._from_proto(proto_message.fr),
+            rl = Tyre._from_proto(proto_message.rl),
+            rr = Tyre._from_proto(proto_message.rr),
         )
 
     def __str__(self):
@@ -91,7 +104,26 @@ class Odometer:
         message.ParseFromString(data)
         return cls(
             startDate = message.startDate,
-            tyres = [Tyre._from_proto(val) for val in message.tyres],
+            fl = (
+                Tyre._from_proto(message.fl)
+                if message.HasField("fl")
+                else None
+            ),
+            fr = (
+                Tyre._from_proto(message.fr)
+                if message.HasField("fr")
+                else None
+            ),
+            rl = (
+                Tyre._from_proto(message.rl)
+                if message.HasField("rl")
+                else None
+            ),
+            rr = (
+                Tyre._from_proto(message.rr)
+                if message.HasField("rr")
+                else None
+            ),
         )
 
     def serializeAsJsonString(self) -> str:
