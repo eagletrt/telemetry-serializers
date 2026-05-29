@@ -36,6 +36,7 @@ struct DoubleTrigger
     int32_t comparator;
     double value;
     uint32_t color;
+    int32_t notiftype;
     
     DoubleTrigger() = default;
     DoubleTrigger(const PbApp::DoubleTrigger& protobuf);
@@ -55,6 +56,7 @@ struct EnumTrigger
     int32_t comparator;
     uint64_t value;
     uint32_t color;
+    int32_t notiftype;
     
     EnumTrigger() = default;
     EnumTrigger(const PbApp::EnumTrigger& protobuf);
@@ -74,6 +76,7 @@ struct BitTrigger
     int32_t comparator;
     uint64_t value;
     uint32_t color;
+    int32_t notiftype;
     
     BitTrigger() = default;
     BitTrigger(const PbApp::BitTrigger& protobuf);

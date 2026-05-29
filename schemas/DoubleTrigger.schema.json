@@ -9,7 +9,8 @@
                 "signal",
                 "comparator",
                 "value",
-                "color"
+                "color",
+                "notiftype"
             ],
             "properties": {
                 "id": {
@@ -28,6 +29,9 @@
                     "type": "number"
                 },
                 "color": {
+                    "type": "integer"
+                },
+                "notiftype": {
                     "type": "integer"
                 }
             },
