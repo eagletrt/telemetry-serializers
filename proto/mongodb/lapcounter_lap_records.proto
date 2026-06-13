@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package PbMongoDb;
+package MongoDb;
 
 message LapRecord
 {

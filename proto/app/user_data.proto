@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package PbApp;
+package App;
 
 message UserData
 {
