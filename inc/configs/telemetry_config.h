@@ -44,6 +44,21 @@ struct GpsDevice
     bool deserializeFromProtobufString(const std::string& str);
 };
 
+struct Devices
+{
+    std::vector<CanDevice> can;
+    std::vector<GpsDevice> gps;
+    
+    Devices() = default;
+    Devices(const PbConfigs::Devices& protobuf);
+    operator PbConfigs::Devices() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
 struct Connection
 {
     std::string ip;
@@ -78,6 +93,35 @@ struct ConnectionSettings
     ConnectionSettings() = default;
     ConnectionSettings(const PbConfigs::ConnectionSettings& protobuf);
     operator PbConfigs::ConnectionSettings() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
+struct ConnectionPair
+{
+    Connection config;
+    ConnectionSettings settings;
+    
+    ConnectionPair() = default;
+    ConnectionPair(const PbConfigs::ConnectionPair& protobuf);
+    operator PbConfigs::ConnectionPair() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
+struct ConnectionRepeated
+{
+    std::vector<ConnectionPair> pairs;
+    
+    ConnectionRepeated() = default;
+    ConnectionRepeated(const PbConfigs::ConnectionRepeated& protobuf);
+    operator PbConfigs::ConnectionRepeated() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
@@ -124,13 +168,13 @@ struct TelemetryConfig
     std::string vehicleId;
     std::string deviceId;
     uint64_t role;
+    std::string connName;
+    std::string devName;
     bool cameraEnabled;
     bool generateCsv;
     bool waitForReady;
-    Connection connection;
-    ConnectionSettings connectionSettings;
-    std::vector<CanDevice> canDevices;
-    std::vector<GpsDevice> gpsDevices;
+    std::unordered_map<std::string, ConnectionRepeated> connections;
+    std::unordered_map<std::string, Devices> devices;
     TpmsSensors tpmsSensors;
     
     TelemetryConfig() = default;

@@ -71,6 +71,42 @@
             "type": "object",
             "title": "Connection"
         },
+        "PbConfigs.ConnectionPair": {
+            "required": [
+                "config",
+                "settings"
+            ],
+            "properties": {
+                "config": {
+                    "$ref": "#/definitions/PbConfigs.Connection",
+                    "additionalProperties": false
+                },
+                "settings": {
+                    "$ref": "#/definitions/PbConfigs.ConnectionSettings",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection Pair"
+        },
+        "PbConfigs.ConnectionRepeated": {
+            "required": [
+                "pairs"
+            ],
+            "properties": {
+                "pairs": {
+                    "items": {
+                        "$ref": "#/definitions/PbConfigs.ConnectionPair"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection Repeated"
+        },
         "PbConfigs.ConnectionSettings": {
             "required": [
                 "enabled",
@@ -103,6 +139,31 @@
             "additionalProperties": false,
             "type": "object",
             "title": "Connection Settings"
+        },
+        "PbConfigs.Devices": {
+            "required": [
+                "can",
+                "gps"
+            ],
+            "properties": {
+                "can": {
+                    "items": {
+                        "$ref": "#/definitions/PbConfigs.CanDevice"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "gps": {
+                    "items": {
+                        "$ref": "#/definitions/PbConfigs.GpsDevice"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Devices"
         },
         "PbConfigs.GpsDevice": {
             "required": [
@@ -181,13 +242,13 @@
                 "vehicleId",
                 "deviceId",
                 "role",
+                "connName",
+                "devName",
                 "cameraEnabled",
                 "generateCsv",
                 "waitForReady",
-                "connection",
-                "connectionSettings",
-                "canDevices",
-                "gpsDevices",
+                "connections",
+                "devices",
                 "tpmsSensors"
             ],
             "properties": {
@@ -200,6 +261,12 @@
                 "role": {
                     "type": "integer"
                 },
+                "connName": {
+                    "type": "string"
+                },
+                "devName": {
+                    "type": "string"
+                },
                 "cameraEnabled": {
                     "type": "boolean"
                 },
@@ -209,27 +276,19 @@
                 "waitForReady": {
                     "type": "boolean"
                 },
-                "connection": {
-                    "$ref": "#/definitions/PbConfigs.Connection",
-                    "additionalProperties": false
-                },
-                "connectionSettings": {
-                    "$ref": "#/definitions/PbConfigs.ConnectionSettings",
-                    "additionalProperties": false
-                },
-                "canDevices": {
-                    "items": {
-                        "$ref": "#/definitions/PbConfigs.CanDevice"
+                "connections": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbConfigs.ConnectionRepeated",
+                        "additionalProperties": false
                     },
-                    "additionalProperties": false,
-                    "type": "array"
+                    "type": "object"
                 },
-                "gpsDevices": {
-                    "items": {
-                        "$ref": "#/definitions/PbConfigs.GpsDevice"
+                "devices": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbConfigs.Devices",
+                        "additionalProperties": false
                     },
-                    "additionalProperties": false,
-                    "type": "array"
+                    "type": "object"
                 },
                 "tpmsSensors": {
                     "$ref": "#/definitions/PbConfigs.TpmsSensors",

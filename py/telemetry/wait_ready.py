@@ -25,7 +25,7 @@ class ReplayReady:
     @classmethod
     def _from_proto(cls, proto_message) -> "ReplayReady":
         return cls(
-            status = ReadyStatus._from_proto(proto_message.status),
+            status = ReadyStatus(proto_message.status),
         )
 
     def __str__(self):

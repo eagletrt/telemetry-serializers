@@ -1,0 +1,233 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/PresetMappings",
+    "definitions": {
+        "PbApp.CustomPage": {
+            "required": [
+                "id",
+                "name",
+                "size",
+                "author",
+                "gridCells",
+                "gridPlotID"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "size": {
+                    "$ref": "#/definitions/PbApp.Size",
+                    "additionalProperties": false
+                },
+                "author": {
+                    "type": "string"
+                },
+                "gridCells": {
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                },
+                "gridPlotID": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Custom Page"
+        },
+        "PbApp.Graph": {
+            "required": [
+                "id",
+                "title",
+                "tags",
+                "signals",
+                "otherElements",
+                "hasTooltip",
+                "author",
+                "implotFlags",
+                "axisFlags"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "tags": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "signals": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.GraphElement"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "otherElements": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "hasTooltip": {
+                    "type": "boolean"
+                },
+                "author": {
+                    "type": "string"
+                },
+                "implotFlags": {
+                    "type": "integer"
+                },
+                "axisFlags": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Graph"
+        },
+        "PbApp.GraphElement": {
+            "required": [
+                "label",
+                "type",
+                "xField",
+                "yField",
+                "color",
+                "axisX",
+                "axisY"
+            ],
+            "properties": {
+                "label": {
+                    "type": "string"
+                },
+                "type": {
+                    "enum": [
+                        "UNKNOWN",
+                        0,
+                        "LINE",
+                        1,
+                        "SCATTER",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Plot Type"
+                },
+                "xField": {
+                    "type": "string"
+                },
+                "yField": {
+                    "type": "string"
+                },
+                "color": {
+                    "type": "integer"
+                },
+                "axisX": {
+                    "type": "integer"
+                },
+                "axisY": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Graph Element"
+        },
+        "PbApp.GridPlot": {
+            "required": [
+                "id",
+                "size",
+                "flags",
+                "graphID"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "size": {
+                    "$ref": "#/definitions/PbApp.Size",
+                    "additionalProperties": false
+                },
+                "flags": {
+                    "type": "integer"
+                },
+                "graphID": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Grid Plot"
+        },
+        "PbApp.Size": {
+            "required": [
+                "w",
+                "h"
+            ],
+            "properties": {
+                "w": {
+                    "type": "number"
+                },
+                "h": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Size"
+        },
+        "PresetMappings": {
+            "required": [
+                "plot_configs",
+                "subplot_configs",
+                "preset_configs"
+            ],
+            "properties": {
+                "plot_configs": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbApp.Graph",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                },
+                "subplot_configs": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbApp.GridPlot",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                },
+                "preset_configs": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/PbApp.CustomPage",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Preset Mappings"
+        }
+    }
+}

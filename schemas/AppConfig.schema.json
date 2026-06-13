@@ -145,7 +145,8 @@
                 "signal",
                 "comparator",
                 "value",
-                "color"
+                "color",
+                "notif_type"
             ],
             "properties": {
                 "id": {
@@ -164,6 +165,9 @@
                     "type": "integer"
                 },
                 "color": {
+                    "type": "integer"
+                },
+                "notif_type": {
                     "type": "integer"
                 }
             },
@@ -220,7 +224,8 @@
                 "signal",
                 "comparator",
                 "value",
-                "color"
+                "color",
+                "notif_type"
             ],
             "properties": {
                 "id": {
@@ -240,6 +245,9 @@
                 },
                 "color": {
                     "type": "integer"
+                },
+                "notif_type": {
+                    "type": "integer"
                 }
             },
             "additionalProperties": false,
@@ -253,7 +261,8 @@
                 "signal",
                 "comparator",
                 "value",
-                "color"
+                "color",
+                "notiftype"
             ],
             "properties": {
                 "id": {
@@ -272,6 +281,9 @@
                     "type": "integer"
                 },
                 "color": {
+                    "type": "integer"
+                },
+                "notiftype": {
                     "type": "integer"
                 }
             },

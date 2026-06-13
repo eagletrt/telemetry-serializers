@@ -1,0 +1,59 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GraphElement",
+    "definitions": {
+        "GraphElement": {
+            "required": [
+                "label",
+                "type",
+                "xField",
+                "yField",
+                "color",
+                "axisX",
+                "axisY"
+            ],
+            "properties": {
+                "label": {
+                    "type": "string"
+                },
+                "type": {
+                    "enum": [
+                        "UNKNOWN",
+                        0,
+                        "LINE",
+                        1,
+                        "SCATTER",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Plot Type"
+                },
+                "xField": {
+                    "type": "string"
+                },
+                "yField": {
+                    "type": "string"
+                },
+                "color": {
+                    "type": "integer"
+                },
+                "axisX": {
+                    "type": "integer"
+                },
+                "axisY": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Graph Element"
+        }
+    }
+}

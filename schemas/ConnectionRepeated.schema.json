@@ -1,0 +1,120 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ConnectionRepeated",
+    "definitions": {
+        "ConnectionRepeated": {
+            "required": [
+                "pairs"
+            ],
+            "properties": {
+                "pairs": {
+                    "items": {
+                        "$ref": "#/definitions/PbConfigs.ConnectionPair"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection Repeated"
+        },
+        "PbConfigs.Connection": {
+            "required": [
+                "ip",
+                "port",
+                "mode",
+                "whoamiUrl",
+                "tlsEnabled",
+                "cafile",
+                "capath",
+                "certfile",
+                "keyfile"
+            ],
+            "properties": {
+                "ip": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "string"
+                },
+                "mode": {
+                    "type": "string"
+                },
+                "whoamiUrl": {
+                    "type": "string"
+                },
+                "tlsEnabled": {
+                    "type": "boolean"
+                },
+                "cafile": {
+                    "type": "string"
+                },
+                "capath": {
+                    "type": "string"
+                },
+                "certfile": {
+                    "type": "string"
+                },
+                "keyfile": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection"
+        },
+        "PbConfigs.ConnectionPair": {
+            "required": [
+                "config",
+                "settings"
+            ],
+            "properties": {
+                "config": {
+                    "$ref": "#/definitions/PbConfigs.Connection",
+                    "additionalProperties": false
+                },
+                "settings": {
+                    "$ref": "#/definitions/PbConfigs.ConnectionSettings",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection Pair"
+        },
+        "PbConfigs.ConnectionSettings": {
+            "required": [
+                "enabled",
+                "downsampleEnabled",
+                "downsampleSkipData",
+                "downsampleMps",
+                "sendRate",
+                "sendSensorData"
+            ],
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "downsampleEnabled": {
+                    "type": "boolean"
+                },
+                "downsampleSkipData": {
+                    "type": "boolean"
+                },
+                "downsampleMps": {
+                    "type": "integer"
+                },
+                "sendRate": {
+                    "type": "integer"
+                },
+                "sendSensorData": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection Settings"
+        }
+    }
+}

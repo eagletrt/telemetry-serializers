@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Size",
+    "definitions": {
+        "Size": {
+            "required": [
+                "w",
+                "h"
+            ],
+            "properties": {
+                "w": {
+                    "type": "number"
+                },
+                "h": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Size"
+        }
+    }
+}

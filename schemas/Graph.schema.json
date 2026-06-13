@@ -1,0 +1,114 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Graph",
+    "definitions": {
+        "Graph": {
+            "required": [
+                "id",
+                "title",
+                "tags",
+                "signals",
+                "otherElements",
+                "hasTooltip",
+                "author",
+                "implotFlags",
+                "axisFlags"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "tags": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "signals": {
+                    "items": {
+                        "$ref": "#/definitions/PbApp.GraphElement"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "otherElements": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "hasTooltip": {
+                    "type": "boolean"
+                },
+                "author": {
+                    "type": "string"
+                },
+                "implotFlags": {
+                    "type": "integer"
+                },
+                "axisFlags": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Graph"
+        },
+        "PbApp.GraphElement": {
+            "required": [
+                "label",
+                "type",
+                "xField",
+                "yField",
+                "color",
+                "axisX",
+                "axisY"
+            ],
+            "properties": {
+                "label": {
+                    "type": "string"
+                },
+                "type": {
+                    "enum": [
+                        "UNKNOWN",
+                        0,
+                        "LINE",
+                        1,
+                        "SCATTER",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Plot Type"
+                },
+                "xField": {
+                    "type": "string"
+                },
+                "yField": {
+                    "type": "string"
+                },
+                "color": {
+                    "type": "integer"
+                },
+                "axisX": {
+                    "type": "integer"
+                },
+                "axisY": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Graph Element"
+        }
+    }
+}
