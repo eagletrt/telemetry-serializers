@@ -61,6 +61,22 @@ struct Damper
     bool deserializeFromProtobufString(const std::string& str);
 };
 
+struct ImuCorrections
+{
+    double x;
+    double y;
+    double z;
+    
+    ImuCorrections() = default;
+    ImuCorrections(const PbConfigs::ImuCorrections& protobuf);
+    operator PbConfigs::ImuCorrections() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
 struct CarConfig
 {
     Aero aero;
@@ -72,6 +88,7 @@ struct CarConfig
     double rideHeight;
     std::string balancing;
     std::string notes;
+    ImuCorrections imuCorrections;
     
     CarConfig() = default;
     CarConfig(const PbConfigs::CarConfig& protobuf);

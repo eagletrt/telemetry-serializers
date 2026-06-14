@@ -156,6 +156,55 @@ bool Damper::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
+ImuCorrections::ImuCorrections(const PbConfigs::ImuCorrections& protobuf) {
+    x = protobuf.x();
+    y = protobuf.y();
+    z = protobuf.z();
+}
+
+ImuCorrections::operator PbConfigs::ImuCorrections() const {
+    PbConfigs::ImuCorrections ret;
+    ret.set_x(x);
+    ret.set_y(y);
+    ret.set_z(z);
+    return ret;
+}
+
+std::string ImuCorrections::serializeAsJsonString() const {
+    PbConfigs::ImuCorrections protobuf(*this);
+    std::string ret;
+    google::protobuf::util::JsonPrintOptions options;
+    options.add_whitespace = true;
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    return ret;
+}
+
+std::string ImuCorrections::serializeAsProtobufString() const {
+    PbConfigs::ImuCorrections protobuf(*this);
+    return protobuf.SerializeAsString();
+}
+
+bool ImuCorrections::deserializeFromJsonString(const std::string& str) {
+    PbConfigs::ImuCorrections protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    if(status.ok()) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool ImuCorrections::deserializeFromProtobufString(const std::string& str) {
+    PbConfigs::ImuCorrections protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
 CarConfig::CarConfig(const PbConfigs::CarConfig& protobuf) {
     aero = protobuf.aero();
     wheelFront = protobuf.wheelfront();
@@ -166,6 +215,7 @@ CarConfig::CarConfig(const PbConfigs::CarConfig& protobuf) {
     rideHeight = protobuf.rideheight();
     balancing = protobuf.balancing();
     notes = protobuf.notes();
+    imuCorrections = protobuf.imucorrections();
 }
 
 CarConfig::operator PbConfigs::CarConfig() const {
@@ -179,6 +229,7 @@ CarConfig::operator PbConfigs::CarConfig() const {
     ret.set_rideheight(rideHeight);
     ret.set_balancing(balancing);
     ret.set_notes(notes);
+    *(ret.mutable_imucorrections()) = imuCorrections;
     return ret;
 }
 
