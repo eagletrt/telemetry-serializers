@@ -43,5 +43,4 @@ message CarConfig
     string balancing = 8;
     string notes = 9;
     ImuCorrections imuCorrections = 10;
-
 }
