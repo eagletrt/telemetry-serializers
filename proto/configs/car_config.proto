@@ -24,6 +24,13 @@ message Damper
     double preload = 4;
 }
 
+message ImuCorrections 
+{
+    double x = 1;
+    double y = 2;
+    double z = 3;
+}
+
 message CarConfig
 {
     Aero aero = 1;
@@ -35,4 +42,6 @@ message CarConfig
     double rideHeight = 7;
     string balancing = 8;
     string notes = 9;
+    ImuCorrections imuCorrections = 10;
+
 }
