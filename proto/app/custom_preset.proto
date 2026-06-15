@@ -58,4 +58,3 @@ message PresetMappings {
   map<string, GridPlot>  subplot_configs = 2;
   map<string, CustomPage> preset_configs = 3;
 }
-
