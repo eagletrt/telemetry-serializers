@@ -17,7 +17,7 @@ struct UserData
     std::string username;
     std::string token;
     std::string refreshToken;
-    double expiry;
+    uint64_t expiry;
     uint64_t role;
     
     UserData() = default;

@@ -11,7 +11,7 @@ class UserData:
     username: str = ""
     token: str = ""
     refreshToken: str = ""
-    expiry: float = 0.0
+    expiry: int = 0
     role: int = 0
     
     _proto_message: user_data_pb2.UserData = field(init=False, repr=False)
