@@ -164,6 +164,57 @@ class Damper:
         return cls.deserializeFromProtobufString(message.SerializeToString())
 
 @dataclass
+class ImuCorrections:
+    x: float = 0.0
+    y: float = 0.0
+    z: float = 0.0
+    
+    _proto_message: car_config_pb2.ImuCorrections = field(init=False, repr=False)
+
+    def __post_init__(self):
+        self._proto_message = car_config_pb2.ImuCorrections()
+
+    def _populate_proto(self):
+        self._proto_message.x = self.x
+        self._proto_message.y = self.y
+        self._proto_message.z = self.z
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "ImuCorrections":
+        return cls(
+            x = proto_message.x,
+            y = proto_message.y,
+            z = proto_message.z,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
+    def serializeAsProtobufString(self) -> bytes:
+        self._populate_proto()
+        return self._proto_message.SerializeToString()
+
+    @classmethod
+    def deserializeFromProtobufString(cls, data: bytes) -> "ImuCorrections":
+        message = car_config_pb2.ImuCorrections()
+        message.ParseFromString(data)
+        return cls(
+            x = message.x,
+            y = message.y,
+            z = message.z,
+        )
+
+    def serializeAsJsonString(self) -> str:
+        self._populate_proto()
+        return MessageToJson(self._proto_message)
+
+    @classmethod
+    def deserializeFromJsonString(cls, data: str) -> "ImuCorrections":
+        message = car_config_pb2.ImuCorrections()
+        Parse(data, message)
+        return cls.deserializeFromProtobufString(message.SerializeToString())
+
+@dataclass
 class CarConfig:
     aero: Aero = None
     wheelFront: Wheel = None
@@ -174,6 +225,7 @@ class CarConfig:
     rideHeight: float = 0.0
     balancing: str = ""
     notes: str = ""
+    imuCorrections: ImuCorrections = None
     
     _proto_message: car_config_pb2.CarConfig = field(init=False, repr=False)
 
@@ -200,6 +252,9 @@ class CarConfig:
         self._proto_message.rideHeight = self.rideHeight
         self._proto_message.balancing = self.balancing
         self._proto_message.notes = self.notes
+        if self.imuCorrections:
+            self.imuCorrections._populate_proto()
+            self._proto_message.imuCorrections.CopyFrom(self.imuCorrections._proto_message)
 
     @classmethod
     def _from_proto(cls, proto_message) -> "CarConfig":
@@ -213,6 +268,7 @@ class CarConfig:
             rideHeight = proto_message.rideHeight,
             balancing = proto_message.balancing,
             notes = proto_message.notes,
+            imuCorrections = ImuCorrections._from_proto(proto_message.imuCorrections),
         )
 
     def __str__(self):
@@ -256,6 +312,11 @@ class CarConfig:
             rideHeight = message.rideHeight,
             balancing = message.balancing,
             notes = message.notes,
+            imuCorrections = (
+                ImuCorrections._from_proto(message.imuCorrections)
+                if message.HasField("imuCorrections")
+                else None
+            ),
         )
 
     def serializeAsJsonString(self) -> str:

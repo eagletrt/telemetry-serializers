@@ -12,7 +12,8 @@
                 "wheelCompound",
                 "rideHeight",
                 "balancing",
-                "notes"
+                "notes",
+                "imuCorrections"
             ],
             "properties": {
                 "aero": {
@@ -46,6 +47,10 @@
                 },
                 "notes": {
                     "type": "string"
+                },
+                "imuCorrections": {
+                    "$ref": "#/definitions/PbConfigs.ImuCorrections",
+                    "additionalProperties": false
                 }
             },
             "additionalProperties": false,
@@ -97,6 +102,27 @@
             "additionalProperties": false,
             "type": "object",
             "title": "Damper"
+        },
+        "PbConfigs.ImuCorrections": {
+            "required": [
+                "x",
+                "y",
+                "z"
+            ],
+            "properties": {
+                "x": {
+                    "type": "number"
+                },
+                "y": {
+                    "type": "number"
+                },
+                "z": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Imu Corrections"
         },
         "PbConfigs.Wheel": {
             "required": [
