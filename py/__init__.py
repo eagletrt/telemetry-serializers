@@ -16,7 +16,6 @@ from .telemetry import error
 from .telemetry import wait_ready
 from .telemetry import login_data
 from .telemetry import status
-from .telemetry import odometer
 from .telemetry import gps_maps
 from .telemetry import statistics
 from .sessions import gpsSession

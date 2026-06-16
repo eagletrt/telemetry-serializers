@@ -4,10 +4,14 @@
     "definitions": {
         "Tyre": {
             "required": [
+                "startDate",
                 "id",
                 "kilometers"
             ],
             "properties": {
+                "startDate": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "string"
                 },

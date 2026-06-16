@@ -4,30 +4,26 @@
     "definitions": {
         "Odometer": {
             "required": [
-                "startDate",
                 "fl",
                 "fr",
                 "rl",
                 "rr"
             ],
             "properties": {
-                "startDate": {
-                    "type": "string"
-                },
                 "fl": {
-                    "$ref": "#/definitions/PbTelemetry.Tyre",
+                    "$ref": "#/definitions/PbConfigs.Tyre",
                     "additionalProperties": false
                 },
                 "fr": {
-                    "$ref": "#/definitions/PbTelemetry.Tyre",
+                    "$ref": "#/definitions/PbConfigs.Tyre",
                     "additionalProperties": false
                 },
                 "rl": {
-                    "$ref": "#/definitions/PbTelemetry.Tyre",
+                    "$ref": "#/definitions/PbConfigs.Tyre",
                     "additionalProperties": false
                 },
                 "rr": {
-                    "$ref": "#/definitions/PbTelemetry.Tyre",
+                    "$ref": "#/definitions/PbConfigs.Tyre",
                     "additionalProperties": false
                 }
             },
@@ -35,12 +31,16 @@
             "type": "object",
             "title": "Odometer"
         },
-        "PbTelemetry.Tyre": {
+        "PbConfigs.Tyre": {
             "required": [
+                "startDate",
                 "id",
                 "kilometers"
             ],
             "properties": {
+                "startDate": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "string"
                 },

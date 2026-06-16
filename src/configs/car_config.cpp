@@ -205,6 +205,106 @@ bool ImuCorrections::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
+Tyre::Tyre(const PbConfigs::Tyre& protobuf) {
+    startDate = protobuf.startdate();
+    id = protobuf.id();
+    kilometers = protobuf.kilometers();
+}
+
+Tyre::operator PbConfigs::Tyre() const {
+    PbConfigs::Tyre ret;
+    ret.set_startdate(startDate);
+    ret.set_id(id);
+    ret.set_kilometers(kilometers);
+    return ret;
+}
+
+std::string Tyre::serializeAsJsonString() const {
+    PbConfigs::Tyre protobuf(*this);
+    std::string ret;
+    google::protobuf::util::JsonPrintOptions options;
+    options.add_whitespace = true;
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    return ret;
+}
+
+std::string Tyre::serializeAsProtobufString() const {
+    PbConfigs::Tyre protobuf(*this);
+    return protobuf.SerializeAsString();
+}
+
+bool Tyre::deserializeFromJsonString(const std::string& str) {
+    PbConfigs::Tyre protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    if(status.ok()) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Tyre::deserializeFromProtobufString(const std::string& str) {
+    PbConfigs::Tyre protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+Odometer::Odometer(const PbConfigs::Odometer& protobuf) {
+    fl = protobuf.fl();
+    fr = protobuf.fr();
+    rl = protobuf.rl();
+    rr = protobuf.rr();
+}
+
+Odometer::operator PbConfigs::Odometer() const {
+    PbConfigs::Odometer ret;
+    *(ret.mutable_fl()) = fl;
+    *(ret.mutable_fr()) = fr;
+    *(ret.mutable_rl()) = rl;
+    *(ret.mutable_rr()) = rr;
+    return ret;
+}
+
+std::string Odometer::serializeAsJsonString() const {
+    PbConfigs::Odometer protobuf(*this);
+    std::string ret;
+    google::protobuf::util::JsonPrintOptions options;
+    options.add_whitespace = true;
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    return ret;
+}
+
+std::string Odometer::serializeAsProtobufString() const {
+    PbConfigs::Odometer protobuf(*this);
+    return protobuf.SerializeAsString();
+}
+
+bool Odometer::deserializeFromJsonString(const std::string& str) {
+    PbConfigs::Odometer protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    if(status.ok()) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Odometer::deserializeFromProtobufString(const std::string& str) {
+    PbConfigs::Odometer protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
 CarConfig::CarConfig(const PbConfigs::CarConfig& protobuf) {
     aero = protobuf.aero();
     wheelFront = protobuf.wheelfront();
@@ -216,6 +316,7 @@ CarConfig::CarConfig(const PbConfigs::CarConfig& protobuf) {
     balancing = protobuf.balancing();
     notes = protobuf.notes();
     imuCorrections = protobuf.imucorrections();
+    odometer = protobuf.odometer();
 }
 
 CarConfig::operator PbConfigs::CarConfig() const {
@@ -230,6 +331,7 @@ CarConfig::operator PbConfigs::CarConfig() const {
     ret.set_balancing(balancing);
     ret.set_notes(notes);
     *(ret.mutable_imucorrections()) = imuCorrections;
+    *(ret.mutable_odometer()) = odometer;
     return ret;
 }
 

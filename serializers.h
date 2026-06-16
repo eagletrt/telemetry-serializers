@@ -19,7 +19,6 @@
 #include "telemetry/wait_ready.h"
 #include "telemetry/login_data.h"
 #include "telemetry/status.h"
-#include "telemetry/odometer.h"
 #include "telemetry/gps_maps.h"
 #include "telemetry/statistics.h"
 #include "sessions/gpsSession.h"

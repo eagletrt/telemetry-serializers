@@ -28,7 +28,6 @@ add_library(
     src/telemetry/wait_ready.cpp
     src/telemetry/login_data.cpp
     src/telemetry/status.cpp
-    src/telemetry/odometer.cpp
     src/telemetry/gps_maps.cpp
     src/telemetry/statistics.cpp
     src/sessions/gpsSession.cpp
