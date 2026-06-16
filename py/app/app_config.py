@@ -65,7 +65,7 @@ class DoubleTrigger:
     comparator: int = 0
     value: float = 0.0
     color: int = 0
-    notif_type: int = 0
+    notiftype: int = 0
     
     _proto_message: app_config_pb2.DoubleTrigger = field(init=False, repr=False)
 
@@ -79,7 +79,7 @@ class DoubleTrigger:
         self._proto_message.comparator = self.comparator
         self._proto_message.value = self.value
         self._proto_message.color = self.color
-        self._proto_message.notif_type = self.notif_type
+        self._proto_message.notiftype = self.notiftype
 
     @classmethod
     def _from_proto(cls, proto_message) -> "DoubleTrigger":
@@ -90,7 +90,7 @@ class DoubleTrigger:
             comparator = proto_message.comparator,
             value = proto_message.value,
             color = proto_message.color,
-            notif_type = proto_message.notif_type,
+            notiftype = proto_message.notiftype,
         )
 
     def __str__(self):
@@ -111,7 +111,7 @@ class DoubleTrigger:
             comparator = message.comparator,
             value = message.value,
             color = message.color,
-            notif_type = message.notif_type,
+            notiftype = message.notiftype,
         )
 
     def serializeAsJsonString(self) -> str:
@@ -199,7 +199,7 @@ class BitTrigger:
     comparator: int = 0
     value: int = 0
     color: int = 0
-    notif_type: int = 0
+    notiftype: int = 0
     
     _proto_message: app_config_pb2.BitTrigger = field(init=False, repr=False)
 
@@ -213,7 +213,7 @@ class BitTrigger:
         self._proto_message.comparator = self.comparator
         self._proto_message.value = self.value
         self._proto_message.color = self.color
-        self._proto_message.notif_type = self.notif_type
+        self._proto_message.notiftype = self.notiftype
 
     @classmethod
     def _from_proto(cls, proto_message) -> "BitTrigger":
@@ -224,7 +224,7 @@ class BitTrigger:
             comparator = proto_message.comparator,
             value = proto_message.value,
             color = proto_message.color,
-            notif_type = proto_message.notif_type,
+            notiftype = proto_message.notiftype,
         )
 
     def __str__(self):
@@ -245,7 +245,7 @@ class BitTrigger:
             comparator = message.comparator,
             value = message.value,
             color = message.color,
-            notif_type = message.notif_type,
+            notiftype = message.notiftype,
         )
 
     def serializeAsJsonString(self) -> str:

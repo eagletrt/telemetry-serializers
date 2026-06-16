@@ -63,7 +63,7 @@ DoubleTrigger::DoubleTrigger(const PbApp::DoubleTrigger& protobuf) {
     comparator = protobuf.comparator();
     value = protobuf.value();
     color = protobuf.color();
-    notif_type = protobuf.notif_type();
+    notiftype = protobuf.notiftype();
 }
 
 DoubleTrigger::operator PbApp::DoubleTrigger() const {
@@ -74,7 +74,7 @@ DoubleTrigger::operator PbApp::DoubleTrigger() const {
     ret.set_comparator(comparator);
     ret.set_value(value);
     ret.set_color(color);
-    ret.set_notif_type(notif_type);
+    ret.set_notiftype(notiftype);
     return ret;
 }
 
@@ -177,7 +177,7 @@ BitTrigger::BitTrigger(const PbApp::BitTrigger& protobuf) {
     comparator = protobuf.comparator();
     value = protobuf.value();
     color = protobuf.color();
-    notif_type = protobuf.notif_type();
+    notiftype = protobuf.notiftype();
 }
 
 BitTrigger::operator PbApp::BitTrigger() const {
@@ -188,7 +188,7 @@ BitTrigger::operator PbApp::BitTrigger() const {
     ret.set_comparator(comparator);
     ret.set_value(value);
     ret.set_color(color);
-    ret.set_notif_type(notif_type);
+    ret.set_notiftype(notiftype);
     return ret;
 }
 

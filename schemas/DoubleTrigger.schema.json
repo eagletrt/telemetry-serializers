@@ -10,7 +10,7 @@
                 "comparator",
                 "value",
                 "color",
-                "notif_type"
+                "notiftype"
             ],
             "properties": {
                 "id": {
@@ -31,7 +31,7 @@
                 "color": {
                     "type": "integer"
                 },
-                "notif_type": {
+                "notiftype": {
                     "type": "integer"
                 }
             },
