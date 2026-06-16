@@ -17,7 +17,7 @@ message DoubleTrigger
     int32 comparator = 4;
     double value = 5;
     uint32 color = 6;
-    int32 notif_type = 7;
+    int32 notiftype = 7;
 }
 
 message EnumTrigger
@@ -39,7 +39,7 @@ message BitTrigger
     int32 comparator = 4;
     uint64 value = 5;
     uint32 color = 6;
-    int32 notif_type = 7;
+    int32 notiftype = 7;
 }
 
 message AxisItem
