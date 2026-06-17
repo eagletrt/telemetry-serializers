@@ -4,11 +4,44 @@
     "definitions": {
         "Odometer": {
             "required": [
+                "fl",
+                "fr",
+                "rl",
+                "rr"
+            ],
+            "properties": {
+                "fl": {
+                    "$ref": "#/definitions/PbConfigs.Tyre",
+                    "additionalProperties": false
+                },
+                "fr": {
+                    "$ref": "#/definitions/PbConfigs.Tyre",
+                    "additionalProperties": false
+                },
+                "rl": {
+                    "$ref": "#/definitions/PbConfigs.Tyre",
+                    "additionalProperties": false
+                },
+                "rr": {
+                    "$ref": "#/definitions/PbConfigs.Tyre",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Odometer"
+        },
+        "PbConfigs.Tyre": {
+            "required": [
                 "startDate",
+                "id",
                 "kilometers"
             ],
             "properties": {
                 "startDate": {
+                    "type": "string"
+                },
+                "id": {
                     "type": "string"
                 },
                 "kilometers": {
@@ -17,7 +50,7 @@
             },
             "additionalProperties": false,
             "type": "object",
-            "title": "Odometer"
+            "title": "Tyre"
         }
     }
 }

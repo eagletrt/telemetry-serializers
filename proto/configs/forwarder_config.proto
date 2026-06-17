@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package PbConfigs;
+
+message NtripClient
+{
+    string casterHost = 1;
+    int32 casterPort = 2;
+    string mountPoint = 3;
+    string username = 4;
+    string password = 5;
+}
+
+message GpsDev
+{
+    string address = 1;
+    string port = 2;
+    string mode = 3;
+    bool enabled = 4;
+}
+
+message ForwarderConfig
+{
+  GpsDev gpsDevice = 1;
+  NtripClient ntripClient = 2;
+}

@@ -214,6 +214,7 @@ class GridPlot:
     size: Size = None
     flags: int = 0
     graphID: List[str] = field(default_factory=list)
+    name: str = ""
     
     _proto_message: custom_preset_pb2.GridPlot = field(init=False, repr=False)
 
@@ -229,6 +230,7 @@ class GridPlot:
         del self._proto_message.graphID[:]
         for val in self.graphID:
             self._proto_message.graphID.append(val)
+        self._proto_message.name = self.name
 
     @classmethod
     def _from_proto(cls, proto_message) -> "GridPlot":
@@ -237,6 +239,7 @@ class GridPlot:
             size = Size._from_proto(proto_message.size),
             flags = proto_message.flags,
             graphID=[str(val) for val in proto_message.graphID],
+            name = proto_message.name,
         )
 
     def __str__(self):
@@ -259,6 +262,7 @@ class GridPlot:
             ),
             flags = message.flags,
             graphID = [str(val) for val in message.graphID],
+            name = message.name,
         )
 
     def serializeAsJsonString(self) -> str:

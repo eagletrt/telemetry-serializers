@@ -13,6 +13,7 @@ add_library(
     src/mongodb/lapcounter_layout.cpp
     src/mongodb/lapcounter_lap_records.cpp
     src/mongodb/lapcounter_lap_times.cpp
+    src/configs/forwarder_config.cpp
     src/configs/car_config.cpp
     src/configs/session_config.cpp
     src/configs/telemetry_config.cpp
@@ -20,13 +21,13 @@ add_library(
     src/tpms/rtl433_payload.cpp
     src/influxlogger/configuration.cpp
     src/can/can_frequencies.cpp
+    src/can/can_error.cpp
     src/actions/command.cpp
     src/actions/file_transaction.cpp
     src/telemetry/error.cpp
     src/telemetry/wait_ready.cpp
     src/telemetry/login_data.cpp
     src/telemetry/status.cpp
-    src/telemetry/odometer.cpp
     src/telemetry/gps_maps.cpp
     src/telemetry/statistics.cpp
     src/sessions/gpsSession.cpp

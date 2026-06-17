@@ -77,6 +77,39 @@ struct ImuCorrections
     bool deserializeFromProtobufString(const std::string& str);
 };
 
+struct Tyre
+{
+    std::string startDate;
+    std::string id;
+    double kilometers;
+    
+    Tyre() = default;
+    Tyre(const PbConfigs::Tyre& protobuf);
+    operator PbConfigs::Tyre() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
+struct Odometer
+{
+    Tyre fl;
+    Tyre fr;
+    Tyre rl;
+    Tyre rr;
+    
+    Odometer() = default;
+    Odometer(const PbConfigs::Odometer& protobuf);
+    operator PbConfigs::Odometer() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
 struct CarConfig
 {
     Aero aero;
@@ -89,6 +122,7 @@ struct CarConfig
     std::string balancing;
     std::string notes;
     ImuCorrections imuCorrections;
+    Odometer odometer;
     
     CarConfig() = default;
     CarConfig(const PbConfigs::CarConfig& protobuf);

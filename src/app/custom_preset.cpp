@@ -177,6 +177,7 @@ GridPlot::GridPlot(const PbApp::GridPlot& protobuf) {
     size = protobuf.size();
     flags = protobuf.flags();
     graphID = {protobuf.graphid().begin(), protobuf.graphid().end()};
+    name = protobuf.name();
 }
 
 GridPlot::operator PbApp::GridPlot() const {
@@ -185,6 +186,7 @@ GridPlot::operator PbApp::GridPlot() const {
     *(ret.mutable_size()) = size;
     ret.set_flags(flags);
     *(ret.mutable_graphid()) = {graphID.begin(), graphID.end()};
+    ret.set_name(name);
     return ret;
 }
 

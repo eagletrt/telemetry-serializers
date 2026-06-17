@@ -215,6 +215,136 @@ class ImuCorrections:
         return cls.deserializeFromProtobufString(message.SerializeToString())
 
 @dataclass
+class Tyre:
+    startDate: str = ""
+    id: str = ""
+    kilometers: float = 0.0
+    
+    _proto_message: car_config_pb2.Tyre = field(init=False, repr=False)
+
+    def __post_init__(self):
+        self._proto_message = car_config_pb2.Tyre()
+
+    def _populate_proto(self):
+        self._proto_message.startDate = self.startDate
+        self._proto_message.id = self.id
+        self._proto_message.kilometers = self.kilometers
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "Tyre":
+        return cls(
+            startDate = proto_message.startDate,
+            id = proto_message.id,
+            kilometers = proto_message.kilometers,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
+    def serializeAsProtobufString(self) -> bytes:
+        self._populate_proto()
+        return self._proto_message.SerializeToString()
+
+    @classmethod
+    def deserializeFromProtobufString(cls, data: bytes) -> "Tyre":
+        message = car_config_pb2.Tyre()
+        message.ParseFromString(data)
+        return cls(
+            startDate = message.startDate,
+            id = message.id,
+            kilometers = message.kilometers,
+        )
+
+    def serializeAsJsonString(self) -> str:
+        self._populate_proto()
+        return MessageToJson(self._proto_message)
+
+    @classmethod
+    def deserializeFromJsonString(cls, data: str) -> "Tyre":
+        message = car_config_pb2.Tyre()
+        Parse(data, message)
+        return cls.deserializeFromProtobufString(message.SerializeToString())
+
+@dataclass
+class Odometer:
+    fl: Tyre = None
+    fr: Tyre = None
+    rl: Tyre = None
+    rr: Tyre = None
+    
+    _proto_message: car_config_pb2.Odometer = field(init=False, repr=False)
+
+    def __post_init__(self):
+        self._proto_message = car_config_pb2.Odometer()
+
+    def _populate_proto(self):
+        if self.fl:
+            self.fl._populate_proto()
+            self._proto_message.fl.CopyFrom(self.fl._proto_message)
+        if self.fr:
+            self.fr._populate_proto()
+            self._proto_message.fr.CopyFrom(self.fr._proto_message)
+        if self.rl:
+            self.rl._populate_proto()
+            self._proto_message.rl.CopyFrom(self.rl._proto_message)
+        if self.rr:
+            self.rr._populate_proto()
+            self._proto_message.rr.CopyFrom(self.rr._proto_message)
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "Odometer":
+        return cls(
+            fl = Tyre._from_proto(proto_message.fl),
+            fr = Tyre._from_proto(proto_message.fr),
+            rl = Tyre._from_proto(proto_message.rl),
+            rr = Tyre._from_proto(proto_message.rr),
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
+    def serializeAsProtobufString(self) -> bytes:
+        self._populate_proto()
+        return self._proto_message.SerializeToString()
+
+    @classmethod
+    def deserializeFromProtobufString(cls, data: bytes) -> "Odometer":
+        message = car_config_pb2.Odometer()
+        message.ParseFromString(data)
+        return cls(
+            fl = (
+                Tyre._from_proto(message.fl)
+                if message.HasField("fl")
+                else None
+            ),
+            fr = (
+                Tyre._from_proto(message.fr)
+                if message.HasField("fr")
+                else None
+            ),
+            rl = (
+                Tyre._from_proto(message.rl)
+                if message.HasField("rl")
+                else None
+            ),
+            rr = (
+                Tyre._from_proto(message.rr)
+                if message.HasField("rr")
+                else None
+            ),
+        )
+
+    def serializeAsJsonString(self) -> str:
+        self._populate_proto()
+        return MessageToJson(self._proto_message)
+
+    @classmethod
+    def deserializeFromJsonString(cls, data: str) -> "Odometer":
+        message = car_config_pb2.Odometer()
+        Parse(data, message)
+        return cls.deserializeFromProtobufString(message.SerializeToString())
+
+@dataclass
 class CarConfig:
     aero: Aero = None
     wheelFront: Wheel = None
@@ -226,6 +356,7 @@ class CarConfig:
     balancing: str = ""
     notes: str = ""
     imuCorrections: ImuCorrections = None
+    odometer: Odometer = None
     
     _proto_message: car_config_pb2.CarConfig = field(init=False, repr=False)
 
@@ -255,6 +386,9 @@ class CarConfig:
         if self.imuCorrections:
             self.imuCorrections._populate_proto()
             self._proto_message.imuCorrections.CopyFrom(self.imuCorrections._proto_message)
+        if self.odometer:
+            self.odometer._populate_proto()
+            self._proto_message.odometer.CopyFrom(self.odometer._proto_message)
 
     @classmethod
     def _from_proto(cls, proto_message) -> "CarConfig":
@@ -269,6 +403,7 @@ class CarConfig:
             balancing = proto_message.balancing,
             notes = proto_message.notes,
             imuCorrections = ImuCorrections._from_proto(proto_message.imuCorrections),
+            odometer = Odometer._from_proto(proto_message.odometer),
         )
 
     def __str__(self):
@@ -315,6 +450,11 @@ class CarConfig:
             imuCorrections = (
                 ImuCorrections._from_proto(message.imuCorrections)
                 if message.HasField("imuCorrections")
+                else None
+            ),
+            odometer = (
+                Odometer._from_proto(message.odometer)
+                if message.HasField("odometer")
                 else None
             ),
         )
