@@ -31,6 +31,19 @@ message ImuCorrections
     double z = 3;
 }
 
+message Tyre {
+    string startDate = 1;
+    string id = 2;
+    double kilometers = 3;
+}
+
+message Odometer {
+    Tyre fl = 1;
+    Tyre fr = 2;
+    Tyre rl = 3;
+    Tyre rr = 4;
+}
+
 message CarConfig
 {
     Aero aero = 1;
@@ -43,5 +56,5 @@ message CarConfig
     string balancing = 8;
     string notes = 9;
     ImuCorrections imuCorrections = 10;
-
+    Odometer odometer = 11;
 }
