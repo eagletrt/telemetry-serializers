@@ -122,7 +122,7 @@ class GpsDev:
 
 @dataclass
 class ForwarderConfig:
-    gpsDevice: GpsDev = None
+    gpsDevice: List[GpsDev] = field(default_factory=list)
     ntripClient: NtripClient = None
     
     _proto_message: forwarder_config_pb2.ForwarderConfig = field(init=False, repr=False)
@@ -131,9 +131,11 @@ class ForwarderConfig:
         self._proto_message = forwarder_config_pb2.ForwarderConfig()
 
     def _populate_proto(self):
-        if self.gpsDevice:
-            self.gpsDevice._populate_proto()
-            self._proto_message.gpsDevice.CopyFrom(self.gpsDevice._proto_message)
+        del self._proto_message.gpsDevice[:]
+        for val in self.gpsDevice:
+            val._populate_proto()
+            tmp = self._proto_message.gpsDevice.add()
+            tmp.CopyFrom(val._proto_message)
         if self.ntripClient:
             self.ntripClient._populate_proto()
             self._proto_message.ntripClient.CopyFrom(self.ntripClient._proto_message)
@@ -141,7 +143,7 @@ class ForwarderConfig:
     @classmethod
     def _from_proto(cls, proto_message) -> "ForwarderConfig":
         return cls(
-            gpsDevice = GpsDev._from_proto(proto_message.gpsDevice),
+            gpsDevice=[GpsDev._from_proto(val) for val in proto_message.gpsDevice],
             ntripClient = NtripClient._from_proto(proto_message.ntripClient),
         )
 
@@ -157,11 +159,7 @@ class ForwarderConfig:
         message = forwarder_config_pb2.ForwarderConfig()
         message.ParseFromString(data)
         return cls(
-            gpsDevice = (
-                GpsDev._from_proto(message.gpsDevice)
-                if message.HasField("gpsDevice")
-                else None
-            ),
+            gpsDevice = [GpsDev._from_proto(val) for val in message.gpsDevice],
             ntripClient = (
                 NtripClient._from_proto(message.ntripClient)
                 if message.HasField("ntripClient")

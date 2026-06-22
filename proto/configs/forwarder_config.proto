@@ -21,6 +21,6 @@ message GpsDev
 
 message ForwarderConfig
 {
-  GpsDev gpsDevice = 1;
+  repeated GpsDev gpsDevice = 1;
   NtripClient ntripClient = 2;
 }

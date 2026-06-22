@@ -112,13 +112,13 @@ bool GpsDev::deserializeFromProtobufString(const std::string& str) {
 }
 
 ForwarderConfig::ForwarderConfig(const PbConfigs::ForwarderConfig& protobuf) {
-    gpsDevice = protobuf.gpsdevice();
+    gpsDevice = {protobuf.gpsdevice().begin(), protobuf.gpsdevice().end()};
     ntripClient = protobuf.ntripclient();
 }
 
 ForwarderConfig::operator PbConfigs::ForwarderConfig() const {
     PbConfigs::ForwarderConfig ret;
-    *(ret.mutable_gpsdevice()) = gpsDevice;
+    *(ret.mutable_gpsdevice()) = {gpsDevice.begin(), gpsDevice.end()};
     *(ret.mutable_ntripclient()) = ntripClient;
     return ret;
 }

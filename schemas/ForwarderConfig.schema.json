@@ -9,8 +9,11 @@
             ],
             "properties": {
                 "gpsDevice": {
-                    "$ref": "#/definitions/PbConfigs.GpsDev",
-                    "additionalProperties": false
+                    "items": {
+                        "$ref": "#/definitions/PbConfigs.GpsDev"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
                 },
                 "ntripClient": {
                     "$ref": "#/definitions/PbConfigs.NtripClient",

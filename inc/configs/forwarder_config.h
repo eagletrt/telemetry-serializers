@@ -49,7 +49,7 @@ struct GpsDev
 
 struct ForwarderConfig
 {
-    GpsDev gpsDevice;
+    std::vector<GpsDev> gpsDevice;
     NtripClient ntripClient;
     
     ForwarderConfig() = default;
