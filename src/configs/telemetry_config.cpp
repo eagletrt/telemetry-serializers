@@ -58,14 +58,20 @@ bool CanDevice::deserializeFromProtobufString(const std::string& str) {
 
 GpsDevice::GpsDevice(const PbConfigs::GpsDevice& protobuf) {
     address = protobuf.address();
+    tcpPort = protobuf.tcpport();
     mode = protobuf.mode();
+    speed = protobuf.speed();
+    ip = protobuf.ip();
     enabled = protobuf.enabled();
 }
 
 GpsDevice::operator PbConfigs::GpsDevice() const {
     PbConfigs::GpsDevice ret;
     ret.set_address(address);
+    ret.set_tcpport(tcpPort);
     ret.set_mode(mode);
+    ret.set_speed(speed);
+    ret.set_ip(ip);
     ret.set_enabled(enabled);
     return ret;
 }

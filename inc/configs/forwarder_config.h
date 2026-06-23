@@ -33,7 +33,7 @@ struct NtripClient
 struct GpsDev
 {
     std::string address;
-    std::string port;
+    std::string tcpPort;
     std::string mode;
     int64_t speed;
     std::string ip;

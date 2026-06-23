@@ -14,7 +14,7 @@ message NtripClient
 message GpsDev
 {
     string address = 1;
-    string port = 2;
+    string tcpPort = 2;
     string mode = 3;
     int64 speed = 4;
     string ip = 5;

@@ -168,14 +168,26 @@
         "PbConfigs.GpsDevice": {
             "required": [
                 "address",
+                "tcpPort",
                 "mode",
+                "speed",
+                "ip",
                 "enabled"
             ],
             "properties": {
                 "address": {
                     "type": "string"
                 },
+                "tcpPort": {
+                    "type": "string"
+                },
                 "mode": {
+                    "type": "string"
+                },
+                "speed": {
+                    "type": "integer"
+                },
+                "ip": {
                     "type": "string"
                 },
                 "enabled": {

@@ -12,8 +12,11 @@ message CanDevice
 message GpsDevice
 {
     string address = 1;
-    string mode = 2;
-    bool enabled = 3;
+    string tcpPort = 2;
+    string mode = 3;
+    int64 speed = 4;
+    string ip = 5;
+    bool enabled = 6;
 }
 
 message Devices

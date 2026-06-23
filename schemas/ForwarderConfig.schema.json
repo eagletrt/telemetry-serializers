@@ -31,7 +31,7 @@
         "PbConfigs.GpsDev": {
             "required": [
                 "address",
-                "port",
+                "tcpPort",
                 "mode",
                 "speed",
                 "ip",
@@ -41,7 +41,7 @@
                 "address": {
                     "type": "string"
                 },
-                "port": {
+                "tcpPort": {
                     "type": "string"
                 },
                 "mode": {

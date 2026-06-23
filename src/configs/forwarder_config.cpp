@@ -62,7 +62,7 @@ bool NtripClient::deserializeFromProtobufString(const std::string& str) {
 
 GpsDev::GpsDev(const PbConfigs::GpsDev& protobuf) {
     address = protobuf.address();
-    port = protobuf.port();
+    tcpPort = protobuf.tcpport();
     mode = protobuf.mode();
     speed = protobuf.speed();
     ip = protobuf.ip();
@@ -72,7 +72,7 @@ GpsDev::GpsDev(const PbConfigs::GpsDev& protobuf) {
 GpsDev::operator PbConfigs::GpsDev() const {
     PbConfigs::GpsDev ret;
     ret.set_address(address);
-    ret.set_port(port);
+    ret.set_tcpport(tcpPort);
     ret.set_mode(mode);
     ret.set_speed(speed);
     ret.set_ip(ip);

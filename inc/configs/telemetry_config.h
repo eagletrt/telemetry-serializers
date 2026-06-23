@@ -31,7 +31,10 @@ struct CanDevice
 struct GpsDevice
 {
     std::string address;
+    std::string tcpPort;
     std::string mode;
+    int64_t speed;
+    std::string ip;
     bool enabled;
     
     GpsDevice() = default;

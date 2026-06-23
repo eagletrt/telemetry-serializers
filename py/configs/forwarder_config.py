@@ -68,7 +68,7 @@ class NtripClient:
 @dataclass
 class GpsDev:
     address: str = ""
-    port: str = ""
+    tcpPort: str = ""
     mode: str = ""
     speed: int = 0
     ip: str = ""
@@ -81,7 +81,7 @@ class GpsDev:
 
     def _populate_proto(self):
         self._proto_message.address = self.address
-        self._proto_message.port = self.port
+        self._proto_message.tcpPort = self.tcpPort
         self._proto_message.mode = self.mode
         self._proto_message.speed = self.speed
         self._proto_message.ip = self.ip
@@ -91,7 +91,7 @@ class GpsDev:
     def _from_proto(cls, proto_message) -> "GpsDev":
         return cls(
             address = proto_message.address,
-            port = proto_message.port,
+            tcpPort = proto_message.tcpPort,
             mode = proto_message.mode,
             speed = proto_message.speed,
             ip = proto_message.ip,
@@ -111,7 +111,7 @@ class GpsDev:
         message.ParseFromString(data)
         return cls(
             address = message.address,
-            port = message.port,
+            tcpPort = message.tcpPort,
             mode = message.mode,
             speed = message.speed,
             ip = message.ip,
