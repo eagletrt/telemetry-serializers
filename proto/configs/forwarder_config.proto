@@ -11,16 +11,6 @@ message NtripClient
     string password = 5;
 }
 
-message GpsDevice
-{
-    string address = 1;
-    string tcpPort = 2;
-    string mode = 3;
-    int64 speed = 4;
-    string ip = 5;
-    bool enabled = 6;
-}
-
 message ForwarderConfig 
 {
     repeated GpsDevice gpsDevice = 1;
