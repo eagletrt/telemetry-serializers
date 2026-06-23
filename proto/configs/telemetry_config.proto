@@ -9,6 +9,16 @@ message CanDevice
     repeated string networks = 3;
 }
 
+message GpsDevice
+{
+    string address = 1;
+    string tcpPort = 2;
+    string mode = 3;
+    int64 speed = 4;
+    string ip = 5;
+    bool enabled = 6;
+}
+
 message Devices
 {
     repeated CanDevice can = 1;
