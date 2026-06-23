@@ -7,6 +7,7 @@
                 "address",
                 "port",
                 "mode",
+                "speed",
                 "enabled"
             ],
             "properties": {
@@ -18,6 +19,9 @@
                 },
                 "mode": {
                     "type": "string"
+                },
+                "speed": {
+                    "type": "integer"
                 },
                 "enabled": {
                     "type": "boolean"

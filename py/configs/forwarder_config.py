@@ -70,6 +70,7 @@ class GpsDev:
     address: str = ""
     port: str = ""
     mode: str = ""
+    speed: int = 0
     enabled: bool = False
     
     _proto_message: forwarder_config_pb2.GpsDev = field(init=False, repr=False)
@@ -81,6 +82,7 @@ class GpsDev:
         self._proto_message.address = self.address
         self._proto_message.port = self.port
         self._proto_message.mode = self.mode
+        self._proto_message.speed = self.speed
         self._proto_message.enabled = self.enabled
 
     @classmethod
@@ -89,6 +91,7 @@ class GpsDev:
             address = proto_message.address,
             port = proto_message.port,
             mode = proto_message.mode,
+            speed = proto_message.speed,
             enabled = proto_message.enabled,
         )
 
@@ -107,6 +110,7 @@ class GpsDev:
             address = message.address,
             port = message.port,
             mode = message.mode,
+            speed = message.speed,
             enabled = message.enabled,
         )
 
@@ -124,6 +128,7 @@ class GpsDev:
 class ForwarderConfig:
     gpsDevice: List[GpsDev] = field(default_factory=list)
     ntripClient: NtripClient = None
+    mode: str = ""
     
     _proto_message: forwarder_config_pb2.ForwarderConfig = field(init=False, repr=False)
 
@@ -139,12 +144,14 @@ class ForwarderConfig:
         if self.ntripClient:
             self.ntripClient._populate_proto()
             self._proto_message.ntripClient.CopyFrom(self.ntripClient._proto_message)
+        self._proto_message.mode = self.mode
 
     @classmethod
     def _from_proto(cls, proto_message) -> "ForwarderConfig":
         return cls(
             gpsDevice=[GpsDev._from_proto(val) for val in proto_message.gpsDevice],
             ntripClient = NtripClient._from_proto(proto_message.ntripClient),
+            mode = proto_message.mode,
         )
 
     def __str__(self):
@@ -165,6 +172,7 @@ class ForwarderConfig:
                 if message.HasField("ntripClient")
                 else None
             ),
+            mode = message.mode,
         )
 
     def serializeAsJsonString(self) -> str:

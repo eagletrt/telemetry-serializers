@@ -5,7 +5,8 @@
         "ForwarderConfig": {
             "required": [
                 "gpsDevice",
-                "ntripClient"
+                "ntripClient",
+                "mode"
             ],
             "properties": {
                 "gpsDevice": {
@@ -18,6 +19,9 @@
                 "ntripClient": {
                     "$ref": "#/definitions/PbConfigs.NtripClient",
                     "additionalProperties": false
+                },
+                "mode": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false,
@@ -29,6 +33,7 @@
                 "address",
                 "port",
                 "mode",
+                "speed",
                 "enabled"
             ],
             "properties": {
@@ -40,6 +45,9 @@
                 },
                 "mode": {
                     "type": "string"
+                },
+                "speed": {
+                    "type": "integer"
                 },
                 "enabled": {
                     "type": "boolean"

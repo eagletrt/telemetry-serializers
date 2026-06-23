@@ -64,6 +64,7 @@ GpsDev::GpsDev(const PbConfigs::GpsDev& protobuf) {
     address = protobuf.address();
     port = protobuf.port();
     mode = protobuf.mode();
+    speed = protobuf.speed();
     enabled = protobuf.enabled();
 }
 
@@ -72,6 +73,7 @@ GpsDev::operator PbConfigs::GpsDev() const {
     ret.set_address(address);
     ret.set_port(port);
     ret.set_mode(mode);
+    ret.set_speed(speed);
     ret.set_enabled(enabled);
     return ret;
 }
@@ -114,12 +116,14 @@ bool GpsDev::deserializeFromProtobufString(const std::string& str) {
 ForwarderConfig::ForwarderConfig(const PbConfigs::ForwarderConfig& protobuf) {
     gpsDevice = {protobuf.gpsdevice().begin(), protobuf.gpsdevice().end()};
     ntripClient = protobuf.ntripclient();
+    mode = protobuf.mode();
 }
 
 ForwarderConfig::operator PbConfigs::ForwarderConfig() const {
     PbConfigs::ForwarderConfig ret;
     *(ret.mutable_gpsdevice()) = {gpsDevice.begin(), gpsDevice.end()};
     *(ret.mutable_ntripclient()) = ntripClient;
+    ret.set_mode(mode);
     return ret;
 }
 

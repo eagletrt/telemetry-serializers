@@ -35,6 +35,7 @@ struct GpsDev
     std::string address;
     std::string port;
     std::string mode;
+    int64_t speed;
     bool enabled;
     
     GpsDev() = default;
@@ -51,6 +52,7 @@ struct ForwarderConfig
 {
     std::vector<GpsDev> gpsDevice;
     NtripClient ntripClient;
+    std::string mode;
     
     ForwarderConfig() = default;
     ForwarderConfig(const PbConfigs::ForwarderConfig& protobuf);
