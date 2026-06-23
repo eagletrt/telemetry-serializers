@@ -36,6 +36,7 @@ struct GpsDev
     std::string port;
     std::string mode;
     int64_t speed;
+    std::string ip;
     bool enabled;
     
     GpsDev() = default;

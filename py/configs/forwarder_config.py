@@ -71,6 +71,7 @@ class GpsDev:
     port: str = ""
     mode: str = ""
     speed: int = 0
+    ip: str = ""
     enabled: bool = False
     
     _proto_message: forwarder_config_pb2.GpsDev = field(init=False, repr=False)
@@ -83,6 +84,7 @@ class GpsDev:
         self._proto_message.port = self.port
         self._proto_message.mode = self.mode
         self._proto_message.speed = self.speed
+        self._proto_message.ip = self.ip
         self._proto_message.enabled = self.enabled
 
     @classmethod
@@ -92,6 +94,7 @@ class GpsDev:
             port = proto_message.port,
             mode = proto_message.mode,
             speed = proto_message.speed,
+            ip = proto_message.ip,
             enabled = proto_message.enabled,
         )
 
@@ -111,6 +114,7 @@ class GpsDev:
             port = message.port,
             mode = message.mode,
             speed = message.speed,
+            ip = message.ip,
             enabled = message.enabled,
         )
 

@@ -8,6 +8,7 @@
                 "port",
                 "mode",
                 "speed",
+                "ip",
                 "enabled"
             ],
             "properties": {
@@ -22,6 +23,9 @@
                 },
                 "speed": {
                     "type": "integer"
+                },
+                "ip": {
+                    "type": "string"
                 },
                 "enabled": {
                     "type": "boolean"

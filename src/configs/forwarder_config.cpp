@@ -65,6 +65,7 @@ GpsDev::GpsDev(const PbConfigs::GpsDev& protobuf) {
     port = protobuf.port();
     mode = protobuf.mode();
     speed = protobuf.speed();
+    ip = protobuf.ip();
     enabled = protobuf.enabled();
 }
 
@@ -74,6 +75,7 @@ GpsDev::operator PbConfigs::GpsDev() const {
     ret.set_port(port);
     ret.set_mode(mode);
     ret.set_speed(speed);
+    ret.set_ip(ip);
     ret.set_enabled(enabled);
     return ret;
 }
