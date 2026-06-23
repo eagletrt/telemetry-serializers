@@ -9,13 +9,6 @@ message CanDevice
     repeated string networks = 3;
 }
 
-message GpsDevice
-{
-    string address = 1;
-    string mode = 2;
-    bool enabled = 3;
-}
-
 message Devices
 {
     repeated CanDevice can = 1;
