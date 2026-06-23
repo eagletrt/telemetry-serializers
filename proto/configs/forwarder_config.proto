@@ -17,7 +17,8 @@ message GpsDev
     string port = 2;
     string mode = 3;
     int64 speed = 4;
-    bool enabled = 5;
+    string ip = 5;
+    bool enabled = 6;
 }
 
 message ForwarderConfig 
