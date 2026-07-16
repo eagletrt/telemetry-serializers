@@ -18,7 +18,7 @@ message GpsDevice
     string mode = 3;
     int32 tcpPort = 4;
     bool enabled = 5;
-    oneof SpeedOrPort{
+    oneof SpeedOrPort {
         int32 speed = 6;
         int32 port = 7;
     }
