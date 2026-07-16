@@ -167,35 +167,97 @@
         },
         "PbConfigs.GpsDevice": {
             "required": [
-                "address",
-                "tcpPort",
                 "mode",
-                "speed",
-                "ip",
+                "tcpPort",
                 "enabled"
             ],
             "properties": {
-                "address": {
+                "path": {
                     "type": "string"
                 },
-                "tcpPort": {
+                "ip": {
                     "type": "string"
                 },
                 "mode": {
                     "type": "string"
                 },
-                "speed": {
+                "tcpPort": {
                     "type": "integer"
-                },
-                "ip": {
-                    "type": "string"
                 },
                 "enabled": {
                     "type": "boolean"
+                },
+                "speed": {
+                    "type": "integer"
+                },
+                "port": {
+                    "type": "integer"
                 }
             },
             "additionalProperties": false,
             "type": "object",
+            "allOf": [
+                {
+                    "oneOf": [
+                        {
+                            "not": {
+                                "anyOf": [
+                                    {
+                                        "required": [
+                                            "path"
+                                        ]
+                                    },
+                                    {
+                                        "required": [
+                                            "ip"
+                                        ]
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "required": [
+                                "path"
+                            ]
+                        },
+                        {
+                            "required": [
+                                "ip"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "oneOf": [
+                        {
+                            "not": {
+                                "anyOf": [
+                                    {
+                                        "required": [
+                                            "speed"
+                                        ]
+                                    },
+                                    {
+                                        "required": [
+                                            "port"
+                                        ]
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "required": [
+                                "speed"
+                            ]
+                        },
+                        {
+                            "required": [
+                                "port"
+                            ]
+                        }
+                    ]
+                }
+            ],
             "title": "Gps Device"
         },
         "PbConfigs.TpmsSensorIds": {

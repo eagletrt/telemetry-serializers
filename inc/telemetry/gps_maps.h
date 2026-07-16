@@ -4,6 +4,7 @@
 #include "gps_maps.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>

@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from app import app_data_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -50,14 +50,7 @@ class CustomPlotItem:
     def deserializeFromProtobufString(cls, data: bytes) -> "CustomPlotItem":
         message = app_data_pb2.CustomPlotItem()
         message.ParseFromString(data)
-        return cls(
-            messageAxisX = message.messageAxisX,
-            messageAxisY = message.messageAxisY,
-            signalAxisX = message.signalAxisX,
-            signalAxisY = message.signalAxisY,
-            isEnum = message.isEnum,
-            color = message.color,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -105,10 +98,7 @@ class CustomPlotAxis:
     def deserializeFromProtobufString(cls, data: bytes) -> "CustomPlotAxis":
         message = app_data_pb2.CustomPlotAxis()
         message.ParseFromString(data)
-        return cls(
-            label = message.label,
-            items = [CustomPlotItem._from_proto(val) for val in message.items],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -156,10 +146,7 @@ class NewCustomPlot:
     def deserializeFromProtobufString(cls, data: bytes) -> "NewCustomPlot":
         message = app_data_pb2.NewCustomPlot()
         message.ParseFromString(data)
-        return cls(
-            title = message.title,
-            axes = {key: CustomPlotAxis._from_proto(val) for key, val in message.axes.items()},
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -207,10 +194,7 @@ class CustomSubPlots:
     def deserializeFromProtobufString(cls, data: bytes) -> "CustomSubPlots":
         message = app_data_pb2.CustomSubPlots()
         message.ParseFromString(data)
-        return cls(
-            rows = message.rows,
-            plots = [NewCustomPlot._from_proto(val) for val in message.plots],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -255,9 +239,7 @@ class CustomPlotsTab:
     def deserializeFromProtobufString(cls, data: bytes) -> "CustomPlotsTab":
         message = app_data_pb2.CustomPlotsTab()
         message.ParseFromString(data)
-        return cls(
-            subPlots = [CustomSubPlots._from_proto(val) for val in message.subPlots],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -302,9 +284,7 @@ class AppData:
     def deserializeFromProtobufString(cls, data: bytes) -> "AppData":
         message = app_data_pb2.AppData()
         message.ParseFromString(data)
-        return cls(
-            customPlotsTabs = {key: CustomPlotsTab._from_proto(val) for key, val in message.customPlotsTabs.items()},
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from lapcounter import lapcounter_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -38,10 +38,7 @@ class Vector:
     def deserializeFromProtobufString(cls, data: bytes) -> "Vector":
         message = lapcounter_pb2.Vector()
         message.ParseFromString(data)
-        return cls(
-            x = message.x,
-            y = message.y,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -89,18 +86,7 @@ class Line:
     def deserializeFromProtobufString(cls, data: bytes) -> "Line":
         message = lapcounter_pb2.Line()
         message.ParseFromString(data)
-        return cls(
-            position = (
-                Vector._from_proto(message.position)
-                if message.HasField("position")
-                else None
-            ),
-            direction = (
-                Vector._from_proto(message.direction)
-                if message.HasField("direction")
-                else None
-            ),
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -155,11 +141,7 @@ class Circuit:
     def deserializeFromProtobufString(cls, data: bytes) -> "Circuit":
         message = lapcounter_pb2.Circuit()
         message.ParseFromString(data)
-        return cls(
-            circuitId = message.circuitId,
-            checksLines = [Line._from_proto(val) for val in message.checksLines],
-            sectorsLines = [Line._from_proto(val) for val in message.sectorsLines],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -211,12 +193,7 @@ class Lap:
     def deserializeFromProtobufString(cls, data: bytes) -> "Lap":
         message = lapcounter_pb2.Lap()
         message.ParseFromString(data)
-        return cls(
-            number = message.number,
-            startTimestamp = message.startTimestamp,
-            endTimestamp = message.endTimestamp,
-            sectorsTimestamps = [int(val) for val in message.sectorsTimestamps],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -270,12 +247,7 @@ class Race:
     def deserializeFromProtobufString(cls, data: bytes) -> "Race":
         message = lapcounter_pb2.Race()
         message.ParseFromString(data)
-        return cls(
-            raceId = message.raceId,
-            circuitId = message.circuitId,
-            driverId = message.driverId,
-            laps = [Lap._from_proto(val) for val in message.laps],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

@@ -4,6 +4,7 @@
 #include "lapcounter_lap_records.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>

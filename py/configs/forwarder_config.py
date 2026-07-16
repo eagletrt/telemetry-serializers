@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from configs import forwarder_config_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -47,13 +47,7 @@ class NtripClient:
     def deserializeFromProtobufString(cls, data: bytes) -> "NtripClient":
         message = forwarder_config_pb2.NtripClient()
         message.ParseFromString(data)
-        return cls(
-            casterHost = message.casterHost,
-            casterPort = message.casterPort,
-            mountPoint = message.mountPoint,
-            username = message.username,
-            password = message.password,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -67,12 +61,13 @@ class NtripClient:
 
 @dataclass
 class GpsDev:
-    address: str = ""
-    tcpPort: str = ""
+    path: Optional[str] = None
+    ip: Optional[str] = None
     mode: str = ""
-    speed: int = 0
-    ip: str = ""
+    tcpPort: int = 0
     enabled: bool = False
+    speed: Optional[int] = None
+    port: Optional[int] = None
     
     _proto_message: forwarder_config_pb2.GpsDev = field(init=False, repr=False)
 
@@ -80,22 +75,28 @@ class GpsDev:
         self._proto_message = forwarder_config_pb2.GpsDev()
 
     def _populate_proto(self):
-        self._proto_message.address = self.address
-        self._proto_message.tcpPort = self.tcpPort
+        if self.path is not None:
+            self._proto_message.path = self.path
+        if self.ip is not None:
+            self._proto_message.ip = self.ip
         self._proto_message.mode = self.mode
-        self._proto_message.speed = self.speed
-        self._proto_message.ip = self.ip
+        self._proto_message.tcpPort = self.tcpPort
         self._proto_message.enabled = self.enabled
+        if self.speed is not None:
+            self._proto_message.speed = self.speed
+        if self.port is not None:
+            self._proto_message.port = self.port
 
     @classmethod
     def _from_proto(cls, proto_message) -> "GpsDev":
         return cls(
-            address = proto_message.address,
-            tcpPort = proto_message.tcpPort,
+            path = proto_message.path if proto_message.HasField("path") else None,
+            ip = proto_message.ip if proto_message.HasField("ip") else None,
             mode = proto_message.mode,
-            speed = proto_message.speed,
-            ip = proto_message.ip,
+            tcpPort = proto_message.tcpPort,
             enabled = proto_message.enabled,
+            speed = proto_message.speed if proto_message.HasField("speed") else None,
+            port = proto_message.port if proto_message.HasField("port") else None,
         )
 
     def __str__(self):
@@ -109,14 +110,7 @@ class GpsDev:
     def deserializeFromProtobufString(cls, data: bytes) -> "GpsDev":
         message = forwarder_config_pb2.GpsDev()
         message.ParseFromString(data)
-        return cls(
-            address = message.address,
-            tcpPort = message.tcpPort,
-            mode = message.mode,
-            speed = message.speed,
-            ip = message.ip,
-            enabled = message.enabled,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -169,15 +163,7 @@ class ForwarderConfig:
     def deserializeFromProtobufString(cls, data: bytes) -> "ForwarderConfig":
         message = forwarder_config_pb2.ForwarderConfig()
         message.ParseFromString(data)
-        return cls(
-            gpsDevice = [GpsDev._from_proto(val) for val in message.gpsDevice],
-            ntripClient = (
-                NtripClient._from_proto(message.ntripClient)
-                if message.HasField("ntripClient")
-                else None
-            ),
-            mode = message.mode,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

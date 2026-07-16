@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from influxlogger import configuration_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -73,21 +73,7 @@ class Configuration:
     def deserializeFromProtobufString(cls, data: bytes) -> "Configuration":
         message = configuration_pb2.Configuration()
         message.ParseFromString(data)
-        return cls(
-            mqtt_host = message.mqtt_host,
-            mqtt_port = message.mqtt_port,
-            vehicle_id = message.vehicle_id,
-            device_id = message.device_id,
-            influx_host = message.influx_host,
-            influx_port = message.influx_port,
-            influx_https = message.influx_https,
-            influx_bucket = message.influx_bucket,
-            influx_orgid = message.influx_orgid,
-            influx_token = message.influx_token,
-            networks = [str(val) for val in message.networks],
-            proxy_host = message.proxy_host,
-            proxy_port = message.proxy_port,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

@@ -4,6 +4,7 @@
 #include "forwarder_config.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -32,12 +33,13 @@ struct NtripClient
 
 struct GpsDev
 {
-    std::string address;
-    std::string tcpPort;
+    std::optional<std::string> path;
+    std::optional<std::string> ip;
     std::string mode;
-    int64_t speed;
-    std::string ip;
+    int32_t tcpPort;
     bool enabled;
+    std::optional<int32_t> speed;
+    std::optional<int32_t> port;
     
     GpsDev() = default;
     GpsDev(const PbConfigs::GpsDev& protobuf);

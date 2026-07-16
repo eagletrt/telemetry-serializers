@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from can import can_frequencies_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -47,13 +47,7 @@ class CanFrequency:
     def deserializeFromProtobufString(cls, data: bytes) -> "CanFrequency":
         message = can_frequencies_pb2.CanFrequency()
         message.ParseFromString(data)
-        return cls(
-            timestamp = message.timestamp,
-            id = message.id,
-            name = message.name,
-            data = message.data,
-            frequency = message.frequency,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -98,9 +92,7 @@ class CanFrequencies:
     def deserializeFromProtobufString(cls, data: bytes) -> "CanFrequencies":
         message = can_frequencies_pb2.CanFrequencies()
         message.ParseFromString(data)
-        return cls(
-            frequencies = {key: CanFrequency._from_proto(val) for key, val in message.frequencies.items()},
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -148,10 +140,7 @@ class CanNetworksFrequencies:
     def deserializeFromProtobufString(cls, data: bytes) -> "CanNetworksFrequencies":
         message = can_frequencies_pb2.CanNetworksFrequencies()
         message.ParseFromString(data)
-        return cls(
-            timestamp = message.timestamp,
-            networks = {key: CanFrequencies._from_proto(val) for key, val in message.networks.items()},
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

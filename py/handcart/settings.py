@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from handcart import settings_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -50,14 +50,7 @@ class Settings:
     def deserializeFromProtobufString(cls, data: bytes) -> "Settings":
         message = settings_pb2.Settings()
         message.ParseFromString(data)
-        return cls(
-            status = message.status,
-            targetVoltage = message.targetVoltage,
-            fansOverride = message.fansOverride,
-            fansSpeed = message.fansSpeed,
-            accChargeCurrent = message.accChargeCurrent,
-            gridMaxCurrent = message.gridMaxCurrent,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

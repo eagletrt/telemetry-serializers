@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from can import can_error_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -46,12 +46,7 @@ class Invalid_can_id:
     def deserializeFromProtobufString(cls, data: bytes) -> "Invalid_can_id":
         message = can_error_pb2.Invalid_can_id()
         message.ParseFromString(data)
-        return cls(
-            timestamp = message.timestamp,
-            id = message.id,
-            payload = [int(val) for val in message.payload],
-            network = message.network,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

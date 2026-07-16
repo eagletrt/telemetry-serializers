@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from mongodb import lapcounter_lap_records_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -46,12 +46,7 @@ class LapRecord:
     def deserializeFromProtobufString(cls, data: bytes) -> "LapRecord":
         message = lapcounter_lap_records_pb2.LapRecord()
         message.ParseFromString(data)
-        return cls(
-            driver = message.driver,
-            start = message.start,
-            end = message.end,
-            sectors = [int(val) for val in message.sectors],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -98,11 +93,7 @@ class SectorsRecord:
     def deserializeFromProtobufString(cls, data: bytes) -> "SectorsRecord":
         message = lapcounter_lap_records_pb2.SectorsRecord()
         message.ParseFromString(data)
-        return cls(
-            driver = message.driver,
-            start_time_sector = message.start_time_sector,
-            end_time_sector = message.end_time_sector,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -155,15 +146,7 @@ class DriverRecord:
     def deserializeFromProtobufString(cls, data: bytes) -> "DriverRecord":
         message = lapcounter_lap_records_pb2.DriverRecord()
         message.ParseFromString(data)
-        return cls(
-            driver = message.driver,
-            best_lap = (
-                LapRecord._from_proto(message.best_lap)
-                if message.HasField("best_lap")
-                else None
-            ),
-            best_sectors = [SectorsRecord._from_proto(val) for val in message.best_sectors],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -238,21 +221,7 @@ class LapRecords:
     def deserializeFromProtobufString(cls, data: bytes) -> "LapRecords":
         message = lapcounter_lap_records_pb2.LapRecords()
         message.ParseFromString(data)
-        return cls(
-            version = message.version,
-            baseline_version = message.baseline_version,
-            vehicle_id = message.vehicle_id,
-            device_id = message.device_id,
-            location = message.location,
-            layout = message.layout,
-            best_lap = (
-                LapRecord._from_proto(message.best_lap)
-                if message.HasField("best_lap")
-                else None
-            ),
-            best_sectors = [SectorsRecord._from_proto(val) for val in message.best_sectors],
-            drivers_records = [DriverRecord._from_proto(val) for val in message.drivers_records],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

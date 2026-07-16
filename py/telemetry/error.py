@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from telemetry import error_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -41,11 +41,7 @@ class Error:
     def deserializeFromProtobufString(cls, data: bytes) -> "Error":
         message = error_pb2.Error()
         message.ParseFromString(data)
-        return cls(
-            timestamp = message.timestamp,
-            function = message.function,
-            description = message.description,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

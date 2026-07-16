@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from actions import command_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -38,10 +38,7 @@ class Command:
     def deserializeFromProtobufString(cls, data: bytes) -> "Command":
         message = command_pb2.Command()
         message.ParseFromString(data)
-        return cls(
-            input = message.input,
-            output = message.output,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

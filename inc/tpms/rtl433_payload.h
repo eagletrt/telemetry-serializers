@@ -4,6 +4,7 @@
 #include "rtl433_payload.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>

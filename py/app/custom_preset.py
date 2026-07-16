@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from app import custom_preset_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -43,10 +43,7 @@ class Size:
     def deserializeFromProtobufString(cls, data: bytes) -> "Size":
         message = custom_preset_pb2.Size()
         message.ParseFromString(data)
-        return cls(
-            w = message.w,
-            h = message.h,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -105,15 +102,7 @@ class GraphElement:
     def deserializeFromProtobufString(cls, data: bytes) -> "GraphElement":
         message = custom_preset_pb2.GraphElement()
         message.ParseFromString(data)
-        return cls(
-            label = message.label,
-            type = PlotType(message.type),
-            xField = message.xField,
-            yField = message.yField,
-            color = message.color,
-            axisX = message.axisX,
-            axisY = message.axisY,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -186,17 +175,7 @@ class Graph:
     def deserializeFromProtobufString(cls, data: bytes) -> "Graph":
         message = custom_preset_pb2.Graph()
         message.ParseFromString(data)
-        return cls(
-            id = message.id,
-            title = message.title,
-            tags = [str(val) for val in message.tags],
-            signals = [GraphElement._from_proto(val) for val in message.signals],
-            otherElements = [str(val) for val in message.otherElements],
-            hasTooltip = message.hasTooltip,
-            author = message.author,
-            implotFlags = message.implotFlags,
-            axisFlags = message.axisFlags,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -253,17 +232,7 @@ class GridPlot:
     def deserializeFromProtobufString(cls, data: bytes) -> "GridPlot":
         message = custom_preset_pb2.GridPlot()
         message.ParseFromString(data)
-        return cls(
-            id = message.id,
-            size = (
-                Size._from_proto(message.size)
-                if message.HasField("size")
-                else None
-            ),
-            flags = message.flags,
-            graphID = [str(val) for val in message.graphID],
-            name = message.name,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -325,18 +294,7 @@ class CustomPage:
     def deserializeFromProtobufString(cls, data: bytes) -> "CustomPage":
         message = custom_preset_pb2.CustomPage()
         message.ParseFromString(data)
-        return cls(
-            id = message.id,
-            name = message.name,
-            size = (
-                Size._from_proto(message.size)
-                if message.HasField("size")
-                else None
-            ),
-            author = message.author,
-            gridCells = [int(val) for val in message.gridCells],
-            gridPlotID = [str(val) for val in message.gridPlotID],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -395,11 +353,7 @@ class PresetMappings:
     def deserializeFromProtobufString(cls, data: bytes) -> "PresetMappings":
         message = custom_preset_pb2.PresetMappings()
         message.ParseFromString(data)
-        return cls(
-            plot_configs = {key: Graph._from_proto(val) for key, val in message.plot_configs.items()},
-            subplot_configs = {key: GridPlot._from_proto(val) for key, val in message.subplot_configs.items()},
-            preset_configs = {key: CustomPage._from_proto(val) for key, val in message.preset_configs.items()},
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

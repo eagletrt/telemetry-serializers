@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from tpms import rtl433_payload_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -83,25 +83,7 @@ class Rtl433Payload:
     def deserializeFromProtobufString(cls, data: bytes) -> "Rtl433Payload":
         message = rtl433_payload_pb2.Rtl433Payload()
         message.ParseFromString(data)
-        return cls(
-            time = message.time,
-            model = message.model,
-            id = message.id,
-            pressure = message.pressure,
-            temperature = message.temperature,
-            acceleration = message.acceleration,
-            battery = message.battery,
-            interframe = message.interframe,
-            wo_state = message.wo_state,
-            checksum = message.checksum,
-            mic = message.mic,
-            mod = message.mod,
-            freq1 = message.freq1,
-            freq2 = message.freq2,
-            rssi = message.rssi,
-            snr = message.snr,
-            noise = message.noise,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

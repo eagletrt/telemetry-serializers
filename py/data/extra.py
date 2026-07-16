@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from data import extra_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -37,9 +37,7 @@ class RepeatedValueUint64:
     def deserializeFromProtobufString(cls, data: bytes) -> "RepeatedValueUint64":
         message = extra_pb2.RepeatedValueUint64()
         message.ParseFromString(data)
-        return cls(
-            values = [int(val) for val in message.values],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -82,9 +80,7 @@ class RepeatedValueDouble:
     def deserializeFromProtobufString(cls, data: bytes) -> "RepeatedValueDouble":
         message = extra_pb2.RepeatedValueDouble()
         message.ParseFromString(data)
-        return cls(
-            values = [float(val) for val in message.values],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -134,14 +130,7 @@ class ValuesMap:
     def deserializeFromProtobufString(cls, data: bytes) -> "ValuesMap":
         message = extra_pb2.ValuesMap()
         message.ParseFromString(data)
-        return cls(
-            timestamp = (
-                RepeatedValueUint64._from_proto(message.timestamp)
-                if message.HasField("timestamp")
-                else None
-            ),
-            valuesMap = {key: RepeatedValueDouble._from_proto(val) for key, val in message.valuesMap.items()},
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -186,9 +175,7 @@ class TimeValuesPack:
     def deserializeFromProtobufString(cls, data: bytes) -> "TimeValuesPack":
         message = extra_pb2.TimeValuesPack()
         message.ParseFromString(data)
-        return cls(
-            valuesPack = {key: ValuesMap._from_proto(val) for key, val in message.valuesPack.items()},
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from data import as_commands_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -41,11 +41,7 @@ class ASCommands:
     def deserializeFromProtobufString(cls, data: bytes) -> "ASCommands":
         message = as_commands_pb2.ASCommands()
         message.ParseFromString(data)
-        return cls(
-            steerAngleDegrees = message.steerAngleDegrees,
-            pedalThrottle = message.pedalThrottle,
-            pedalBrakes = message.pedalBrakes,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -96,11 +92,7 @@ class ASStatus:
     def deserializeFromProtobufString(cls, data: bytes) -> "ASStatus":
         message = as_commands_pb2.ASStatus()
         message.ParseFromString(data)
-        return cls(
-            steerStatus = Status(message.steerStatus),
-            throttleStatus = Status(message.throttleStatus),
-            brakesStatus = Status(message.brakesStatus),
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

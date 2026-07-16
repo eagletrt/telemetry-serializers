@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from mongodb import lapcounter_lap_times_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -46,12 +46,7 @@ class LapTime:
     def deserializeFromProtobufString(cls, data: bytes) -> "LapTime":
         message = lapcounter_lap_times_pb2.LapTime()
         message.ParseFromString(data)
-        return cls(
-            number = message.number,
-            start_timestamp = message.start_timestamp,
-            end_timestamp = message.end_timestamp,
-            sectors = [int(val) for val in message.sectors],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -117,16 +112,7 @@ class LapTimes:
     def deserializeFromProtobufString(cls, data: bytes) -> "LapTimes":
         message = lapcounter_lap_times_pb2.LapTimes()
         message.ParseFromString(data)
-        return cls(
-            version = message.version,
-            baseline_version = message.baseline_version,
-            vehicle_id = message.vehicle_id,
-            device_id = message.device_id,
-            location = message.location,
-            layout = message.layout,
-            driver = message.driver,
-            times = [LapTime._from_proto(val) for val in message.times],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

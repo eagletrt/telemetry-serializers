@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from data import telemetry_lap_data_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -37,9 +37,7 @@ class VectorDouble:
     def deserializeFromProtobufString(cls, data: bytes) -> "VectorDouble":
         message = telemetry_lap_data_pb2.VectorDouble()
         message.ParseFromString(data)
-        return cls(
-            buffer = [float(val) for val in message.buffer],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -84,9 +82,7 @@ class DataFile:
     def deserializeFromProtobufString(cls, data: bytes) -> "DataFile":
         message = telemetry_lap_data_pb2.DataFile()
         message.ParseFromString(data)
-        return cls(
-            data = {key: VectorDouble._from_proto(val) for key, val in message.data.items()},
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -142,14 +138,7 @@ class TelemetryLapData:
     def deserializeFromProtobufString(cls, data: bytes) -> "TelemetryLapData":
         message = telemetry_lap_data_pb2.TelemetryLapData()
         message.ParseFromString(data)
-        return cls(
-            dateTime = message.dateTime,
-            trackLocation = message.trackLocation,
-            trackLayout = message.trackLayout,
-            driver = message.driver,
-            lapNumber = message.lapNumber,
-            filenameHash = message.filenameHash,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -194,9 +183,7 @@ class DataBase:
     def deserializeFromProtobufString(cls, data: bytes) -> "DataBase":
         message = telemetry_lap_data_pb2.DataBase()
         message.ParseFromString(data)
-        return cls(
-            lapsData = [TelemetryLapData._from_proto(val) for val in message.lapsData],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

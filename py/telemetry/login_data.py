@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from telemetry import login_data_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -38,10 +38,7 @@ class LoginData:
     def deserializeFromProtobufString(cls, data: bytes) -> "LoginData":
         message = login_data_pb2.LoginData()
         message.ParseFromString(data)
-        return cls(
-            username = message.username,
-            password = message.password,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

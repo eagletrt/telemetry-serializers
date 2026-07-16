@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from configs import session_config_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -41,11 +41,7 @@ class Weather:
     def deserializeFromProtobufString(cls, data: bytes) -> "Weather":
         message = session_config_pb2.Weather()
         message.ParseFromString(data)
-        return cls(
-            ambientTemperature = message.ambientTemperature,
-            trackTemperature = message.trackTemperature,
-            humidity = message.humidity,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -118,23 +114,7 @@ class SessionConfig:
     def deserializeFromProtobufString(cls, data: bytes) -> "SessionConfig":
         message = session_config_pb2.SessionConfig()
         message.ParseFromString(data)
-        return cls(
-            trackLocation = message.trackLocation,
-            trackLayout = message.trackLayout,
-            sessionName = message.sessionName,
-            driver = message.driver,
-            date = message.date,
-            time = message.time,
-            weather = (
-                Weather._from_proto(message.weather)
-                if message.HasField("weather")
-                else None
-            ),
-            notes = message.notes,
-            canlibVersion = message.canlibVersion,
-            startTimestamp = message.startTimestamp,
-            endTimestamp = message.endTimestamp,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

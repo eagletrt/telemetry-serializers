@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from configs import car_config_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -41,11 +41,7 @@ class Aero:
     def deserializeFromProtobufString(cls, data: bytes) -> "Aero":
         message = car_config_pb2.Aero()
         message.ParseFromString(data)
-        return cls(
-            angleOfIncidenceFront = message.angleOfIncidenceFront,
-            angleOfIncidenceRear = message.angleOfIncidenceRear,
-            flap = message.flap,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -92,11 +88,7 @@ class Wheel:
     def deserializeFromProtobufString(cls, data: bytes) -> "Wheel":
         message = car_config_pb2.Wheel()
         message.ParseFromString(data)
-        return cls(
-            camber = message.camber,
-            toe = message.toe,
-            pressure = message.pressure,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -146,12 +138,7 @@ class Damper:
     def deserializeFromProtobufString(cls, data: bytes) -> "Damper":
         message = car_config_pb2.Damper()
         message.ParseFromString(data)
-        return cls(
-            bound_low_comp = message.bound_low_comp,
-            bound_high_comp = message.bound_high_comp,
-            rebound = message.rebound,
-            preload = message.preload,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -198,11 +185,7 @@ class ImuCorrections:
     def deserializeFromProtobufString(cls, data: bytes) -> "ImuCorrections":
         message = car_config_pb2.ImuCorrections()
         message.ParseFromString(data)
-        return cls(
-            x = message.x,
-            y = message.y,
-            z = message.z,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -249,11 +232,7 @@ class Tyre:
     def deserializeFromProtobufString(cls, data: bytes) -> "Tyre":
         message = car_config_pb2.Tyre()
         message.ParseFromString(data)
-        return cls(
-            startDate = message.startDate,
-            id = message.id,
-            kilometers = message.kilometers,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -311,28 +290,7 @@ class Odometer:
     def deserializeFromProtobufString(cls, data: bytes) -> "Odometer":
         message = car_config_pb2.Odometer()
         message.ParseFromString(data)
-        return cls(
-            fl = (
-                Tyre._from_proto(message.fl)
-                if message.HasField("fl")
-                else None
-            ),
-            fr = (
-                Tyre._from_proto(message.fr)
-                if message.HasField("fr")
-                else None
-            ),
-            rl = (
-                Tyre._from_proto(message.rl)
-                if message.HasField("rl")
-                else None
-            ),
-            rr = (
-                Tyre._from_proto(message.rr)
-                if message.HasField("rr")
-                else None
-            ),
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -417,47 +375,7 @@ class CarConfig:
     def deserializeFromProtobufString(cls, data: bytes) -> "CarConfig":
         message = car_config_pb2.CarConfig()
         message.ParseFromString(data)
-        return cls(
-            aero = (
-                Aero._from_proto(message.aero)
-                if message.HasField("aero")
-                else None
-            ),
-            wheelFront = (
-                Wheel._from_proto(message.wheelFront)
-                if message.HasField("wheelFront")
-                else None
-            ),
-            wheelRear = (
-                Wheel._from_proto(message.wheelRear)
-                if message.HasField("wheelRear")
-                else None
-            ),
-            damperFront = (
-                Damper._from_proto(message.damperFront)
-                if message.HasField("damperFront")
-                else None
-            ),
-            damperRear = (
-                Damper._from_proto(message.damperRear)
-                if message.HasField("damperRear")
-                else None
-            ),
-            wheelCompound = message.wheelCompound,
-            rideHeight = message.rideHeight,
-            balancing = message.balancing,
-            notes = message.notes,
-            imuCorrections = (
-                ImuCorrections._from_proto(message.imuCorrections)
-                if message.HasField("imuCorrections")
-                else None
-            ),
-            odometer = (
-                Odometer._from_proto(message.odometer)
-                if message.HasField("odometer")
-                else None
-            ),
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

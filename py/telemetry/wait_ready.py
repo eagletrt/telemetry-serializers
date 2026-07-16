@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from telemetry import wait_ready_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -39,9 +39,7 @@ class ReplayReady:
     def deserializeFromProtobufString(cls, data: bytes) -> "ReplayReady":
         message = wait_ready_pb2.ReplayReady()
         message.ParseFromString(data)
-        return cls(
-            status = ReadyStatus(message.status),
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
@@ -82,9 +80,7 @@ class ReplayStart:
     def deserializeFromProtobufString(cls, data: bytes) -> "ReplayStart":
         message = wait_ready_pb2.ReplayStart()
         message.ParseFromString(data)
-        return cls(
-            startTimestamp = message.startTimestamp,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

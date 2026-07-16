@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from lapcounter import new_lap_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -35,9 +35,7 @@ class NewLap:
     def deserializeFromProtobufString(cls, data: bytes) -> "NewLap":
         message = new_lap_pb2.NewLap()
         message.ParseFromString(data)
-        return cls(
-            timestamp = message.timestamp,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()

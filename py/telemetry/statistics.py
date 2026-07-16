@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from telemetry import statistics_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -41,11 +41,7 @@ class Statistics:
     def deserializeFromProtobufString(cls, data: bytes) -> "Statistics":
         message = statistics_pb2.Statistics()
         message.ParseFromString(data)
-        return cls(
-            messages = message.messages,
-            averageFrequency = message.averageFrequency,
-            seconds = message.seconds,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
