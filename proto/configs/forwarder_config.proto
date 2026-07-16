@@ -20,7 +20,7 @@ message GpsDev
     string mode = 3;
     int32 tcpPort = 4;
     bool enabled = 5;
-    oneof speed_or_port {
+    oneof speedOrPort {
         int32 speed = 6;
         int32 port = 7;
     }
