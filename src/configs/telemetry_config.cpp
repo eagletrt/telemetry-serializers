@@ -56,15 +56,8 @@ bool CanDevice::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
-GpsDevice::GpsDevice(const PbConfigs::GpsDevice& protobuf) {if(protobuf.has_path()) {
-        path = protobuf.path();
-    } else {
-        path = std::nullopt;
-    }if(protobuf.has_ip()) {
-        ip = protobuf.ip();
-    } else {
-        ip = std::nullopt;
-    }
+GpsDevice::GpsDevice(const PbConfigs::GpsDevice& protobuf) {
+    address = protobuf.address();
     mode = protobuf.mode();
     tcpPort = protobuf.tcpport();
     enabled = protobuf.enabled();if(protobuf.has_speed()) {
@@ -80,12 +73,7 @@ GpsDevice::GpsDevice(const PbConfigs::GpsDevice& protobuf) {if(protobuf.has_path
 
 GpsDevice::operator PbConfigs::GpsDevice() const {
     PbConfigs::GpsDevice ret;
-    if(path.has_value()) {
-        ret.set_path(path.value());
-    }
-    if(ip.has_value()) {
-        ret.set_ip(ip.value());
-    }
+    ret.set_address(address);
     ret.set_mode(mode);
     ret.set_tcpport(tcpPort);
     ret.set_enabled(enabled);

@@ -4,15 +4,13 @@
     "definitions": {
         "GpsDev": {
             "required": [
+                "address",
                 "mode",
                 "tcpPort",
                 "enabled"
             ],
             "properties": {
-                "path": {
-                    "type": "string"
-                },
-                "ip": {
+                "address": {
                     "type": "string"
                 },
                 "mode": {
@@ -34,36 +32,6 @@
             "additionalProperties": false,
             "type": "object",
             "allOf": [
-                {
-                    "oneOf": [
-                        {
-                            "not": {
-                                "anyOf": [
-                                    {
-                                        "required": [
-                                            "path"
-                                        ]
-                                    },
-                                    {
-                                        "required": [
-                                            "ip"
-                                        ]
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "required": [
-                                "path"
-                            ]
-                        },
-                        {
-                            "required": [
-                                "ip"
-                            ]
-                        }
-                    ]
-                },
                 {
                     "oneOf": [
                         {

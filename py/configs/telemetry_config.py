@@ -57,8 +57,7 @@ class CanDevice:
 
 @dataclass
 class GpsDevice:
-    path: Optional[str] = None
-    ip: Optional[str] = None
+    address: str = ""
     mode: str = ""
     tcpPort: int = 0
     enabled: bool = False
@@ -71,10 +70,7 @@ class GpsDevice:
         self._proto_message = telemetry_config_pb2.GpsDevice()
 
     def _populate_proto(self):
-        if self.path is not None:
-            self._proto_message.path = self.path
-        if self.ip is not None:
-            self._proto_message.ip = self.ip
+        self._proto_message.address = self.address
         self._proto_message.mode = self.mode
         self._proto_message.tcpPort = self.tcpPort
         self._proto_message.enabled = self.enabled
@@ -86,8 +82,7 @@ class GpsDevice:
     @classmethod
     def _from_proto(cls, proto_message) -> "GpsDevice":
         return cls(
-            path = proto_message.path if proto_message.HasField("path") else None,
-            ip = proto_message.ip if proto_message.HasField("ip") else None,
+            address = proto_message.address,
             mode = proto_message.mode,
             tcpPort = proto_message.tcpPort,
             enabled = proto_message.enabled,
