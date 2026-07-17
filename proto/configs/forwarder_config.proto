@@ -13,10 +13,7 @@ message NtripClient
 
 message GpsDev
 {
-    oneof address {
-        string path = 1;
-        string ip = 2;
-    }
+    string address = 1;
     string mode = 3;
     int32 tcpPort = 4;
     bool enabled = 5;
