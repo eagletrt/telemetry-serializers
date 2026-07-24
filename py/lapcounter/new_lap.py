@@ -9,7 +9,7 @@ from google.protobuf.json_format import MessageToJson, Parse
 @dataclass
 class NewLap:
     timestamp: int = 0
-    laps: int = 0
+    lapNumber: int = 0
     
     _proto_message: new_lap_pb2.NewLap = field(init=False, repr=False)
 
@@ -18,13 +18,13 @@ class NewLap:
 
     def _populate_proto(self):
         self._proto_message.timestamp = self.timestamp
-        self._proto_message.laps = self.laps
+        self._proto_message.lapNumber = self.lapNumber
 
     @classmethod
     def _from_proto(cls, proto_message) -> "NewLap":
         return cls(
             timestamp = proto_message.timestamp,
-            laps = proto_message.laps,
+            lapNumber = proto_message.lapNumber,
         )
 
     def __str__(self):

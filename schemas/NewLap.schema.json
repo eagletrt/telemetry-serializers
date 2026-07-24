@@ -5,13 +5,13 @@
         "NewLap": {
             "required": [
                 "timestamp",
-                "laps"
+                "lapNumber"
             ],
             "properties": {
                 "timestamp": {
                     "type": "integer"
                 },
-                "laps": {
+                "lapNumber": {
                     "type": "integer"
                 }
             },

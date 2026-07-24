@@ -16,7 +16,7 @@ namespace LapCounter
 struct NewLap
 {
     uint64_t timestamp;
-    uint32_t laps;
+    uint32_t lapNumber;
     
     NewLap() = default;
     NewLap(const PbLapCounter::NewLap& protobuf);
