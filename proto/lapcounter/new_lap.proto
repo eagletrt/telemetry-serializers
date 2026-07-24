@@ -4,5 +4,5 @@ package LapCounter;
 
 message NewLap{
   uint64 timestamp = 1;
-  uint32 laps = 2;
+  uint32 lapNumber = 2;
 }
