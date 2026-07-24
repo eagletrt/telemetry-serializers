@@ -104,6 +104,7 @@ TelemetryLapData::TelemetryLapData(const PbData::TelemetryLapData& protobuf) {
     driver = protobuf.driver();
     lapNumber = protobuf.lapnumber();
     filenameHash = protobuf.filenamehash();
+    sessionName = protobuf.sessionname();
 }
 
 TelemetryLapData::operator PbData::TelemetryLapData() const {
@@ -114,6 +115,7 @@ TelemetryLapData::operator PbData::TelemetryLapData() const {
     ret.set_driver(driver);
     ret.set_lapnumber(lapNumber);
     ret.set_filenamehash(filenameHash);
+    ret.set_sessionname(sessionName);
     return ret;
 }
 

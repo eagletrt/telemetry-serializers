@@ -49,6 +49,7 @@ struct TelemetryLapData
     std::string driver;
     uint32_t lapNumber;
     std::string filenameHash;
+    std::string sessionName;
     
     TelemetryLapData() = default;
     TelemetryLapData(const PbData::TelemetryLapData& protobuf);

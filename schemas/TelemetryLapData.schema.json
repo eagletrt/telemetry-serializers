@@ -9,7 +9,8 @@
                 "trackLayout",
                 "driver",
                 "lapNumber",
-                "filenameHash"
+                "filenameHash",
+                "sessionName"
             ],
             "properties": {
                 "dateTime": {
@@ -28,6 +29,9 @@
                     "type": "integer"
                 },
                 "filenameHash": {
+                    "type": "string"
+                },
+                "sessionName": {
                     "type": "string"
                 }
             },

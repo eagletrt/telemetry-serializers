@@ -102,6 +102,7 @@ class TelemetryLapData:
     driver: str = ""
     lapNumber: int = 0
     filenameHash: str = ""
+    sessionName: str = ""
     
     _proto_message: telemetry_lap_data_pb2.TelemetryLapData = field(init=False, repr=False)
 
@@ -115,6 +116,7 @@ class TelemetryLapData:
         self._proto_message.driver = self.driver
         self._proto_message.lapNumber = self.lapNumber
         self._proto_message.filenameHash = self.filenameHash
+        self._proto_message.sessionName = self.sessionName
 
     @classmethod
     def _from_proto(cls, proto_message) -> "TelemetryLapData":
@@ -125,6 +127,7 @@ class TelemetryLapData:
             driver = proto_message.driver,
             lapNumber = proto_message.lapNumber,
             filenameHash = proto_message.filenameHash,
+            sessionName = proto_message.sessionName,
         )
 
     def __str__(self):

@@ -13,6 +13,7 @@ message TelemetryLapData {
   string driver = 4;
   uint32 lapNumber = 5;
   string filenameHash = 6;
+  string sessionName = 7;
 }
 
 message DataBase { repeated TelemetryLapData lapsData = 1; }

@@ -9,11 +9,13 @@ namespace LapCounter
 {
 NewLap::NewLap(const PbLapCounter::NewLap& protobuf) {
     timestamp = protobuf.timestamp();
+    laps = protobuf.laps();
 }
 
 NewLap::operator PbLapCounter::NewLap() const {
     PbLapCounter::NewLap ret;
     ret.set_timestamp(timestamp);
+    ret.set_laps(laps);
     return ret;
 }
 

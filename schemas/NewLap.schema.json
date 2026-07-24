@@ -4,10 +4,14 @@
     "definitions": {
         "NewLap": {
             "required": [
-                "timestamp"
+                "timestamp",
+                "laps"
             ],
             "properties": {
                 "timestamp": {
+                    "type": "integer"
+                },
+                "laps": {
                     "type": "integer"
                 }
             },
