@@ -208,6 +208,7 @@ bool ImuCorrections::deserializeFromProtobufString(const std::string& str) {
 Tyre::Tyre(const PbConfigs::Tyre& protobuf) {
     startDate = protobuf.startdate();
     id = protobuf.id();
+    position = static_cast<TyrePosition>(protobuf.position());
     kilometers = protobuf.kilometers();
 }
 
@@ -215,6 +216,7 @@ Tyre::operator PbConfigs::Tyre() const {
     PbConfigs::Tyre ret;
     ret.set_startdate(startDate);
     ret.set_id(id);
+    ret.set_position(static_cast<PbConfigs::TyrePosition>(position));
     ret.set_kilometers(kilometers);
     return ret;
 }

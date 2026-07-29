@@ -196,11 +196,18 @@ class ImuCorrections:
         message = car_config_pb2.ImuCorrections()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+class TyrePosition(Enum):
+    FL = 0
+    FR = 1
+    RL = 2
+    RR = 3
+
 
 @dataclass
 class Tyre:
     startDate: str = ""
     id: str = ""
+    position: TyrePosition = None
     kilometers: float = 0.0
     
     _proto_message: car_config_pb2.Tyre = field(init=False, repr=False)
@@ -211,6 +218,7 @@ class Tyre:
     def _populate_proto(self):
         self._proto_message.startDate = self.startDate
         self._proto_message.id = self.id
+        self._proto_message.position = self.position.value
         self._proto_message.kilometers = self.kilometers
 
     @classmethod
@@ -218,6 +226,7 @@ class Tyre:
         return cls(
             startDate = proto_message.startDate,
             id = proto_message.id,
+            position = TyrePosition(proto_message.position),
             kilometers = proto_message.kilometers,
         )
 

@@ -78,10 +78,19 @@ struct ImuCorrections
     bool deserializeFromProtobufString(const std::string& str);
 };
 
+enum class TyrePosition
+{
+    FL = 0,
+    FR = 1,
+    RL = 2,
+    RR = 3
+};
+
 struct Tyre
 {
     std::string startDate;
     std::string id;
+    TyrePosition position;
     double kilometers;
     
     Tyre() = default;

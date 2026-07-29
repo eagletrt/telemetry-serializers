@@ -35,6 +35,7 @@
             "required": [
                 "startDate",
                 "id",
+                "position",
                 "kilometers"
             ],
             "properties": {
@@ -43,6 +44,27 @@
                 },
                 "id": {
                     "type": "string"
+                },
+                "position": {
+                    "enum": [
+                        "FL",
+                        0,
+                        "FR",
+                        1,
+                        "RL",
+                        2,
+                        "RR",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Tyre Position"
                 },
                 "kilometers": {
                     "type": "number"
