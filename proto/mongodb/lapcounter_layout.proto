@@ -22,4 +22,8 @@ message Layout {
     PositionAndDirection start_line = 8;
     PositionAndDirection finish_line = 9;
     repeated PositionAndDirection sectors = 10;
+    string baseline_hash = 11;
+    double start_s = 12;          
+    repeated double sectors_s = 13;
+    double baseline_length = 14;
 }
