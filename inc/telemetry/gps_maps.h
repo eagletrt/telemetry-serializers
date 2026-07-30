@@ -23,6 +23,7 @@ struct Baseline
     bool resampled;
     std::vector<double> s;
     std::vector<double> theta;
+    std::string hash;
     
     Baseline() = default;
     Baseline(const PbTelemetry::Baseline& protobuf);

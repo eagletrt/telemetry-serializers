@@ -169,6 +169,9 @@ class LapRecords:
     best_lap: LapRecord = None
     best_sectors: List[SectorsRecord] = field(default_factory=list)
     drivers_records: List[DriverRecord] = field(default_factory=list)
+    baseline_hash: str = ""
+    session_start_timestamp: int = 0
+    session_name: str = ""
     
     _proto_message: lapcounter_lap_records_pb2.LapRecords = field(init=False, repr=False)
 
@@ -195,6 +198,9 @@ class LapRecords:
             val._populate_proto()
             tmp = self._proto_message.drivers_records.add()
             tmp.CopyFrom(val._proto_message)
+        self._proto_message.baseline_hash = self.baseline_hash
+        self._proto_message.session_start_timestamp = self.session_start_timestamp
+        self._proto_message.session_name = self.session_name
 
     @classmethod
     def _from_proto(cls, proto_message) -> "LapRecords":
@@ -208,6 +214,9 @@ class LapRecords:
             best_lap = LapRecord._from_proto(proto_message.best_lap),
             best_sectors=[SectorsRecord._from_proto(val) for val in proto_message.best_sectors],
             drivers_records=[DriverRecord._from_proto(val) for val in proto_message.drivers_records],
+            baseline_hash = proto_message.baseline_hash,
+            session_start_timestamp = proto_message.session_start_timestamp,
+            session_name = proto_message.session_name,
         )
 
     def __str__(self):

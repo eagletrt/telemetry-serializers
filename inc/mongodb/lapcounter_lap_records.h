@@ -73,6 +73,9 @@ struct LapRecords
     LapRecord best_lap;
     std::vector<SectorsRecord> best_sectors;
     std::vector<DriverRecord> drivers_records;
+    std::string baseline_hash;
+    uint64_t session_start_timestamp;
+    std::string session_name;
     
     LapRecords() = default;
     LapRecords(const PbMongoDb::LapRecords& protobuf);

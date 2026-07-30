@@ -166,6 +166,9 @@ LapRecords::LapRecords(const PbMongoDb::LapRecords& protobuf) {
     best_lap = protobuf.best_lap();
     best_sectors = {protobuf.best_sectors().begin(), protobuf.best_sectors().end()};
     drivers_records = {protobuf.drivers_records().begin(), protobuf.drivers_records().end()};
+    baseline_hash = protobuf.baseline_hash();
+    session_start_timestamp = protobuf.session_start_timestamp();
+    session_name = protobuf.session_name();
 }
 
 LapRecords::operator PbMongoDb::LapRecords() const {
@@ -179,6 +182,9 @@ LapRecords::operator PbMongoDb::LapRecords() const {
     *(ret.mutable_best_lap()) = best_lap;
     *(ret.mutable_best_sectors()) = {best_sectors.begin(), best_sectors.end()};
     *(ret.mutable_drivers_records()) = {drivers_records.begin(), drivers_records.end()};
+    ret.set_baseline_hash(baseline_hash);
+    ret.set_session_start_timestamp(session_start_timestamp);
+    ret.set_session_name(session_name);
     return ret;
 }
 

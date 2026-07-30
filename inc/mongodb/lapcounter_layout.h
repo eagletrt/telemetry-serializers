@@ -54,6 +54,10 @@ struct Layout
     PositionAndDirection start_line;
     PositionAndDirection finish_line;
     std::vector<PositionAndDirection> sectors;
+    std::string baseline_hash;
+    double start_s;
+    std::vector<double> sectors_s;
+    double baseline_length;
     
     Layout() = default;
     Layout(const PbMongoDb::Layout& protobuf);

@@ -68,6 +68,9 @@ class LapTimes:
     layout: str = ""
     driver: str = ""
     times: List[LapTime] = field(default_factory=list)
+    baseline_hash: str = ""
+    session_start_timestamp: int = 0
+    session_name: str = ""
     
     _proto_message: lapcounter_lap_times_pb2.LapTimes = field(init=False, repr=False)
 
@@ -87,6 +90,9 @@ class LapTimes:
             val._populate_proto()
             tmp = self._proto_message.times.add()
             tmp.CopyFrom(val._proto_message)
+        self._proto_message.baseline_hash = self.baseline_hash
+        self._proto_message.session_start_timestamp = self.session_start_timestamp
+        self._proto_message.session_name = self.session_name
 
     @classmethod
     def _from_proto(cls, proto_message) -> "LapTimes":
@@ -99,6 +105,9 @@ class LapTimes:
             layout = proto_message.layout,
             driver = proto_message.driver,
             times=[LapTime._from_proto(val) for val in proto_message.times],
+            baseline_hash = proto_message.baseline_hash,
+            session_start_timestamp = proto_message.session_start_timestamp,
+            session_name = proto_message.session_name,
         )
 
     def __str__(self):

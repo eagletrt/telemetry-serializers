@@ -44,7 +44,8 @@
                 "y",
                 "resampled",
                 "s",
-                "theta"
+                "theta",
+                "hash"
             ],
             "properties": {
                 "valid": {
@@ -82,6 +83,9 @@
                         "type": "number"
                     },
                     "type": "array"
+                },
+                "hash": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false,

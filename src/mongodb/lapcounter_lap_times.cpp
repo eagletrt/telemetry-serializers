@@ -67,6 +67,9 @@ LapTimes::LapTimes(const PbMongoDb::LapTimes& protobuf) {
     layout = protobuf.layout();
     driver = protobuf.driver();
     times = {protobuf.times().begin(), protobuf.times().end()};
+    baseline_hash = protobuf.baseline_hash();
+    session_start_timestamp = protobuf.session_start_timestamp();
+    session_name = protobuf.session_name();
 }
 
 LapTimes::operator PbMongoDb::LapTimes() const {
@@ -79,6 +82,9 @@ LapTimes::operator PbMongoDb::LapTimes() const {
     ret.set_layout(layout);
     ret.set_driver(driver);
     *(ret.mutable_times()) = {times.begin(), times.end()};
+    ret.set_baseline_hash(baseline_hash);
+    ret.set_session_start_timestamp(session_start_timestamp);
+    ret.set_session_name(session_name);
     return ret;
 }
 

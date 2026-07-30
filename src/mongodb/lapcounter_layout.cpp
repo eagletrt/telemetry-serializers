@@ -111,6 +111,10 @@ Layout::Layout(const PbMongoDb::Layout& protobuf) {
     start_line = protobuf.start_line();
     finish_line = protobuf.finish_line();
     sectors = {protobuf.sectors().begin(), protobuf.sectors().end()};
+    baseline_hash = protobuf.baseline_hash();
+    start_s = protobuf.start_s();
+    sectors_s = {protobuf.sectors_s().begin(), protobuf.sectors_s().end()};
+    baseline_length = protobuf.baseline_length();
 }
 
 Layout::operator PbMongoDb::Layout() const {
@@ -124,6 +128,10 @@ Layout::operator PbMongoDb::Layout() const {
     *(ret.mutable_start_line()) = start_line;
     *(ret.mutable_finish_line()) = finish_line;
     *(ret.mutable_sectors()) = {sectors.begin(), sectors.end()};
+    ret.set_baseline_hash(baseline_hash);
+    ret.set_start_s(start_s);
+    *(ret.mutable_sectors_s()) = {sectors_s.begin(), sectors_s.end()};
+    ret.set_baseline_length(baseline_length);
     return ret;
 }
 

@@ -12,7 +12,10 @@
                 "layout",
                 "best_lap",
                 "best_sectors",
-                "drivers_records"
+                "drivers_records",
+                "baseline_hash",
+                "session_start_timestamp",
+                "session_name"
             ],
             "properties": {
                 "version": {
@@ -50,6 +53,15 @@
                     },
                     "additionalProperties": false,
                     "type": "array"
+                },
+                "baseline_hash": {
+                    "type": "string"
+                },
+                "session_start_timestamp": {
+                    "type": "integer"
+                },
+                "session_name": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false,

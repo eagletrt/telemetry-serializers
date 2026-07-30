@@ -109,6 +109,10 @@ class Layout:
     start_line: PositionAndDirection = None
     finish_line: PositionAndDirection = None
     sectors: List[PositionAndDirection] = field(default_factory=list)
+    baseline_hash: str = ""
+    start_s: float = 0.0
+    sectors_s: List[float] = field(default_factory=list)
+    baseline_length: float = 0.0
     
     _proto_message: lapcounter_layout_pb2.Layout = field(init=False, repr=False)
 
@@ -133,6 +137,12 @@ class Layout:
             val._populate_proto()
             tmp = self._proto_message.sectors.add()
             tmp.CopyFrom(val._proto_message)
+        self._proto_message.baseline_hash = self.baseline_hash
+        self._proto_message.start_s = self.start_s
+        del self._proto_message.sectors_s[:]
+        for val in self.sectors_s:
+            self._proto_message.sectors_s.append(val)
+        self._proto_message.baseline_length = self.baseline_length
 
     @classmethod
     def _from_proto(cls, proto_message) -> "Layout":
@@ -146,6 +156,10 @@ class Layout:
             start_line = PositionAndDirection._from_proto(proto_message.start_line),
             finish_line = PositionAndDirection._from_proto(proto_message.finish_line),
             sectors=[PositionAndDirection._from_proto(val) for val in proto_message.sectors],
+            baseline_hash = proto_message.baseline_hash,
+            start_s = proto_message.start_s,
+            sectors_s=[float(val) for val in proto_message.sectors_s],
+            baseline_length = proto_message.baseline_length,
         )
 
     def __str__(self):

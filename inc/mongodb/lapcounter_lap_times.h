@@ -40,6 +40,9 @@ struct LapTimes
     std::string layout;
     std::string driver;
     std::vector<LapTime> times;
+    std::string baseline_hash;
+    uint64_t session_start_timestamp;
+    std::string session_name;
     
     LapTimes() = default;
     LapTimes(const PbMongoDb::LapTimes& protobuf);

@@ -12,7 +12,11 @@
                 "layout",
                 "start_line",
                 "finish_line",
-                "sectors"
+                "sectors",
+                "baseline_hash",
+                "start_s",
+                "sectors_s",
+                "baseline_length"
             ],
             "properties": {
                 "version": {
@@ -47,6 +51,21 @@
                     },
                     "additionalProperties": false,
                     "type": "array"
+                },
+                "baseline_hash": {
+                    "type": "string"
+                },
+                "start_s": {
+                    "type": "number"
+                },
+                "sectors_s": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "baseline_length": {
+                    "type": "number"
                 }
             },
             "additionalProperties": false,

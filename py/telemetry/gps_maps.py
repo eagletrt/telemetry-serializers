@@ -16,6 +16,7 @@ class Baseline:
     resampled: bool = False
     s: List[float] = field(default_factory=list)
     theta: List[float] = field(default_factory=list)
+    hash: str = ""
     
     _proto_message: gps_maps_pb2.Baseline = field(init=False, repr=False)
 
@@ -39,6 +40,7 @@ class Baseline:
         del self._proto_message.theta[:]
         for val in self.theta:
             self._proto_message.theta.append(val)
+        self._proto_message.hash = self.hash
 
     @classmethod
     def _from_proto(cls, proto_message) -> "Baseline":
@@ -51,6 +53,7 @@ class Baseline:
             resampled = proto_message.resampled,
             s=[float(val) for val in proto_message.s],
             theta=[float(val) for val in proto_message.theta],
+            hash = proto_message.hash,
         )
 
     def __str__(self):
