@@ -35,4 +35,7 @@ message LapRecords
     LapRecord best_lap = 8;
     repeated SectorsRecord best_sectors = 9;
     repeated DriverRecord drivers_records = 10;
+    string baseline_hash = 11;
+    uint64 session_start_timestamp = 12;
+    string session_name = 13;
 }

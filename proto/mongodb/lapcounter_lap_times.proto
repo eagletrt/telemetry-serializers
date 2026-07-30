@@ -18,4 +18,7 @@ message LapTimes {
     string layout = 7;
     string driver = 8;
     repeated LapTime times = 9;
+    string baseline_hash = 10;
+    uint64 session_start_timestamp = 11;
+    string session_name = 12;
 }

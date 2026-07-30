@@ -12,6 +12,7 @@ message Baseline {
   bool resampled = 6;
   repeated double s = 7;
   repeated double theta = 8;
+  string hash = 9; 
 }
 
 message GPSMapOrigin {
