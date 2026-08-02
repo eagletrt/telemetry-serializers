@@ -8,8 +8,8 @@ from google.protobuf.json_format import MessageToJson, Parse
 
 @dataclass
 class Vec2:
-    x: int = 0
-    y: int = 0
+    x: float = 0.0
+    y: float = 0.0
     
     _proto_message: lapcounter_layout_pb2.Vec2 = field(init=False, repr=False)
 

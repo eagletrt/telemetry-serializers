@@ -152,34 +152,38 @@ class Circuit:
         message = lapcounter_pb2.Circuit()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
+class Status(Enum):
+    DISARMED = 0
+    NO_INSTRUMENT = 1
+    NO_POSITION = 2
+    NO_PROJECTION = 3
+    OFF_TRACK = 4
+    OUT_LAP = 5
+    TIMING = 6
+
 
 @dataclass
-class Lap:
-    number: int = 0
-    startTimestamp: int = 0
-    endTimestamp: int = 0
-    sectorsTimestamps: List[int] = field(default_factory=list)
+class LapCounterStatus:
+    status: Status = None
+    dropped_laps: int = 0
+    detail: str = ""
     
-    _proto_message: lapcounter_pb2.Lap = field(init=False, repr=False)
+    _proto_message: lapcounter_pb2.LapCounterStatus = field(init=False, repr=False)
 
     def __post_init__(self):
-        self._proto_message = lapcounter_pb2.Lap()
+        self._proto_message = lapcounter_pb2.LapCounterStatus()
 
     def _populate_proto(self):
-        self._proto_message.number = self.number
-        self._proto_message.startTimestamp = self.startTimestamp
-        self._proto_message.endTimestamp = self.endTimestamp
-        del self._proto_message.sectorsTimestamps[:]
-        for val in self.sectorsTimestamps:
-            self._proto_message.sectorsTimestamps.append(val)
+        self._proto_message.status = self.status.value
+        self._proto_message.dropped_laps = self.dropped_laps
+        self._proto_message.detail = self.detail
 
     @classmethod
-    def _from_proto(cls, proto_message) -> "Lap":
+    def _from_proto(cls, proto_message) -> "LapCounterStatus":
         return cls(
-            number = proto_message.number,
-            startTimestamp = proto_message.startTimestamp,
-            endTimestamp = proto_message.endTimestamp,
-            sectorsTimestamps=[int(val) for val in proto_message.sectorsTimestamps],
+            status = Status(proto_message.status),
+            dropped_laps = proto_message.dropped_laps,
+            detail = proto_message.detail,
         )
 
     def __str__(self):
@@ -190,8 +194,8 @@ class Lap:
         return self._proto_message.SerializeToString()
 
     @classmethod
-    def deserializeFromProtobufString(cls, data: bytes) -> "Lap":
-        message = lapcounter_pb2.Lap()
+    def deserializeFromProtobufString(cls, data: bytes) -> "LapCounterStatus":
+        message = lapcounter_pb2.LapCounterStatus()
         message.ParseFromString(data)
         return cls._from_proto(message)
 
@@ -200,61 +204,7 @@ class Lap:
         return MessageToJson(self._proto_message)
 
     @classmethod
-    def deserializeFromJsonString(cls, data: str) -> "Lap":
-        message = lapcounter_pb2.Lap()
-        Parse(data, message)
-        return cls.deserializeFromProtobufString(message.SerializeToString())
-
-@dataclass
-class Race:
-    raceId: str = ""
-    circuitId: str = ""
-    driverId: str = ""
-    laps: List[Lap] = field(default_factory=list)
-    
-    _proto_message: lapcounter_pb2.Race = field(init=False, repr=False)
-
-    def __post_init__(self):
-        self._proto_message = lapcounter_pb2.Race()
-
-    def _populate_proto(self):
-        self._proto_message.raceId = self.raceId
-        self._proto_message.circuitId = self.circuitId
-        self._proto_message.driverId = self.driverId
-        del self._proto_message.laps[:]
-        for val in self.laps:
-            val._populate_proto()
-            tmp = self._proto_message.laps.add()
-            tmp.CopyFrom(val._proto_message)
-
-    @classmethod
-    def _from_proto(cls, proto_message) -> "Race":
-        return cls(
-            raceId = proto_message.raceId,
-            circuitId = proto_message.circuitId,
-            driverId = proto_message.driverId,
-            laps=[Lap._from_proto(val) for val in proto_message.laps],
-        )
-
-    def __str__(self):
-        return self.serializeAsJsonString()
-
-    def serializeAsProtobufString(self) -> bytes:
-        self._populate_proto()
-        return self._proto_message.SerializeToString()
-
-    @classmethod
-    def deserializeFromProtobufString(cls, data: bytes) -> "Race":
-        message = lapcounter_pb2.Race()
-        message.ParseFromString(data)
-        return cls._from_proto(message)
-
-    def serializeAsJsonString(self) -> str:
-        self._populate_proto()
-        return MessageToJson(self._proto_message)
-
-    @classmethod
-    def deserializeFromJsonString(cls, data: str) -> "Race":
-        message = lapcounter_pb2.Race()
+    def deserializeFromJsonString(cls, data: str) -> "LapCounterStatus":
+        message = lapcounter_pb2.LapCounterStatus()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())

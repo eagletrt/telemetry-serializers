@@ -15,8 +15,8 @@ namespace MongoDb
 {
 struct Vec2
 {
-    int32_t x;
-    int32_t y;
+    double x;
+    double y;
     
     Vec2() = default;
     Vec2(const PbMongoDb::Vec2& protobuf);

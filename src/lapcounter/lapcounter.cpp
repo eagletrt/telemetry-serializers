@@ -150,24 +150,22 @@ bool Circuit::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
-Lap::Lap(const PbLapCounter::Lap& protobuf) {
-    number = protobuf.number();
-    startTimestamp = protobuf.starttimestamp();
-    endTimestamp = protobuf.endtimestamp();
-    sectorsTimestamps = {protobuf.sectorstimestamps().begin(), protobuf.sectorstimestamps().end()};
+LapCounterStatus::LapCounterStatus(const PbLapCounter::LapCounterStatus& protobuf) {
+    status = static_cast<Status>(protobuf.status());
+    dropped_laps = protobuf.dropped_laps();
+    detail = protobuf.detail();
 }
 
-Lap::operator PbLapCounter::Lap() const {
-    PbLapCounter::Lap ret;
-    ret.set_number(number);
-    ret.set_starttimestamp(startTimestamp);
-    ret.set_endtimestamp(endTimestamp);
-    *(ret.mutable_sectorstimestamps()) = {sectorsTimestamps.begin(), sectorsTimestamps.end()};
+LapCounterStatus::operator PbLapCounter::LapCounterStatus() const {
+    PbLapCounter::LapCounterStatus ret;
+    ret.set_status(static_cast<PbLapCounter::Status>(status));
+    ret.set_dropped_laps(dropped_laps);
+    ret.set_detail(detail);
     return ret;
 }
 
-std::string Lap::serializeAsJsonString() const {
-    PbLapCounter::Lap protobuf(*this);
+std::string LapCounterStatus::serializeAsJsonString() const {
+    PbLapCounter::LapCounterStatus protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
@@ -175,13 +173,13 @@ std::string Lap::serializeAsJsonString() const {
     return ret;
 }
 
-std::string Lap::serializeAsProtobufString() const {
-    PbLapCounter::Lap protobuf(*this);
+std::string LapCounterStatus::serializeAsProtobufString() const {
+    PbLapCounter::LapCounterStatus protobuf(*this);
     return protobuf.SerializeAsString();
 }
 
-bool Lap::deserializeFromJsonString(const std::string& str) {
-    PbLapCounter::Lap protobuf;
+bool LapCounterStatus::deserializeFromJsonString(const std::string& str) {
+    PbLapCounter::LapCounterStatus protobuf;
     auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
         *this = protobuf;
@@ -191,59 +189,8 @@ bool Lap::deserializeFromJsonString(const std::string& str) {
     }
 }
 
-bool Lap::deserializeFromProtobufString(const std::string& str) {
-    PbLapCounter::Lap protobuf;
-    if(protobuf.ParseFromString(str)) {
-        *this = protobuf;
-        return true;
-    } else {
-        return false;
-    }
-}
-
-Race::Race(const PbLapCounter::Race& protobuf) {
-    raceId = protobuf.raceid();
-    circuitId = protobuf.circuitid();
-    driverId = protobuf.driverid();
-    laps = {protobuf.laps().begin(), protobuf.laps().end()};
-}
-
-Race::operator PbLapCounter::Race() const {
-    PbLapCounter::Race ret;
-    ret.set_raceid(raceId);
-    ret.set_circuitid(circuitId);
-    ret.set_driverid(driverId);
-    *(ret.mutable_laps()) = {laps.begin(), laps.end()};
-    return ret;
-}
-
-std::string Race::serializeAsJsonString() const {
-    PbLapCounter::Race protobuf(*this);
-    std::string ret;
-    google::protobuf::util::JsonPrintOptions options;
-    options.add_whitespace = true;
-    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
-    return ret;
-}
-
-std::string Race::serializeAsProtobufString() const {
-    PbLapCounter::Race protobuf(*this);
-    return protobuf.SerializeAsString();
-}
-
-bool Race::deserializeFromJsonString(const std::string& str) {
-    PbLapCounter::Race protobuf;
-    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
-    if(status.ok()) {
-        *this = protobuf;
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool Race::deserializeFromProtobufString(const std::string& str) {
-    PbLapCounter::Race protobuf;
+bool LapCounterStatus::deserializeFromProtobufString(const std::string& str) {
+    PbLapCounter::LapCounterStatus protobuf;
     if(protobuf.ParseFromString(str)) {
         *this = protobuf;
         return true;

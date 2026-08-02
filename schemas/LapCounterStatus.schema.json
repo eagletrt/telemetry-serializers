@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/LapCounterStatus",
+    "definitions": {
+        "LapCounterStatus": {
+            "required": [
+                "status",
+                "dropped_laps",
+                "detail"
+            ],
+            "properties": {
+                "status": {
+                    "enum": [
+                        "DISARMED",
+                        0,
+                        "NO_INSTRUMENT",
+                        1,
+                        "NO_POSITION",
+                        2,
+                        "NO_PROJECTION",
+                        3,
+                        "OFF_TRACK",
+                        4,
+                        "OUT_LAP",
+                        5,
+                        "TIMING",
+                        6
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Status"
+                },
+                "dropped_laps": {
+                    "type": "integer"
+                },
+                "detail": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Lap Counter Status"
+        }
+    }
+}

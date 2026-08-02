@@ -59,33 +59,26 @@ struct Circuit
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct Lap
+enum class Status
 {
-    int32_t number;
-    uint64_t startTimestamp;
-    uint64_t endTimestamp;
-    std::vector<uint64_t> sectorsTimestamps;
-    
-    Lap() = default;
-    Lap(const PbLapCounter::Lap& protobuf);
-    operator PbLapCounter::Lap() const;
-
-    std::string serializeAsJsonString() const;
-    std::string serializeAsProtobufString() const;
-    bool deserializeFromJsonString(const std::string& str);
-    bool deserializeFromProtobufString(const std::string& str);
+    DISARMED = 0,
+    NO_INSTRUMENT = 1,
+    NO_POSITION = 2,
+    NO_PROJECTION = 3,
+    OFF_TRACK = 4,
+    OUT_LAP = 5,
+    TIMING = 6
 };
 
-struct Race
+struct LapCounterStatus
 {
-    std::string raceId;
-    std::string circuitId;
-    std::string driverId;
-    std::vector<Lap> laps;
+    Status status;
+    uint32_t dropped_laps;
+    std::string detail;
     
-    Race() = default;
-    Race(const PbLapCounter::Race& protobuf);
-    operator PbLapCounter::Race() const;
+    LapCounterStatus() = default;
+    LapCounterStatus(const PbLapCounter::LapCounterStatus& protobuf);
+    operator PbLapCounter::LapCounterStatus() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;
