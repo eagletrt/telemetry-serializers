@@ -36,22 +36,6 @@ message SetBaseline {
   repeated double y = 5;
 }
 
-message LapRecords
-{
-    int32 version = 2;
-    int32 baseline_version = 3;
-    string vehicle_id = 4;
-    string device_id = 5;
-    string location = 6;
-    string layout = 7;
-    LapRecord best_lap = 8;
-    repeated SectorsRecord best_sectors = 9;
-    repeated DriverRecord drivers_records = 10;
-    string baseline_hash = 11;
-    uint64 session_start_timestamp = 12;
-    string session_name = 13;
-}
-
 message LapRecord
 {
     string driver = 1;
@@ -121,7 +105,23 @@ message Layout {
     double baseline_length = 14;
 }
 
-message TrackConfiguration{
+message LapRecords
+{
+    int32 version = 2;
+    int32 baseline_version = 3;
+    string vehicle_id = 4;
+    string device_id = 5;
+    string location = 6;
+    string layout = 7;
+    LapRecord best_lap = 8;
+    repeated SectorsRecord best_sectors = 9;
+    repeated DriverRecord drivers_records = 10;
+    string baseline_hash = 11;
+    uint64 session_start_timestamp = 12;
+    string session_name = 13;
+}
+
+message TrackConfig {
     Layout layout = 1;
     LapTimes lapTimes = 2;
     LapRecords lapRecords = 3;
