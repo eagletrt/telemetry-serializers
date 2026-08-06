@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package MongoDb;
+package TrackConfig;
 
 message Baseline {
   bool valid = 1;
@@ -34,6 +34,22 @@ message SetBaseline {
   GPSMapOrigin origin = 3;
   repeated double x = 4;
   repeated double y = 5;
+}
+
+message LapRecords
+{
+    int32 version = 2;
+    int32 baseline_version = 3;
+    string vehicle_id = 4;
+    string device_id = 5;
+    string location = 6;
+    string layout = 7;
+    LapRecord best_lap = 8;
+    repeated SectorsRecord best_sectors = 9;
+    repeated DriverRecord drivers_records = 10;
+    string baseline_hash = 11;
+    uint64 session_start_timestamp = 12;
+    string session_name = 13;
 }
 
 message LapRecord
@@ -108,6 +124,6 @@ message Layout {
 message trackConfig{
     Layout layout = 1;
     LapTimes lapTimes = 2;
-    LapRecords LapRecords = 3;
+    LapRecords lapRecords = 3;
     GPSMapOrigins gpsInfo = 4;
 }
