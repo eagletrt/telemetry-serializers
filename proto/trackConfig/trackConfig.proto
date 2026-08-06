@@ -121,7 +121,7 @@ message Layout {
     double baseline_length = 14;
 }
 
-message TrackConfig{
+message TrackConfiguration{
     Layout layout = 1;
     LapTimes lapTimes = 2;
     LapRecords lapRecords = 3;
