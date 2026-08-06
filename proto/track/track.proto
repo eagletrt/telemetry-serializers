@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package TrackConfig;
+package Track;
 
 message Baseline {
   bool valid = 1;
@@ -121,7 +121,7 @@ message LapRecords
     string session_name = 13;
 }
 
-message TrackConfig {
+message Track {
     Layout layout = 1;
     LapTimes lapTimes = 2;
     LapRecords lapRecords = 3;
