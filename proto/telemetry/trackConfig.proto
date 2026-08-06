@@ -2,6 +2,11 @@ syntax = "proto3";
 
 package Telemetry;
 
+import "telemetry/lapcounter_layout.proto";
+import "telemetry/lapcounter_lap_times.proto";
+import "telemetry/lapcounter_lap_records.proto";
+import "telemetry/gps_maps.proto";
+
 message trackConfig{
     Layout layout = 1;
     LapTimes lapTimes = 2;
