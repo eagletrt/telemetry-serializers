@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package Telemetry;
+
+message trackConfig{
+    Layout layout = 1;
+    LapTimes lapTimes = 2;
+    LapRecords LapRecords = 3;
+    GPSMapOrigins gpsInfo = 4;
+}
