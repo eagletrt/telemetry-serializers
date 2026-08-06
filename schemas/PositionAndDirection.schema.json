@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "$ref": "#/definitions/PositionAndDirection",
     "definitions": {
-        "PbMongoDb.Vec2": {
+        "PbTrack.Vec2": {
             "required": [
                 "x",
                 "y"
@@ -26,11 +26,11 @@
             ],
             "properties": {
                 "position": {
-                    "$ref": "#/definitions/PbMongoDb.Vec2",
+                    "$ref": "#/definitions/PbTrack.Vec2",
                     "additionalProperties": false
                 },
                 "direction": {
-                    "$ref": "#/definitions/PbMongoDb.Vec2",
+                    "$ref": "#/definitions/PbTrack.Vec2",
                     "additionalProperties": false
                 }
             },

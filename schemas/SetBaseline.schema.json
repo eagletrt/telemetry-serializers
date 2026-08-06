@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "$ref": "#/definitions/SetBaseline",
     "definitions": {
-        "PbTelemetry.GPSMapOrigin": {
+        "PbTrack.GPSMapOrigin": {
             "required": [
                 "latitude",
                 "longitude",
@@ -39,7 +39,7 @@
                     "type": "string"
                 },
                 "origin": {
-                    "$ref": "#/definitions/PbTelemetry.GPSMapOrigin",
+                    "$ref": "#/definitions/PbTrack.GPSMapOrigin",
                     "additionalProperties": false
                 },
                 "x": {

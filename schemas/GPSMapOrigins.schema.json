@@ -18,14 +18,14 @@
                 },
                 "origins": {
                     "additionalProperties": {
-                        "$ref": "#/definitions/PbTelemetry.GPSMapOrigin",
+                        "$ref": "#/definitions/PbTrack.GPSMapOrigin",
                         "additionalProperties": false
                     },
                     "type": "object"
                 },
                 "tracksBaseline": {
                     "additionalProperties": {
-                        "$ref": "#/definitions/PbTelemetry.Baseline",
+                        "$ref": "#/definitions/PbTrack.Baseline",
                         "additionalProperties": false
                     },
                     "type": "object"
@@ -35,7 +35,7 @@
             "type": "object",
             "title": "GPS Map Origins"
         },
-        "PbTelemetry.Baseline": {
+        "PbTrack.Baseline": {
             "required": [
                 "valid",
                 "logging",
@@ -92,7 +92,7 @@
             "type": "object",
             "title": "Baseline"
         },
-        "PbTelemetry.GPSMapOrigin": {
+        "PbTrack.GPSMapOrigin": {
             "required": [
                 "latitude",
                 "longitude",

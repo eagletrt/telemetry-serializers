@@ -40,7 +40,7 @@
                 },
                 "times": {
                     "items": {
-                        "$ref": "#/definitions/PbMongoDb.LapTime"
+                        "$ref": "#/definitions/PbTrack.LapTime"
                     },
                     "additionalProperties": false,
                     "type": "array"
@@ -59,7 +59,7 @@
             "type": "object",
             "title": "Lap Times"
         },
-        "PbMongoDb.LapTime": {
+        "PbTrack.LapTime": {
             "required": [
                 "number",
                 "start_timestamp",

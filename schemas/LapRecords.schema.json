@@ -37,19 +37,19 @@
                     "type": "string"
                 },
                 "best_lap": {
-                    "$ref": "#/definitions/PbMongoDb.LapRecord",
+                    "$ref": "#/definitions/PbTrack.LapRecord",
                     "additionalProperties": false
                 },
                 "best_sectors": {
                     "items": {
-                        "$ref": "#/definitions/PbMongoDb.SectorsRecord"
+                        "$ref": "#/definitions/PbTrack.SectorsRecord"
                     },
                     "additionalProperties": false,
                     "type": "array"
                 },
                 "drivers_records": {
                     "items": {
-                        "$ref": "#/definitions/PbMongoDb.DriverRecord"
+                        "$ref": "#/definitions/PbTrack.DriverRecord"
                     },
                     "additionalProperties": false,
                     "type": "array"
@@ -68,7 +68,7 @@
             "type": "object",
             "title": "Lap Records"
         },
-        "PbMongoDb.DriverRecord": {
+        "PbTrack.DriverRecord": {
             "required": [
                 "driver",
                 "best_lap",
@@ -79,12 +79,12 @@
                     "type": "string"
                 },
                 "best_lap": {
-                    "$ref": "#/definitions/PbMongoDb.LapRecord",
+                    "$ref": "#/definitions/PbTrack.LapRecord",
                     "additionalProperties": false
                 },
                 "best_sectors": {
                     "items": {
-                        "$ref": "#/definitions/PbMongoDb.SectorsRecord"
+                        "$ref": "#/definitions/PbTrack.SectorsRecord"
                     },
                     "additionalProperties": false,
                     "type": "array"
@@ -94,7 +94,7 @@
             "type": "object",
             "title": "Driver Record"
         },
-        "PbMongoDb.LapRecord": {
+        "PbTrack.LapRecord": {
             "required": [
                 "driver",
                 "start",
@@ -122,7 +122,7 @@
             "type": "object",
             "title": "Lap Record"
         },
-        "PbMongoDb.SectorsRecord": {
+        "PbTrack.SectorsRecord": {
             "required": [
                 "driver",
                 "start_time_sector",

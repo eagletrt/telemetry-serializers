@@ -26,6 +26,7 @@
 #include "actions/file_transaction.h"
 #include "actions/command.h"
 #include "sessions/gpsSession.h"
+#include "track/track.h"
 #include "mongodb/lapcounter_lap_records.h"
 #include "mongodb/lapcounter_lap_times.h"
 #include "mongodb/lapcounter_layout.h"

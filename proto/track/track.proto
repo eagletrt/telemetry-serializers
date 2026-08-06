@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package TrackConfig;
+package PbTrack;
 
 message Baseline {
   bool valid = 1;
@@ -42,22 +42,6 @@ message LapRecord
     uint64 start = 2;
     uint64 end = 3;
     repeated uint64 sectors = 4;
-}
-
-message LapRecords
-{
-    int32 version = 2;
-    int32 baseline_version = 3;
-    string vehicle_id = 4;
-    string device_id = 5;
-    string location = 6;
-    string layout = 7;
-    LapRecord best_lap = 8;
-    repeated SectorsRecord best_sectors = 9;
-    repeated DriverRecord drivers_records = 10;
-    string baseline_hash = 11;
-    uint64 session_start_timestamp = 12;
-    string session_name = 13;
 }
 
 message SectorsRecord
@@ -121,7 +105,23 @@ message Layout {
     double baseline_length = 14;
 }
 
-message trackConfig{
+message LapRecords
+{
+    int32 version = 2;
+    int32 baseline_version = 3;
+    string vehicle_id = 4;
+    string device_id = 5;
+    string location = 6;
+    string layout = 7;
+    LapRecord best_lap = 8;
+    repeated SectorsRecord best_sectors = 9;
+    repeated DriverRecord drivers_records = 10;
+    string baseline_hash = 11;
+    uint64 session_start_timestamp = 12;
+    string session_name = 13;
+}
+
+message Track {
     Layout layout = 1;
     LapTimes lapTimes = 2;
     LapRecords lapRecords = 3;

@@ -38,16 +38,16 @@
                     "type": "string"
                 },
                 "start_line": {
-                    "$ref": "#/definitions/PbMongoDb.PositionAndDirection",
+                    "$ref": "#/definitions/PbTrack.PositionAndDirection",
                     "additionalProperties": false
                 },
                 "finish_line": {
-                    "$ref": "#/definitions/PbMongoDb.PositionAndDirection",
+                    "$ref": "#/definitions/PbTrack.PositionAndDirection",
                     "additionalProperties": false
                 },
                 "sectors": {
                     "items": {
-                        "$ref": "#/definitions/PbMongoDb.PositionAndDirection"
+                        "$ref": "#/definitions/PbTrack.PositionAndDirection"
                     },
                     "additionalProperties": false,
                     "type": "array"
@@ -72,18 +72,18 @@
             "type": "object",
             "title": "Layout"
         },
-        "PbMongoDb.PositionAndDirection": {
+        "PbTrack.PositionAndDirection": {
             "required": [
                 "position",
                 "direction"
             ],
             "properties": {
                 "position": {
-                    "$ref": "#/definitions/PbMongoDb.Vec2",
+                    "$ref": "#/definitions/PbTrack.Vec2",
                     "additionalProperties": false
                 },
                 "direction": {
-                    "$ref": "#/definitions/PbMongoDb.Vec2",
+                    "$ref": "#/definitions/PbTrack.Vec2",
                     "additionalProperties": false
                 }
             },
@@ -91,7 +91,7 @@
             "type": "object",
             "title": "Position And Direction"
         },
-        "PbMongoDb.Vec2": {
+        "PbTrack.Vec2": {
             "required": [
                 "x",
                 "y"

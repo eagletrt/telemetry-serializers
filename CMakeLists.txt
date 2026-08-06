@@ -35,6 +35,7 @@ add_library(
     src/actions/file_transaction.cpp
     src/actions/command.cpp
     src/sessions/gpsSession.cpp
+    src/track/track.cpp
     src/mongodb/lapcounter_lap_records.cpp
     src/mongodb/lapcounter_lap_times.cpp
     src/mongodb/lapcounter_layout.cpp
