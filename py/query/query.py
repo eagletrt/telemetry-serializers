@@ -263,13 +263,13 @@ class SessionByDayRange:
         return cls.deserializeFromProtobufString(message.SerializeToString())
 
 @dataclass
-class sessionByDayRangeFound:
+class SessionByDayRangeFound:
     sessionsFound: List[SessionConfig] = field(default_factory=list)
     
-    _proto_message: query_pb2.sessionByDayRangeFound = field(init=False, repr=False)
+    _proto_message: query_pb2.SessionByDayRangeFound = field(init=False, repr=False)
 
     def __post_init__(self):
-        self._proto_message = query_pb2.sessionByDayRangeFound()
+        self._proto_message = query_pb2.SessionByDayRangeFound()
 
     def _populate_proto(self):
         del self._proto_message.sessionsFound[:]
@@ -279,7 +279,7 @@ class sessionByDayRangeFound:
             tmp.CopyFrom(val._proto_message)
 
     @classmethod
-    def _from_proto(cls, proto_message) -> "sessionByDayRangeFound":
+    def _from_proto(cls, proto_message) -> "SessionByDayRangeFound":
         return cls(
             sessionsFound=[SessionConfig._from_proto(val) for val in proto_message.sessionsFound],
         )
@@ -292,8 +292,8 @@ class sessionByDayRangeFound:
         return self._proto_message.SerializeToString()
 
     @classmethod
-    def deserializeFromProtobufString(cls, data: bytes) -> "sessionByDayRangeFound":
-        message = query_pb2.sessionByDayRangeFound()
+    def deserializeFromProtobufString(cls, data: bytes) -> "SessionByDayRangeFound":
+        message = query_pb2.SessionByDayRangeFound()
         message.ParseFromString(data)
         return cls._from_proto(message)
 
@@ -302,7 +302,7 @@ class sessionByDayRangeFound:
         return MessageToJson(self._proto_message)
 
     @classmethod
-    def deserializeFromJsonString(cls, data: str) -> "sessionByDayRangeFound":
-        message = query_pb2.sessionByDayRangeFound()
+    def deserializeFromJsonString(cls, data: str) -> "SessionByDayRangeFound":
+        message = query_pb2.SessionByDayRangeFound()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())

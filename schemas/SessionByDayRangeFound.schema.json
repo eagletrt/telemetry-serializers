@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/sessionByDayRangeFound",
+    "$ref": "#/definitions/SessionByDayRangeFound",
     "definitions": {
         "PbQuery.SessionConfig": {
             "required": [
@@ -77,7 +77,7 @@
             "type": "object",
             "title": "Weather"
         },
-        "sessionByDayRangeFound": {
+        "SessionByDayRangeFound": {
             "required": [
                 "sessionsFound"
             ],

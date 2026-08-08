@@ -98,13 +98,13 @@ struct SessionByDayRange
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct sessionByDayRangeFound
+struct SessionByDayRangeFound
 {
     std::vector<SessionConfig> sessionsFound;
     
-    sessionByDayRangeFound() = default;
-    sessionByDayRangeFound(const PbQuery::sessionByDayRangeFound& protobuf);
-    operator PbQuery::sessionByDayRangeFound() const;
+    SessionByDayRangeFound() = default;
+    SessionByDayRangeFound(const PbQuery::SessionByDayRangeFound& protobuf);
+    operator PbQuery::SessionByDayRangeFound() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

@@ -262,18 +262,18 @@ bool SessionByDayRange::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
-sessionByDayRangeFound::sessionByDayRangeFound(const PbQuery::sessionByDayRangeFound& protobuf) {
+SessionByDayRangeFound::SessionByDayRangeFound(const PbQuery::SessionByDayRangeFound& protobuf) {
     sessionsFound = {protobuf.sessionsfound().begin(), protobuf.sessionsfound().end()};
 }
 
-sessionByDayRangeFound::operator PbQuery::sessionByDayRangeFound() const {
-    PbQuery::sessionByDayRangeFound ret;
+SessionByDayRangeFound::operator PbQuery::SessionByDayRangeFound() const {
+    PbQuery::SessionByDayRangeFound ret;
     *(ret.mutable_sessionsfound()) = {sessionsFound.begin(), sessionsFound.end()};
     return ret;
 }
 
-std::string sessionByDayRangeFound::serializeAsJsonString() const {
-    PbQuery::sessionByDayRangeFound protobuf(*this);
+std::string SessionByDayRangeFound::serializeAsJsonString() const {
+    PbQuery::SessionByDayRangeFound protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
@@ -281,13 +281,13 @@ std::string sessionByDayRangeFound::serializeAsJsonString() const {
     return ret;
 }
 
-std::string sessionByDayRangeFound::serializeAsProtobufString() const {
-    PbQuery::sessionByDayRangeFound protobuf(*this);
+std::string SessionByDayRangeFound::serializeAsProtobufString() const {
+    PbQuery::SessionByDayRangeFound protobuf(*this);
     return protobuf.SerializeAsString();
 }
 
-bool sessionByDayRangeFound::deserializeFromJsonString(const std::string& str) {
-    PbQuery::sessionByDayRangeFound protobuf;
+bool SessionByDayRangeFound::deserializeFromJsonString(const std::string& str) {
+    PbQuery::SessionByDayRangeFound protobuf;
     auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
         *this = protobuf;
@@ -297,8 +297,8 @@ bool sessionByDayRangeFound::deserializeFromJsonString(const std::string& str) {
     }
 }
 
-bool sessionByDayRangeFound::deserializeFromProtobufString(const std::string& str) {
-    PbQuery::sessionByDayRangeFound protobuf;
+bool SessionByDayRangeFound::deserializeFromProtobufString(const std::string& str) {
+    PbQuery::SessionByDayRangeFound protobuf;
     if(protobuf.ParseFromString(str)) {
         *this = protobuf;
         return true;

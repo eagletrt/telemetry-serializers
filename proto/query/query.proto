@@ -37,6 +37,6 @@ message SessionByDayRange {
   string endDay = 3;
 }
 
-message sessionByDayRangeFound {
+message SessionByDayRangeFound {
   repeated SessionConfig sessionsFound = 1;
 }
