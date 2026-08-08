@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package Query;
+
+message SessionByYearMonth {
+  string year = 1;
+  string month = 2;
+}
+
+message SessionByYearMonthFound {
+  repeated int32 daysFound = 1;
+}
+
+message SessionByDayRange {
+  SessionByYearMonth yearMonth = 1;
+  string startDay = 2;
+  string endDay = 3;
+}
+
+message sessionByDayRangeFound {
+  repeated SessionConfig sessionsFound = 1;
+}
