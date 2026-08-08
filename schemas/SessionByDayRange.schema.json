@@ -1,0 +1,45 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/SessionByDayRange",
+    "definitions": {
+        "PbQuery.SessionByYearMonth": {
+            "required": [
+                "year",
+                "month"
+            ],
+            "properties": {
+                "year": {
+                    "type": "string"
+                },
+                "month": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Session By Year Month"
+        },
+        "SessionByDayRange": {
+            "required": [
+                "yearMonth",
+                "startDay",
+                "endDay"
+            ],
+            "properties": {
+                "yearMonth": {
+                    "$ref": "#/definitions/PbQuery.SessionByYearMonth",
+                    "additionalProperties": false
+                },
+                "startDay": {
+                    "type": "string"
+                },
+                "endDay": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Session By Day Range"
+        }
+    }
+}

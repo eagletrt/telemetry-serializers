@@ -31,4 +31,5 @@ from .data import vehicle_state
 from .data import extra
 from .data import telemetry_lap_data
 from .data import as_commands
+from .query import query
 from .tpms import rtl433_payload

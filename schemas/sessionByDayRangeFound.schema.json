@@ -1,29 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/SessionConfig",
+    "$ref": "#/definitions/sessionByDayRangeFound",
     "definitions": {
-        "PbQuery.Weather": {
-            "required": [
-                "ambientTemperature",
-                "trackTemperature",
-                "humidity"
-            ],
-            "properties": {
-                "ambientTemperature": {
-                    "type": "number"
-                },
-                "trackTemperature": {
-                    "type": "number"
-                },
-                "humidity": {
-                    "type": "number"
-                }
-            },
-            "additionalProperties": false,
-            "type": "object",
-            "title": "Weather"
-        },
-        "SessionConfig": {
+        "PbQuery.SessionConfig": {
             "required": [
                 "trackLocation",
                 "trackLayout",
@@ -76,6 +55,44 @@
             "additionalProperties": false,
             "type": "object",
             "title": "Session Config"
+        },
+        "PbQuery.Weather": {
+            "required": [
+                "ambientTemperature",
+                "trackTemperature",
+                "humidity"
+            ],
+            "properties": {
+                "ambientTemperature": {
+                    "type": "number"
+                },
+                "trackTemperature": {
+                    "type": "number"
+                },
+                "humidity": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Weather"
+        },
+        "sessionByDayRangeFound": {
+            "required": [
+                "sessionsFound"
+            ],
+            "properties": {
+                "sessionsFound": {
+                    "items": {
+                        "$ref": "#/definitions/PbQuery.SessionConfig"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Session By Day Range Found"
         }
     }
 }

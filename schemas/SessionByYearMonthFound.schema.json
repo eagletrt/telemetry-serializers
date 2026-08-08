@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/SessionByYearMonthFound",
+    "definitions": {
+        "SessionByYearMonthFound": {
+            "required": [
+                "daysFound"
+            ],
+            "properties": {
+                "daysFound": {
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Session By Year Month Found"
+        }
+    }
+}

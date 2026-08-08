@@ -34,6 +34,7 @@
 #include "data/extra.h"
 #include "data/telemetry_lap_data.h"
 #include "data/as_commands.h"
+#include "query/query.h"
 #include "tpms/rtl433_payload.h"
 
 #endif

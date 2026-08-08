@@ -43,6 +43,7 @@ add_library(
     src/data/extra.cpp
     src/data/telemetry_lap_data.cpp
     src/data/as_commands.cpp
+    src/query/query.cpp
     src/tpms/rtl433_payload.cpp
 )
 
