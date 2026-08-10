@@ -168,5 +168,5 @@ message TrackBySession {
 }
 
 message TrackBySessionFound {
-  repeated Track tracksFound = 1;
+  Track tracksFound = 1;
 }
