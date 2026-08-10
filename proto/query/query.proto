@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package PbQuery;
+package pbquery;
 
 message Weather {
   double ambientTemperature = 1;
