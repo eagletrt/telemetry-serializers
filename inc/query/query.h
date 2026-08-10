@@ -387,13 +387,13 @@ struct TrackBySession
     bool deserializeFromProtobufString(const std::string& str);
 };
 
-struct DocumentBySessionFound
+struct TrackBySessionFound
 {
     std::vector<Track> tracksFound;
     
-    DocumentBySessionFound() = default;
-    DocumentBySessionFound(const Pbquery::DocumentBySessionFound& protobuf);
-    operator Pbquery::DocumentBySessionFound() const;
+    TrackBySessionFound() = default;
+    TrackBySessionFound(const Pbquery::TrackBySessionFound& protobuf);
+    operator Pbquery::TrackBySessionFound() const;
 
     std::string serializeAsJsonString() const;
     std::string serializeAsProtobufString() const;

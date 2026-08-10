@@ -1188,13 +1188,13 @@ class TrackBySession:
         return cls.deserializeFromProtobufString(message.SerializeToString())
 
 @dataclass
-class DocumentBySessionFound:
+class TrackBySessionFound:
     tracksFound: List[Track] = field(default_factory=list)
     
-    _proto_message: query_pb2.DocumentBySessionFound = field(init=False, repr=False)
+    _proto_message: query_pb2.TrackBySessionFound = field(init=False, repr=False)
 
     def __post_init__(self):
-        self._proto_message = query_pb2.DocumentBySessionFound()
+        self._proto_message = query_pb2.TrackBySessionFound()
 
     def _populate_proto(self):
         del self._proto_message.tracksFound[:]
@@ -1204,7 +1204,7 @@ class DocumentBySessionFound:
             tmp.CopyFrom(val._proto_message)
 
     @classmethod
-    def _from_proto(cls, proto_message) -> "DocumentBySessionFound":
+    def _from_proto(cls, proto_message) -> "TrackBySessionFound":
         return cls(
             tracksFound=[Track._from_proto(val) for val in proto_message.tracksFound],
         )
@@ -1217,8 +1217,8 @@ class DocumentBySessionFound:
         return self._proto_message.SerializeToString()
 
     @classmethod
-    def deserializeFromProtobufString(cls, data: bytes) -> "DocumentBySessionFound":
-        message = query_pb2.DocumentBySessionFound()
+    def deserializeFromProtobufString(cls, data: bytes) -> "TrackBySessionFound":
+        message = query_pb2.TrackBySessionFound()
         message.ParseFromString(data)
         return cls._from_proto(message)
 
@@ -1227,7 +1227,7 @@ class DocumentBySessionFound:
         return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
-    def deserializeFromJsonString(cls, data: str) -> "DocumentBySessionFound":
-        message = query_pb2.DocumentBySessionFound()
+    def deserializeFromJsonString(cls, data: str) -> "TrackBySessionFound":
+        message = query_pb2.TrackBySessionFound()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())

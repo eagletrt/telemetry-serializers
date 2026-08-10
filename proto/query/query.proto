@@ -167,6 +167,6 @@ message TrackBySession {
   SessionConfig sessionRequested = 1;
 }
 
-message DocumentBySessionFound {
+message TrackBySessionFound {
   repeated Track tracksFound = 1;
 }

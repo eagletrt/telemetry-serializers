@@ -1,24 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/DocumentBySessionFound",
+    "$ref": "#/definitions/TrackBySessionFound",
     "definitions": {
-        "DocumentBySessionFound": {
-            "required": [
-                "tracksFound"
-            ],
-            "properties": {
-                "tracksFound": {
-                    "items": {
-                        "$ref": "#/definitions/Pbquery.Track"
-                    },
-                    "additionalProperties": false,
-                    "type": "array"
-                }
-            },
-            "additionalProperties": false,
-            "type": "object",
-            "title": "Document By Session Found"
-        },
         "Pbquery.Baseline": {
             "required": [
                 "valid",
@@ -490,6 +473,23 @@
             "additionalProperties": false,
             "type": "object",
             "title": "Vec 2"
+        },
+        "TrackBySessionFound": {
+            "required": [
+                "tracksFound"
+            ],
+            "properties": {
+                "tracksFound": {
+                    "items": {
+                        "$ref": "#/definitions/Pbquery.Track"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Track By Session Found"
         }
     }
 }

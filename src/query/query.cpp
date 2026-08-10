@@ -1112,18 +1112,18 @@ bool TrackBySession::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
-DocumentBySessionFound::DocumentBySessionFound(const Pbquery::DocumentBySessionFound& protobuf) {
+TrackBySessionFound::TrackBySessionFound(const Pbquery::TrackBySessionFound& protobuf) {
     tracksFound = {protobuf.tracksfound().begin(), protobuf.tracksfound().end()};
 }
 
-DocumentBySessionFound::operator Pbquery::DocumentBySessionFound() const {
-    Pbquery::DocumentBySessionFound ret;
+TrackBySessionFound::operator Pbquery::TrackBySessionFound() const {
+    Pbquery::TrackBySessionFound ret;
     *(ret.mutable_tracksfound()) = {tracksFound.begin(), tracksFound.end()};
     return ret;
 }
 
-std::string DocumentBySessionFound::serializeAsJsonString() const {
-    Pbquery::DocumentBySessionFound protobuf(*this);
+std::string TrackBySessionFound::serializeAsJsonString() const {
+    Pbquery::TrackBySessionFound protobuf(*this);
     std::string ret;
     google::protobuf::util::JsonPrintOptions options;
     options.add_whitespace = true;
@@ -1131,13 +1131,13 @@ std::string DocumentBySessionFound::serializeAsJsonString() const {
     return ret;
 }
 
-std::string DocumentBySessionFound::serializeAsProtobufString() const {
-    Pbquery::DocumentBySessionFound protobuf(*this);
+std::string TrackBySessionFound::serializeAsProtobufString() const {
+    Pbquery::TrackBySessionFound protobuf(*this);
     return protobuf.SerializeAsString();
 }
 
-bool DocumentBySessionFound::deserializeFromJsonString(const std::string& str) {
-    Pbquery::DocumentBySessionFound protobuf;
+bool TrackBySessionFound::deserializeFromJsonString(const std::string& str) {
+    Pbquery::TrackBySessionFound protobuf;
     auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
     if(status.ok()) {
         *this = protobuf;
@@ -1147,8 +1147,8 @@ bool DocumentBySessionFound::deserializeFromJsonString(const std::string& str) {
     }
 }
 
-bool DocumentBySessionFound::deserializeFromProtobufString(const std::string& str) {
-    Pbquery::DocumentBySessionFound protobuf;
+bool TrackBySessionFound::deserializeFromProtobufString(const std::string& str) {
+    Pbquery::TrackBySessionFound protobuf;
     if(protobuf.ParseFromString(str)) {
         *this = protobuf;
         return true;
