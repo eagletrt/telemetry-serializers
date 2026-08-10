@@ -1189,7 +1189,7 @@ class TrackBySession:
 
 @dataclass
 class TrackBySessionFound:
-    tracksFound: List[Track] = field(default_factory=list)
+    tracksFound: Track = None
     
     _proto_message: query_pb2.TrackBySessionFound = field(init=False, repr=False)
 
@@ -1197,16 +1197,14 @@ class TrackBySessionFound:
         self._proto_message = query_pb2.TrackBySessionFound()
 
     def _populate_proto(self):
-        del self._proto_message.tracksFound[:]
-        for val in self.tracksFound:
-            val._populate_proto()
-            tmp = self._proto_message.tracksFound.add()
-            tmp.CopyFrom(val._proto_message)
+        if self.tracksFound:
+            self.tracksFound._populate_proto()
+            self._proto_message.tracksFound.CopyFrom(self.tracksFound._proto_message)
 
     @classmethod
     def _from_proto(cls, proto_message) -> "TrackBySessionFound":
         return cls(
-            tracksFound=[Track._from_proto(val) for val in proto_message.tracksFound],
+            tracksFound = Track._from_proto(proto_message.tracksFound),
         )
 
     def __str__(self):

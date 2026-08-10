@@ -389,7 +389,7 @@ struct TrackBySession
 
 struct TrackBySessionFound
 {
-    std::vector<Track> tracksFound;
+    Track tracksFound;
     
     TrackBySessionFound() = default;
     TrackBySessionFound(const Pbquery::TrackBySessionFound& protobuf);

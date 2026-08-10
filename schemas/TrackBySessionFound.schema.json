@@ -480,11 +480,8 @@
             ],
             "properties": {
                 "tracksFound": {
-                    "items": {
-                        "$ref": "#/definitions/Pbquery.Track"
-                    },
-                    "additionalProperties": false,
-                    "type": "array"
+                    "$ref": "#/definitions/Pbquery.Track",
+                    "additionalProperties": false
                 }
             },
             "additionalProperties": false,

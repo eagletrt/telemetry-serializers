@@ -1113,12 +1113,12 @@ bool TrackBySession::deserializeFromProtobufString(const std::string& str) {
 }
 
 TrackBySessionFound::TrackBySessionFound(const Pbquery::TrackBySessionFound& protobuf) {
-    tracksFound = {protobuf.tracksfound().begin(), protobuf.tracksfound().end()};
+    tracksFound = protobuf.tracksfound();
 }
 
 TrackBySessionFound::operator Pbquery::TrackBySessionFound() const {
     Pbquery::TrackBySessionFound ret;
-    *(ret.mutable_tracksfound()) = {tracksFound.begin(), tracksFound.end()};
+    *(ret.mutable_tracksfound()) = tracksFound;
     return ret;
 }
 
