@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "$ref": "#/definitions/SessionByDayRangeFound",
     "definitions": {
-        "PbQuery.SessionConfig": {
+        "Pbquery.SessionConfig": {
             "required": [
                 "trackLocation",
                 "trackLayout",
@@ -36,7 +36,7 @@
                     "type": "string"
                 },
                 "weather": {
-                    "$ref": "#/definitions/PbQuery.Weather",
+                    "$ref": "#/definitions/Pbquery.Weather",
                     "additionalProperties": false
                 },
                 "notes": {
@@ -56,7 +56,7 @@
             "type": "object",
             "title": "Session Config"
         },
-        "PbQuery.Weather": {
+        "Pbquery.Weather": {
             "required": [
                 "ambientTemperature",
                 "trackTemperature",
@@ -84,7 +84,7 @@
             "properties": {
                 "sessionsFound": {
                     "items": {
-                        "$ref": "#/definitions/PbQuery.SessionConfig"
+                        "$ref": "#/definitions/Pbquery.SessionConfig"
                     },
                     "additionalProperties": false,
                     "type": "array"

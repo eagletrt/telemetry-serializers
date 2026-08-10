@@ -1,0 +1,495 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/DocumentBySessionFound",
+    "definitions": {
+        "DocumentBySessionFound": {
+            "required": [
+                "tracksFound"
+            ],
+            "properties": {
+                "tracksFound": {
+                    "items": {
+                        "$ref": "#/definitions/Pbquery.Track"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Document By Session Found"
+        },
+        "Pbquery.Baseline": {
+            "required": [
+                "valid",
+                "logging",
+                "length",
+                "x",
+                "y",
+                "resampled",
+                "s",
+                "theta",
+                "hash"
+            ],
+            "properties": {
+                "valid": {
+                    "type": "boolean"
+                },
+                "logging": {
+                    "type": "boolean"
+                },
+                "length": {
+                    "type": "number"
+                },
+                "x": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "y": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "resampled": {
+                    "type": "boolean"
+                },
+                "s": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "theta": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "hash": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Baseline"
+        },
+        "Pbquery.DriverRecord": {
+            "required": [
+                "driver",
+                "best_lap",
+                "best_sectors"
+            ],
+            "properties": {
+                "driver": {
+                    "type": "string"
+                },
+                "best_lap": {
+                    "$ref": "#/definitions/Pbquery.LapRecord",
+                    "additionalProperties": false
+                },
+                "best_sectors": {
+                    "items": {
+                        "$ref": "#/definitions/Pbquery.SectorsRecord"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Driver Record"
+        },
+        "Pbquery.GPSMapOrigin": {
+            "required": [
+                "latitude",
+                "longitude",
+                "altitude"
+            ],
+            "properties": {
+                "latitude": {
+                    "type": "number"
+                },
+                "longitude": {
+                    "type": "number"
+                },
+                "altitude": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "GPS Map Origin"
+        },
+        "Pbquery.GPSMapOrigins": {
+            "required": [
+                "trackLocation",
+                "trackLayout",
+                "origins",
+                "tracksBaseline"
+            ],
+            "properties": {
+                "trackLocation": {
+                    "type": "string"
+                },
+                "trackLayout": {
+                    "type": "string"
+                },
+                "origins": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Pbquery.GPSMapOrigin",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                },
+                "tracksBaseline": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Pbquery.Baseline",
+                        "additionalProperties": false
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "GPS Map Origins"
+        },
+        "Pbquery.LapRecord": {
+            "required": [
+                "driver",
+                "start",
+                "end",
+                "sectors"
+            ],
+            "properties": {
+                "driver": {
+                    "type": "string"
+                },
+                "start": {
+                    "type": "integer"
+                },
+                "end": {
+                    "type": "integer"
+                },
+                "sectors": {
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Lap Record"
+        },
+        "Pbquery.LapRecords": {
+            "required": [
+                "version",
+                "baseline_version",
+                "vehicle_id",
+                "device_id",
+                "location",
+                "layout",
+                "best_lap",
+                "best_sectors",
+                "drivers_records",
+                "baseline_hash",
+                "session_start_timestamp",
+                "session_name"
+            ],
+            "properties": {
+                "version": {
+                    "type": "integer"
+                },
+                "baseline_version": {
+                    "type": "integer"
+                },
+                "vehicle_id": {
+                    "type": "string"
+                },
+                "device_id": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "layout": {
+                    "type": "string"
+                },
+                "best_lap": {
+                    "$ref": "#/definitions/Pbquery.LapRecord",
+                    "additionalProperties": false
+                },
+                "best_sectors": {
+                    "items": {
+                        "$ref": "#/definitions/Pbquery.SectorsRecord"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "drivers_records": {
+                    "items": {
+                        "$ref": "#/definitions/Pbquery.DriverRecord"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "baseline_hash": {
+                    "type": "string"
+                },
+                "session_start_timestamp": {
+                    "type": "integer"
+                },
+                "session_name": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Lap Records"
+        },
+        "Pbquery.LapTime": {
+            "required": [
+                "number",
+                "start_timestamp",
+                "end_timestamp",
+                "sectors"
+            ],
+            "properties": {
+                "number": {
+                    "type": "integer"
+                },
+                "start_timestamp": {
+                    "type": "integer"
+                },
+                "end_timestamp": {
+                    "type": "integer"
+                },
+                "sectors": {
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Lap Time"
+        },
+        "Pbquery.LapTimes": {
+            "required": [
+                "version",
+                "baseline_version",
+                "vehicle_id",
+                "device_id",
+                "location",
+                "layout",
+                "driver",
+                "times",
+                "baseline_hash",
+                "session_start_timestamp",
+                "session_name"
+            ],
+            "properties": {
+                "version": {
+                    "type": "integer"
+                },
+                "baseline_version": {
+                    "type": "integer"
+                },
+                "vehicle_id": {
+                    "type": "string"
+                },
+                "device_id": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "layout": {
+                    "type": "string"
+                },
+                "driver": {
+                    "type": "string"
+                },
+                "times": {
+                    "items": {
+                        "$ref": "#/definitions/Pbquery.LapTime"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "baseline_hash": {
+                    "type": "string"
+                },
+                "session_start_timestamp": {
+                    "type": "integer"
+                },
+                "session_name": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Lap Times"
+        },
+        "Pbquery.Layout": {
+            "required": [
+                "version",
+                "baseline_version",
+                "vehicle_id",
+                "device_id",
+                "location",
+                "layout",
+                "start_line",
+                "finish_line",
+                "sectors",
+                "baseline_hash",
+                "start_s",
+                "sectors_s",
+                "baseline_length"
+            ],
+            "properties": {
+                "version": {
+                    "type": "integer"
+                },
+                "baseline_version": {
+                    "type": "integer"
+                },
+                "vehicle_id": {
+                    "type": "string"
+                },
+                "device_id": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "layout": {
+                    "type": "string"
+                },
+                "start_line": {
+                    "$ref": "#/definitions/Pbquery.PositionAndDirection",
+                    "additionalProperties": false
+                },
+                "finish_line": {
+                    "$ref": "#/definitions/Pbquery.PositionAndDirection",
+                    "additionalProperties": false
+                },
+                "sectors": {
+                    "items": {
+                        "$ref": "#/definitions/Pbquery.PositionAndDirection"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "baseline_hash": {
+                    "type": "string"
+                },
+                "start_s": {
+                    "type": "number"
+                },
+                "sectors_s": {
+                    "items": {
+                        "type": "number"
+                    },
+                    "type": "array"
+                },
+                "baseline_length": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Layout"
+        },
+        "Pbquery.PositionAndDirection": {
+            "required": [
+                "position",
+                "direction"
+            ],
+            "properties": {
+                "position": {
+                    "$ref": "#/definitions/Pbquery.Vec2",
+                    "additionalProperties": false
+                },
+                "direction": {
+                    "$ref": "#/definitions/Pbquery.Vec2",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Position And Direction"
+        },
+        "Pbquery.SectorsRecord": {
+            "required": [
+                "driver",
+                "start_time_sector",
+                "end_time_sector"
+            ],
+            "properties": {
+                "driver": {
+                    "type": "string"
+                },
+                "start_time_sector": {
+                    "type": "integer"
+                },
+                "end_time_sector": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Sectors Record"
+        },
+        "Pbquery.Track": {
+            "required": [
+                "layout",
+                "lapTimes",
+                "lapRecords",
+                "gpsInfo"
+            ],
+            "properties": {
+                "layout": {
+                    "$ref": "#/definitions/Pbquery.Layout",
+                    "additionalProperties": false
+                },
+                "lapTimes": {
+                    "$ref": "#/definitions/Pbquery.LapTimes",
+                    "additionalProperties": false
+                },
+                "lapRecords": {
+                    "$ref": "#/definitions/Pbquery.LapRecords",
+                    "additionalProperties": false
+                },
+                "gpsInfo": {
+                    "$ref": "#/definitions/Pbquery.GPSMapOrigins",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Track"
+        },
+        "Pbquery.Vec2": {
+            "required": [
+                "x",
+                "y"
+            ],
+            "properties": {
+                "x": {
+                    "type": "number"
+                },
+                "y": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Vec 2"
+        }
+    }
+}

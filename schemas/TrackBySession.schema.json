@@ -1,29 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/SessionConfig",
+    "$ref": "#/definitions/TrackBySession",
     "definitions": {
-        "Pbquery.Weather": {
-            "required": [
-                "ambientTemperature",
-                "trackTemperature",
-                "humidity"
-            ],
-            "properties": {
-                "ambientTemperature": {
-                    "type": "number"
-                },
-                "trackTemperature": {
-                    "type": "number"
-                },
-                "humidity": {
-                    "type": "number"
-                }
-            },
-            "additionalProperties": false,
-            "type": "object",
-            "title": "Weather"
-        },
-        "SessionConfig": {
+        "Pbquery.SessionConfig": {
             "required": [
                 "trackLocation",
                 "trackLayout",
@@ -76,6 +55,41 @@
             "additionalProperties": false,
             "type": "object",
             "title": "Session Config"
+        },
+        "Pbquery.Weather": {
+            "required": [
+                "ambientTemperature",
+                "trackTemperature",
+                "humidity"
+            ],
+            "properties": {
+                "ambientTemperature": {
+                    "type": "number"
+                },
+                "trackTemperature": {
+                    "type": "number"
+                },
+                "humidity": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Weather"
+        },
+        "TrackBySession": {
+            "required": [
+                "sessionRequested"
+            ],
+            "properties": {
+                "sessionRequested": {
+                    "$ref": "#/definitions/Pbquery.SessionConfig",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Track By Session"
         }
     }
 }

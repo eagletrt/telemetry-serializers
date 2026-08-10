@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "$ref": "#/definitions/SessionByDayRange",
     "definitions": {
-        "PbQuery.SessionByYearMonth": {
+        "Pbquery.SessionByYearMonth": {
             "required": [
                 "year",
                 "month"
@@ -27,7 +27,7 @@
             ],
             "properties": {
                 "yearMonth": {
-                    "$ref": "#/definitions/PbQuery.SessionByYearMonth",
+                    "$ref": "#/definitions/Pbquery.SessionByYearMonth",
                     "additionalProperties": false
                 },
                 "startDay": {
