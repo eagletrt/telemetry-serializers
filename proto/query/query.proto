@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Query;
+package PbQuery;
 
 message Weather {
   double ambientTemperature = 1;
@@ -22,6 +22,128 @@ message SessionConfig {
   uint64 endTimestamp = 11;
 }
 
+message Baseline {
+  bool valid = 1;
+  bool logging = 2;
+  double length = 3;
+  repeated double x = 4;
+  repeated double y = 5;
+
+  bool resampled = 6;
+  repeated double s = 7;
+  repeated double theta = 8;
+  string hash = 9; 
+}
+
+message GPSMapOrigin {
+  double latitude = 1;
+  double longitude = 2;
+  double altitude = 3;
+}
+
+message GPSMapOrigins {
+  string trackLocation = 1;
+  string trackLayout = 2;
+  map<string, GPSMapOrigin> origins = 3;
+  map<string, Baseline> tracksBaseline = 4;
+}
+
+message SetBaseline {
+  string trackLocation = 1;
+  string trackLayout = 2;
+  GPSMapOrigin origin = 3;
+  repeated double x = 4;
+  repeated double y = 5;
+}
+
+message LapRecord {
+    string driver = 1;
+    uint64 start = 2;
+    uint64 end = 3;
+    repeated uint64 sectors = 4;
+}
+
+message SectorsRecord {
+    string driver = 1;
+    uint64 start_time_sector = 2;
+    uint64 end_time_sector = 3;
+}
+
+message DriverRecord {
+    string driver = 1;
+    LapRecord best_lap = 2;
+    repeated SectorsRecord best_sectors = 3;
+}
+
+message LapTime {
+    uint64 number = 1;
+    uint64 start_timestamp = 2;
+    uint64 end_timestamp = 3;
+    repeated uint64 sectors = 4;
+}
+
+message LapTimes {
+    int32 version = 2;
+    int32 baseline_version = 3;
+    string vehicle_id = 4;
+    string device_id = 5;
+    string location = 6;
+    string layout = 7;
+    string driver = 8;
+    repeated LapTime times = 9;
+    string baseline_hash = 10;
+    uint64 session_start_timestamp = 11;
+    string session_name = 12;
+}
+
+message Vec2 {
+    double x = 1;
+    double y = 2;
+}
+
+message PositionAndDirection {
+    Vec2 position = 1;
+    Vec2 direction = 2;
+}
+
+message Layout {
+    int32 version = 2;
+    int32 baseline_version = 3;
+    string vehicle_id = 4;
+    string device_id = 5;
+    string location = 6;
+    string layout = 7;
+    PositionAndDirection start_line = 8;
+    PositionAndDirection finish_line = 9;
+    repeated PositionAndDirection sectors = 10;
+    string baseline_hash = 11;
+    double start_s = 12;          
+    repeated double sectors_s = 13;  
+    double baseline_length = 14;
+}
+
+message LapRecords {
+    int32 version = 2;
+    int32 baseline_version = 3;
+    string vehicle_id = 4;
+    string device_id = 5;
+    string location = 6;
+    string layout = 7;
+    LapRecord best_lap = 8;
+    repeated SectorsRecord best_sectors = 9;
+    repeated DriverRecord drivers_records = 10;
+    string baseline_hash = 11;
+    uint64 session_start_timestamp = 12;
+    string session_name = 13;
+}
+
+message Track {
+    Layout layout = 1;
+    LapTimes lapTimes = 2;
+    LapRecords lapRecords = 3;
+    GPSMapOrigins gpsInfo = 4;
+}
+
 message SessionByYearMonth {
   string year = 1;
   string month = 2;
@@ -39,4 +161,12 @@ message SessionByDayRange {
 
 message SessionByDayRangeFound {
   repeated SessionConfig sessionsFound = 1;
+}
+
+message TrackBySession {
+  SessionConfig sessionRequested = 1;
+}
+
+message DocumentBySessionFound {
+  repeated Track tracksFound = 1;
 }
