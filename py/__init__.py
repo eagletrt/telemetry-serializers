@@ -4,7 +4,7 @@ from .app import custom_preset
 from .app import app_config
 from .app import app_data
 from .sessions import gpsSession
-from .influxlogger import query
+from .influxlogger import influx_query
 from .influxlogger import configuration
 from .handcart import settings
 from .actions import command

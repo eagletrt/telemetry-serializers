@@ -16,7 +16,7 @@ add_library(
     src/app/app_config.cpp
     src/app/app_data.cpp
     src/sessions/gpsSession.cpp
-    src/influxlogger/query.cpp
+    src/influxlogger/influx_query.cpp
     src/influxlogger/configuration.cpp
     src/handcart/settings.cpp
     src/actions/command.cpp

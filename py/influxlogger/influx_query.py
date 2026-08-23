@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Dict, Optional
 
-from influxlogger import query_pb2
+from influxlogger import influx_query_pb2
 from google.protobuf.json_format import MessageToJson, Parse
 
 class QueryFormat(Enum):
@@ -45,10 +45,10 @@ class QueryRequest:
     maxRows: int = 0
     protocolVersion: int = 0
     
-    _proto_message: query_pb2.QueryRequest = field(init=False, repr=False)
+    _proto_message: influx_query_pb2.QueryRequest = field(init=False, repr=False)
 
     def __post_init__(self):
-        self._proto_message = query_pb2.QueryRequest()
+        self._proto_message = influx_query_pb2.QueryRequest()
 
     def _populate_proto(self):
         self._proto_message.start = self.start
@@ -88,7 +88,7 @@ class QueryRequest:
 
     @classmethod
     def deserializeFromProtobufString(cls, data: bytes) -> "QueryRequest":
-        message = query_pb2.QueryRequest()
+        message = influx_query_pb2.QueryRequest()
         message.ParseFromString(data)
         return cls._from_proto(message)
 
@@ -98,7 +98,7 @@ class QueryRequest:
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "QueryRequest":
-        message = query_pb2.QueryRequest()
+        message = influx_query_pb2.QueryRequest()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
 
@@ -115,10 +115,10 @@ class QueryChunkInfo:
     format: QueryFormat = None
     compression: QueryCompression = None
     
-    _proto_message: query_pb2.QueryChunkInfo = field(init=False, repr=False)
+    _proto_message: influx_query_pb2.QueryChunkInfo = field(init=False, repr=False)
 
     def __post_init__(self):
-        self._proto_message = query_pb2.QueryChunkInfo()
+        self._proto_message = influx_query_pb2.QueryChunkInfo()
 
     def _populate_proto(self):
         self._proto_message.transactionId = self.transactionId
@@ -156,7 +156,7 @@ class QueryChunkInfo:
 
     @classmethod
     def deserializeFromProtobufString(cls, data: bytes) -> "QueryChunkInfo":
-        message = query_pb2.QueryChunkInfo()
+        message = influx_query_pb2.QueryChunkInfo()
         message.ParseFromString(data)
         return cls._from_proto(message)
 
@@ -166,7 +166,7 @@ class QueryChunkInfo:
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "QueryChunkInfo":
-        message = query_pb2.QueryChunkInfo()
+        message = influx_query_pb2.QueryChunkInfo()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
 
@@ -184,10 +184,10 @@ class QueryStatus:
     chunks: List[QueryChunkInfo] = field(default_factory=list)
     details: Dict[str, str] = field(default_factory=dict)
     
-    _proto_message: query_pb2.QueryStatus = field(init=False, repr=False)
+    _proto_message: influx_query_pb2.QueryStatus = field(init=False, repr=False)
 
     def __post_init__(self):
-        self._proto_message = query_pb2.QueryStatus()
+        self._proto_message = influx_query_pb2.QueryStatus()
 
     def _populate_proto(self):
         self._proto_message.transactionId = self.transactionId
@@ -233,7 +233,7 @@ class QueryStatus:
 
     @classmethod
     def deserializeFromProtobufString(cls, data: bytes) -> "QueryStatus":
-        message = query_pb2.QueryStatus()
+        message = influx_query_pb2.QueryStatus()
         message.ParseFromString(data)
         return cls._from_proto(message)
 
@@ -243,6 +243,6 @@ class QueryStatus:
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "QueryStatus":
-        message = query_pb2.QueryStatus()
+        message = influx_query_pb2.QueryStatus()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())

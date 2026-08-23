@@ -1,7 +1,7 @@
-#ifndef SERIALIZERS_QUERY_H
-#define SERIALIZERS_QUERY_H
+#ifndef SERIALIZERS_INFLUX_QUERY_H
+#define SERIALIZERS_INFLUX_QUERY_H
 
-#include "query.pb.h"
+#include "influx_query.pb.h"
 
 #include <cstdint>
 #include <optional>

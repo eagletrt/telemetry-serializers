@@ -1,4 +1,4 @@
-#include "influxlogger/query.h"
+#include "influxlogger/influx_query.h"
 
 #include <google/protobuf/util/json_util.h>
 #include <tuple>

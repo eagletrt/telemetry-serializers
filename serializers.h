@@ -7,7 +7,7 @@
 #include "app/app_config.h"
 #include "app/app_data.h"
 #include "sessions/gpsSession.h"
-#include "influxlogger/query.h"
+#include "influxlogger/influx_query.h"
 #include "influxlogger/configuration.h"
 #include "handcart/settings.h"
 #include "actions/command.h"
