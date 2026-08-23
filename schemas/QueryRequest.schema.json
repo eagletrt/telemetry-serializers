@@ -17,29 +17,29 @@
             "properties": {
                 "start": {
                     "type": "integer",
-                    "description": "inizio intervallo, microsecondi epoch"
+                    "description": "start interval, epoch microseconds"
                 },
                 "stop": {
                     "type": "integer",
-                    "description": "fine intervallo, microsecondi epoch"
+                    "description": "end interval, epoch microseconds"
                 },
                 "transactionId": {
                     "type": "string",
-                    "description": "ridondante col topic, utile per log e replay"
+                    "description": "redundant with topic, useful for logs and replay"
                 },
                 "networks": {
                     "items": {
                         "type": "string"
                     },
                     "type": "array",
-                    "description": "filtro sulle network, vuoto = tutte"
+                    "description": "filter on networks, empty = all"
                 },
                 "measurements": {
                     "items": {
                         "type": "string"
                     },
                     "type": "array",
-                    "description": "filtro sulle measurement, vuoto = tutte"
+                    "description": "filter on measurements, empty = all"
                 },
                 "format": {
                     "enum": [
@@ -75,11 +75,11 @@
                 },
                 "maxRows": {
                     "type": "integer",
-                    "description": "0 = limite di default lato logger"
+                    "description": "0 = default limit on logger side"
                 },
                 "protocolVersion": {
                     "type": "integer",
-                    "description": "versione corrente: 1"
+                    "description": "current version: 1"
                 }
             },
             "additionalProperties": false,

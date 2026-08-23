@@ -27,23 +27,23 @@
                 },
                 "topic": {
                     "type": "string",
-                    "description": "topic su cui e' stato pubblicato il payload"
+                    "description": "topic on which the payload was published"
                 },
                 "chunkNumber": {
                     "type": "integer",
-                    "description": "progressivo 1-based nella transazione"
+                    "description": "1-based progressive in the transaction"
                 },
                 "rows": {
                     "type": "integer",
-                    "description": "righe dati, escluso l'header"
+                    "description": "data rows, excluding the header"
                 },
                 "sizeBytes": {
                     "type": "integer",
-                    "description": "dimensione del payload pubblicato"
+                    "description": "size of the published payload"
                 },
                 "hash": {
                     "type": "string",
-                    "description": "sha256 esadecimale del payload, per verifica integrita'"
+                    "description": "hexadecimal sha256 of the payload, for integrity verification"
                 },
                 "format": {
                     "enum": [
@@ -81,7 +81,7 @@
             "additionalProperties": false,
             "type": "object",
             "title": "Query Chunk Info",
-            "description": "Descrittore di un chunk pubblicato su {vehicleId}/{deviceId}/query/{transactionId}/data/content/{network}--{measurement} Il payload (CSV compresso) resta il body grezzo di quel topic: qui viaggiano solo i metadati."
+            "description": "Descriptor of a chunk published on {vehicleId}/{deviceId}/query/{transactionId}/data/content/{network}--{measurement} The payload (compressed CSV) remains the raw body of that topic: only metadata travels here."
         }
     }
 }

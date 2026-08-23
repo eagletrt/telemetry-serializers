@@ -27,23 +27,23 @@
                 },
                 "topic": {
                     "type": "string",
-                    "description": "topic su cui e' stato pubblicato il payload"
+                    "description": "topic on which the payload was published"
                 },
                 "chunkNumber": {
                     "type": "integer",
-                    "description": "progressivo 1-based nella transazione"
+                    "description": "1-based progressive in the transaction"
                 },
                 "rows": {
                     "type": "integer",
-                    "description": "righe dati, escluso l'header"
+                    "description": "data rows, excluding the header"
                 },
                 "sizeBytes": {
                     "type": "integer",
-                    "description": "dimensione del payload pubblicato"
+                    "description": "size of the published payload"
                 },
                 "hash": {
                     "type": "string",
-                    "description": "sha256 esadecimale del payload, per verifica integrita'"
+                    "description": "hexadecimal sha256 of the payload, for integrity verification"
                 },
                 "format": {
                     "enum": [
@@ -81,7 +81,7 @@
             "additionalProperties": false,
             "type": "object",
             "title": "Query Chunk Info",
-            "description": "Descrittore di un chunk pubblicato su {vehicleId}/{deviceId}/query/{transactionId}/data/content/{network}--{measurement} Il payload (CSV compresso) resta il body grezzo di quel topic: qui viaggiano solo i metadati."
+            "description": "Descriptor of a chunk published on {vehicleId}/{deviceId}/query/{transactionId}/data/content/{network}--{measurement} The payload (compressed CSV) remains the raw body of that topic: only metadata travels here."
         },
         "QueryStatus": {
             "required": [
@@ -103,7 +103,7 @@
                 },
                 "timestamp": {
                     "type": "integer",
-                    "description": "microsecondi epoch"
+                    "description": "epoch microseconds"
                 },
                 "state": {
                     "enum": [
@@ -169,19 +169,19 @@
                 },
                 "description": {
                     "type": "string",
-                    "description": "messaggio leggibile, mai usato per logica applicativa"
+                    "description": "human-readable message, never used for application logic"
                 },
                 "totalChunks": {
                     "type": "integer",
-                    "description": "valorizzato su COMPLETED"
+                    "description": "set on COMPLETED"
                 },
                 "totalRows": {
                     "type": "integer",
-                    "description": "valorizzato su COMPLETED"
+                    "description": "set on COMPLETED"
                 },
                 "protocolVersion": {
                     "type": "integer",
-                    "description": "versione corrente: 1"
+                    "description": "current version: 1"
                 },
                 "chunks": {
                     "items": {
@@ -189,20 +189,20 @@
                     },
                     "additionalProperties": false,
                     "type": "array",
-                    "description": "manifesto inviato con COMPLETED, per verifica"
+                    "description": "manifest sent with COMPLETED, for verification"
                 },
                 "details": {
                     "additionalProperties": {
                         "type": "string"
                     },
                     "type": "object",
-                    "description": "campi diagnostici futuri, senza toccare lo schema"
+                    "description": "future diagnostic fields, without touching the schema"
                 }
             },
             "additionalProperties": false,
             "type": "object",
             "title": "Query Status",
-            "description": "Stato pubblicato su {vehicleId}/{deviceId}/query/{transactionId}/status con QoS 1. Sostituisce i topic .../data/content/eof e .../data/content/error."
+            "description": "Status published on {vehicleId}/{deviceId}/query/{transactionId}/status with QoS 1. Replaces topics .../data/content/eof and .../data/content/error."
         }
     }
 }
