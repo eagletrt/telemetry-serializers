@@ -1,0 +1,208 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/QueryStatus",
+    "definitions": {
+        "PbInfluxLogger.QueryChunkInfo": {
+            "required": [
+                "transactionId",
+                "network",
+                "measurement",
+                "topic",
+                "chunkNumber",
+                "rows",
+                "sizeBytes",
+                "hash",
+                "format",
+                "compression"
+            ],
+            "properties": {
+                "transactionId": {
+                    "type": "string"
+                },
+                "network": {
+                    "type": "string"
+                },
+                "measurement": {
+                    "type": "string"
+                },
+                "topic": {
+                    "type": "string",
+                    "description": "topic su cui e' stato pubblicato il payload"
+                },
+                "chunkNumber": {
+                    "type": "integer",
+                    "description": "progressivo 1-based nella transazione"
+                },
+                "rows": {
+                    "type": "integer",
+                    "description": "righe dati, escluso l'header"
+                },
+                "sizeBytes": {
+                    "type": "integer",
+                    "description": "dimensione del payload pubblicato"
+                },
+                "hash": {
+                    "type": "string",
+                    "description": "sha256 esadecimale del payload, per verifica integrita'"
+                },
+                "format": {
+                    "enum": [
+                        "QUERY_FORMAT_CSV",
+                        0
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Query Format"
+                },
+                "compression": {
+                    "enum": [
+                        "QUERY_COMPRESSION_GZIP",
+                        0,
+                        "QUERY_COMPRESSION_NONE",
+                        1
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Query Compression"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Query Chunk Info",
+            "description": "Descrittore di un chunk pubblicato su {vehicleId}/{deviceId}/query/{transactionId}/data/content/{network}--{measurement} Il payload (CSV compresso) resta il body grezzo di quel topic: qui viaggiano solo i metadati."
+        },
+        "QueryStatus": {
+            "required": [
+                "transactionId",
+                "timestamp",
+                "state",
+                "error",
+                "stage",
+                "description",
+                "totalChunks",
+                "totalRows",
+                "protocolVersion",
+                "chunks",
+                "details"
+            ],
+            "properties": {
+                "transactionId": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "description": "microsecondi epoch"
+                },
+                "state": {
+                    "enum": [
+                        "QUERY_STATE_ACCEPTED",
+                        0,
+                        "QUERY_STATE_RUNNING",
+                        1,
+                        "QUERY_STATE_COMPLETED",
+                        2,
+                        "QUERY_STATE_FAILED",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Query State"
+                },
+                "error": {
+                    "enum": [
+                        "QUERY_ERROR_NONE",
+                        0,
+                        "QUERY_ERROR_BAD_REQUEST",
+                        1,
+                        "QUERY_ERROR_INVALID_RANGE",
+                        2,
+                        "QUERY_ERROR_NOT_AUTHORIZED",
+                        3,
+                        "QUERY_ERROR_UNAVAILABLE",
+                        4,
+                        "QUERY_ERROR_DB_UNAVAILABLE",
+                        5,
+                        "QUERY_ERROR_QUERY_FAILED",
+                        6,
+                        "QUERY_ERROR_SERIALIZATION_FAILED",
+                        7,
+                        "QUERY_ERROR_PUBLISH_FAILED",
+                        8,
+                        "QUERY_ERROR_TIMEOUT",
+                        9,
+                        "QUERY_ERROR_TOO_MUCH_DATA",
+                        10,
+                        "QUERY_ERROR_INTERNAL",
+                        11
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Query Error"
+                },
+                "stage": {
+                    "type": "string",
+                    "description": "\"request\" | \"query\" | \"serialization\" | \"publish\""
+                },
+                "description": {
+                    "type": "string",
+                    "description": "messaggio leggibile, mai usato per logica applicativa"
+                },
+                "totalChunks": {
+                    "type": "integer",
+                    "description": "valorizzato su COMPLETED"
+                },
+                "totalRows": {
+                    "type": "integer",
+                    "description": "valorizzato su COMPLETED"
+                },
+                "protocolVersion": {
+                    "type": "integer",
+                    "description": "versione corrente: 1"
+                },
+                "chunks": {
+                    "items": {
+                        "$ref": "#/definitions/PbInfluxLogger.QueryChunkInfo"
+                    },
+                    "additionalProperties": false,
+                    "type": "array",
+                    "description": "manifesto inviato con COMPLETED, per verifica"
+                },
+                "details": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "type": "object",
+                    "description": "campi diagnostici futuri, senza toccare lo schema"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Query Status",
+            "description": "Stato pubblicato su {vehicleId}/{deviceId}/query/{transactionId}/status con QoS 1. Sostituisce i topic .../data/content/eof e .../data/content/error."
+        }
+    }
+}

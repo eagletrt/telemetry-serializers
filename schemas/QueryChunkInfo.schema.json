@@ -1,0 +1,87 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/QueryChunkInfo",
+    "definitions": {
+        "QueryChunkInfo": {
+            "required": [
+                "transactionId",
+                "network",
+                "measurement",
+                "topic",
+                "chunkNumber",
+                "rows",
+                "sizeBytes",
+                "hash",
+                "format",
+                "compression"
+            ],
+            "properties": {
+                "transactionId": {
+                    "type": "string"
+                },
+                "network": {
+                    "type": "string"
+                },
+                "measurement": {
+                    "type": "string"
+                },
+                "topic": {
+                    "type": "string",
+                    "description": "topic su cui e' stato pubblicato il payload"
+                },
+                "chunkNumber": {
+                    "type": "integer",
+                    "description": "progressivo 1-based nella transazione"
+                },
+                "rows": {
+                    "type": "integer",
+                    "description": "righe dati, escluso l'header"
+                },
+                "sizeBytes": {
+                    "type": "integer",
+                    "description": "dimensione del payload pubblicato"
+                },
+                "hash": {
+                    "type": "string",
+                    "description": "sha256 esadecimale del payload, per verifica integrita'"
+                },
+                "format": {
+                    "enum": [
+                        "QUERY_FORMAT_CSV",
+                        0
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Query Format"
+                },
+                "compression": {
+                    "enum": [
+                        "QUERY_COMPRESSION_GZIP",
+                        0,
+                        "QUERY_COMPRESSION_NONE",
+                        1
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Query Compression"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Query Chunk Info",
+            "description": "Descrittore di un chunk pubblicato su {vehicleId}/{deviceId}/query/{transactionId}/data/content/{network}--{measurement} Il payload (CSV compresso) resta il body grezzo di quel topic: qui viaggiano solo i metadati."
+        }
+    }
+}

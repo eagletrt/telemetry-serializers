@@ -1,0 +1,90 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/QueryRequest",
+    "definitions": {
+        "QueryRequest": {
+            "required": [
+                "start",
+                "stop",
+                "transactionId",
+                "networks",
+                "measurements",
+                "format",
+                "compression",
+                "maxRows",
+                "protocolVersion"
+            ],
+            "properties": {
+                "start": {
+                    "type": "integer",
+                    "description": "inizio intervallo, microsecondi epoch"
+                },
+                "stop": {
+                    "type": "integer",
+                    "description": "fine intervallo, microsecondi epoch"
+                },
+                "transactionId": {
+                    "type": "string",
+                    "description": "ridondante col topic, utile per log e replay"
+                },
+                "networks": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "filtro sulle network, vuoto = tutte"
+                },
+                "measurements": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "filtro sulle measurement, vuoto = tutte"
+                },
+                "format": {
+                    "enum": [
+                        "QUERY_FORMAT_CSV",
+                        0
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Query Format"
+                },
+                "compression": {
+                    "enum": [
+                        "QUERY_COMPRESSION_GZIP",
+                        0,
+                        "QUERY_COMPRESSION_NONE",
+                        1
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Query Compression"
+                },
+                "maxRows": {
+                    "type": "integer",
+                    "description": "0 = limite di default lato logger"
+                },
+                "protocolVersion": {
+                    "type": "integer",
+                    "description": "versione corrente: 1"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Query Request"
+        }
+    }
+}

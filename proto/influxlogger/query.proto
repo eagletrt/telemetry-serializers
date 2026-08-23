@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+package PbInfluxLogger;
+
+enum QueryFormat
+{
+    QUERY_FORMAT_CSV = 0;
+}
+
+enum QueryCompression
+{
+    QUERY_COMPRESSION_GZIP = 0;
+    QUERY_COMPRESSION_NONE = 1;
+}
+
+enum QueryState
+{
+    QUERY_STATE_ACCEPTED  = 0; 
+    QUERY_STATE_RUNNING   = 1;  
+    QUERY_STATE_COMPLETED = 2;  
+    QUERY_STATE_FAILED    = 3;  
+}
+
+enum QueryError
+{
+    QUERY_ERROR_NONE                 = 0;
+    QUERY_ERROR_BAD_REQUEST          = 1;   // payload non decodificabile o campi mancanti
+    QUERY_ERROR_INVALID_RANGE        = 2;   // start >= stop oppure intervallo oltre il limite
+    QUERY_ERROR_NOT_AUTHORIZED       = 3;   // veicolo non presente in whitelist
+    QUERY_ERROR_UNAVAILABLE          = 4;   // reader non attivo o in fase di shutdown
+    QUERY_ERROR_DB_UNAVAILABLE       = 5;   // InfluxDB irraggiungibile
+    QUERY_ERROR_QUERY_FAILED         = 6;   // errore restituito da InfluxDB
+    QUERY_ERROR_SERIALIZATION_FAILED = 7;   // errore nella creazione del CSV
+    QUERY_ERROR_PUBLISH_FAILED       = 8;   // publish MQTT fallita
+    QUERY_ERROR_TIMEOUT              = 9;   // superato il tempo massimo di esecuzione
+    QUERY_ERROR_TOO_MUCH_DATA        = 10;  // superato maxRows o il limite di memoria
+    QUERY_ERROR_INTERNAL             = 11;  // eccezione non classificata
+}
+
+message QueryRequest
+{
+    uint64 start = 1;                  // inizio intervallo, microsecondi epoch
+    uint64 stop = 2;                   // fine intervallo, microsecondi epoch
+    string transactionId = 3;          // ridondante col topic, utile per log e replay
+    repeated string networks = 4;      // filtro sulle network, vuoto = tutte
+    repeated string measurements = 5;  // filtro sulle measurement, vuoto = tutte
+    QueryFormat format = 6;
+    QueryCompression compression = 7;
+    uint64 maxRows = 8;                // 0 = limite di default lato logger
+    uint32 protocolVersion = 9;        // versione corrente: 1
+}
+
+// Descrittore di un chunk pubblicato su
+// {vehicleId}/{deviceId}/query/{transactionId}/data/content/{network}--{measurement}
+// Il payload (CSV compresso) resta il body grezzo di quel topic: qui viaggiano solo i metadati.
+message QueryChunkInfo
+{
+    string transactionId = 1;
+    string network = 2;
+    string measurement = 3;
+    string topic = 4;         // topic su cui e' stato pubblicato il payload
+    uint64 chunkNumber = 5;   // progressivo 1-based nella transazione
+    uint64 rows = 6;          // righe dati, escluso l'header
+    uint64 sizeBytes = 7;     // dimensione del payload pubblicato
+    string hash = 8;          // sha256 esadecimale del payload, per verifica integrita'
+    QueryFormat format = 9;
+    QueryCompression compression = 10;
+}
+
+// Stato pubblicato su {vehicleId}/{deviceId}/query/{transactionId}/status con QoS 1.
+// Sostituisce i topic .../data/content/eof e .../data/content/error.
+message QueryStatus
+{
+    string transactionId = 1;
+    uint64 timestamp = 2;              // microsecondi epoch
+    QueryState state = 3;
+    QueryError error = 4;              // QUERY_ERROR_NONE se non fallita
+    string stage = 5;                  // "request" | "query" | "serialization" | "publish"
+    string description = 6;            // messaggio leggibile, mai usato per logica applicativa
+    uint64 totalChunks = 7;            // valorizzato su COMPLETED
+    uint64 totalRows = 8;              // valorizzato su COMPLETED
+    uint32 protocolVersion = 9;        // versione corrente: 1
+    repeated QueryChunkInfo chunks = 10;  // manifesto inviato con COMPLETED, per verifica
+    map<string, string> details = 11;     // campi diagnostici futuri, senza toccare lo schema
+}
