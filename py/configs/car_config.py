@@ -155,6 +155,9 @@ class ImuCorrections:
     x: float = 0.0
     y: float = 0.0
     z: float = 0.0
+    phi: float = 0.0
+    theta: float = 0.0
+    psi: float = 0.0
     
     _proto_message: car_config_pb2.ImuCorrections = field(init=False, repr=False)
 
@@ -165,6 +168,9 @@ class ImuCorrections:
         self._proto_message.x = self.x
         self._proto_message.y = self.y
         self._proto_message.z = self.z
+        self._proto_message.phi = self.phi
+        self._proto_message.theta = self.theta
+        self._proto_message.psi = self.psi
 
     @classmethod
     def _from_proto(cls, proto_message) -> "ImuCorrections":
@@ -172,6 +178,9 @@ class ImuCorrections:
             x = proto_message.x,
             y = proto_message.y,
             z = proto_message.z,
+            phi = proto_message.phi,
+            theta = proto_message.theta,
+            psi = proto_message.psi,
         )
 
     def __str__(self):

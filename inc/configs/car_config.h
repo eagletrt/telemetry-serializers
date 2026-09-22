@@ -67,6 +67,9 @@ struct ImuCorrections
     double x;
     double y;
     double z;
+    double phi;
+    double theta;
+    double psi;
     
     ImuCorrections() = default;
     ImuCorrections(const PbConfigs::ImuCorrections& protobuf);

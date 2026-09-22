@@ -160,6 +160,9 @@ ImuCorrections::ImuCorrections(const PbConfigs::ImuCorrections& protobuf) {
     x = protobuf.x();
     y = protobuf.y();
     z = protobuf.z();
+    phi = protobuf.phi();
+    theta = protobuf.theta();
+    psi = protobuf.psi();
 }
 
 ImuCorrections::operator PbConfigs::ImuCorrections() const {
@@ -167,6 +170,9 @@ ImuCorrections::operator PbConfigs::ImuCorrections() const {
     ret.set_x(x);
     ret.set_y(y);
     ret.set_z(z);
+    ret.set_phi(phi);
+    ret.set_theta(theta);
+    ret.set_psi(psi);
     return ret;
 }
 

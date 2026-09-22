@@ -6,7 +6,10 @@
             "required": [
                 "x",
                 "y",
-                "z"
+                "z",
+                "phi",
+                "theta",
+                "psi"
             ],
             "properties": {
                 "x": {
@@ -16,6 +19,15 @@
                     "type": "number"
                 },
                 "z": {
+                    "type": "number"
+                },
+                "phi": {
+                    "type": "number"
+                },
+                "theta": {
+                    "type": "number"
+                },
+                "psi": {
                     "type": "number"
                 }
             },
