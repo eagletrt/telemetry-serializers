@@ -29,6 +29,9 @@ message ImuCorrections
     double x = 1;
     double y = 2;
     double z = 3;
+    double phi = 4;
+    double theta = 5;
+    double psi = 6;
 }
 
 enum TyrePosition {
