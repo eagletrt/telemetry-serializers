@@ -15,23 +15,23 @@ namespace TPMS
 {
 struct Rtl433Payload
 {
-    std::string time;
-    std::string model;
-    int64_t id;
-    uint32_t pressure;
-    uint32_t temperature;
-    uint32_t acceleration;
-    uint32_t battery;
-    uint32_t interframe;
-    uint32_t wo_state;
-    uint32_t checksum;
-    std::string mic;
-    std::string mod;
-    double freq1;
-    double freq2;
-    double rssi;
-    double snr;
-    double noise;
+    std::string time{};
+    std::string model{};
+    int64_t id{};
+    uint32_t pressure{};
+    uint32_t temperature{};
+    uint32_t acceleration{};
+    uint32_t battery{};
+    uint32_t interframe{};
+    uint32_t wo_state{};
+    uint32_t checksum{};
+    std::string mic{};
+    std::string mod{};
+    double freq1{};
+    double freq2{};
+    double rssi{};
+    double snr{};
+    double noise{};
     
     Rtl433Payload() = default;
     Rtl433Payload(const PbTPMS::Rtl433Payload& protobuf);

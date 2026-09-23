@@ -15,9 +15,9 @@ namespace query
 {
 struct Weather
 {
-    double ambientTemperature;
-    double trackTemperature;
-    double humidity;
+    double ambientTemperature{};
+    double trackTemperature{};
+    double humidity{};
     
     Weather() = default;
     Weather(const Pbquery::Weather& protobuf);
@@ -31,17 +31,17 @@ struct Weather
 
 struct SessionConfig
 {
-    std::string trackLocation;
-    std::string trackLayout;
-    std::string sessionName;
-    std::string driver;
-    std::string date;
-    std::string time;
-    Weather weather;
-    std::string notes;
-    double canlibVersion;
-    uint64_t startTimestamp;
-    uint64_t endTimestamp;
+    std::string trackLocation{};
+    std::string trackLayout{};
+    std::string sessionName{};
+    std::string driver{};
+    std::string date{};
+    std::string time{};
+    Weather weather{};
+    std::string notes{};
+    double canlibVersion{};
+    uint64_t startTimestamp{};
+    uint64_t endTimestamp{};
     
     SessionConfig() = default;
     SessionConfig(const Pbquery::SessionConfig& protobuf);
@@ -55,15 +55,15 @@ struct SessionConfig
 
 struct Baseline
 {
-    bool valid;
-    bool logging;
-    double length;
+    bool valid{};
+    bool logging{};
+    double length{};
     std::vector<double> x;
     std::vector<double> y;
-    bool resampled;
+    bool resampled{};
     std::vector<double> s;
     std::vector<double> theta;
-    std::string hash;
+    std::string hash{};
     
     Baseline() = default;
     Baseline(const Pbquery::Baseline& protobuf);
@@ -77,9 +77,9 @@ struct Baseline
 
 struct GPSMapOrigin
 {
-    double latitude;
-    double longitude;
-    double altitude;
+    double latitude{};
+    double longitude{};
+    double altitude{};
     
     GPSMapOrigin() = default;
     GPSMapOrigin(const Pbquery::GPSMapOrigin& protobuf);
@@ -93,8 +93,8 @@ struct GPSMapOrigin
 
 struct GPSMapOrigins
 {
-    std::string trackLocation;
-    std::string trackLayout;
+    std::string trackLocation{};
+    std::string trackLayout{};
     std::unordered_map<std::string, GPSMapOrigin> origins;
     std::unordered_map<std::string, Baseline> tracksBaseline;
     
@@ -110,9 +110,9 @@ struct GPSMapOrigins
 
 struct SetBaseline
 {
-    std::string trackLocation;
-    std::string trackLayout;
-    GPSMapOrigin origin;
+    std::string trackLocation{};
+    std::string trackLayout{};
+    GPSMapOrigin origin{};
     std::vector<double> x;
     std::vector<double> y;
     
@@ -128,9 +128,9 @@ struct SetBaseline
 
 struct LapRecord
 {
-    std::string driver;
-    uint64_t start;
-    uint64_t end;
+    std::string driver{};
+    uint64_t start{};
+    uint64_t end{};
     std::vector<uint64_t> sectors;
     
     LapRecord() = default;
@@ -145,9 +145,9 @@ struct LapRecord
 
 struct SectorsRecord
 {
-    std::string driver;
-    uint64_t start_time_sector;
-    uint64_t end_time_sector;
+    std::string driver{};
+    uint64_t start_time_sector{};
+    uint64_t end_time_sector{};
     
     SectorsRecord() = default;
     SectorsRecord(const Pbquery::SectorsRecord& protobuf);
@@ -161,8 +161,8 @@ struct SectorsRecord
 
 struct DriverRecord
 {
-    std::string driver;
-    LapRecord best_lap;
+    std::string driver{};
+    LapRecord best_lap{};
     std::vector<SectorsRecord> best_sectors;
     
     DriverRecord() = default;
@@ -177,9 +177,9 @@ struct DriverRecord
 
 struct LapTime
 {
-    uint64_t number;
-    uint64_t start_timestamp;
-    uint64_t end_timestamp;
+    uint64_t number{};
+    uint64_t start_timestamp{};
+    uint64_t end_timestamp{};
     std::vector<uint64_t> sectors;
     
     LapTime() = default;
@@ -194,17 +194,17 @@ struct LapTime
 
 struct LapTimes
 {
-    int32_t version;
-    int32_t baseline_version;
-    std::string vehicle_id;
-    std::string device_id;
-    std::string location;
-    std::string layout;
-    std::string driver;
+    int32_t version{};
+    int32_t baseline_version{};
+    std::string vehicle_id{};
+    std::string device_id{};
+    std::string location{};
+    std::string layout{};
+    std::string driver{};
     std::vector<LapTime> times;
-    std::string baseline_hash;
-    uint64_t session_start_timestamp;
-    std::string session_name;
+    std::string baseline_hash{};
+    uint64_t session_start_timestamp{};
+    std::string session_name{};
     
     LapTimes() = default;
     LapTimes(const Pbquery::LapTimes& protobuf);
@@ -218,8 +218,8 @@ struct LapTimes
 
 struct Vec2
 {
-    double x;
-    double y;
+    double x{};
+    double y{};
     
     Vec2() = default;
     Vec2(const Pbquery::Vec2& protobuf);
@@ -233,8 +233,8 @@ struct Vec2
 
 struct PositionAndDirection
 {
-    Vec2 position;
-    Vec2 direction;
+    Vec2 position{};
+    Vec2 direction{};
     
     PositionAndDirection() = default;
     PositionAndDirection(const Pbquery::PositionAndDirection& protobuf);
@@ -248,19 +248,19 @@ struct PositionAndDirection
 
 struct Layout
 {
-    int32_t version;
-    int32_t baseline_version;
-    std::string vehicle_id;
-    std::string device_id;
-    std::string location;
-    std::string layout;
-    PositionAndDirection start_line;
-    PositionAndDirection finish_line;
+    int32_t version{};
+    int32_t baseline_version{};
+    std::string vehicle_id{};
+    std::string device_id{};
+    std::string location{};
+    std::string layout{};
+    PositionAndDirection start_line{};
+    PositionAndDirection finish_line{};
     std::vector<PositionAndDirection> sectors;
-    std::string baseline_hash;
-    double start_s;
+    std::string baseline_hash{};
+    double start_s{};
     std::vector<double> sectors_s;
-    double baseline_length;
+    double baseline_length{};
     
     Layout() = default;
     Layout(const Pbquery::Layout& protobuf);
@@ -274,18 +274,18 @@ struct Layout
 
 struct LapRecords
 {
-    int32_t version;
-    int32_t baseline_version;
-    std::string vehicle_id;
-    std::string device_id;
-    std::string location;
-    std::string layout;
-    LapRecord best_lap;
+    int32_t version{};
+    int32_t baseline_version{};
+    std::string vehicle_id{};
+    std::string device_id{};
+    std::string location{};
+    std::string layout{};
+    LapRecord best_lap{};
     std::vector<SectorsRecord> best_sectors;
     std::vector<DriverRecord> drivers_records;
-    std::string baseline_hash;
-    uint64_t session_start_timestamp;
-    std::string session_name;
+    std::string baseline_hash{};
+    uint64_t session_start_timestamp{};
+    std::string session_name{};
     
     LapRecords() = default;
     LapRecords(const Pbquery::LapRecords& protobuf);
@@ -299,10 +299,10 @@ struct LapRecords
 
 struct Track
 {
-    Layout layout;
-    LapTimes lapTimes;
-    LapRecords lapRecords;
-    GPSMapOrigins gpsInfo;
+    Layout layout{};
+    LapTimes lapTimes{};
+    LapRecords lapRecords{};
+    GPSMapOrigins gpsInfo{};
     
     Track() = default;
     Track(const Pbquery::Track& protobuf);
@@ -316,8 +316,8 @@ struct Track
 
 struct SessionByYearMonth
 {
-    std::string year;
-    std::string month;
+    std::string year{};
+    std::string month{};
     
     SessionByYearMonth() = default;
     SessionByYearMonth(const Pbquery::SessionByYearMonth& protobuf);
@@ -345,9 +345,9 @@ struct SessionByYearMonthFound
 
 struct SessionByDayRange
 {
-    SessionByYearMonth yearMonth;
-    std::string startDay;
-    std::string endDay;
+    SessionByYearMonth yearMonth{};
+    std::string startDay{};
+    std::string endDay{};
     
     SessionByDayRange() = default;
     SessionByDayRange(const Pbquery::SessionByDayRange& protobuf);
@@ -375,7 +375,7 @@ struct SessionByDayRangeFound
 
 struct TrackBySession
 {
-    SessionConfig sessionRequested;
+    SessionConfig sessionRequested{};
     
     TrackBySession() = default;
     TrackBySession(const Pbquery::TrackBySession& protobuf);
@@ -389,7 +389,7 @@ struct TrackBySession
 
 struct TrackBySessionFound
 {
-    Track tracksFound;
+    Track tracksFound{};
     
     TrackBySessionFound() = default;
     TrackBySessionFound(const Pbquery::TrackBySessionFound& protobuf);

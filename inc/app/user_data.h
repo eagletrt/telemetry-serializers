@@ -15,11 +15,11 @@ namespace App
 {
 struct UserData
 {
-    std::string username;
-    std::string token;
-    std::string refreshToken;
-    uint64_t expiry;
-    uint64_t role;
+    std::string username{};
+    std::string token{};
+    std::string refreshToken{};
+    uint64_t expiry{};
+    uint64_t role{};
     
     UserData() = default;
     UserData(const PbApp::UserData& protobuf);

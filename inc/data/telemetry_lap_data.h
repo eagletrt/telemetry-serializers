@@ -43,13 +43,13 @@ struct DataFile
 
 struct TelemetryLapData
 {
-    std::string dateTime;
-    std::string trackLocation;
-    std::string trackLayout;
-    std::string driver;
-    uint32_t lapNumber;
-    std::string filenameHash;
-    std::string sessionName;
+    std::string dateTime{};
+    std::string trackLocation{};
+    std::string trackLayout{};
+    std::string driver{};
+    uint32_t lapNumber{};
+    std::string filenameHash{};
+    std::string sessionName{};
     
     TelemetryLapData() = default;
     TelemetryLapData(const PbData::TelemetryLapData& protobuf);

@@ -15,9 +15,9 @@ namespace MongoDb
 {
 struct LapTime
 {
-    uint64_t number;
-    uint64_t start_timestamp;
-    uint64_t end_timestamp;
+    uint64_t number{};
+    uint64_t start_timestamp{};
+    uint64_t end_timestamp{};
     std::vector<uint64_t> sectors;
     
     LapTime() = default;
@@ -32,17 +32,17 @@ struct LapTime
 
 struct LapTimes
 {
-    int32_t version;
-    int32_t baseline_version;
-    std::string vehicle_id;
-    std::string device_id;
-    std::string location;
-    std::string layout;
-    std::string driver;
+    int32_t version{};
+    int32_t baseline_version{};
+    std::string vehicle_id{};
+    std::string device_id{};
+    std::string location{};
+    std::string layout{};
+    std::string driver{};
     std::vector<LapTime> times;
-    std::string baseline_hash;
-    uint64_t session_start_timestamp;
-    std::string session_name;
+    std::string baseline_hash{};
+    uint64_t session_start_timestamp{};
+    std::string session_name{};
     
     LapTimes() = default;
     LapTimes(const PbMongoDb::LapTimes& protobuf);

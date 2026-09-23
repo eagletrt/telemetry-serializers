@@ -15,9 +15,9 @@ namespace MongoDb
 {
 struct LapRecord
 {
-    std::string driver;
-    uint64_t start;
-    uint64_t end;
+    std::string driver{};
+    uint64_t start{};
+    uint64_t end{};
     std::vector<uint64_t> sectors;
     
     LapRecord() = default;
@@ -32,9 +32,9 @@ struct LapRecord
 
 struct SectorsRecord
 {
-    std::string driver;
-    uint64_t start_time_sector;
-    uint64_t end_time_sector;
+    std::string driver{};
+    uint64_t start_time_sector{};
+    uint64_t end_time_sector{};
     
     SectorsRecord() = default;
     SectorsRecord(const PbMongoDb::SectorsRecord& protobuf);
@@ -48,8 +48,8 @@ struct SectorsRecord
 
 struct DriverRecord
 {
-    std::string driver;
-    LapRecord best_lap;
+    std::string driver{};
+    LapRecord best_lap{};
     std::vector<SectorsRecord> best_sectors;
     
     DriverRecord() = default;
@@ -64,18 +64,18 @@ struct DriverRecord
 
 struct LapRecords
 {
-    int32_t version;
-    int32_t baseline_version;
-    std::string vehicle_id;
-    std::string device_id;
-    std::string location;
-    std::string layout;
-    LapRecord best_lap;
+    int32_t version{};
+    int32_t baseline_version{};
+    std::string vehicle_id{};
+    std::string device_id{};
+    std::string location{};
+    std::string layout{};
+    LapRecord best_lap{};
     std::vector<SectorsRecord> best_sectors;
     std::vector<DriverRecord> drivers_records;
-    std::string baseline_hash;
-    uint64_t session_start_timestamp;
-    std::string session_name;
+    std::string baseline_hash{};
+    uint64_t session_start_timestamp{};
+    std::string session_name{};
     
     LapRecords() = default;
     LapRecords(const PbMongoDb::LapRecords& protobuf);

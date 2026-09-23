@@ -15,12 +15,12 @@ namespace App
 {
 struct CustomPlotItem
 {
-    std::string messageAxisX;
-    std::string messageAxisY;
-    std::string signalAxisX;
-    std::string signalAxisY;
-    bool isEnum;
-    uint32_t color;
+    std::string messageAxisX{};
+    std::string messageAxisY{};
+    std::string signalAxisX{};
+    std::string signalAxisY{};
+    bool isEnum{};
+    uint32_t color{};
     
     CustomPlotItem() = default;
     CustomPlotItem(const PbApp::CustomPlotItem& protobuf);
@@ -34,7 +34,7 @@ struct CustomPlotItem
 
 struct CustomPlotAxis
 {
-    std::string label;
+    std::string label{};
     std::vector<CustomPlotItem> items;
     
     CustomPlotAxis() = default;
@@ -49,7 +49,7 @@ struct CustomPlotAxis
 
 struct NewCustomPlot
 {
-    std::string title;
+    std::string title{};
     std::unordered_map<int32_t, CustomPlotAxis> axes;
     
     NewCustomPlot() = default;
@@ -64,7 +64,7 @@ struct NewCustomPlot
 
 struct CustomSubPlots
 {
-    uint32_t rows;
+    uint32_t rows{};
     std::vector<NewCustomPlot> plots;
     
     CustomSubPlots() = default;

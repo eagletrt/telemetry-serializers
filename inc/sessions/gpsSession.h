@@ -15,12 +15,12 @@ namespace Sessions
 {
 struct GpsSession
 {
-    std::string gpsName;
-    std::string dateTime;
-    double durationSeconds;
-    uint64_t startTimestamp;
-    uint64_t endTimestamp;
-    uint64_t messages;
+    std::string gpsName{};
+    std::string dateTime{};
+    double durationSeconds{};
+    uint64_t startTimestamp{};
+    uint64_t endTimestamp{};
+    uint64_t messages{};
     
     GpsSession() = default;
     GpsSession(const PbSessions::GpsSession& protobuf);

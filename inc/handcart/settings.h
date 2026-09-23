@@ -15,12 +15,12 @@ namespace Handcart
 {
 struct Settings
 {
-    uint32_t status;
-    double targetVoltage;
-    bool fansOverride;
-    double fansSpeed;
-    double accChargeCurrent;
-    double gridMaxCurrent;
+    uint32_t status{};
+    double targetVoltage{};
+    bool fansOverride{};
+    double fansSpeed{};
+    double accChargeCurrent{};
+    double gridMaxCurrent{};
     
     Settings() = default;
     Settings(const PbHandcart::Settings& protobuf);

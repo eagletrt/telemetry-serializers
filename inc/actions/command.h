@@ -15,8 +15,8 @@ namespace Actions
 {
 struct Command
 {
-    std::string input;
-    std::string output;
+    std::string input{};
+    std::string output{};
     
     Command() = default;
     Command(const PbActions::Command& protobuf);

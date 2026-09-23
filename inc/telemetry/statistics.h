@@ -15,9 +15,9 @@ namespace Telemetry
 {
 struct Statistics
 {
-    int64_t messages;
-    int64_t averageFrequency;
-    double seconds;
+    int64_t messages{};
+    int64_t averageFrequency{};
+    double seconds{};
     
     Statistics() = default;
     Statistics(const PbTelemetry::Statistics& protobuf);

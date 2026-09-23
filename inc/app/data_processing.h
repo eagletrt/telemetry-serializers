@@ -15,7 +15,7 @@ namespace App
 {
 struct Plugin
 {
-    std::string path;
+    std::string path{};
     
     Plugin() = default;
     Plugin(const PbApp::Plugin& protobuf);
@@ -29,7 +29,7 @@ struct Plugin
 
 struct Signal
 {
-    std::string msg;
+    std::string msg{};
     std::vector<std::string> fields;
     
     Signal() = default;

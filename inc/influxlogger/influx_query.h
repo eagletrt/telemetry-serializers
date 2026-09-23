@@ -50,15 +50,15 @@ enum class QueryError
 
 struct QueryRequest
 {
-    uint64_t start;
-    uint64_t stop;
-    std::string transactionId;
+    uint64_t start{};
+    uint64_t stop{};
+    std::string transactionId{};
     std::vector<std::string> networks;
     std::vector<std::string> measurements;
-    QueryFormat format;
-    QueryCompression compression;
-    uint64_t maxRows;
-    uint32_t protocolVersion;
+    QueryFormat format{};
+    QueryCompression compression{};
+    uint64_t maxRows{};
+    uint32_t protocolVersion{};
     
     QueryRequest() = default;
     QueryRequest(const PbInfluxLogger::QueryRequest& protobuf);
@@ -72,16 +72,16 @@ struct QueryRequest
 
 struct QueryChunkInfo
 {
-    std::string transactionId;
-    std::string network;
-    std::string measurement;
-    std::string topic;
-    uint64_t chunkNumber;
-    uint64_t rows;
-    uint64_t sizeBytes;
-    std::string hash;
-    QueryFormat format;
-    QueryCompression compression;
+    std::string transactionId{};
+    std::string network{};
+    std::string measurement{};
+    std::string topic{};
+    uint64_t chunkNumber{};
+    uint64_t rows{};
+    uint64_t sizeBytes{};
+    std::string hash{};
+    QueryFormat format{};
+    QueryCompression compression{};
     
     QueryChunkInfo() = default;
     QueryChunkInfo(const PbInfluxLogger::QueryChunkInfo& protobuf);
@@ -95,15 +95,15 @@ struct QueryChunkInfo
 
 struct QueryStatus
 {
-    std::string transactionId;
-    uint64_t timestamp;
-    QueryState state;
-    QueryError error;
-    std::string stage;
-    std::string description;
-    uint64_t totalChunks;
-    uint64_t totalRows;
-    uint32_t protocolVersion;
+    std::string transactionId{};
+    uint64_t timestamp{};
+    QueryState state{};
+    QueryError error{};
+    std::string stage{};
+    std::string description{};
+    uint64_t totalChunks{};
+    uint64_t totalRows{};
+    uint32_t protocolVersion{};
     std::vector<QueryChunkInfo> chunks;
     std::unordered_map<std::string, std::string> details;
     

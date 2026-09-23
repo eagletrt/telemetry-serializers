@@ -15,8 +15,8 @@ namespace MongoDb
 {
 struct Vec2
 {
-    double x;
-    double y;
+    double x{};
+    double y{};
     
     Vec2() = default;
     Vec2(const PbMongoDb::Vec2& protobuf);
@@ -30,8 +30,8 @@ struct Vec2
 
 struct PositionAndDirection
 {
-    Vec2 position;
-    Vec2 direction;
+    Vec2 position{};
+    Vec2 direction{};
     
     PositionAndDirection() = default;
     PositionAndDirection(const PbMongoDb::PositionAndDirection& protobuf);
@@ -45,19 +45,19 @@ struct PositionAndDirection
 
 struct Layout
 {
-    int32_t version;
-    int32_t baseline_version;
-    std::string vehicle_id;
-    std::string device_id;
-    std::string location;
-    std::string layout;
-    PositionAndDirection start_line;
-    PositionAndDirection finish_line;
+    int32_t version{};
+    int32_t baseline_version{};
+    std::string vehicle_id{};
+    std::string device_id{};
+    std::string location{};
+    std::string layout{};
+    PositionAndDirection start_line{};
+    PositionAndDirection finish_line{};
     std::vector<PositionAndDirection> sectors;
-    std::string baseline_hash;
-    double start_s;
+    std::string baseline_hash{};
+    double start_s{};
     std::vector<double> sectors_s;
-    double baseline_length;
+    double baseline_length{};
     
     Layout() = default;
     Layout(const PbMongoDb::Layout& protobuf);

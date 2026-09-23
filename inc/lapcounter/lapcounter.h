@@ -15,8 +15,8 @@ namespace LapCounter
 {
 struct Vector
 {
-    double x;
-    double y;
+    double x{};
+    double y{};
     
     Vector() = default;
     Vector(const PbLapCounter::Vector& protobuf);
@@ -30,8 +30,8 @@ struct Vector
 
 struct Line
 {
-    Vector position;
-    Vector direction;
+    Vector position{};
+    Vector direction{};
     
     Line() = default;
     Line(const PbLapCounter::Line& protobuf);
@@ -45,7 +45,7 @@ struct Line
 
 struct Circuit
 {
-    std::string circuitId;
+    std::string circuitId{};
     std::vector<Line> checksLines;
     std::vector<Line> sectorsLines;
     
@@ -72,9 +72,9 @@ enum class Status
 
 struct LapCounterStatus
 {
-    Status status;
-    uint32_t dropped_laps;
-    std::string detail;
+    Status status{};
+    uint32_t dropped_laps{};
+    std::string detail{};
     
     LapCounterStatus() = default;
     LapCounterStatus(const PbLapCounter::LapCounterStatus& protobuf);

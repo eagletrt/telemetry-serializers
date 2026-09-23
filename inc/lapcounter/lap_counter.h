@@ -15,10 +15,10 @@ namespace LapCounter
 {
 struct LcPoint
 {
-    double position_x;
-    double position_y;
-    double inclination_x;
-    double inclination_y;
+    double position_x{};
+    double position_y{};
+    double inclination_x{};
+    double inclination_y{};
     
     LcPoint() = default;
     LcPoint(const PbLapCounter::LcPoint& protobuf);
@@ -32,11 +32,11 @@ struct LcPoint
 
 struct TrackLayout
 {
-    int32_t layout_id;
-    std::string name;
-    LcPoint start1;
-    LcPoint start2;
-    int32_t sector_count;
+    int32_t layout_id{};
+    std::string name{};
+    LcPoint start1{};
+    LcPoint start2{};
+    int32_t sector_count{};
     std::vector<LcPoint> sectors;
     
     TrackLayout() = default;
@@ -51,11 +51,11 @@ struct TrackLayout
 
 struct Time
 {
-    int32_t layout_id;
-    uint32_t lap_number;
-    std::string driver_name;
-    uint64_t start_timestamp;
-    uint64_t end_timestamp;
+    int32_t layout_id{};
+    uint32_t lap_number{};
+    std::string driver_name{};
+    uint64_t start_timestamp{};
+    uint64_t end_timestamp{};
     std::vector<uint64_t> sectors_timestamp;
     
     Time() = default;
@@ -70,9 +70,9 @@ struct Time
 
 struct DriverRecord
 {
-    std::string driver;
-    uint64_t start_timestamp;
-    uint64_t end_timestamp;
+    std::string driver{};
+    uint64_t start_timestamp{};
+    uint64_t end_timestamp{};
     std::vector<uint64_t> sectors_timestamp;
     
     DriverRecord() = default;
@@ -87,9 +87,9 @@ struct DriverRecord
 
 struct TrackRecord
 {
-    int32_t layout_id;
-    uint32_t lap_number;
-    DriverRecord best_lap;
+    int32_t layout_id{};
+    uint32_t lap_number{};
+    DriverRecord best_lap{};
     std::vector<DriverRecord> best_sectors;
     
     TrackRecord() = default;
@@ -104,7 +104,7 @@ struct TrackRecord
 
 struct Driver
 {
-    std::string name;
+    std::string name{};
     std::vector<Time> times;
     
     Driver() = default;
@@ -122,8 +122,8 @@ struct DataBase
     std::vector<TrackLayout> layouts;
     std::vector<Driver> drivers;
     std::vector<TrackRecord> records;
-    int32_t last_id;
-    uint32_t lap_number;
+    int32_t last_id{};
+    uint32_t lap_number{};
     
     DataBase() = default;
     DataBase(const PbLapCounter::DataBase& protobuf);

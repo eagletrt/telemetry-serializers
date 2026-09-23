@@ -22,8 +22,8 @@ enum class PlotType
 
 struct Size
 {
-    double w;
-    double h;
+    double w{};
+    double h{};
     
     Size() = default;
     Size(const PbApp::Size& protobuf);
@@ -37,13 +37,13 @@ struct Size
 
 struct GraphElement
 {
-    std::string label;
-    PlotType type;
-    std::string xField;
-    std::string yField;
-    uint32_t color;
-    int32_t axisX;
-    int32_t axisY;
+    std::string label{};
+    PlotType type{};
+    std::string xField{};
+    std::string yField{};
+    uint32_t color{};
+    int32_t axisX{};
+    int32_t axisY{};
     
     GraphElement() = default;
     GraphElement(const PbApp::GraphElement& protobuf);
@@ -57,15 +57,15 @@ struct GraphElement
 
 struct Graph
 {
-    std::string id;
-    std::string title;
+    std::string id{};
+    std::string title{};
     std::vector<std::string> tags;
     std::vector<GraphElement> signals;
     std::vector<std::string> otherElements;
-    bool hasTooltip;
-    std::string author;
-    int32_t implotFlags;
-    int32_t axisFlags;
+    bool hasTooltip{};
+    std::string author{};
+    int32_t implotFlags{};
+    int32_t axisFlags{};
     
     Graph() = default;
     Graph(const PbApp::Graph& protobuf);
@@ -79,11 +79,11 @@ struct Graph
 
 struct GridPlot
 {
-    std::string id;
-    Size size;
-    int32_t flags;
+    std::string id{};
+    Size size{};
+    int32_t flags{};
     std::vector<std::string> graphID;
-    std::string name;
+    std::string name{};
     
     GridPlot() = default;
     GridPlot(const PbApp::GridPlot& protobuf);
@@ -97,10 +97,10 @@ struct GridPlot
 
 struct CustomPage
 {
-    std::string id;
-    std::string name;
-    Size size;
-    std::string author;
+    std::string id{};
+    std::string name{};
+    Size size{};
+    std::string author{};
     std::vector<int32_t> gridCells;
     std::vector<std::string> gridPlotID;
     

@@ -15,11 +15,11 @@ namespace Configs
 {
 struct NtripClient
 {
-    std::string casterHost;
-    int32_t casterPort;
-    std::string mountPoint;
-    std::string username;
-    std::string password;
+    std::string casterHost{};
+    int32_t casterPort{};
+    std::string mountPoint{};
+    std::string username{};
+    std::string password{};
     
     NtripClient() = default;
     NtripClient(const PbConfigs::NtripClient& protobuf);
@@ -33,10 +33,10 @@ struct NtripClient
 
 struct GpsDev
 {
-    std::string address;
-    std::string mode;
-    int32_t tcpPort;
-    bool enabled;
+    std::string address{};
+    std::string mode{};
+    int32_t tcpPort{};
+    bool enabled{};
     std::optional<int32_t> speed;
     std::optional<int32_t> port;
     
@@ -53,8 +53,8 @@ struct GpsDev
 struct ForwarderConfig
 {
     std::vector<GpsDev> gpsDevice;
-    NtripClient ntripClient;
-    std::string mode;
+    NtripClient ntripClient{};
+    std::string mode{};
     
     ForwarderConfig() = default;
     ForwarderConfig(const PbConfigs::ForwarderConfig& protobuf);

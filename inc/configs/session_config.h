@@ -15,9 +15,9 @@ namespace Configs
 {
 struct Weather
 {
-    double ambientTemperature;
-    double trackTemperature;
-    double humidity;
+    double ambientTemperature{};
+    double trackTemperature{};
+    double humidity{};
     
     Weather() = default;
     Weather(const PbConfigs::Weather& protobuf);
@@ -31,17 +31,17 @@ struct Weather
 
 struct SessionConfig
 {
-    std::string trackLocation;
-    std::string trackLayout;
-    std::string sessionName;
-    std::string driver;
-    std::string date;
-    std::string time;
-    Weather weather;
-    std::string notes;
-    double canlibVersion;
-    uint64_t startTimestamp;
-    uint64_t endTimestamp;
+    std::string trackLocation{};
+    std::string trackLayout{};
+    std::string sessionName{};
+    std::string driver{};
+    std::string date{};
+    std::string time{};
+    Weather weather{};
+    std::string notes{};
+    double canlibVersion{};
+    uint64_t startTimestamp{};
+    uint64_t endTimestamp{};
     
     SessionConfig() = default;
     SessionConfig(const PbConfigs::SessionConfig& protobuf);

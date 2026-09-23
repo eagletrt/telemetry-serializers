@@ -15,9 +15,9 @@ namespace Actions
 {
 struct FileTransactionSetup
 {
-    std::string id;
-    std::string hash;
-    std::string topic;
+    std::string id{};
+    std::string hash{};
+    std::string topic{};
     
     FileTransactionSetup() = default;
     FileTransactionSetup(const PbActions::FileTransactionSetup& protobuf);
@@ -31,10 +31,10 @@ struct FileTransactionSetup
 
 struct FileTransactionStatus
 {
-    std::string fileName;
-    std::string hash;
-    std::string destinationPath;
-    uint64_t totalChunks;
+    std::string fileName{};
+    std::string hash{};
+    std::string destinationPath{};
+    uint64_t totalChunks{};
     
     FileTransactionStatus() = default;
     FileTransactionStatus(const PbActions::FileTransactionStatus& protobuf);
@@ -48,10 +48,10 @@ struct FileTransactionStatus
 
 struct FileTransactionChunk
 {
-    std::string data;
-    std::string hash;
-    uint64_t chunkNumber;
-    uint64_t totalChunks;
+    std::string data{};
+    std::string hash{};
+    uint64_t chunkNumber{};
+    uint64_t totalChunks{};
     
     FileTransactionChunk() = default;
     FileTransactionChunk(const PbActions::FileTransactionChunk& protobuf);

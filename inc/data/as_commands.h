@@ -15,9 +15,9 @@ namespace Data
 {
 struct ASCommands
 {
-    double steerAngleDegrees;
-    double pedalThrottle;
-    double pedalBrakes;
+    double steerAngleDegrees{};
+    double pedalThrottle{};
+    double pedalBrakes{};
     
     ASCommands() = default;
     ASCommands(const PbData::ASCommands& protobuf);
@@ -37,9 +37,9 @@ enum class Status
 
 struct ASStatus
 {
-    Status steerStatus;
-    Status throttleStatus;
-    Status brakesStatus;
+    Status steerStatus{};
+    Status throttleStatus{};
+    Status brakesStatus{};
     
     ASStatus() = default;
     ASStatus(const PbData::ASStatus& protobuf);

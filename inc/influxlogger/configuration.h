@@ -15,19 +15,19 @@ namespace InfluxLogger
 {
 struct Configuration
 {
-    std::string mqtt_host;
-    uint32_t mqtt_port;
-    std::string vehicle_id;
-    std::string device_id;
-    std::string influx_host;
-    uint32_t influx_port;
-    bool influx_https;
-    std::string influx_bucket;
-    std::string influx_orgid;
-    std::string influx_token;
+    std::string mqtt_host{};
+    uint32_t mqtt_port{};
+    std::string vehicle_id{};
+    std::string device_id{};
+    std::string influx_host{};
+    uint32_t influx_port{};
+    bool influx_https{};
+    std::string influx_bucket{};
+    std::string influx_orgid{};
+    std::string influx_token{};
     std::vector<std::string> networks;
-    std::string proxy_host;
-    uint32_t proxy_port;
+    std::string proxy_host{};
+    uint32_t proxy_port{};
     
     Configuration() = default;
     Configuration(const PbInfluxLogger::Configuration& protobuf);

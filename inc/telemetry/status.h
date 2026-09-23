@@ -25,10 +25,10 @@ enum class TelemetryState
 
 struct MessagesPerSecond
 {
-    std::string deviceName;
-    uint64_t bitsPerSecond;
-    double busLoad;
-    uint64_t count;
+    std::string deviceName{};
+    uint64_t bitsPerSecond{};
+    double busLoad{};
+    uint64_t count{};
     
     MessagesPerSecond() = default;
     MessagesPerSecond(const PbTelemetry::MessagesPerSecond& protobuf);
@@ -42,14 +42,14 @@ struct MessagesPerSecond
 
 struct Status
 {
-    uint64_t timestamp;
-    uint64_t zeroTimestamp;
-    TelemetryState state;
-    uint64_t cpuTotalLoad;
-    uint64_t cpuProcessLoad;
-    uint64_t memProcessLoad;
-    uint64_t canlibBuildTime;
-    uint64_t telemetryBuildTime;
+    uint64_t timestamp{};
+    uint64_t zeroTimestamp{};
+    TelemetryState state{};
+    uint64_t cpuTotalLoad{};
+    uint64_t cpuProcessLoad{};
+    uint64_t memProcessLoad{};
+    uint64_t canlibBuildTime{};
+    uint64_t telemetryBuildTime{};
     std::vector<MessagesPerSecond> messagesPerSecond;
     
     Status() = default;

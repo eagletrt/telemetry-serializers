@@ -15,9 +15,9 @@ namespace App
 {
 struct Connection
 {
-    std::string ip;
-    std::string port;
-    std::string mode;
+    std::string ip{};
+    std::string port{};
+    std::string mode{};
     
     Connection() = default;
     Connection(const PbApp::Connection& protobuf);
@@ -31,13 +31,13 @@ struct Connection
 
 struct DoubleTrigger
 {
-    std::string id;
-    std::string message;
-    std::string signal;
-    int32_t comparator;
-    double value;
-    uint32_t color;
-    int32_t notiftype;
+    std::string id{};
+    std::string message{};
+    std::string signal{};
+    int32_t comparator{};
+    double value{};
+    uint32_t color{};
+    int32_t notiftype{};
     
     DoubleTrigger() = default;
     DoubleTrigger(const PbApp::DoubleTrigger& protobuf);
@@ -51,13 +51,13 @@ struct DoubleTrigger
 
 struct EnumTrigger
 {
-    std::string id;
-    std::string message;
-    std::string signal;
-    int32_t comparator;
-    uint64_t value;
-    uint32_t color;
-    int32_t notiftype;
+    std::string id{};
+    std::string message{};
+    std::string signal{};
+    int32_t comparator{};
+    uint64_t value{};
+    uint32_t color{};
+    int32_t notiftype{};
     
     EnumTrigger() = default;
     EnumTrigger(const PbApp::EnumTrigger& protobuf);
@@ -71,13 +71,13 @@ struct EnumTrigger
 
 struct BitTrigger
 {
-    std::string id;
-    std::string message;
-    std::string signal;
-    int32_t comparator;
-    uint64_t value;
-    uint32_t color;
-    int32_t notiftype;
+    std::string id{};
+    std::string message{};
+    std::string signal{};
+    int32_t comparator{};
+    uint64_t value{};
+    uint32_t color{};
+    int32_t notiftype{};
     
     BitTrigger() = default;
     BitTrigger(const PbApp::BitTrigger& protobuf);
@@ -91,10 +91,10 @@ struct BitTrigger
 
 struct AxisItem
 {
-    std::string message;
-    std::string signal;
-    bool isEnum;
-    uint32_t color;
+    std::string message{};
+    std::string signal{};
+    bool isEnum{};
+    uint32_t color{};
     
     AxisItem() = default;
     AxisItem(const PbApp::AxisItem& protobuf);
@@ -108,7 +108,7 @@ struct AxisItem
 
 struct Axis
 {
-    std::string name;
+    std::string name{};
     std::vector<AxisItem> items;
     
     Axis() = default;
@@ -123,7 +123,7 @@ struct Axis
 
 struct CustomPlot
 {
-    std::string name;
+    std::string name{};
     std::unordered_map<int32_t, Axis> axes;
     
     CustomPlot() = default;
@@ -138,9 +138,9 @@ struct CustomPlot
 
 struct AppConfig
 {
-    uint64_t loginTimestamp;
-    uint32_t colorTheme;
-    Connection connection;
+    uint64_t loginTimestamp{};
+    uint32_t colorTheme{};
+    Connection connection{};
     std::unordered_map<std::string, Connection> savedConnections;
     std::vector<std::string> activeTabs;
     std::unordered_map<std::string, std::string> filesPaths;

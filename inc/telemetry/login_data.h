@@ -15,8 +15,8 @@ namespace Telemetry
 {
 struct LoginData
 {
-    std::string username;
-    std::string password;
+    std::string username{};
+    std::string password{};
     
     LoginData() = default;
     LoginData(const PbTelemetry::LoginData& protobuf);
