@@ -12,8 +12,8 @@ add_library(
 
     src/sessions/gpsSession.cpp
     src/can/can_error.cpp
+    src/can/can_send.cpp
     src/can/can_frequencies.cpp
-    src/can/can_sand.cpp
     src/actions/file_transaction.cpp
     src/actions/command.cpp
     src/influxlogger/influx_query.cpp

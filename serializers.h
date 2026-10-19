@@ -3,8 +3,8 @@
 
 #include "sessions/gpsSession.h"
 #include "can/can_error.h"
+#include "can/can_send.h"
 #include "can/can_frequencies.h"
-#include "can/can_sand.h"
 #include "actions/file_transaction.h"
 #include "actions/command.h"
 #include "influxlogger/influx_query.h"

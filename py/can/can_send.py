@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Dict, Optional
 
-from can import can_sand_pb2
+from can import can_send_pb2
 from google.protobuf.json_format import MessageToJson, Parse
 
 class CanSendMode(Enum):
@@ -28,10 +28,10 @@ class CanSendMessage:
     frequencyHz: float = 0.0
     enabled: bool = False
     
-    _proto_message: can_sand_pb2.CanSendMessage = field(init=False, repr=False)
+    _proto_message: can_send_pb2.CanSendMessage = field(init=False, repr=False)
 
     def __post_init__(self):
-        self._proto_message = can_sand_pb2.CanSendMessage()
+        self._proto_message = can_send_pb2.CanSendMessage()
 
     def _populate_proto(self):
         self._proto_message.name = self.name
@@ -65,7 +65,7 @@ class CanSendMessage:
 
     @classmethod
     def deserializeFromProtobufString(cls, data: bytes) -> "CanSendMessage":
-        message = can_sand_pb2.CanSendMessage()
+        message = can_send_pb2.CanSendMessage()
         message.ParseFromString(data)
         return cls._from_proto(message)
 
@@ -75,7 +75,7 @@ class CanSendMessage:
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "CanSendMessage":
-        message = can_sand_pb2.CanSendMessage()
+        message = can_send_pb2.CanSendMessage()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
 
@@ -84,10 +84,10 @@ class CanSendRequest:
     action: CanSendAction = None
     message: CanSendMessage = None
     
-    _proto_message: can_sand_pb2.CanSendRequest = field(init=False, repr=False)
+    _proto_message: can_send_pb2.CanSendRequest = field(init=False, repr=False)
 
     def __post_init__(self):
-        self._proto_message = can_sand_pb2.CanSendRequest()
+        self._proto_message = can_send_pb2.CanSendRequest()
 
     def _populate_proto(self):
         self._proto_message.action = self.action.value
@@ -111,7 +111,7 @@ class CanSendRequest:
 
     @classmethod
     def deserializeFromProtobufString(cls, data: bytes) -> "CanSendRequest":
-        message = can_sand_pb2.CanSendRequest()
+        message = can_send_pb2.CanSendRequest()
         message.ParseFromString(data)
         return cls._from_proto(message)
 
@@ -121,7 +121,7 @@ class CanSendRequest:
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "CanSendRequest":
-        message = can_sand_pb2.CanSendRequest()
+        message = can_send_pb2.CanSendRequest()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())
 
@@ -129,10 +129,10 @@ class CanSendRequest:
 class CanSendList:
     messages: List[CanSendMessage] = field(default_factory=list)
     
-    _proto_message: can_sand_pb2.CanSendList = field(init=False, repr=False)
+    _proto_message: can_send_pb2.CanSendList = field(init=False, repr=False)
 
     def __post_init__(self):
-        self._proto_message = can_sand_pb2.CanSendList()
+        self._proto_message = can_send_pb2.CanSendList()
 
     def _populate_proto(self):
         del self._proto_message.messages[:]
@@ -156,7 +156,7 @@ class CanSendList:
 
     @classmethod
     def deserializeFromProtobufString(cls, data: bytes) -> "CanSendList":
-        message = can_sand_pb2.CanSendList()
+        message = can_send_pb2.CanSendList()
         message.ParseFromString(data)
         return cls._from_proto(message)
 
@@ -166,6 +166,6 @@ class CanSendList:
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "CanSendList":
-        message = can_sand_pb2.CanSendList()
+        message = can_send_pb2.CanSendList()
         Parse(data, message)
         return cls.deserializeFromProtobufString(message.SerializeToString())

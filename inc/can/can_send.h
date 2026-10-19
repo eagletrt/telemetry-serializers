@@ -1,7 +1,7 @@
-#ifndef SERIALIZERS_CAN_SAND_H
-#define SERIALIZERS_CAN_SAND_H
+#ifndef SERIALIZERS_CAN_SEND_H
+#define SERIALIZERS_CAN_SEND_H
 
-#include "can_sand.pb.h"
+#include "can_send.pb.h"
 
 #include <cstdint>
 #include <optional>
