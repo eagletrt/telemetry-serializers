@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package Can;
+
+enum CanSendMode
+{
+	can_send_mode_once = 0;
+	can_send_mode_periodic = 1;
+}
+
+enum CanSendAction
+{
+	can_send_action_set = 0;
+	can_send_action_send = 1;
+	can_send_action_remove = 2;
+	can_send_action_clear = 3;
+	can_send_action_get = 4;
+}
+
+message CanSendMessage
+{
+	string name = 1;          
+	string device = 2;        
+	string network = 3;       
+	uint32 id = 4;
+	string fields = 5;       
+	CanSendMode mode = 6;
+	double frequencyHz = 7;   
+	bool enabled = 8;         
+}
+
+message CanSendRequest
+{
+	CanSendAction action = 1;
+	CanSendMessage message = 2;  
+}
+
+message CanSendList
+{
+	repeated CanSendMessage messages = 1;
+}
