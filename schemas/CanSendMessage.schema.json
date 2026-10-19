@@ -1,0 +1,61 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/CanSendMessage",
+    "definitions": {
+        "CanSendMessage": {
+            "required": [
+                "name",
+                "device",
+                "network",
+                "id",
+                "fields",
+                "mode",
+                "frequencyHz",
+                "enabled"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "device": {
+                    "type": "string"
+                },
+                "network": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "fields": {
+                    "type": "string"
+                },
+                "mode": {
+                    "enum": [
+                        "can_send_mode_once",
+                        0,
+                        "can_send_mode_periodic",
+                        1
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Can Send Mode"
+                },
+                "frequencyHz": {
+                    "type": "number"
+                },
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Can Send Message"
+        }
+    }
+}

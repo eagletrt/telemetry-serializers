@@ -1,0 +1,99 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/CanSendRequest",
+    "definitions": {
+        "CanSendRequest": {
+            "required": [
+                "action",
+                "message"
+            ],
+            "properties": {
+                "action": {
+                    "enum": [
+                        "can_send_action_set",
+                        0,
+                        "can_send_action_send",
+                        1,
+                        "can_send_action_remove",
+                        2,
+                        "can_send_action_clear",
+                        3,
+                        "can_send_action_get",
+                        4
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Can Send Action"
+                },
+                "message": {
+                    "$ref": "#/definitions/PbCan.CanSendMessage",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Can Send Request"
+        },
+        "PbCan.CanSendMessage": {
+            "required": [
+                "name",
+                "device",
+                "network",
+                "id",
+                "fields",
+                "mode",
+                "frequencyHz",
+                "enabled"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "device": {
+                    "type": "string"
+                },
+                "network": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "fields": {
+                    "type": "string"
+                },
+                "mode": {
+                    "enum": [
+                        "can_send_mode_once",
+                        0,
+                        "can_send_mode_periodic",
+                        1
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Can Send Mode"
+                },
+                "frequencyHz": {
+                    "type": "number"
+                },
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Can Send Message"
+        }
+    }
+}
