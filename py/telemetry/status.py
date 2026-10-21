@@ -75,6 +75,7 @@ class Status:
     canlibBuildTime: int = 0
     telemetryBuildTime: int = 0
     messagesPerSecond: List[MessagesPerSecond] = field(default_factory=list)
+    flashing: bool = False
     
     _proto_message: status_pb2.Status = field(init=False, repr=False)
 
@@ -95,6 +96,7 @@ class Status:
             val._populate_proto()
             tmp = self._proto_message.messagesPerSecond.add()
             tmp.CopyFrom(val._proto_message)
+        self._proto_message.flashing = self.flashing
 
     @classmethod
     def _from_proto(cls, proto_message) -> "Status":
@@ -108,6 +110,7 @@ class Status:
             canlibBuildTime = proto_message.canlibBuildTime,
             telemetryBuildTime = proto_message.telemetryBuildTime,
             messagesPerSecond=[MessagesPerSecond._from_proto(val) for val in proto_message.messagesPerSecond],
+            flashing = proto_message.flashing,
         )
 
     def __str__(self):

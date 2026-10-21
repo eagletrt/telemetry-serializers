@@ -68,6 +68,7 @@ Status::Status(const PbTelemetry::Status& protobuf) {
     canlibBuildTime = protobuf.canlibbuildtime();
     telemetryBuildTime = protobuf.telemetrybuildtime();
     messagesPerSecond = {protobuf.messagespersecond().begin(), protobuf.messagespersecond().end()};
+    flashing = protobuf.flashing();
 }
 
 Status::operator PbTelemetry::Status() const {
@@ -81,6 +82,7 @@ Status::operator PbTelemetry::Status() const {
     ret.set_canlibbuildtime(canlibBuildTime);
     ret.set_telemetrybuildtime(telemetryBuildTime);
     *(ret.mutable_messagespersecond()) = {messagesPerSecond.begin(), messagesPerSecond.end()};
+    ret.set_flashing(flashing);
     return ret;
 }
 

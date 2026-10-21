@@ -51,6 +51,7 @@ struct Status
     uint64_t canlibBuildTime{};
     uint64_t telemetryBuildTime{};
     std::vector<MessagesPerSecond> messagesPerSecond;
+    bool flashing{};
     
     Status() = default;
     Status(const PbTelemetry::Status& protobuf);

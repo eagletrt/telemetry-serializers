@@ -30,4 +30,5 @@ message Status
     uint64 canlibBuildTime = 7;
     uint64 telemetryBuildTime = 8;
     repeated MessagesPerSecond messagesPerSecond = 10;
+    bool flashing = 11;
 }

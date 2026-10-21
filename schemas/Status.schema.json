@@ -37,7 +37,8 @@
                 "memProcessLoad",
                 "canlibBuildTime",
                 "telemetryBuildTime",
-                "messagesPerSecond"
+                "messagesPerSecond",
+                "flashing"
             ],
             "properties": {
                 "timestamp": {
@@ -92,6 +93,9 @@
                     },
                     "additionalProperties": false,
                     "type": "array"
+                },
+                "flashing": {
+                    "type": "boolean"
                 }
             },
             "additionalProperties": false,
