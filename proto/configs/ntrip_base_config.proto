@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package Configs;
+
+// RTK base (ntrip-caster) configuration, sent over MQTT on action/ntripBaseConfig/set.
+// Convention: numeric fields at 0 and missing sub-messages = the base uses the value from its base.yaml.
+
+message NtripBaseSurveyIn
+{
+    int32 minDurationS = 1;
+    double accuracyLimitM = 2;
+}
+
+message NtripBaseFixedPosition
+{
+    double lat = 1;
+    double lon = 2;
+    double heightM = 3;  // ellipsoidal
+    double accuracyM = 4;
+}
+
+message NtripBaseFixAveraging
+{
+    int32 averageS = 1;         // duration of the average in RTK FIXED
+    double accuracyLimitM = 2;  // maximum hAcc of a valid sample
+    double maxStdM = 3;         // maximum horizontal spread
+}
+
+// Third-party NTRIP mountpoint the base takes corrections from to fix itself (same fields as NtripClient)
+message NtripBaseUpstream
+{
+    string casterHost = 1;
+    int32 casterPort = 2;
+    string mountPoint = 3;
+    string username = 4;
+    string password = 5;
+}
+
+enum NtripBaseMode
+{
+    NTRIP_BASE_MODE_SURVEY_IN = 0;  // the base averages its own position
+    NTRIP_BASE_MODE_NTRIP_FIX = 1;  // fixes itself with the upstream mountpoint corrections, then serves
+    NTRIP_BASE_MODE_FIXED = 2;      // known coordinates
+}
+
+message NtripBaseConfig
+{
+    NtripBaseMode mode = 1;
+    NtripBaseSurveyIn surveyIn = 2;
+    NtripBaseUpstream upstream = 3;
+    NtripBaseFixAveraging ntripFix = 4;
+    NtripBaseFixedPosition fixed = 5;
+}
