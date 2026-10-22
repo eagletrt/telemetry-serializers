@@ -26,7 +26,7 @@ message NtripBaseFixAveraging
     double maxStdM = 3;         // maximum horizontal spread
 }
 
-// Third-party NTRIP mountpoint the base takes corrections from to fix itself (same fields as NtripClient)
+// NTRIP mountpoint the base takes corrections from: to fix itself (NTRIP_FIX) or the external antenna to serve (RELAY). Same fields as NtripClient
 message NtripBaseUpstream
 {
     string casterHost = 1;
@@ -41,6 +41,7 @@ enum NtripBaseMode
     NTRIP_BASE_MODE_SURVEY_IN = 0;  // the base averages its own position
     NTRIP_BASE_MODE_NTRIP_FIX = 1;  // fixes itself with the upstream mountpoint corrections, then serves
     NTRIP_BASE_MODE_FIXED = 2;      // known coordinates
+    NTRIP_BASE_MODE_RELAY = 3;      // not a base: serves as it is the RTCM of the external antenna in `upstream`
 }
 
 message NtripBaseConfig
