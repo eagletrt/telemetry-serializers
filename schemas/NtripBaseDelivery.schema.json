@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/NtripBaseDelivery",
+    "definitions": {
+        "NtripBaseDelivery": {
+            "required": [
+                "ntrip",
+                "mqtt",
+                "uplink"
+            ],
+            "properties": {
+                "ntrip": {
+                    "type": "boolean",
+                    "description": "NTRIP caster on the base itself (LAN, debug)"
+                },
+                "mqtt": {
+                    "type": "boolean",
+                    "description": "RTCM frames on \u003cvehicleId\u003e/\u003cdeviceId\u003e/data/rtcm"
+                },
+                "uplink": {
+                    "type": "boolean",
+                    "description": "push to the multi-base server (address and credentials from base.yaml)"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Ntrip Base Delivery",
+            "description": "where the corrections go; when the block is absent the base keeps what its base.yaml says"
+        }
+    }
+}

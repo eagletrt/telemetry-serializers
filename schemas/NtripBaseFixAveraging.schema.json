@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/NtripBaseFixAveraging",
+    "definitions": {
+        "NtripBaseFixAveraging": {
+            "required": [
+                "averageS",
+                "accuracyLimitM",
+                "maxStdM"
+            ],
+            "properties": {
+                "averageS": {
+                    "type": "integer",
+                    "description": "duration of the average in RTK FIXED"
+                },
+                "accuracyLimitM": {
+                    "type": "number",
+                    "description": "maximum hAcc of a valid sample"
+                },
+                "maxStdM": {
+                    "type": "number",
+                    "description": "maximum horizontal spread"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Ntrip Base Fix Averaging"
+        }
+    }
+}

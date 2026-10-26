@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package PbConfigs;
+
+// RTK base (ntrip-caster) configuration, sent over MQTT on action/ntripBaseConfig/set.
+// Convention: numeric fields at 0 and missing sub-messages = the base uses the value from its base.yaml.
+
+message NtripBaseSurveyIn
+{
+    int32 minDurationS = 1;
+    double accuracyLimitM = 2;
+}
+
+message NtripBaseFixedPosition
+{
+    double lat = 1;
+    double lon = 2;
+    double heightM = 3;  // ellipsoidal
+    double accuracyM = 4;
+}
+
+message NtripBaseFixAveraging
+{
+    int32 averageS = 1;         // duration of the average in RTK FIXED
+    double accuracyLimitM = 2;  // maximum hAcc of a valid sample
+    double maxStdM = 3;         // maximum horizontal spread
+}
+
+// NTRIP mountpoint the base takes corrections from: to fix itself (NTRIP_FIX) or the external antenna to serve (RELAY). Same fields as NtripClient
+message NtripBaseUpstream
+{
+    string casterHost = 1;
+    int32 casterPort = 2;
+    string mountPoint = 3;
+    string username = 4;
+    string password = 5;
+}
+
+// where the corrections go; when the block is absent the base keeps what its base.yaml says
+message NtripBaseDelivery
+{
+    bool ntrip = 1;   // NTRIP caster on the base itself (LAN, debug)
+    bool mqtt = 2;    // RTCM frames on <vehicleId>/<deviceId>/data/rtcm
+    bool uplink = 3;  // push to the multi-base server (address and credentials from base.yaml)
+}
+
+enum NtripBaseMode
+{
+    NTRIP_BASE_MODE_SURVEY_IN = 0;  // the base averages its own position
+    NTRIP_BASE_MODE_NTRIP_FIX = 1;  // fixes itself with the upstream mountpoint corrections, then serves
+    NTRIP_BASE_MODE_FIXED = 2;      // known coordinates
+    NTRIP_BASE_MODE_RELAY = 3;      // not a base: serves as it is the RTCM of the external antenna in `upstream`
+}
+
+message NtripBaseConfig
+{
+    NtripBaseMode mode = 1;
+    NtripBaseSurveyIn surveyIn = 2;
+    NtripBaseUpstream upstream = 3;
+    NtripBaseFixAveraging ntripFix = 4;
+    NtripBaseFixedPosition fixed = 5;
+    NtripBaseDelivery delivery = 6;
+}

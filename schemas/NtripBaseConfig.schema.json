@@ -1,0 +1,185 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/NtripBaseConfig",
+    "definitions": {
+        "NtripBaseConfig": {
+            "required": [
+                "mode",
+                "surveyIn",
+                "upstream",
+                "ntripFix",
+                "fixed",
+                "delivery"
+            ],
+            "properties": {
+                "mode": {
+                    "enum": [
+                        "NTRIP_BASE_MODE_SURVEY_IN",
+                        0,
+                        "NTRIP_BASE_MODE_NTRIP_FIX",
+                        1,
+                        "NTRIP_BASE_MODE_FIXED",
+                        2,
+                        "NTRIP_BASE_MODE_RELAY",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Ntrip Base Mode"
+                },
+                "surveyIn": {
+                    "$ref": "#/definitions/PbConfigs.NtripBaseSurveyIn",
+                    "additionalProperties": false
+                },
+                "upstream": {
+                    "$ref": "#/definitions/PbConfigs.NtripBaseUpstream",
+                    "additionalProperties": false
+                },
+                "ntripFix": {
+                    "$ref": "#/definitions/PbConfigs.NtripBaseFixAveraging",
+                    "additionalProperties": false
+                },
+                "fixed": {
+                    "$ref": "#/definitions/PbConfigs.NtripBaseFixedPosition",
+                    "additionalProperties": false
+                },
+                "delivery": {
+                    "$ref": "#/definitions/PbConfigs.NtripBaseDelivery",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Ntrip Base Config"
+        },
+        "PbConfigs.NtripBaseDelivery": {
+            "required": [
+                "ntrip",
+                "mqtt",
+                "uplink"
+            ],
+            "properties": {
+                "ntrip": {
+                    "type": "boolean",
+                    "description": "NTRIP caster on the base itself (LAN, debug)"
+                },
+                "mqtt": {
+                    "type": "boolean",
+                    "description": "RTCM frames on \u003cvehicleId\u003e/\u003cdeviceId\u003e/data/rtcm"
+                },
+                "uplink": {
+                    "type": "boolean",
+                    "description": "push to the multi-base server (address and credentials from base.yaml)"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Ntrip Base Delivery",
+            "description": "where the corrections go; when the block is absent the base keeps what its base.yaml says"
+        },
+        "PbConfigs.NtripBaseFixAveraging": {
+            "required": [
+                "averageS",
+                "accuracyLimitM",
+                "maxStdM"
+            ],
+            "properties": {
+                "averageS": {
+                    "type": "integer",
+                    "description": "duration of the average in RTK FIXED"
+                },
+                "accuracyLimitM": {
+                    "type": "number",
+                    "description": "maximum hAcc of a valid sample"
+                },
+                "maxStdM": {
+                    "type": "number",
+                    "description": "maximum horizontal spread"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Ntrip Base Fix Averaging"
+        },
+        "PbConfigs.NtripBaseFixedPosition": {
+            "required": [
+                "lat",
+                "lon",
+                "heightM",
+                "accuracyM"
+            ],
+            "properties": {
+                "lat": {
+                    "type": "number"
+                },
+                "lon": {
+                    "type": "number"
+                },
+                "heightM": {
+                    "type": "number",
+                    "description": "ellipsoidal"
+                },
+                "accuracyM": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Ntrip Base Fixed Position"
+        },
+        "PbConfigs.NtripBaseSurveyIn": {
+            "required": [
+                "minDurationS",
+                "accuracyLimitM"
+            ],
+            "properties": {
+                "minDurationS": {
+                    "type": "integer"
+                },
+                "accuracyLimitM": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "RTK base (ntrip-caster) configuration, sent over MQTT on action/ntripBaseConfig/set.\n Convention: numeric fields at 0 and missing sub-messages = the base uses the value from its base.yaml.",
+            "description": "RTK base (ntrip-caster) configuration, sent over MQTT on action/ntripBaseConfig/set. Convention: numeric fields at 0 and missing sub-messages = the base uses the value from its base.yaml."
+        },
+        "PbConfigs.NtripBaseUpstream": {
+            "required": [
+                "casterHost",
+                "casterPort",
+                "mountPoint",
+                "username",
+                "password"
+            ],
+            "properties": {
+                "casterHost": {
+                    "type": "string"
+                },
+                "casterPort": {
+                    "type": "integer"
+                },
+                "mountPoint": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Ntrip Base Upstream",
+            "description": "NTRIP mountpoint the base takes corrections from: to fix itself (NTRIP_FIX) or the external antenna to serve (RELAY). Same fields as NtripClient"
+        }
+    }
+}

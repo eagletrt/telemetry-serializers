@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/NtripBaseSurveyIn",
+    "definitions": {
+        "NtripBaseSurveyIn": {
+            "required": [
+                "minDurationS",
+                "accuracyLimitM"
+            ],
+            "properties": {
+                "minDurationS": {
+                    "type": "integer"
+                },
+                "accuracyLimitM": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "RTK base (ntrip-caster) configuration, sent over MQTT on action/ntripBaseConfig/set.\n Convention: numeric fields at 0 and missing sub-messages = the base uses the value from its base.yaml.",
+            "description": "RTK base (ntrip-caster) configuration, sent over MQTT on action/ntripBaseConfig/set. Convention: numeric fields at 0 and missing sub-messages = the base uses the value from its base.yaml."
+        }
+    }
+}
