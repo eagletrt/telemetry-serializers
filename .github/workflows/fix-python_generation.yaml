@@ -38,6 +38,7 @@ jobs:
           pip install --upgrade pip
           pip install -r serializers/requirements.txt
           pip install protobuf==3.20.0
+          pip install yapf==0.32.0
 
       - name: Set up Go
         uses: actions/setup-go@v7
