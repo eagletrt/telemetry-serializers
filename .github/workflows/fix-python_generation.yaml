@@ -40,7 +40,6 @@ jobs:
           pip install --upgrade pip
           pip install -r serializers/requirements.txt
           pip install protobuf==3.20.0
-          pip install yapf==0.32.0
 
       - name: Set up Go
         uses: actions/setup-go@v7
@@ -68,11 +67,6 @@ jobs:
         run: |
           chmod +x ./scripts/compile_proto.sh && ./scripts/compile_proto.sh
           pytest --verbose
-        
-      - name: Format code
-        working-directory: serializers
-        run: |
-          yapf --in-place --parallel --recursive $(find . -type f -name "*.py")
 
       - name: Move generated files
         working-directory: serializers
