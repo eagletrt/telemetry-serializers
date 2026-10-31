@@ -14,9 +14,7 @@ jobs:
     strategy:
       matrix:
         python-version: [3.12, 3.14]
-    runs-on: 
-      group: ci-runners
-      labels: Linux
+    runs-on: ubuntu-latest
     steps:
       - name: Clone telemetry-serializers
         uses: actions/checkout@v7
@@ -41,7 +39,7 @@ jobs:
           pip install -r serializers/requirements.txt
 
       - name: Set up Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v7
 
       - name: Print go envs
         run:  go env
