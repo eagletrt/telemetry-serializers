@@ -13,7 +13,7 @@ jobs:
   dev_generation:
     strategy:
       matrix:
-        python-version: [3.12, 2.14]
+        python-version: [3.12, 3.14]
     runs-on: ubuntu-latest
     steps:
       - name: Clone telemetry-serializers
