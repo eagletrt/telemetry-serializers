@@ -1,0 +1,103 @@
+name: Fix Python Generation with Serializers
+
+env:
+  BRANCH_BUILD: fix/python-generation-build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: 
+      - fix/python-generation
+
+jobs:
+  dev_generation:
+    strategy:
+      matrix:
+        python-version: [3.12, 2.14]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone telemetry-serializers
+        uses: actions/checkout@v7
+        with:
+          repository: '${{ github.repository }}'
+
+      - name: Clone serializers
+        uses: actions/checkout@v7
+        with:
+          repository: 'eagletrt/serializers'
+          path: serializers
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+
+      - name: Install Python requirements
+        run:  |
+          pip install --upgrade pip
+          pip install -r serializers/requirements.txt
+          pip install protobuf==3.20.0
+
+      - name: Set up Go
+        uses: actions/setup-go@v7
+
+      - name: Print go envs
+        run:  go env
+
+      - name: Install 'protoc'
+        run: |
+          DEBIAN_FRONTEND=noninteractive
+          sudo apt-get update
+          sudo apt-get install -y protobuf-compiler
+
+      - name: Install protoc 'json-schema' extension
+        run: |
+          go install github.com/chrusty/protoc-gen-jsonschema/cmd/protoc-gen-jsonschema@latest
+
+      - name: Run Serializers files generation
+        working-directory: serializers
+        run: |
+          python3 src/generator/main.py ../proto serializers
+
+      - name: Run tests
+        working-directory: serializers
+        run: |
+          chmod +x ./scripts/compile_proto.sh && ./scripts/compile_proto.sh
+          pytest --verbose
+        
+      - name: Format code
+        working-directory: serializers
+        run: |
+          yapf --in-place --parallel --recursive $(find . -type f -name "*.py")
+
+      - name: Move generated files
+        working-directory: serializers
+        run: |
+          mkdir -p /tmp/generated
+          mv serializers/* /tmp/generated
+
+      - name: Run JSON Schema files generation
+        run: |
+          ./serializers/scripts/generate_schemas /tmp/generated/proto /tmp/generated
+
+      - name: Add Python Gitignore
+        run: |
+          echo "*.pyc" >> /tmp/generated/.gitignore
+          echo "__pycache__/" >> /tmp/generated/.gitignore
+
+      - name: Change branch to '${{ env.BRANCH_BUILD }}'
+        uses: actions/checkout@v7
+        with:
+          ref: '${{ env.BRANCH_BUILD }}'
+
+      - name: Publish generated code on '${{ env.BRANCH_BUILD }}' branch
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git rm -r --ignore-unmatch */*
+          rm -rf *
+          cp -r /tmp/generated/* .
+          git add .
+          if [[ $(git status --porcelain) ]]; then git commit -am "chore: automatically generated files" && git push; fi
+          echo "::set-output name=HASH::$(git rev-parse HEAD)"
