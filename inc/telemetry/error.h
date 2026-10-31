@@ -4,6 +4,7 @@
 #include "error.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -14,9 +15,9 @@ namespace Telemetry
 {
 struct Error
 {
-    uint64_t timestamp;
-    std::string function;
-    std::string description;
+    uint64_t timestamp{};
+    std::string function{};
+    std::string description{};
     
     Error() = default;
     Error(const PbTelemetry::Error& protobuf);

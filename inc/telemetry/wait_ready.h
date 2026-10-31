@@ -4,6 +4,7 @@
 #include "wait_ready.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -20,7 +21,7 @@ enum class ReadyStatus
 
 struct ReplayReady
 {
-    ReadyStatus status;
+    ReadyStatus status{};
     
     ReplayReady() = default;
     ReplayReady(const PbTelemetry::ReplayReady& protobuf);
@@ -34,7 +35,7 @@ struct ReplayReady
 
 struct ReplayStart
 {
-    uint64_t startTimestamp;
+    uint64_t startTimestamp{};
     
     ReplayStart() = default;
     ReplayStart(const PbTelemetry::ReplayStart& protobuf);

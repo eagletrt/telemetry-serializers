@@ -4,6 +4,7 @@
 #include "telemetry_config.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -14,8 +15,8 @@ namespace Configs
 {
 struct CanDevice
 {
-    std::string socket;
-    std::string name;
+    std::string socket{};
+    std::string name{};
     std::vector<std::string> networks;
     
     CanDevice() = default;
@@ -30,9 +31,9 @@ struct CanDevice
 
 struct GpsDevice
 {
-    std::string address;
-    std::string mode;
-    bool enabled;
+    std::string address{};
+    std::string mode{};
+    bool enabled{};
     
     GpsDevice() = default;
     GpsDevice(const PbConfigs::GpsDevice& protobuf);
@@ -61,15 +62,15 @@ struct Devices
 
 struct Connection
 {
-    std::string ip;
-    std::string port;
-    std::string mode;
-    std::string whoamiUrl;
-    bool tlsEnabled;
-    std::string cafile;
-    std::string capath;
-    std::string certfile;
-    std::string keyfile;
+    std::string ip{};
+    std::string port{};
+    std::string mode{};
+    std::string whoamiUrl{};
+    bool tlsEnabled{};
+    std::string cafile{};
+    std::string capath{};
+    std::string certfile{};
+    std::string keyfile{};
     
     Connection() = default;
     Connection(const PbConfigs::Connection& protobuf);
@@ -83,12 +84,12 @@ struct Connection
 
 struct ConnectionSettings
 {
-    bool enabled;
-    bool downsampleEnabled;
-    bool downsampleSkipData;
-    int64_t downsampleMps;
-    int64_t sendRate;
-    bool sendSensorData;
+    bool enabled{};
+    bool downsampleEnabled{};
+    bool downsampleSkipData{};
+    int64_t downsampleMps{};
+    int64_t sendRate{};
+    bool sendSensorData{};
     
     ConnectionSettings() = default;
     ConnectionSettings(const PbConfigs::ConnectionSettings& protobuf);
@@ -102,8 +103,8 @@ struct ConnectionSettings
 
 struct ConnectionPair
 {
-    Connection config;
-    ConnectionSettings settings;
+    Connection config{};
+    ConnectionSettings settings{};
     
     ConnectionPair() = default;
     ConnectionPair(const PbConfigs::ConnectionPair& protobuf);
@@ -131,10 +132,10 @@ struct ConnectionRepeated
 
 struct TpmsSensorIds
 {
-    uint32_t fl;
-    uint32_t fr;
-    uint32_t rl;
-    uint32_t rr;
+    uint32_t fl{};
+    uint32_t fr{};
+    uint32_t rl{};
+    uint32_t rr{};
     
     TpmsSensorIds() = default;
     TpmsSensorIds(const PbConfigs::TpmsSensorIds& protobuf);
@@ -148,10 +149,10 @@ struct TpmsSensorIds
 
 struct TpmsSensors
 {
-    bool enabled;
-    std::string rtl433Path;
-    bool recordSignals;
-    TpmsSensorIds sensorIds;
+    bool enabled{};
+    std::string rtl433Path{};
+    bool recordSignals{};
+    TpmsSensorIds sensorIds{};
     
     TpmsSensors() = default;
     TpmsSensors(const PbConfigs::TpmsSensors& protobuf);
@@ -165,17 +166,17 @@ struct TpmsSensors
 
 struct TelemetryConfig
 {
-    std::string vehicleId;
-    std::string deviceId;
-    uint64_t role;
-    std::string connName;
-    std::string devName;
-    bool cameraEnabled;
-    bool generateCsv;
-    bool waitForReady;
+    std::string vehicleId{};
+    std::string deviceId{};
+    uint64_t role{};
+    std::string connName{};
+    std::string devName{};
+    bool cameraEnabled{};
+    bool generateCsv{};
+    bool waitForReady{};
     std::unordered_map<std::string, ConnectionRepeated> connections;
     std::unordered_map<std::string, Devices> devices;
-    TpmsSensors tpmsSensors;
+    TpmsSensors tpmsSensors{};
     
     TelemetryConfig() = default;
     TelemetryConfig(const PbConfigs::TelemetryConfig& protobuf);

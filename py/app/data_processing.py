@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from app import data_processing_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -35,13 +35,11 @@ class Plugin:
     def deserializeFromProtobufString(cls, data: bytes) -> "Plugin":
         message = data_processing_pb2.Plugin()
         message.ParseFromString(data)
-        return cls(
-            path = message.path,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "Plugin":
@@ -83,14 +81,11 @@ class Signal:
     def deserializeFromProtobufString(cls, data: bytes) -> "Signal":
         message = data_processing_pb2.Signal()
         message.ParseFromString(data)
-        return cls(
-            msg = message.msg,
-            fields = [str(val) for val in message.fields],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "Signal":
@@ -138,14 +133,11 @@ class DataProcessing:
     def deserializeFromProtobufString(cls, data: bytes) -> "DataProcessing":
         message = data_processing_pb2.DataProcessing()
         message.ParseFromString(data)
-        return cls(
-            plugins = [Plugin._from_proto(val) for val in message.plugins],
-            resampledSignals = [Signal._from_proto(val) for val in message.resampledSignals],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "DataProcessing":

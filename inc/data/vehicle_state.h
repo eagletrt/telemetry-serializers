@@ -4,6 +4,7 @@
 #include "vehicle_state.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -14,11 +15,11 @@ namespace Data
 {
 struct VehicleState
 {
-    double x;
-    double y;
-    double heading;
-    double u;
-    double v;
+    double x{};
+    double y{};
+    double heading{};
+    double u{};
+    double v{};
     
     VehicleState() = default;
     VehicleState(const PbData::VehicleState& protobuf);

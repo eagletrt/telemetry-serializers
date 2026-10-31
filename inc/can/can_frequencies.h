@@ -4,6 +4,7 @@
 #include "can_frequencies.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -14,11 +15,11 @@ namespace Can
 {
 struct CanFrequency
 {
-    uint64_t timestamp;
-    uint64_t id;
-    std::string name;
-    uint64_t data;
-    uint64_t frequency;
+    uint64_t timestamp{};
+    uint64_t id{};
+    std::string name{};
+    uint64_t data{};
+    uint64_t frequency{};
     
     CanFrequency() = default;
     CanFrequency(const PbCan::CanFrequency& protobuf);
@@ -46,7 +47,7 @@ struct CanFrequencies
 
 struct CanNetworksFrequencies
 {
-    uint64_t timestamp;
+    uint64_t timestamp{};
     std::unordered_map<std::string, CanFrequencies> networks;
     
     CanNetworksFrequencies() = default;

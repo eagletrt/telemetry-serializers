@@ -4,6 +4,7 @@
 #include "forwarder_config.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -14,11 +15,11 @@ namespace Configs
 {
 struct NtripClient
 {
-    std::string casterHost;
-    int32_t casterPort;
-    std::string mountPoint;
-    std::string username;
-    std::string password;
+    std::string casterHost{};
+    int32_t casterPort{};
+    std::string mountPoint{};
+    std::string username{};
+    std::string password{};
     
     NtripClient() = default;
     NtripClient(const PbConfigs::NtripClient& protobuf);
@@ -32,10 +33,10 @@ struct NtripClient
 
 struct GpsDev
 {
-    std::string address;
-    std::string port;
-    std::string mode;
-    bool enabled;
+    std::string address{};
+    std::string port{};
+    std::string mode{};
+    bool enabled{};
     
     GpsDev() = default;
     GpsDev(const PbConfigs::GpsDev& protobuf);
@@ -49,8 +50,8 @@ struct GpsDev
 
 struct ForwarderConfig
 {
-    GpsDev gpsDevice;
-    NtripClient ntripClient;
+    GpsDev gpsDevice{};
+    NtripClient ntripClient{};
     
     ForwarderConfig() = default;
     ForwarderConfig(const PbConfigs::ForwarderConfig& protobuf);

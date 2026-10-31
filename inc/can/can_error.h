@@ -4,6 +4,7 @@
 #include "can_error.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -14,10 +15,10 @@ namespace Can
 {
 struct Invalid_can_id
 {
-    uint64_t timestamp;
-    uint32_t id;
+    uint64_t timestamp{};
+    uint32_t id{};
     std::vector<uint32_t> payload;
-    std::string network;
+    std::string network{};
     
     Invalid_can_id() = default;
     Invalid_can_id(const PbCan::Invalid_can_id& protobuf);

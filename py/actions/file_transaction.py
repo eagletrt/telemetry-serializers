@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from actions import file_transaction_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -41,15 +41,11 @@ class FileTransactionSetup:
     def deserializeFromProtobufString(cls, data: bytes) -> "FileTransactionSetup":
         message = file_transaction_pb2.FileTransactionSetup()
         message.ParseFromString(data)
-        return cls(
-            id = message.id,
-            hash = message.hash,
-            topic = message.topic,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "FileTransactionSetup":
@@ -95,16 +91,11 @@ class FileTransactionStatus:
     def deserializeFromProtobufString(cls, data: bytes) -> "FileTransactionStatus":
         message = file_transaction_pb2.FileTransactionStatus()
         message.ParseFromString(data)
-        return cls(
-            fileName = message.fileName,
-            hash = message.hash,
-            destinationPath = message.destinationPath,
-            totalChunks = message.totalChunks,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "FileTransactionStatus":
@@ -150,16 +141,11 @@ class FileTransactionChunk:
     def deserializeFromProtobufString(cls, data: bytes) -> "FileTransactionChunk":
         message = file_transaction_pb2.FileTransactionChunk()
         message.ParseFromString(data)
-        return cls(
-            data = message.data,
-            hash = message.hash,
-            chunkNumber = message.chunkNumber,
-            totalChunks = message.totalChunks,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "FileTransactionChunk":

@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from sessions import gpsSession_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -50,18 +50,11 @@ class GpsSession:
     def deserializeFromProtobufString(cls, data: bytes) -> "GpsSession":
         message = gpsSession_pb2.GpsSession()
         message.ParseFromString(data)
-        return cls(
-            gpsName = message.gpsName,
-            dateTime = message.dateTime,
-            durationSeconds = message.durationSeconds,
-            startTimestamp = message.startTimestamp,
-            endTimestamp = message.endTimestamp,
-            messages = message.messages,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "GpsSession":

@@ -4,6 +4,7 @@
 #include "extra.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -42,7 +43,7 @@ struct RepeatedValueDouble
 
 struct ValuesMap
 {
-    RepeatedValueUint64 timestamp;
+    RepeatedValueUint64 timestamp{};
     std::unordered_map<std::string, RepeatedValueDouble> valuesMap;
     
     ValuesMap() = default;

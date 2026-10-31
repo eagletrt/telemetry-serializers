@@ -4,6 +4,7 @@
 #include "lapcounter.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -14,8 +15,8 @@ namespace LapCounter
 {
 struct Vector
 {
-    double x;
-    double y;
+    double x{};
+    double y{};
     
     Vector() = default;
     Vector(const PbLapCounter::Vector& protobuf);
@@ -29,8 +30,8 @@ struct Vector
 
 struct Line
 {
-    Vector position;
-    Vector direction;
+    Vector position{};
+    Vector direction{};
     
     Line() = default;
     Line(const PbLapCounter::Line& protobuf);
@@ -44,7 +45,7 @@ struct Line
 
 struct Circuit
 {
-    std::string circuitId;
+    std::string circuitId{};
     std::vector<Line> checksLines;
     std::vector<Line> sectorsLines;
     
@@ -60,9 +61,9 @@ struct Circuit
 
 struct Lap
 {
-    int32_t number;
-    uint64_t startTimestamp;
-    uint64_t endTimestamp;
+    int32_t number{};
+    uint64_t startTimestamp{};
+    uint64_t endTimestamp{};
     std::vector<uint64_t> sectorsTimestamps;
     
     Lap() = default;
@@ -77,9 +78,9 @@ struct Lap
 
 struct Race
 {
-    std::string raceId;
-    std::string circuitId;
-    std::string driverId;
+    std::string raceId{};
+    std::string circuitId{};
+    std::string driverId{};
     std::vector<Lap> laps;
     
     Race() = default;

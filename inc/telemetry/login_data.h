@@ -4,6 +4,7 @@
 #include "login_data.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -14,8 +15,8 @@ namespace Telemetry
 {
 struct LoginData
 {
-    std::string username;
-    std::string password;
+    std::string username{};
+    std::string password{};
     
     LoginData() = default;
     LoginData(const PbTelemetry::LoginData& protobuf);

@@ -4,6 +4,7 @@
 #include "settings.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -14,12 +15,12 @@ namespace Handcart
 {
 struct Settings
 {
-    uint32_t status;
-    double targetVoltage;
-    bool fansOverride;
-    double fansSpeed;
-    double accChargeCurrent;
-    double gridMaxCurrent;
+    uint32_t status{};
+    double targetVoltage{};
+    bool fansOverride{};
+    double fansSpeed{};
+    double accChargeCurrent{};
+    double gridMaxCurrent{};
     
     Settings() = default;
     Settings(const PbHandcart::Settings& protobuf);

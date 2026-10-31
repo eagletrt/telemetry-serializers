@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from telemetry import gps_maps_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -64,20 +64,11 @@ class Baseline:
     def deserializeFromProtobufString(cls, data: bytes) -> "Baseline":
         message = gps_maps_pb2.Baseline()
         message.ParseFromString(data)
-        return cls(
-            valid = message.valid,
-            logging = message.logging,
-            length = message.length,
-            x = [float(val) for val in message.x],
-            y = [float(val) for val in message.y],
-            resampled = message.resampled,
-            s = [float(val) for val in message.s],
-            theta = [float(val) for val in message.theta],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "Baseline":
@@ -120,15 +111,11 @@ class GPSMapOrigin:
     def deserializeFromProtobufString(cls, data: bytes) -> "GPSMapOrigin":
         message = gps_maps_pb2.GPSMapOrigin()
         message.ParseFromString(data)
-        return cls(
-            latitude = message.latitude,
-            longitude = message.longitude,
-            altitude = message.altitude,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "GPSMapOrigin":
@@ -182,16 +169,11 @@ class GPSMapOrigins:
     def deserializeFromProtobufString(cls, data: bytes) -> "GPSMapOrigins":
         message = gps_maps_pb2.GPSMapOrigins()
         message.ParseFromString(data)
-        return cls(
-            trackLocation = message.trackLocation,
-            trackLayout = message.trackLayout,
-            origins = {key: GPSMapOrigin._from_proto(val) for key, val in message.origins.items()},
-            tracksBaseline = {key: Baseline._from_proto(val) for key, val in message.tracksBaseline.items()},
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "GPSMapOrigins":
@@ -246,21 +228,11 @@ class SetBaseline:
     def deserializeFromProtobufString(cls, data: bytes) -> "SetBaseline":
         message = gps_maps_pb2.SetBaseline()
         message.ParseFromString(data)
-        return cls(
-            trackLocation = message.trackLocation,
-            trackLayout = message.trackLayout,
-            origin = (
-                GPSMapOrigin._from_proto(message.origin)
-                if message.HasField("origin")
-                else None
-            ),
-            x = [float(val) for val in message.x],
-            y = [float(val) for val in message.y],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "SetBaseline":

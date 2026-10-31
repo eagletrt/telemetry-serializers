@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from configs import telemetry_config_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -43,15 +43,11 @@ class CanDevice:
     def deserializeFromProtobufString(cls, data: bytes) -> "CanDevice":
         message = telemetry_config_pb2.CanDevice()
         message.ParseFromString(data)
-        return cls(
-            socket = message.socket,
-            name = message.name,
-            networks = [str(val) for val in message.networks],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "CanDevice":
@@ -94,15 +90,11 @@ class GpsDevice:
     def deserializeFromProtobufString(cls, data: bytes) -> "GpsDevice":
         message = telemetry_config_pb2.GpsDevice()
         message.ParseFromString(data)
-        return cls(
-            address = message.address,
-            mode = message.mode,
-            enabled = message.enabled,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "GpsDevice":
@@ -150,14 +142,11 @@ class Devices:
     def deserializeFromProtobufString(cls, data: bytes) -> "Devices":
         message = telemetry_config_pb2.Devices()
         message.ParseFromString(data)
-        return cls(
-            can = [CanDevice._from_proto(val) for val in message.can],
-            gps = [GpsDevice._from_proto(val) for val in message.gps],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "Devices":
@@ -218,21 +207,11 @@ class Connection:
     def deserializeFromProtobufString(cls, data: bytes) -> "Connection":
         message = telemetry_config_pb2.Connection()
         message.ParseFromString(data)
-        return cls(
-            ip = message.ip,
-            port = message.port,
-            mode = message.mode,
-            whoamiUrl = message.whoamiUrl,
-            tlsEnabled = message.tlsEnabled,
-            cafile = message.cafile,
-            capath = message.capath,
-            certfile = message.certfile,
-            keyfile = message.keyfile,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "Connection":
@@ -284,18 +263,11 @@ class ConnectionSettings:
     def deserializeFromProtobufString(cls, data: bytes) -> "ConnectionSettings":
         message = telemetry_config_pb2.ConnectionSettings()
         message.ParseFromString(data)
-        return cls(
-            enabled = message.enabled,
-            downsampleEnabled = message.downsampleEnabled,
-            downsampleSkipData = message.downsampleSkipData,
-            downsampleMps = message.downsampleMps,
-            sendRate = message.sendRate,
-            sendSensorData = message.sendSensorData,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "ConnectionSettings":
@@ -339,22 +311,11 @@ class ConnectionPair:
     def deserializeFromProtobufString(cls, data: bytes) -> "ConnectionPair":
         message = telemetry_config_pb2.ConnectionPair()
         message.ParseFromString(data)
-        return cls(
-            config = (
-                Connection._from_proto(message.config)
-                if message.HasField("config")
-                else None
-            ),
-            settings = (
-                ConnectionSettings._from_proto(message.settings)
-                if message.HasField("settings")
-                else None
-            ),
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "ConnectionPair":
@@ -395,13 +356,11 @@ class ConnectionRepeated:
     def deserializeFromProtobufString(cls, data: bytes) -> "ConnectionRepeated":
         message = telemetry_config_pb2.ConnectionRepeated()
         message.ParseFromString(data)
-        return cls(
-            pairs = [ConnectionPair._from_proto(val) for val in message.pairs],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "ConnectionRepeated":
@@ -447,16 +406,11 @@ class TpmsSensorIds:
     def deserializeFromProtobufString(cls, data: bytes) -> "TpmsSensorIds":
         message = telemetry_config_pb2.TpmsSensorIds()
         message.ParseFromString(data)
-        return cls(
-            fl = message.fl,
-            fr = message.fr,
-            rl = message.rl,
-            rr = message.rr,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "TpmsSensorIds":
@@ -504,20 +458,11 @@ class TpmsSensors:
     def deserializeFromProtobufString(cls, data: bytes) -> "TpmsSensors":
         message = telemetry_config_pb2.TpmsSensors()
         message.ParseFromString(data)
-        return cls(
-            enabled = message.enabled,
-            rtl433Path = message.rtl433Path,
-            recordSignals = message.recordSignals,
-            sensorIds = (
-                TpmsSensorIds._from_proto(message.sensorIds)
-                if message.HasField("sensorIds")
-                else None
-            ),
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "TpmsSensors":
@@ -594,27 +539,11 @@ class TelemetryConfig:
     def deserializeFromProtobufString(cls, data: bytes) -> "TelemetryConfig":
         message = telemetry_config_pb2.TelemetryConfig()
         message.ParseFromString(data)
-        return cls(
-            vehicleId = message.vehicleId,
-            deviceId = message.deviceId,
-            role = message.role,
-            connName = message.connName,
-            devName = message.devName,
-            cameraEnabled = message.cameraEnabled,
-            generateCsv = message.generateCsv,
-            waitForReady = message.waitForReady,
-            connections = {key: ConnectionRepeated._from_proto(val) for key, val in message.connections.items()},
-            devices = {key: Devices._from_proto(val) for key, val in message.devices.items()},
-            tpmsSensors = (
-                TpmsSensors._from_proto(message.tpmsSensors)
-                if message.HasField("tpmsSensors")
-                else None
-            ),
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "TelemetryConfig":

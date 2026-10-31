@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from telemetry import status_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -52,16 +52,11 @@ class MessagesPerSecond:
     def deserializeFromProtobufString(cls, data: bytes) -> "MessagesPerSecond":
         message = status_pb2.MessagesPerSecond()
         message.ParseFromString(data)
-        return cls(
-            deviceName = message.deviceName,
-            bitsPerSecond = message.bitsPerSecond,
-            busLoad = message.busLoad,
-            count = message.count,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "MessagesPerSecond":
@@ -126,21 +121,11 @@ class Status:
     def deserializeFromProtobufString(cls, data: bytes) -> "Status":
         message = status_pb2.Status()
         message.ParseFromString(data)
-        return cls(
-            timestamp = message.timestamp,
-            zeroTimestamp = message.zeroTimestamp,
-            state = TelemetryState(message.state),
-            cpuTotalLoad = message.cpuTotalLoad,
-            cpuProcessLoad = message.cpuProcessLoad,
-            memProcessLoad = message.memProcessLoad,
-            canlibBuildTime = message.canlibBuildTime,
-            telemetryBuildTime = message.telemetryBuildTime,
-            messagesPerSecond = [MessagesPerSecond._from_proto(val) for val in message.messagesPerSecond],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "Status":

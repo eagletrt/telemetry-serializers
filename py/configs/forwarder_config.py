@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from configs import forwarder_config_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -47,17 +47,11 @@ class NtripClient:
     def deserializeFromProtobufString(cls, data: bytes) -> "NtripClient":
         message = forwarder_config_pb2.NtripClient()
         message.ParseFromString(data)
-        return cls(
-            casterHost = message.casterHost,
-            casterPort = message.casterPort,
-            mountPoint = message.mountPoint,
-            username = message.username,
-            password = message.password,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "NtripClient":
@@ -103,16 +97,11 @@ class GpsDev:
     def deserializeFromProtobufString(cls, data: bytes) -> "GpsDev":
         message = forwarder_config_pb2.GpsDev()
         message.ParseFromString(data)
-        return cls(
-            address = message.address,
-            port = message.port,
-            mode = message.mode,
-            enabled = message.enabled,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "GpsDev":
@@ -156,22 +145,11 @@ class ForwarderConfig:
     def deserializeFromProtobufString(cls, data: bytes) -> "ForwarderConfig":
         message = forwarder_config_pb2.ForwarderConfig()
         message.ParseFromString(data)
-        return cls(
-            gpsDevice = (
-                GpsDev._from_proto(message.gpsDevice)
-                if message.HasField("gpsDevice")
-                else None
-            ),
-            ntripClient = (
-                NtripClient._from_proto(message.ntripClient)
-                if message.HasField("ntripClient")
-                else None
-            ),
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "ForwarderConfig":

@@ -4,6 +4,7 @@
 #include "gps_maps.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -14,12 +15,12 @@ namespace Telemetry
 {
 struct Baseline
 {
-    bool valid;
-    bool logging;
-    double length;
+    bool valid{};
+    bool logging{};
+    double length{};
     std::vector<double> x;
     std::vector<double> y;
-    bool resampled;
+    bool resampled{};
     std::vector<double> s;
     std::vector<double> theta;
     
@@ -35,9 +36,9 @@ struct Baseline
 
 struct GPSMapOrigin
 {
-    double latitude;
-    double longitude;
-    double altitude;
+    double latitude{};
+    double longitude{};
+    double altitude{};
     
     GPSMapOrigin() = default;
     GPSMapOrigin(const PbTelemetry::GPSMapOrigin& protobuf);
@@ -51,8 +52,8 @@ struct GPSMapOrigin
 
 struct GPSMapOrigins
 {
-    std::string trackLocation;
-    std::string trackLayout;
+    std::string trackLocation{};
+    std::string trackLayout{};
     std::unordered_map<std::string, GPSMapOrigin> origins;
     std::unordered_map<std::string, Baseline> tracksBaseline;
     
@@ -68,9 +69,9 @@ struct GPSMapOrigins
 
 struct SetBaseline
 {
-    std::string trackLocation;
-    std::string trackLayout;
-    GPSMapOrigin origin;
+    std::string trackLocation{};
+    std::string trackLayout{};
+    GPSMapOrigin origin{};
     std::vector<double> x;
     std::vector<double> y;
     

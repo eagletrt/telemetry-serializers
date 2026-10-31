@@ -4,6 +4,7 @@
 #include "lapcounter_layout.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -14,8 +15,8 @@ namespace MongoDb
 {
 struct Vec2
 {
-    int32_t x;
-    int32_t y;
+    int32_t x{};
+    int32_t y{};
     
     Vec2() = default;
     Vec2(const PbMongoDb::Vec2& protobuf);
@@ -29,8 +30,8 @@ struct Vec2
 
 struct PositionAndDirection
 {
-    Vec2 position;
-    Vec2 direction;
+    Vec2 position{};
+    Vec2 direction{};
     
     PositionAndDirection() = default;
     PositionAndDirection(const PbMongoDb::PositionAndDirection& protobuf);
@@ -44,14 +45,14 @@ struct PositionAndDirection
 
 struct Layout
 {
-    int32_t version;
-    int32_t baseline_version;
-    std::string vehicle_id;
-    std::string device_id;
-    std::string location;
-    std::string layout;
-    PositionAndDirection start_line;
-    PositionAndDirection finish_line;
+    int32_t version{};
+    int32_t baseline_version{};
+    std::string vehicle_id{};
+    std::string device_id{};
+    std::string location{};
+    std::string layout{};
+    PositionAndDirection start_line{};
+    PositionAndDirection finish_line{};
     std::vector<PositionAndDirection> sectors;
     
     Layout() = default;

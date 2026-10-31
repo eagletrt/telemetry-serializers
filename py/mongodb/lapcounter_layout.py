@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from mongodb import lapcounter_layout_pb2
 from google.protobuf.json_format import MessageToJson, Parse
@@ -38,14 +38,11 @@ class Vec2:
     def deserializeFromProtobufString(cls, data: bytes) -> "Vec2":
         message = lapcounter_layout_pb2.Vec2()
         message.ParseFromString(data)
-        return cls(
-            x = message.x,
-            y = message.y,
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "Vec2":
@@ -89,22 +86,11 @@ class PositionAndDirection:
     def deserializeFromProtobufString(cls, data: bytes) -> "PositionAndDirection":
         message = lapcounter_layout_pb2.PositionAndDirection()
         message.ParseFromString(data)
-        return cls(
-            position = (
-                Vec2._from_proto(message.position)
-                if message.HasField("position")
-                else None
-            ),
-            direction = (
-                Vec2._from_proto(message.direction)
-                if message.HasField("direction")
-                else None
-            ),
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "PositionAndDirection":
@@ -173,29 +159,11 @@ class Layout:
     def deserializeFromProtobufString(cls, data: bytes) -> "Layout":
         message = lapcounter_layout_pb2.Layout()
         message.ParseFromString(data)
-        return cls(
-            version = message.version,
-            baseline_version = message.baseline_version,
-            vehicle_id = message.vehicle_id,
-            device_id = message.device_id,
-            location = message.location,
-            layout = message.layout,
-            start_line = (
-                PositionAndDirection._from_proto(message.start_line)
-                if message.HasField("start_line")
-                else None
-            ),
-            finish_line = (
-                PositionAndDirection._from_proto(message.finish_line)
-                if message.HasField("finish_line")
-                else None
-            ),
-            sectors = [PositionAndDirection._from_proto(val) for val in message.sectors],
-        )
+        return cls._from_proto(message)
 
     def serializeAsJsonString(self) -> str:
         self._populate_proto()
-        return MessageToJson(self._proto_message)
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
 
     @classmethod
     def deserializeFromJsonString(cls, data: str) -> "Layout":

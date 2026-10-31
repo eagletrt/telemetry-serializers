@@ -4,6 +4,7 @@
 #include "lapcounter_lap_times.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -14,9 +15,9 @@ namespace MongoDb
 {
 struct LapTime
 {
-    uint64_t number;
-    uint64_t start_timestamp;
-    uint64_t end_timestamp;
+    uint64_t number{};
+    uint64_t start_timestamp{};
+    uint64_t end_timestamp{};
     std::vector<uint64_t> sectors;
     
     LapTime() = default;
@@ -31,13 +32,13 @@ struct LapTime
 
 struct LapTimes
 {
-    int32_t version;
-    int32_t baseline_version;
-    std::string vehicle_id;
-    std::string device_id;
-    std::string location;
-    std::string layout;
-    std::string driver;
+    int32_t version{};
+    int32_t baseline_version{};
+    std::string vehicle_id{};
+    std::string device_id{};
+    std::string location{};
+    std::string layout{};
+    std::string driver{};
     std::vector<LapTime> times;
     
     LapTimes() = default;

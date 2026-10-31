@@ -4,6 +4,7 @@
 #include "telemetry_lap_data.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -42,12 +43,12 @@ struct DataFile
 
 struct TelemetryLapData
 {
-    std::string dateTime;
-    std::string trackLocation;
-    std::string trackLayout;
-    std::string driver;
-    uint32_t lapNumber;
-    std::string filenameHash;
+    std::string dateTime{};
+    std::string trackLocation{};
+    std::string trackLayout{};
+    std::string driver{};
+    uint32_t lapNumber{};
+    std::string filenameHash{};
     
     TelemetryLapData() = default;
     TelemetryLapData(const PbData::TelemetryLapData& protobuf);

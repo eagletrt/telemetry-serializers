@@ -4,6 +4,7 @@
 #include "new_lap.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -14,7 +15,7 @@ namespace LapCounter
 {
 struct NewLap
 {
-    uint64_t timestamp;
+    uint64_t timestamp{};
     
     NewLap() = default;
     NewLap(const PbLapCounter::NewLap& protobuf);

@@ -4,6 +4,7 @@
 #include "car_config.pb.h"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -14,9 +15,9 @@ namespace Configs
 {
 struct Aero
 {
-    double angleOfIncidenceFront;
-    double angleOfIncidenceRear;
-    std::string flap;
+    double angleOfIncidenceFront{};
+    double angleOfIncidenceRear{};
+    std::string flap{};
     
     Aero() = default;
     Aero(const PbConfigs::Aero& protobuf);
@@ -30,9 +31,9 @@ struct Aero
 
 struct Wheel
 {
-    double camber;
-    double toe;
-    std::string pressure;
+    double camber{};
+    double toe{};
+    std::string pressure{};
     
     Wheel() = default;
     Wheel(const PbConfigs::Wheel& protobuf);
@@ -46,10 +47,10 @@ struct Wheel
 
 struct Damper
 {
-    double bound_low_comp;
-    double bound_high_comp;
-    double rebound;
-    double preload;
+    double bound_low_comp{};
+    double bound_high_comp{};
+    double rebound{};
+    double preload{};
     
     Damper() = default;
     Damper(const PbConfigs::Damper& protobuf);
@@ -63,9 +64,9 @@ struct Damper
 
 struct ImuCorrections
 {
-    double x;
-    double y;
-    double z;
+    double x{};
+    double y{};
+    double z{};
     
     ImuCorrections() = default;
     ImuCorrections(const PbConfigs::ImuCorrections& protobuf);
@@ -79,9 +80,9 @@ struct ImuCorrections
 
 struct Tyre
 {
-    std::string startDate;
-    std::string id;
-    double kilometers;
+    std::string startDate{};
+    std::string id{};
+    double kilometers{};
     
     Tyre() = default;
     Tyre(const PbConfigs::Tyre& protobuf);
@@ -95,10 +96,10 @@ struct Tyre
 
 struct Odometer
 {
-    Tyre fl;
-    Tyre fr;
-    Tyre rl;
-    Tyre rr;
+    Tyre fl{};
+    Tyre fr{};
+    Tyre rl{};
+    Tyre rr{};
     
     Odometer() = default;
     Odometer(const PbConfigs::Odometer& protobuf);
@@ -112,17 +113,17 @@ struct Odometer
 
 struct CarConfig
 {
-    Aero aero;
-    Wheel wheelFront;
-    Wheel wheelRear;
-    Damper damperFront;
-    Damper damperRear;
-    std::string wheelCompound;
-    double rideHeight;
-    std::string balancing;
-    std::string notes;
-    ImuCorrections imuCorrections;
-    Odometer odometer;
+    Aero aero{};
+    Wheel wheelFront{};
+    Wheel wheelRear{};
+    Damper damperFront{};
+    Damper damperRear{};
+    std::string wheelCompound{};
+    double rideHeight{};
+    std::string balancing{};
+    std::string notes{};
+    ImuCorrections imuCorrections{};
+    Odometer odometer{};
     
     CarConfig() = default;
     CarConfig(const PbConfigs::CarConfig& protobuf);
