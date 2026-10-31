@@ -42,7 +42,7 @@ jobs:
           pip install protobuf==3.20.0
 
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v4
 
       - name: Print go envs
         run:  go env
