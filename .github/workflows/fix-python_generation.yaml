@@ -37,12 +37,11 @@ jobs:
 
       - name: Install Python requirements
         run:  |
-          pip install --upgrade pip
-          pip install -r serializers/requirements.txt
           pip install protobuf==3.20.0
+          pip install -r serializers/requirements.txt
 
       - name: Set up Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v4
 
       - name: Print go envs
         run:  go env
