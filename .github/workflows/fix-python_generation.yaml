@@ -13,7 +13,7 @@ jobs:
   dev_generation:
     strategy:
       matrix:
-        python-version: [3.12]
+        python-version: [3.12, 3.14]
     runs-on: 
       group: ci-runners
       labels: Linux
@@ -42,7 +42,7 @@ jobs:
           pip install protobuf==3.20.0
 
       - name: Set up Go
-        uses: actions/setup-go@v7
+        uses: actions/setup-go@v6
 
       - name: Print go envs
         run:  go env
