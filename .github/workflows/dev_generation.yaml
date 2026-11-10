@@ -14,10 +14,16 @@ jobs:
         with:
           repository: '${{ github.repository }}'
 
+      # Same generator version as the new flow: the tag named in SERIALIZERS_VERSION.
+      - name: Generator version
+        id: generator
+        run: echo "ref=v$(tr -d '[:space:]' < SERIALIZERS_VERSION)" >> "$GITHUB_OUTPUT"
+
       - name: Clone serializers
         uses: actions/checkout@v4
         with:
           repository: 'eagletrt/serializers'
+          ref: ${{ steps.generator.outputs.ref }}
           path: serializers
 
       - name: Set up Python 3.12
@@ -28,7 +34,6 @@ jobs:
 
       - name: Install Python requirements
         run:  |
-          pip install protobuf==3.20.0
           pip install -r serializers/requirements.txt
 
       - name: Set up Go

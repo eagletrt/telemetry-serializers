@@ -48,7 +48,7 @@ FROM ghcr.io/eagletrt/serializers:${SERIALIZERS_VERSION} AS codegen
 COPY lib/external/serializers/proto /in
 RUN generate --out /out
 
-FROM python:3.12-slim
+FROM python:3.14-slim
 COPY --from=codegen /out /app/generated
 ```
 
@@ -128,4 +128,7 @@ Nothing is published. The same checks run locally with `make lint` and
 
 `generation.yaml` and `dev_generation.yaml` still publish the generated code on
 the `build` and `dev-build` branches, for the projects that have not migrated
-yet. Once nobody uses them, delete the two workflows and the branches.
+yet. They check out `eagletrt/serializers` at the tag named in
+`SERIALIZERS_VERSION` (`v1.0.0` for `1.0.0`), so that tag must exist before a
+change to `SERIALIZERS_VERSION` is merged. Once nobody uses them, delete the
+two workflows and the branches.
