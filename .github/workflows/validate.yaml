@@ -12,13 +12,14 @@ on:
 
 permissions:
   contents: read
-  packages: read # pull the generator image from ghcr.io
-  pull-requests: write # buf posts the results as a PR comment
 
 jobs:
   buf:
     name: Lint and breaking changes
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write # buf posts the results as a PR comment
     steps:
       - uses: actions/checkout@v4
 
@@ -35,6 +36,9 @@ jobs:
   generator:
     name: Generate, compile and test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read # pull the generator image from ghcr.io
     steps:
       - uses: actions/checkout@v4
 
