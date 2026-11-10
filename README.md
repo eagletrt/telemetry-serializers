@@ -30,14 +30,19 @@ the submodule). Add `generate/` to your `.gitignore`. Other targets:
 | `make -C lib/external/serializers generate` | generates the code into `<project root>/generate` |
 | `make -C lib/external/serializers check` | generates, compiles the protos and runs the generated tests |
 | `make -C lib/external/serializers lint` | runs `buf lint` |
-| `make -C lib/external/serializers clean` | removes the generated folder |
+| `make -C lib/external/serializers clean` | removes the generated files (files you added stay) |
 
-`OUT=some/dir` changes the output folder. The generator version is the one in
-`SERIALIZERS_VERSION`.
+`OUT=some/dir` changes the output folder: a relative path is relative to the
+root of your project, not to the submodule. `generate` refuses a non-empty
+folder that it did not create, so pointing `OUT` at the wrong place cannot
+overwrite your files; `FORCE=1` writes into it anyway. Only the files listed in
+`.serializers-manifest` (the ones a previous run wrote) are ever deleted. The
+generator version is the one in `SERIALIZERS_VERSION`.
 
 ### Generate in the service's Docker build
 
 ```dockerfile
+# Required: without --build-arg the build fails with "invalid reference format".
 ARG SERIALIZERS_VERSION
 FROM ghcr.io/eagletrt/serializers:${SERIALIZERS_VERSION} AS codegen
 COPY lib/external/serializers/proto /in
@@ -52,6 +57,9 @@ Pass the version from the submodule, so it is defined in one place only:
 ```sh
 docker build --build-arg SERIALIZERS_VERSION=$(cat lib/external/serializers/SERIALIZERS_VERSION) .
 ```
+
+The submodule must be checked out in the build context: in CI, use
+`actions/checkout` with `submodules: true` (or `recursive`).
 
 The wrappers stay in each project; only the generated code is outside the
 submodule.
@@ -88,6 +96,12 @@ as LF; do not override it.
 - This repository is versioned with semver tags (`v1.2.0`). Projects pin the
   submodule to a tag. A change that removes or renumbers a field is a major
   version.
+- These tags version the **protos**; `SERIALIZERS_VERSION` versions the
+  **generator image** (the tags of `eagletrt/serializers`). The two numbers
+  are independent, even if both start at `1.0.0`.
+- Releasing: after merging into `main`, tag the merge commit and push the tag
+  (`git tag v1.3.0 && git push origin v1.3.0`). A pull request merged with the
+  `buf skip breaking` label requires a new major version.
 - `SERIALIZERS_VERSION` holds the version of the generator image that goes with
   these protos. It is the only place where it is written: the Makefile and the
   CI read it from there. To upgrade the generator, change that file in a pull
@@ -100,7 +114,10 @@ as LF; do not override it.
 
 - `buf lint`, with the rules in `buf.yaml`;
 - `buf breaking` against the base branch (pull requests). For an intentional
-  breaking change add the `buf skip breaking` label to the pull request;
+  breaking change add the `buf skip breaking` label to the pull request.
+  The first pull requests that bring `buf.yaml` into a branch (into `dev`,
+  then into `main`) need the label too: the base branch has no `buf.yaml`, so
+  every file looks moved from `proto/x.proto` to `x.proto`;
 - the generator image in `check` mode: it generates the code, compiles the
   protos and runs the generated tests.
 
