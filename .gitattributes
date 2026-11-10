@@ -1,0 +1,6 @@
+# Keep LF line endings on every system: make and the generator image read these
+# files, and CRLF breaks them (Windows checkouts convert files by default).
+Makefile              text eol=lf
+SERIALIZERS_VERSION   text eol=lf
+*.proto               text eol=lf
+*.yaml                text eol=lf
