@@ -4,14 +4,16 @@
 #   make generate   generate the code into <project root>/generate
 #   make check      generate, compile and run the generated tests
 #   make lint       buf lint on the .proto files
-#   make clean      remove the generated folder
+#   make clean      remove the generated files
 #
 # From a project that has this repository as a submodule:
 #
 #   make -C lib/external/serializers generate
 #
 # The code is written in the root of that project (the one that contains the
-# submodule), in `generate/`. Override with OUT=/some/dir or IMAGE=...
+# submodule), in `generate/`. Override with OUT=dir (relative to that project
+# root, or absolute) or IMAGE=... `generate` refuses a non-empty folder that it
+# did not create; FORCE=1 writes into it anyway.
 
 SELF := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 VERSION := $(shell tr -d '[:space:]' < "$(SELF)SERIALIZERS_VERSION")
@@ -23,6 +25,10 @@ BUF_IMAGE ?= bufbuild/buf:1.75.0
 SUPERPROJECT := $(shell git -C "$(SELF)" rev-parse --show-superproject-working-tree 2>/dev/null)
 PROJECT_ROOT ?= $(if $(SUPERPROJECT),$(SUPERPROJECT),$(patsubst %/,%,$(SELF)))
 OUT ?= $(PROJECT_ROOT)/generate
+# `make -C` runs in the submodule and Docker needs an absolute path (a relative
+# one is taken as the name of a Docker volume): resolve OUT against the project
+# root. Absolute paths (/x, and C:/x in Git Bash) are kept as they are.
+override OUT := $(patsubst %/,%,$(if $(filter /% %:/%,$(OUT)),$(OUT),$(PROJECT_ROOT)/$(OUT)))
 
 # Git Bash on Windows rewrites container paths such as /in into C:/Program
 # Files/Git/in: turn that off (it has no effect on Linux and macOS).
@@ -40,6 +46,7 @@ endif
 
 # Run as the current user so the generated files are not owned by root.
 DOCKER_RUN := docker run --rm --user $(shell id -u):$(shell id -g)
+GENERATE_FLAGS := $(if $(FORCE),--force)
 
 .PHONY: help pull generate check lint clean
 
@@ -51,23 +58,26 @@ help:
 	@echo "make generate   generate the code into the output folder"
 	@echo "make check      generate, compile and run the generated tests"
 	@echo "make lint       buf lint on the .proto files"
-	@echo "make clean      remove the output folder"
+	@echo "make clean      remove the generated files"
 
 pull:
 	docker pull $(IMAGE)
 
 generate:
 	mkdir -p "$(OUT)"
-	$(DOCKER_RUN) -v "$(SELF)proto:/in:$(RO_MOUNT)" -v "$(OUT):/out:$(RW_MOUNT)" $(IMAGE) generate
+	$(DOCKER_RUN) -v "$(SELF)proto:/in:$(RO_MOUNT)" -v "$(OUT):/out:$(RW_MOUNT)" $(IMAGE) generate $(GENERATE_FLAGS)
 
 check:
 	$(DOCKER_RUN) -v "$(SELF)proto:/in:$(RO_MOUNT)" $(IMAGE) check
 
 lint:
-	docker run --rm -v "$(SELF):/workspace:$(RW_MOUNT)" -w /workspace $(BUF_IMAGE) lint
+	docker run --rm -v "$(SELF):/workspace:$(RO_MOUNT)" -w /workspace $(BUF_IMAGE) lint
 
-# Only a folder created by `make generate` (it holds a .serializers-version
-# file) is removed, so a wrong OUT can never delete anything else.
+# Only the files that `make generate` wrote (listed in .serializers-manifest)
+# are removed, by the generator image itself; files added to the folder stay.
+# The folder is removed too if nothing else is left in it.
 clean:
-	@if [ -e "$(OUT)/.serializers-version" ]; then rm -rf "$(OUT)" && echo "removed $(OUT)"; \
+	@if [ -e "$(OUT)/.serializers-version" ]; then \
+		$(DOCKER_RUN) -v "$(OUT):/out:$(RW_MOUNT)" $(IMAGE) clean && \
+		{ rmdir "$(OUT)" 2>/dev/null || true; }; \
 	else echo "nothing to clean in $(OUT)"; fi
