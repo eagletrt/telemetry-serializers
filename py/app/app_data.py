@@ -125,8 +125,7 @@ class NewCustomPlot:
         self._proto_message.axes.clear()
         for key, val in self.axes.items():
             val._populate_proto()
-            tmp = self._proto_message.axes.setdefault(key)
-            tmp.CopyFrom(val._proto_message)
+            self._proto_message.axes[key].CopyFrom(val._proto_message)
 
     @classmethod
     def _from_proto(cls, proto_message) -> "NewCustomPlot":
@@ -264,8 +263,7 @@ class AppData:
         self._proto_message.customPlotsTabs.clear()
         for key, val in self.customPlotsTabs.items():
             val._populate_proto()
-            tmp = self._proto_message.customPlotsTabs.setdefault(key)
-            tmp.CopyFrom(val._proto_message)
+            self._proto_message.customPlotsTabs[key].CopyFrom(val._proto_message)
 
     @classmethod
     def _from_proto(cls, proto_message) -> "AppData":

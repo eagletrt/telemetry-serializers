@@ -264,13 +264,11 @@ class GPSMapOrigins:
         self._proto_message.origins.clear()
         for key, val in self.origins.items():
             val._populate_proto()
-            tmp = self._proto_message.origins.setdefault(key)
-            tmp.CopyFrom(val._proto_message)
+            self._proto_message.origins[key].CopyFrom(val._proto_message)
         self._proto_message.tracksBaseline.clear()
         for key, val in self.tracksBaseline.items():
             val._populate_proto()
-            tmp = self._proto_message.tracksBaseline.setdefault(key)
-            tmp.CopyFrom(val._proto_message)
+            self._proto_message.tracksBaseline[key].CopyFrom(val._proto_message)
 
     @classmethod
     def _from_proto(cls, proto_message) -> "GPSMapOrigins":

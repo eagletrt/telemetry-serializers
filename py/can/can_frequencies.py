@@ -72,8 +72,7 @@ class CanFrequencies:
         self._proto_message.frequencies.clear()
         for key, val in self.frequencies.items():
             val._populate_proto()
-            tmp = self._proto_message.frequencies.setdefault(key)
-            tmp.CopyFrom(val._proto_message)
+            self._proto_message.frequencies[key].CopyFrom(val._proto_message)
 
     @classmethod
     def _from_proto(cls, proto_message) -> "CanFrequencies":
@@ -119,8 +118,7 @@ class CanNetworksFrequencies:
         self._proto_message.networks.clear()
         for key, val in self.networks.items():
             val._populate_proto()
-            tmp = self._proto_message.networks.setdefault(key)
-            tmp.CopyFrom(val._proto_message)
+            self._proto_message.networks[key].CopyFrom(val._proto_message)
 
     @classmethod
     def _from_proto(cls, proto_message) -> "CanNetworksFrequencies":

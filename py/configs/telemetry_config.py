@@ -512,13 +512,11 @@ class TelemetryConfig:
         self._proto_message.connections.clear()
         for key, val in self.connections.items():
             val._populate_proto()
-            tmp = self._proto_message.connections.setdefault(key)
-            tmp.CopyFrom(val._proto_message)
+            self._proto_message.connections[key].CopyFrom(val._proto_message)
         self._proto_message.devices.clear()
         for key, val in self.devices.items():
             val._populate_proto()
-            tmp = self._proto_message.devices.setdefault(key)
-            tmp.CopyFrom(val._proto_message)
+            self._proto_message.devices[key].CopyFrom(val._proto_message)
         if self.tpmsSensors:
             self.tpmsSensors._populate_proto()
             self._proto_message.tpmsSensors.CopyFrom(self.tpmsSensors._proto_message)

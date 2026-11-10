@@ -109,8 +109,7 @@ class ValuesMap:
         self._proto_message.valuesMap.clear()
         for key, val in self.valuesMap.items():
             val._populate_proto()
-            tmp = self._proto_message.valuesMap.setdefault(key)
-            tmp.CopyFrom(val._proto_message)
+            self._proto_message.valuesMap[key].CopyFrom(val._proto_message)
 
     @classmethod
     def _from_proto(cls, proto_message) -> "ValuesMap":
@@ -155,8 +154,7 @@ class TimeValuesPack:
         self._proto_message.valuesPack.clear()
         for key, val in self.valuesPack.items():
             val._populate_proto()
-            tmp = self._proto_message.valuesPack.setdefault(key)
-            tmp.CopyFrom(val._proto_message)
+            self._proto_message.valuesPack[key].CopyFrom(val._proto_message)
 
     @classmethod
     def _from_proto(cls, proto_message) -> "TimeValuesPack":

@@ -343,8 +343,7 @@ class CustomPlot:
         self._proto_message.axes.clear()
         for key, val in self.axes.items():
             val._populate_proto()
-            tmp = self._proto_message.axes.setdefault(key)
-            tmp.CopyFrom(val._proto_message)
+            self._proto_message.axes[key].CopyFrom(val._proto_message)
 
     @classmethod
     def _from_proto(cls, proto_message) -> "CustomPlot":
@@ -405,8 +404,7 @@ class AppConfig:
         self._proto_message.savedConnections.clear()
         for key, val in self.savedConnections.items():
             val._populate_proto()
-            tmp = self._proto_message.savedConnections.setdefault(key)
-            tmp.CopyFrom(val._proto_message)
+            self._proto_message.savedConnections[key].CopyFrom(val._proto_message)
         del self._proto_message.activeTabs[:]
         for val in self.activeTabs:
             self._proto_message.activeTabs.append(val)

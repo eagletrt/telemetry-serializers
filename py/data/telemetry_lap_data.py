@@ -62,8 +62,7 @@ class DataFile:
         self._proto_message.data.clear()
         for key, val in self.data.items():
             val._populate_proto()
-            tmp = self._proto_message.data.setdefault(key)
-            tmp.CopyFrom(val._proto_message)
+            self._proto_message.data[key].CopyFrom(val._proto_message)
 
     @classmethod
     def _from_proto(cls, proto_message) -> "DataFile":

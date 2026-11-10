@@ -321,18 +321,15 @@ class PresetMappings:
         self._proto_message.plot_configs.clear()
         for key, val in self.plot_configs.items():
             val._populate_proto()
-            tmp = self._proto_message.plot_configs.setdefault(key)
-            tmp.CopyFrom(val._proto_message)
+            self._proto_message.plot_configs[key].CopyFrom(val._proto_message)
         self._proto_message.subplot_configs.clear()
         for key, val in self.subplot_configs.items():
             val._populate_proto()
-            tmp = self._proto_message.subplot_configs.setdefault(key)
-            tmp.CopyFrom(val._proto_message)
+            self._proto_message.subplot_configs[key].CopyFrom(val._proto_message)
         self._proto_message.preset_configs.clear()
         for key, val in self.preset_configs.items():
             val._populate_proto()
-            tmp = self._proto_message.preset_configs.setdefault(key)
-            tmp.CopyFrom(val._proto_message)
+            self._proto_message.preset_configs[key].CopyFrom(val._proto_message)
 
     @classmethod
     def _from_proto(cls, proto_message) -> "PresetMappings":
