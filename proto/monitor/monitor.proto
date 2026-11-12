@@ -1,3 +1,71 @@
 syntax = "proto3";
 
 package Monitor;
+
+enum ServiceState {
+    SERVICE_STATE_INIT = 0;
+    SERVICE_STATE_IDLE = 1;
+    SERVICE_STATE_RUN = 2;
+    SERVICE_STATE_ERROR = 3;
+    SERVICE_STATE_STOP = 4;
+    SERVICE_STATE_OFFLINE = 5; 
+}
+
+enum Capability {
+    CAPABILITY_CPU_STATS = 0;
+    CAPABILITY_RAM_STATS = 1;
+    CAPABILITY_CONNECTION_STATS = 2;
+    CAPABILITY_
+}
+
+enum Severity {
+    SEVERITY_DEBUG = 0;
+    SEVERITY_INFO = 1;
+    SEVERITY_WARNING = 2;
+    SEVERITY_ERROR = 3;
+}
+
+message Setup {
+    uint64 timestamp = 1;          
+    string name = 2;
+    string version = 3;
+    string address = 4;
+    uint32 heartbeatSeconds = 5;
+    repeated Capability capabilities = 6;
+}
+
+message State {
+    uint64 timestamp = 1;
+    ServiceState state = 2;
+}
+
+message Alive {
+    uint64 timestamp = 1;
+    uint64 uptimeMs = 2;
+}
+
+message CpuStats {
+    uint64 timestamp = 1;
+    float usage = 2;            
+    float processUsage = 3; 
+    float temperature = 4; 
+}
+
+message RAMStats {
+    uint64 timestamp = 1;
+    float usage = 2;            
+    float processUsage = 3;
+}
+
+message Link {
+    string name = 1;               
+    bool connected = 2;
+    uint64 bytesSent = 3;
+    uint64 bytesReceived = 4;
+    float rttMs = 5;              
+}
+
+message ConnectionStats {
+    uint64 timestamp = 1;
+    repeated Link links = 2;
+}
