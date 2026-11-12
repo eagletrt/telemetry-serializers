@@ -55,6 +55,7 @@ message RAMStats {
     uint64 timestamp = 1;
     float usage = 2;            
     float processUsage = 3;
+    uint64 memoryAvailable = 4;
 }
 
 message Link {
