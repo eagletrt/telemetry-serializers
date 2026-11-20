@@ -1,0 +1,56 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ConnectionStats",
+    "definitions": {
+        "ConnectionStats": {
+            "required": [
+                "timestamp",
+                "links"
+            ],
+            "properties": {
+                "timestamp": {
+                    "type": "integer"
+                },
+                "links": {
+                    "items": {
+                        "$ref": "#/definitions/PbMonitor.Link"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Connection Stats"
+        },
+        "PbMonitor.Link": {
+            "required": [
+                "name",
+                "connected",
+                "bytesSent",
+                "bytesReceived",
+                "rttMs"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "connected": {
+                    "type": "boolean"
+                },
+                "bytesSent": {
+                    "type": "integer"
+                },
+                "bytesReceived": {
+                    "type": "integer"
+                },
+                "rttMs": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Link"
+        }
+    }
+}

@@ -1,0 +1,72 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/RtcmSourceStatus",
+    "definitions": {
+        "PbActions.RtcmSource": {
+            "required": [
+                "type",
+                "topic",
+                "ref_topic",
+                "profile"
+            ],
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "topic": {
+                    "type": "string"
+                },
+                "ref_topic": {
+                    "type": "string"
+                },
+                "profile": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Rtcm Source"
+        },
+        "RtcmSourceStatus": {
+            "required": [
+                "seq",
+                "ok",
+                "source",
+                "error",
+                "rtcm_bytes",
+                "frames",
+                "bad_frames"
+            ],
+            "properties": {
+                "seq": {
+                    "type": "number"
+                },
+                "ok": {
+                    "type": "boolean"
+                },
+                "source": {
+                    "$ref": "#/definitions/PbActions.RtcmSource",
+                    "additionalProperties": false
+                },
+                "error": {
+                    "type": "string"
+                },
+                "rtcm_age_s": {
+                    "type": "number"
+                },
+                "rtcm_bytes": {
+                    "type": "number"
+                },
+                "frames": {
+                    "type": "integer"
+                },
+                "bad_frames": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Rtcm Source Status"
+        }
+    }
+}

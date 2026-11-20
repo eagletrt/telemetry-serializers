@@ -118,10 +118,57 @@ class GpsDev:
         return cls.deserializeFromProtobufString(message.SerializeToString())
 
 @dataclass
+class MqttBroker:
+    host: str = ""
+    port: int = 0
+    
+    _proto_message: forwarder_config_pb2.MqttBroker = field(init=False, repr=False)
+
+    def __post_init__(self):
+        self._proto_message = forwarder_config_pb2.MqttBroker()
+
+    def _populate_proto(self):
+        self._proto_message.host = self.host
+        self._proto_message.port = self.port
+
+    @classmethod
+    def _from_proto(cls, proto_message) -> "MqttBroker":
+        return cls(
+            host = proto_message.host,
+            port = proto_message.port,
+        )
+
+    def __str__(self):
+        return self.serializeAsJsonString()
+
+    def serializeAsProtobufString(self) -> bytes:
+        self._populate_proto()
+        return self._proto_message.SerializeToString()
+
+    @classmethod
+    def deserializeFromProtobufString(cls, data: bytes) -> "MqttBroker":
+        message = forwarder_config_pb2.MqttBroker()
+        message.ParseFromString(data)
+        return cls._from_proto(message)
+
+    def serializeAsJsonString(self) -> str:
+        self._populate_proto()
+        return MessageToJson(self._proto_message, preserving_proto_field_name=True)
+
+    @classmethod
+    def deserializeFromJsonString(cls, data: str) -> "MqttBroker":
+        message = forwarder_config_pb2.MqttBroker()
+        Parse(data, message)
+        return cls.deserializeFromProtobufString(message.SerializeToString())
+
+@dataclass
 class ForwarderConfig:
     gpsDevice: List[GpsDev] = field(default_factory=list)
     ntripClient: NtripClient = None
     mode: str = ""
+    vehicleId: str = ""
+    deviceId: str = ""
+    mqtt: MqttBroker = None
     
     _proto_message: forwarder_config_pb2.ForwarderConfig = field(init=False, repr=False)
 
@@ -138,6 +185,11 @@ class ForwarderConfig:
             self.ntripClient._populate_proto()
             self._proto_message.ntripClient.CopyFrom(self.ntripClient._proto_message)
         self._proto_message.mode = self.mode
+        self._proto_message.vehicleId = self.vehicleId
+        self._proto_message.deviceId = self.deviceId
+        if self.mqtt:
+            self.mqtt._populate_proto()
+            self._proto_message.mqtt.CopyFrom(self.mqtt._proto_message)
 
     @classmethod
     def _from_proto(cls, proto_message) -> "ForwarderConfig":
@@ -145,6 +197,9 @@ class ForwarderConfig:
             gpsDevice=[GpsDev._from_proto(val) for val in proto_message.gpsDevice],
             ntripClient = NtripClient._from_proto(proto_message.ntripClient),
             mode = proto_message.mode,
+            vehicleId = proto_message.vehicleId,
+            deviceId = proto_message.deviceId,
+            mqtt = MqttBroker._from_proto(proto_message.mqtt),
         )
 
     def __str__(self):

@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package PbActions;
+
+message RtcmSource
+{
+    string type = 1;
+    string topic = 2;
+    string ref_topic = 3;
+    string profile = 4;
+}
+
+message RtcmSourceCommand
+{
+    double seq = 1;
+    string base = 2;
+    string by = 3;
+    RtcmSource source = 4;
+}
+
+message RtcmSourceStatus
+{
+    double seq = 1;
+    bool ok = 2;
+    RtcmSource source = 3;
+    string error = 4;
+    optional double rtcm_age_s = 5;
+    double rtcm_bytes = 6;
+    uint32 frames = 7;
+    uint32 bad_frames = 8;
+}

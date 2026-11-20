@@ -18,6 +18,7 @@
 #include "mongodb/lapcounter_layout.h"
 #include "tpms/rtl433_payload.h"
 #include "monitor/monitor.h"
+#include "actions/rtcm_source.h"
 #include "actions/command.h"
 #include "actions/file_transaction.h"
 #include "lapcounter/new_lap.h"

@@ -50,11 +50,29 @@ struct GpsDev
     bool deserializeFromProtobufString(const std::string& str);
 };
 
+struct MqttBroker
+{
+    std::string host{};
+    int32_t port{};
+    
+    MqttBroker() = default;
+    MqttBroker(const PbConfigs::MqttBroker& protobuf);
+    operator PbConfigs::MqttBroker() const;
+
+    std::string serializeAsJsonString() const;
+    std::string serializeAsProtobufString() const;
+    bool deserializeFromJsonString(const std::string& str);
+    bool deserializeFromProtobufString(const std::string& str);
+};
+
 struct ForwarderConfig
 {
     std::vector<GpsDev> gpsDevice;
     NtripClient ntripClient{};
     std::string mode{};
+    std::string vehicleId{};
+    std::string deviceId{};
+    MqttBroker mqtt{};
     
     ForwarderConfig() = default;
     ForwarderConfig(const PbConfigs::ForwarderConfig& protobuf);

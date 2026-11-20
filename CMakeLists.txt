@@ -27,6 +27,7 @@ add_library(
     src/mongodb/lapcounter_layout.cpp
     src/tpms/rtl433_payload.cpp
     src/monitor/monitor.cpp
+    src/actions/rtcm_source.cpp
     src/actions/command.cpp
     src/actions/file_transaction.cpp
     src/lapcounter/new_lap.cpp

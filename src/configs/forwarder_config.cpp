@@ -125,10 +125,60 @@ bool GpsDev::deserializeFromProtobufString(const std::string& str) {
     }
 }
 
+MqttBroker::MqttBroker(const PbConfigs::MqttBroker& protobuf) {
+    host = protobuf.host();
+    port = protobuf.port();
+}
+
+MqttBroker::operator PbConfigs::MqttBroker() const {
+    PbConfigs::MqttBroker ret;
+    ret.set_host(host);
+    ret.set_port(port);
+    return ret;
+}
+
+std::string MqttBroker::serializeAsJsonString() const {
+    PbConfigs::MqttBroker protobuf(*this);
+    std::string ret;
+    google::protobuf::util::JsonPrintOptions options;
+    options.add_whitespace = true;
+    std::ignore = google::protobuf::util::MessageToJsonString(protobuf, &ret, options);
+    return ret;
+}
+
+std::string MqttBroker::serializeAsProtobufString() const {
+    PbConfigs::MqttBroker protobuf(*this);
+    return protobuf.SerializeAsString();
+}
+
+bool MqttBroker::deserializeFromJsonString(const std::string& str) {
+    PbConfigs::MqttBroker protobuf;
+    auto status = google::protobuf::util::JsonStringToMessage(str, &protobuf);
+    if(status.ok()) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool MqttBroker::deserializeFromProtobufString(const std::string& str) {
+    PbConfigs::MqttBroker protobuf;
+    if(protobuf.ParseFromString(str)) {
+        *this = protobuf;
+        return true;
+    } else {
+        return false;
+    }
+}
+
 ForwarderConfig::ForwarderConfig(const PbConfigs::ForwarderConfig& protobuf) {
     gpsDevice = {protobuf.gpsdevice().begin(), protobuf.gpsdevice().end()};
     ntripClient = protobuf.ntripclient();
     mode = protobuf.mode();
+    vehicleId = protobuf.vehicleid();
+    deviceId = protobuf.deviceid();
+    mqtt = protobuf.mqtt();
 }
 
 ForwarderConfig::operator PbConfigs::ForwarderConfig() const {
@@ -136,6 +186,9 @@ ForwarderConfig::operator PbConfigs::ForwarderConfig() const {
     *(ret.mutable_gpsdevice()) = {gpsDevice.begin(), gpsDevice.end()};
     *(ret.mutable_ntripclient()) = ntripClient;
     ret.set_mode(mode);
+    ret.set_vehicleid(vehicleId);
+    ret.set_deviceid(deviceId);
+    *(ret.mutable_mqtt()) = mqtt;
     return ret;
 }
 

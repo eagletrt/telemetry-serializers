@@ -22,6 +22,16 @@
                 },
                 "mode": {
                     "type": "string"
+                },
+                "vehicleId": {
+                    "type": "string"
+                },
+                "deviceId": {
+                    "type": "string"
+                },
+                "mqtt": {
+                    "$ref": "#/definitions/PbConfigs.MqttBroker",
+                    "additionalProperties": false
                 }
             },
             "additionalProperties": false,
@@ -90,6 +100,23 @@
                 }
             ],
             "title": "Gps Dev"
+        },
+        "PbConfigs.MqttBroker": {
+            "required": [
+                "host",
+                "port"
+            ],
+            "properties": {
+                "host": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Mqtt Broker"
         },
         "PbConfigs.NtripClient": {
             "required": [

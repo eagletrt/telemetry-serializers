@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/CpuStats",
+    "definitions": {
+        "CpuStats": {
+            "required": [
+                "timestamp",
+                "usage",
+                "processUsage",
+                "temperature"
+            ],
+            "properties": {
+                "timestamp": {
+                    "type": "integer"
+                },
+                "usage": {
+                    "type": "number"
+                },
+                "processUsage": {
+                    "type": "number"
+                },
+                "temperature": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Cpu Stats"
+        }
+    }
+}

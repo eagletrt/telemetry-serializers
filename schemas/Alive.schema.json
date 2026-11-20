@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Alive",
+    "definitions": {
+        "Alive": {
+            "required": [
+                "timestamp",
+                "uptimeMs"
+            ],
+            "properties": {
+                "timestamp": {
+                    "type": "integer"
+                },
+                "uptimeMs": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Alive"
+        }
+    }
+}

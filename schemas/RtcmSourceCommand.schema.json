@@ -1,0 +1,57 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/RtcmSourceCommand",
+    "definitions": {
+        "PbActions.RtcmSource": {
+            "required": [
+                "type",
+                "topic",
+                "ref_topic",
+                "profile"
+            ],
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "topic": {
+                    "type": "string"
+                },
+                "ref_topic": {
+                    "type": "string"
+                },
+                "profile": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Rtcm Source"
+        },
+        "RtcmSourceCommand": {
+            "required": [
+                "seq",
+                "base",
+                "by",
+                "source"
+            ],
+            "properties": {
+                "seq": {
+                    "type": "number"
+                },
+                "base": {
+                    "type": "string"
+                },
+                "by": {
+                    "type": "string"
+                },
+                "source": {
+                    "$ref": "#/definitions/PbActions.RtcmSource",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Rtcm Source Command"
+        }
+    }
+}

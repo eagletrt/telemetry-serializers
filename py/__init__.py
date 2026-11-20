@@ -15,6 +15,7 @@ from .mongodb import lapcounter_lap_times
 from .mongodb import lapcounter_layout
 from .tpms import rtl433_payload
 from .monitor import monitor
+from .actions import rtcm_source
 from .actions import command
 from .actions import file_transaction
 from .lapcounter import new_lap
