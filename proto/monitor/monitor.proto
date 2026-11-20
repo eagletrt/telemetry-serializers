@@ -31,7 +31,6 @@ message Setup {
     string version = 3;
     string address = 4;
     uint32 heartbeatSeconds = 5;
-    repeated Capability capabilities = 6;
 }
 
 message State {
