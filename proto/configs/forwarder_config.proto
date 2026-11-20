@@ -23,9 +23,18 @@ message GpsDev
     }
 }
 
-message ForwarderConfig 
+message MqttBroker
+{
+    string host = 1;
+    int32 port = 2;
+}
+
+message ForwarderConfig
 {
     repeated GpsDev gpsDevice = 1;
     NtripClient ntripClient = 2;
     string mode = 3;
+    optional string vehicleId = 4;
+    optional string deviceId = 5;
+    optional MqttBroker mqtt = 6;
 }
