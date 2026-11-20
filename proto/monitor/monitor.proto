@@ -15,7 +15,7 @@ enum Capability {
     CAPABILITY_CPU_STATS = 0;
     CAPABILITY_RAM_STATS = 1;
     CAPABILITY_CONNECTION_STATS = 2;
-    CAPABILITY_
+    CAPABILITY_ = 3;
 }
 
 enum Severity {
